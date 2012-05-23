@@ -101,19 +101,30 @@ public class StoryHierarchyBusinessImpl implements StoryHierarchyBusiness {
     public void moveBefore(Story story, Story reference) {        
         Story oldParent = story.getParent();
         Story parent = reference.getParent();
-        LinkedList<Story> tmpList = retrieveChildListAndMoveStory(story,
+        
+        // Fixing http://cloud.agilefant.org/community/qr.action?q=story:958
+        // by taking into account the case where stories are created 
+        // directly into a standalone. 
+        // In this case, there's no need to update treeranks, as there is no tree involved 
+        LinkedList<Story> tmpList = null;
+        
+        // standalone iterations must be handled differently
+        if (story.getIteration() != null && !story.getIteration().isStandAlone()) {
+            tmpList = retrieveChildListAndMoveStory(story,
                 oldParent, parent);
-
+        }
+        
+        // also skips this in the case of standalone iterations
         if (tmpList != null && tmpList.indexOf(reference) >= 0) {
             tmpList.add(tmpList.indexOf(reference), story);
-
+            
             updateTreeRanks(tmpList);
             if (parent != null) {
                 parent.setChildren(tmpList);
                 if (parent != oldParent) {
                     updateBacklogRanks(parent);
                 }
-            }
+            }   
         }
     }
 
@@ -180,6 +191,7 @@ public class StoryHierarchyBusinessImpl implements StoryHierarchyBusiness {
         if (parent != null) {
             tmpList.addAll(parent.getChildren());
         } else {
+            
             Product product = backlogBusiness.getParentProduct(story
                     .getBacklog());
             tmpList.addAll(this.retrieveProductRootStories(product.getId(),
