@@ -1,6 +1,6 @@
-Agilefant 3.0 alpha 1
+Agilefant 3.0 alpha 1.2
 Release notes
-2012-04-27
+2012-05-25
 --
 
 Please spend a couple of minutes to register your organization at
@@ -10,6 +10,13 @@ This helps us keep a full-featured Agilefant free-of-charge forever!
 +--------------------+
 |     CHANGESET      |
 +--------------------+
+
+Changes from 3.0 alpha 1 to 3.0 alpha 1.2
+2012-05-25
++ Bug fixes:
+  + Creating stories to a standalone iteration threw exceptions; fixed
+  + The dialog for sharing iterations as read-only gave the wrong URL; fixed  
+  
 
 Changes from 2.5 to 3.0 alpha 1
 2012-04-27
