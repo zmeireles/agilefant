@@ -767,14 +767,14 @@ ProjectController.prototype.initializeStoryConfig = function() {
     minWidth : 100,
     autoScale : true,
     columnName: "backlog",
-    title : "Backlog",
-    headerTooltip : 'The backlog, where the story resides',
-    get : StoryModel.prototype.getBacklog,
-    decorator: DynamicsDecorators.backlogSelectDecorator,
+    title : "Iteration", // From Agilefant 3.0 onwards, this column displays the project in question, and its iterations (if any) => title change accordingly
+    headerTooltip : 'The iteration the story has been scheduled to (if any)',
+    get : StoryModel.prototype.getIteration,
+    decorator: DynamicsDecorators.iterationSelectDecorator,
     sortCallback: DynamicsComparators.storyBacklogNameComparator,
-    editable : true,
+    editable : false, // had to remove direct editing because then we would had to have both Backlogs and Iterations in the same select list; even if that would have worked, the current logic would break when both backlog and iteration have the same id
     openOnRowEdit: false,
-    edit: {
+    edit: {  // dead code; resurrect if and when this is made editable again
       editor: "Selection",
       items: function() { return me.getSelectableBacklogs(); },
       set: StoryModel.prototype.moveStory
@@ -784,7 +784,7 @@ ProjectController.prototype.initializeStoryConfig = function() {
     minWidth : 40,
     columnName: "edit",
     autoScale : true,
-    title : "Edit",
+    title : "Actions",  // Hopefully making a bit more obvious that stories can be moved via the edit button (and edit button only)
     subViewFactory : StoryController.prototype.projectStoryActionFactory
   });
   config.addColumnConfiguration(9, {

@@ -178,14 +178,14 @@ var DynamicsDecorators = {
   },
   backlogSelectDecorator: function(backlog) {
     if (!backlog) {
-      return "(no backlog selected)";
+      return "(none)";
     }
 
     return backlog.getName();
   },
   iterationSelectDecorator: function(iteration) {
   	if (!iteration) {
-  	  return "(no iteration selected)"; 
+  	  return "(none)"; 
   	}
   	return iteration.getName();
   },
