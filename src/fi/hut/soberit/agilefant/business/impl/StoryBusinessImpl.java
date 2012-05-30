@@ -169,11 +169,21 @@ public class StoryBusinessImpl extends GenericBusinessImpl<Story> implements
             iterationHistoryEntryBusiness.updateIterationHistory(persisted
                     .getIteration().getId());
         }
+
         
-        // Set the backlog if backlogId given
-        if (backlogId != null && (dataItem.getBacklog() == null || (dataItem.getBacklog() == persisted.getBacklog()))) {
+        // backlogID = ympäristö, jossa pörrätään; dataitem.getBacklog() = minne haluat siirtää; persisted.getBacklog() = missä story oli ennen tallennusta
+        
+        // Don't do anything if:
+        // - iteration id remains same
+        // - project/product id remains same, no iteration id exists
+        // MAYBE also - moved away from standalone to parent project (removed from standalone; but rank in project should remain the same)
+        if (dataItem.getIteration() != null && dataItem.getIteration() == persisted.getIteration()) { 
+            // do nothing
+        } else if (dataItem.getIteration() == null && dataItem.getBacklog() == persisted.getBacklog()) {             
+            // do nothing
+        } else if (backlogId != null && (dataItem.getBacklog() == null || (dataItem.getBacklog() == persisted.getBacklog()) )) {  //now, case where moved from standalone to standalone
             this.moveStoryAway(persisted, backlogBusiness.retrieve(backlogId));
-        } else if (dataItem.getBacklog() != persisted.getBacklog() && dataItem.getBacklog() != null) {
+        } else if (dataItem.getBacklog() != persisted.getBacklog() && dataItem.getBacklog() != null) {   // case, where story is moved to another backlog
             this.moveStoryAway(persisted, dataItem.getBacklog());
         }
         
