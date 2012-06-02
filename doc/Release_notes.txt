@@ -1,6 +1,6 @@
-Agilefant 3.0 alpha 2
+Agilefant 3.0 alpha 4
 Release notes
-2012-05-28
+2012-06-02
 --
 
 Please spend a couple of minutes to register your organization at
@@ -11,6 +11,16 @@ This helps us keep a full-featured Agilefant free-of-charge forever!
 |     CHANGESET      |
 +--------------------+
 
+Changes from 3.0 alpha 3 to 3.0 alpha 4
+2012-05-31
++ Bug fixes:
+  + Fixed story tree after it was broken by #977 in alpha 1.2 (#1122)
+
+Changes from 3.0 alpha 2 to 3.0 alpha 3
+2012-05-31
++ Bug fixes:
+  + Bug: stories saved in regular iterations drops story rank to the bottom of the iteration; fixed (#1034) 
+  
 Changes from 3.0 alpha 1 to 3.0 alpha 2
 2012-05-28
 + Bug fixes:
