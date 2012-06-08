@@ -1,6 +1,6 @@
-Agilefant 3.0 alpha 4
+Agilefant 3.0 alpha 5
 Release notes
-2012-06-02
+2012-06-08
 --
 
 Please spend a couple of minutes to register your organization at
@@ -11,15 +11,27 @@ This helps us keep a full-featured Agilefant free-of-charge forever!
 |     CHANGESET      |
 +--------------------+
 
+Changes from 3.0 alpha 4 to 3.0 alpha 5
+2012-06-08
++ Bug fixes:
+  + Iteration spent effort graph omitted efforts from stories and tasks in stories; fixed (#1108)	 
+  + Exception from clicking on 'Backlogs' tab after login if there are no products or standalone iterations that the user has access to; fixed (#958)
+  + Force Java 1.6 compilation
+  + Enlarge -link below iteration burndown charts was broken; fixed
+  + Refactored design issues and fixed potential memory leaks regarding anonymous DB export
+  
+  
 Changes from 3.0 alpha 3 to 3.0 alpha 4
 2012-05-31
 + Bug fixes:
   + Fixed story tree after it was broken by #977 in alpha 1.2 (#1122)
 
+
 Changes from 3.0 alpha 2 to 3.0 alpha 3
 2012-05-31
 + Bug fixes:
   + Bug: stories saved in regular iterations drops story rank to the bottom of the iteration; fixed (#1034) 
+
   
 Changes from 3.0 alpha 1 to 3.0 alpha 2
 2012-05-28
