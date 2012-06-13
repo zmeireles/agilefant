@@ -123,6 +123,7 @@ public class ProductBusinessImpl extends GenericBusinessImpl<Product> implements
     @Override
     public void delete(int id) {
         delete(retrieve(id));
+        
     }
 
     @Override
