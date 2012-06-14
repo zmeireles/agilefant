@@ -1,6 +1,6 @@
-Agilefant 3.0 alpha 6
+Agilefant 3.0 alpha 7
 Release notes
-2012-06-12
+2012-06-14
 --
 
 Please spend a couple of minutes to register your organization at
@@ -10,6 +10,12 @@ This helps us keep a full-featured Agilefant free-of-charge forever!
 +--------------------+
 |     CHANGESET      |
 +--------------------+
+
+Changes from 3.0 alpha 6 to 3.0 alpha 7
+2012-06-12
++ Bug fixes:
+  + Deleting a project that has one or more iterations containing one or more stories threw exception (#963)
+  
 
 Changes from 3.0 alpha 5 to 3.0 alpha 6
 2012-06-12
