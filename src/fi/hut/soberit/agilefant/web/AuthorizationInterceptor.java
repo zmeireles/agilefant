@@ -40,6 +40,7 @@ public class AuthorizationInterceptor implements Interceptor {
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
         Object action = invocation.getAction();
+        
         boolean accessDenied = false;
         
         //check read only user permissions
@@ -98,17 +99,16 @@ public class AuthorizationInterceptor implements Interceptor {
             accessDenied = !checkAccess(((ProjectAction) action).getProjectId());      
         } else if (action instanceof IterationAction) {
             accessDenied = !checkAccess(((IterationAction) action).getIterationId());
-        } else if (action instanceof StoryAction){
+        } else if (action instanceof StoryAction) {
             accessDenied = !checkAccess(((StoryAction)action).getIterationId());
-        } else if (action instanceof TaskAction){
+        } else if (action instanceof TaskAction) {
             if(((TaskAction)action).getTask().getIteration() != null){
                 accessDenied = !checkAccess(((TaskAction)action).getTask().getIteration().getId());
             } else {
                 accessDenied = !checkAccess(((TaskAction)action).getParentStory().getIteration().getId());
             }
-        } else if (action instanceof ProjectPortfolioAction){
-            accessDenied = !checkUsersAccess(currentUser);
         }
+        
         else {
             //admin authorizations
             currentUser = SecurityUtil.getLoggedUser();
@@ -120,7 +120,9 @@ public class AuthorizationInterceptor implements Interceptor {
             } else {
                 if(action instanceof AccessAction || 
                    action instanceof DatabaseExportAction ||
-                   action instanceof SettingAction){
+                   action instanceof SettingAction ||
+                   action instanceof ProjectPortfolioAction ||
+                   action instanceof TeamAction){
                          return "notadmin";
                 } else {
                     return invocation.invoke();
@@ -133,7 +135,7 @@ public class AuthorizationInterceptor implements Interceptor {
     }
     
     //Check weather the user has access to see the Portfolio view. 
-    private boolean checkUsersAccess(User currentUser) {
+    private boolean checkAccess(User currentUser) {
         if (currentUser.isAdmin()) {
             return true;
         } else {

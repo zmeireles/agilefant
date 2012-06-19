@@ -35,13 +35,15 @@ AdministrationMenuController.prototype.initTree = function() {
   var rootNode = this.element.dynatree("getRoot");
   var currentUser = PageController.getInstance().getCurrentUser();
   
+  /* Both admin and non-admin can edit his/her personal account. */
+  
   rootNode.addChild({
     title: "My Account",
     icon: false,
     key: "editUser.action"
   });
 
-  
+  /* Only admin has access to these. */
   if (currentUser.getAdmin()) {
 	  
 	  rootNode.addChild({
@@ -50,7 +52,7 @@ AdministrationMenuController.prototype.initTree = function() {
 		    key: "listUsers.action"
 		  });
 		  
-		  rootNode.addChild({
+	  rootNode.addChild({
 		    title: "Teams",
 		    icon: false,
 		    key: "listTeams.action"
