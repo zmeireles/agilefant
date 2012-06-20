@@ -3,6 +3,7 @@ package fi.hut.soberit.agilefant.web;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import fi.hut.soberit.agilefant.annotations.PrefetchId;
 import fi.hut.soberit.agilefant.business.UserBusiness;
+import fi.hut.soberit.agilefant.model.Team;
 import fi.hut.soberit.agilefant.model.User;
 import fi.hut.soberit.agilefant.security.SecurityUtil;
 
@@ -49,6 +51,7 @@ public class UserAction extends ActionSupport implements CRUDAction, Prefetching
 
     @Override
     public String execute() {
+        
         if (userId == 0) {
             userId = getLoggedInUserId();
         }
@@ -73,7 +76,20 @@ public class UserAction extends ActionSupport implements CRUDAction, Prefetching
     }
     
     public String retrieveAll() {
-        users = userBusiness.retrieveAll();
+        User loggedUser = getLoggedInUser();
+        Boolean isAdmin = loggedUser.isAdmin();
+        if (isAdmin) {
+            users = userBusiness.retrieveAll();
+        } else {
+            Collection<Team> t = loggedUser.getTeams();
+            Iterator iterator = t.iterator();
+            while (iterator.hasNext()) {
+                Team team = (Team) iterator.next();
+                users.addAll(team.getUsers());
+            }
+            
+            //users.add(loggedUser);
+        }
         return Action.SUCCESS;
     }
     
@@ -168,5 +184,9 @@ public class UserAction extends ActionSupport implements CRUDAction, Prefetching
 
     public boolean isValid() {
         return valid;
+    }
+    
+    protected User getLoggedInUser() {
+        return SecurityUtil.getLoggedUser();
     }
 }
