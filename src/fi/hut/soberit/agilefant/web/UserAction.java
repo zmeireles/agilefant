@@ -34,12 +34,14 @@ public class UserAction extends ActionSupport implements CRUDAction, Prefetching
     private int userId;
 
     private User user;
+    private User loggedUser;
     
     private String password1;
     private String password2;
     
     private String loginName;
     private boolean valid;
+    private boolean isAdmin;
 
     private Collection<User> users = new ArrayList<User>();
     
@@ -55,8 +57,9 @@ public class UserAction extends ActionSupport implements CRUDAction, Prefetching
         if (userId == 0) {
             userId = getLoggedInUserId();
         }
+
         user = userBusiness.retrieve(userId);
-        
+
         return Action.SUCCESS;
     }
     
@@ -71,24 +74,33 @@ public class UserAction extends ActionSupport implements CRUDAction, Prefetching
     }
 
     public String retrieve() {
-        user = userBusiness.retrieve(userId);
+        
+        this.getLoggedUserAndCheckAdminStatus();
+        
+        if (userId == 0) {
+            userId = getLoggedInUserId();
+        }
+        
+        if (!isAdmin) {
+            this.getTeamMembers(loggedUser);
+            user = userBusiness.retrieve(userId);
+            if (!users.contains(user)) {
+                user = loggedUser;
+            }
+        } else {
+            user = userBusiness.retrieve(userId);
+        }
         return Action.SUCCESS;
     }
     
     public String retrieveAll() {
-        User loggedUser = getLoggedInUser();
-        Boolean isAdmin = loggedUser.isAdmin();
+        
+        this.getLoggedUserAndCheckAdminStatus();
+        
         if (isAdmin) {
             users = userBusiness.retrieveAll();
         } else {
-            Collection<Team> t = loggedUser.getTeams();
-            Iterator iterator = t.iterator();
-            while (iterator.hasNext()) {
-                Team team = (Team) iterator.next();
-                users.addAll(team.getUsers());
-            }
-            
-            //users.add(loggedUser);
+            this.getTeamMembers(loggedUser);
         }
         return Action.SUCCESS;
     }
@@ -188,5 +200,17 @@ public class UserAction extends ActionSupport implements CRUDAction, Prefetching
     
     protected User getLoggedInUser() {
         return SecurityUtil.getLoggedUser();
+    }
+    private void getTeamMembers(User loggedUser) {
+        Collection<Team> t = loggedUser.getTeams();
+        Iterator<Team> iterator = t.iterator();
+        while (iterator.hasNext()) {
+            Team team = (Team) iterator.next();
+            users.addAll(team.getUsers());
+        }
+    }
+    private void getLoggedUserAndCheckAdminStatus() {
+        loggedUser = getLoggedInUser();
+        isAdmin = loggedUser.isAdmin();
     }
 }
