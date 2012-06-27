@@ -342,8 +342,10 @@ public class TransferObjectBusinessImpl implements TransferObjectBusiness {
         
         for (Story story: assignedStories) {
             if (! stories.contains(story)) {
-                stories.add(story);
-                storyTOs.add(createStoryTOWithTaskTOs(story));
+                if (!story.getState().equals("Done")) {
+                    stories.add(story);
+                    storyTOs.add(createStoryTOWithTaskTOs(story));
+                }
             }
         }
         
