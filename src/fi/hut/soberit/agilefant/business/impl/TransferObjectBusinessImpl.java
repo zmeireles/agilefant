@@ -134,7 +134,23 @@ public class TransferObjectBusinessImpl implements TransferObjectBusiness {
     /** {@inheritDoc} */
     @Transactional(readOnly = true)
     public List<AutocompleteDataNode> constructUserAutocompleteData() {
-        Collection<User> allUsers = this.userBusiness.retrieveAll();
+        User loggedUser = SecurityUtil.getLoggedUser();
+        Collection<User> allUsers = null;
+        if (loggedUser.isAdmin()) {
+            allUsers = this.userBusiness.retrieveAll();
+        }   else {
+            Collection<Team> t = loggedUser.getTeams();
+            for(Team team : t) {
+                Collection<User> u = team.getUsers();
+                for (User user : u) {
+                    if (allUsers.contains(user)) {
+                        allUsers.add(user);
+                    }
+                }
+                u.clear();
+            }
+            t.clear();
+        }
         List<AutocompleteDataNode> autocompleteData = new ArrayList<AutocompleteDataNode>();
         for(User user : allUsers) {
             AutocompleteDataNode curNode = new AutocompleteDataNode(User.class,
@@ -149,21 +165,25 @@ public class TransferObjectBusinessImpl implements TransferObjectBusiness {
     /** {@inheritDoc} */
     @Transactional(readOnly = true)
     public List<AutocompleteDataNode> constructTeamAutocompleteData(boolean listUserIds) {
+        User loggedUser = SecurityUtil.getLoggedUser();
         Collection<Team> allTeams = this.teamBusiness.retrieveAll();
         List<AutocompleteDataNode> autocompleteData = new ArrayList<AutocompleteDataNode>();
+        Collection<Team> teams= loggedUser.getTeams();
         for(Team team : allTeams) {
-            Set<Integer> userIds = null;
-            if (listUserIds) {
-                userIds = new HashSet<Integer>();
-                for(User user : team.getUsers()) {
-                    userIds.add(user.getId());
+            if (teams.contains(team)) {
+                Set<Integer> userIds = null;
+                if (listUserIds) {
+                    userIds = new HashSet<Integer>();
+                    for (User user : team.getUsers()) {
+                        userIds.add(user.getId());
+                    }
                 }
+                AutocompleteDataNode curNode = new AutocompleteDataNode(Team.class,
+                        team.getId(), team.getName(), userIds);
+                curNode.setMatchedString(team.getName());
+                curNode.setOriginalObject(team);
+                autocompleteData.add(curNode);
             }
-            AutocompleteDataNode curNode = new AutocompleteDataNode(Team.class,
-                    team.getId(), team.getName(), userIds);
-            curNode.setMatchedString(team.getName());
-            curNode.setOriginalObject(team);
-            autocompleteData.add(curNode);
         }
         return autocompleteData;
     }
