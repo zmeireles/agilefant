@@ -134,7 +134,23 @@ public class TransferObjectBusinessImpl implements TransferObjectBusiness {
     /** {@inheritDoc} */
     @Transactional(readOnly = true)
     public List<AutocompleteDataNode> constructUserAutocompleteData() {
-        Collection<User> allUsers = this.userBusiness.retrieveAll();
+        User loggedUser = SecurityUtil.getLoggedUser();
+        Collection<User> allUsers = null;
+        if (loggedUser.isAdmin()) {
+            allUsers = this.userBusiness.retrieveAll();
+        }   else {
+            Collection<Team> t = loggedUser.getTeams();
+            for(Team team : t) {
+                Collection<User> u = team.getUsers();
+                for (User user : u) {
+                    if (allUsers.contains(user)) {
+                        allUsers.add(user);
+                    }
+                }
+                u.clear();
+            }
+            t.clear();
+        }
         List<AutocompleteDataNode> autocompleteData = new ArrayList<AutocompleteDataNode>();
         for(User user : allUsers) {
             AutocompleteDataNode curNode = new AutocompleteDataNode(User.class,
