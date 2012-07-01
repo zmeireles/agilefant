@@ -134,22 +134,24 @@ public class TransferObjectBusinessImpl implements TransferObjectBusiness {
     /** {@inheritDoc} */
     @Transactional(readOnly = true)
     public List<AutocompleteDataNode> constructUserAutocompleteData() {
-        User loggedUser = SecurityUtil.getLoggedUser();
-        Collection<User> allUsers = null;
+        User loggedUser = getloggedUser();
+        Collection<User> allUsers = new ArrayList<User>();
         if (loggedUser.isAdmin()) {
             allUsers = this.userBusiness.retrieveAll();
-        }   else {
-            Collection<Team> t = loggedUser.getTeams();
-            for(Team team : t) {
-                Collection<User> u = team.getUsers();
-                for (User user : u) {
-                    if (allUsers.contains(user)) {
-                        allUsers.add(user);
-                    }
+        } else {
+            Collection<Team> teams = loggedUser.getTeams();
+            if (teams != null)
+                for (Team team : teams) {
+                    Collection<User> users = team.getUsers();
+                    if (users != null)
+                        for (User user : users) {
+                            if (!allUsers.contains(user)) {
+                                allUsers.add(user);
+                            }
+                        }
+                    users.clear();
                 }
-                u.clear();
-            }
-            t.clear();
+            teams.clear();
         }
         List<AutocompleteDataNode> autocompleteData = new ArrayList<AutocompleteDataNode>();
         for(User user : allUsers) {
@@ -165,21 +167,29 @@ public class TransferObjectBusinessImpl implements TransferObjectBusiness {
     /** {@inheritDoc} */
     @Transactional(readOnly = true)
     public List<AutocompleteDataNode> constructTeamAutocompleteData(boolean listUserIds) {
-        Collection<Team> allTeams = this.teamBusiness.retrieveAll();
+        User loggedUser = SecurityUtil.getLoggedUser();
+        User user = userBusiness.retrieve(loggedUser.getId()); // TODO: Why use.getTeams() shows null?
+        Collection<Team> allTeams = new ArrayList<Team>();
+        if (user.isAdmin()) {
+            allTeams = this.teamBusiness.retrieveAll();
+        } else {
+            allTeams = user.getTeams();
+        }
         List<AutocompleteDataNode> autocompleteData = new ArrayList<AutocompleteDataNode>();
+        if (allTeams != null)
         for(Team team : allTeams) {
-            Set<Integer> userIds = null;
-            if (listUserIds) {
-                userIds = new HashSet<Integer>();
-                for(User user : team.getUsers()) {
-                    userIds.add(user.getId());
+                Set<Integer> userIds = null;
+                if (listUserIds) {
+                    userIds = new HashSet<Integer>();
+                    for (User u : team.getUsers()) {
+                        userIds.add(u.getId());
+                    }
                 }
-            }
-            AutocompleteDataNode curNode = new AutocompleteDataNode(Team.class,
-                    team.getId(), team.getName(), userIds);
-            curNode.setMatchedString(team.getName());
-            curNode.setOriginalObject(team);
-            autocompleteData.add(curNode);
+                AutocompleteDataNode curNode = new AutocompleteDataNode(Team.class,
+                        team.getId(), team.getName(), userIds);
+                curNode.setMatchedString(team.getName());
+                curNode.setOriginalObject(team);
+                autocompleteData.add(curNode);
         }
         return autocompleteData;
     }
@@ -404,5 +414,11 @@ public class TransferObjectBusinessImpl implements TransferObjectBusiness {
 
     public void setStoryBusiness(StoryBusiness storyBusiness) {
         this.storyBusiness = storyBusiness;
+    }
+    
+    private User getloggedUser() {
+        User loggedUser = SecurityUtil.getLoggedUser();
+        User user = userBusiness.retrieve(loggedUser.getId());
+        return user;
     }
 }
