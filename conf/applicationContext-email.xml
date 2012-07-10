@@ -3,55 +3,6 @@
                        "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-<<<<<<< HEAD
-	<bean name="mailSender"
-		class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host">
-			<value>${smtp.host}</value>
-		</property>
-	</bean>
-
-	<bean name="updateTaskTemplate"
-		class="org.springframework.mail.SimpleMailMessage">
-		<property name="from" value="${smtp.from}" />
-		<property name="subject" value="Task updated: $task.name$" />
-		<property name="text">
-			<value>
-				<![CDATA[Task updated: $task.name$
-View it from URL: http://hypertorni.dyndns.org/agilefant/editTask.action?taskId=$task.id$
----
-This message was automatically sent by Agilefant]]>
-			</value>
-		</property>
-	</bean>
-
-	<bean name="newPasswordTemplate"
-		class="org.springframework.mail.SimpleMailMessage">
-		<property name="from" value="${smtp.from}" />
-		<property name="subject" value="Your new Agilefant Password" />
-		<property name="text">
-			<value>
-				<![CDATA[Agilefant has generated this new password for you: "$password$". Please log in and change it immediately.
-	---
-	This message was automatically sent by Agilefant]]>
-			</value>
-		</property>
-	</bean>
-
-	<bean name="createTaskTemplate"
-		class="org.springframework.mail.SimpleMailMessage">
-		<property name="from" value="${smtp.from}" />
-		<property name="subject" value="Task created: $task.name$" />
-		<property name="text">
-			<value>
-				<![CDATA[New task created: $task.name$
-View it from URL: http://hypertorni.dyndns.org/agilefant/editTask.action?taskId=$task.id$
----
-This message was automatically sent by Agilefant]]>
-			</value>
-		</property>
-	</bean>
-=======
 
     <!--Original mailSender from Agilefant, could be reused?-->
     <!--<bean name="mailSender"-->
@@ -79,14 +30,11 @@ This message was automatically sent by Agilefant]]>
         </property>
     </bean>
 
-
-
     <bean id="notificationEmailSender" class="fi.hut.soberit.agilefant.business.impl.NotificationEmailSender">
         <!--This is a workaround how to inject string property into the beans in Spring 2.5.x-->
         <!--In Spring 3 you can directly use @Value annotation-->
         <property name="agilefantUrl" value="${agilefant.url}" />
         <property name="notificationsEnabled" value="${notifications.enabled}" />
-
         <!--all other properties are injected via annotations-->
     </bean>
 
@@ -191,5 +139,4 @@ This message was automatically sent by Agilefant]]>
         </property>
     </bean>
 
->>>>>>> 1e59c82... Notifications can be turn on/off at global level via configuration setting.
 </beans>

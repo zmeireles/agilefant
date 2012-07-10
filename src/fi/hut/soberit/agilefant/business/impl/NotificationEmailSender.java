@@ -152,7 +152,7 @@ public class NotificationEmailSender implements NotificationBusiness {
     public void setAgilefantUrl(String agilefantUrl) {
         this.agilefantUrl = agilefantUrl;
     }
-
+    
     public void setNotificationsEnabled(boolean notificationsEnabled) {
         this.notificationsEnabled = notificationsEnabled;
     }

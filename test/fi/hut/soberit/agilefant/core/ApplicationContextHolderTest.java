@@ -19,7 +19,6 @@ public class ApplicationContextHolderTest {
 
     private List<NotificationConfiguration> notificationsConfiguration;
 
-
     @Resource(name = "notificationsConfiguration")
     public void setNotificationsConfiguration(List<NotificationConfiguration> notificationsConfiguration) {
         this.notificationsConfiguration = notificationsConfiguration;
@@ -30,10 +29,8 @@ public class ApplicationContextHolderTest {
         final ApplicationContext applicationContext = ApplicationContextHolder.getApplicationContext();
         assertNotNull(applicationContext);
 
-
         final ApplicationContextProvider contextProvider =
                 (ApplicationContextProvider) applicationContext.getBean("applicationContextProvider");
         assertNotNull(contextProvider);
-
     }
 }
