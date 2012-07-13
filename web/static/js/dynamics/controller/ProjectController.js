@@ -574,7 +574,7 @@ ProjectController.prototype._iterationListColumnConfig = function(config) {
 				openOnRowEdit : false,
 				edit : {
 					editor : "Autocomplete",
-					dialogTitle: "Select assignees",
+					dialogTitle: "Select users",
 					dataType : "usersAndTeams",
 					set : BacklogModel.prototype.setAssignees
 				}
