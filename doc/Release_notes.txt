@@ -11,6 +11,16 @@ This helps us keep a full-featured Agilefant free-of-charge forever!
 |     CHANGESET      |
 +--------------------+
 
+Changes from 3.0 alpha 9 to 3.0 alpha 10
+2012-07-13
++ Bug fixes:
+  + #852:  "HeaderTooltips and focus to Close-button"
+  + #887:  "Leaf stories as default tab when clicking on a project"
+  + #1078: "Iteration assignees selector dialog (product level, projects tab) & (project level, iterations tab)'s title says "(Insert title here)" instead of "Select users""
+  + #1144: "Bug in iteration velocity calculation"
+  + #1200: "Adding effort to story's task in product gives error (in daily work view)"
+  + #1207: "Bug: in standalone iteration: creating a story, when topmost story has parent story in project, doesn't work"
+
 Changes from 3.0 alpha 8 to 3.0 alpha 9
 2012-07-02
 + Bug fixes:
