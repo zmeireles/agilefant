@@ -31,8 +31,8 @@ var ProjectController = function ProjectController(options) {
 	this.initializeProjectDetailsConfig();
 	this.initializeIterationListConfig();
 	this.initializeStoryConfig();
-
-	this.tabs.tabs('select', 1);  // Open leaf stories -tab as a default.
+	this.changeTabIfFragmentFound();
+	//this.tabs.tabs('select', 1);  // Open leaf stories -tab as a default.
 
 	this.paint();
 	window.pageController.setMainController(this);
