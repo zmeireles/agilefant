@@ -8,9 +8,16 @@
     <util:list id="notificationsConfiguration">
         <bean class="fi.hut.soberit.agilefant.model.notification.NotificationConfiguration">
             <constructor-arg value="fi.hut.soberit.agilefant.model.Story" />
+            <!-- If you are only interested in some specific events, you can define specific conditions which triggers a notification -->
+ 			<!--<property name="eventTypes" value="INSERT" />-->
+            <!--<property name="eventTypes" value="DELETE" />-->
+            <!--<property name="eventTypes" value="UPDATE" />-->
         </bean>
         <bean class="fi.hut.soberit.agilefant.model.notification.NotificationConfiguration">
             <constructor-arg value="fi.hut.soberit.agilefant.model.Task" />
+            <!--<property name="eventTypes" value="INSERT" />-->
+            <!--<property name="eventTypes" value="DELETE" />-->
+            <!--<property name="eventTypes" value="UPDATE" />-->
         </bean>
     </util:list>
 
