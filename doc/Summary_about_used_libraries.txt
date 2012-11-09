@@ -1,6 +1,6 @@
-Agilefant employs several third party libraries, which are listed bellow.
-Please note, that Agilefant itself doesn't directly use all these libraries, 
-but their existence is required by some library (e.g. Spring).
+Agilefant employs several third party libraries, which are listed below.
+Agilefant itself doesn't directly use all these libraries, but their 
+existence may be required by some other included library (e.g. Spring).
 
 --------------------------
 spring-security:		http://static.springframework.org/spring-security/site/
@@ -27,6 +27,7 @@ javamail:				http://java.sun.com/products/javamail/
 jcommon:				http://www.jfree.org/jcommon/
 jfreechart:				http://www.jfree.org/jfreechart/index.html
 jstl:					http://java.sun.com/products/jsp/jstl/
+jstree:                 http://www.jstree.com/
 jta:					http://java.sun.com/products/jta/
 log4j:					http://logging.apache.org/log4j/docs/
 mysql-connector-java:	http://www.mysql.com/products/connector/j/

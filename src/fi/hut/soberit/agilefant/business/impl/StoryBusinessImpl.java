@@ -242,12 +242,6 @@ public class StoryBusinessImpl extends GenericBusinessImpl<Story> implements
             }
             return;
         }
-        if (oldStoryIteration != null) {
-            Set<StoryRank> oldRanks = oldStoryIteration.getStoryRanks();
-            for (StoryRank rank : oldRanks) {
-                rank.setBacklog(newStoryIteration);
-            }
-        }
     }
 
     static boolean haveDifferentIteration(Story oldStory, Story newStory) {
