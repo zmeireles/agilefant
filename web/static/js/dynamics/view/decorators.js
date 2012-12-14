@@ -33,11 +33,12 @@ var DynamicsDecorators = {
   taskStateColorDecorator: function(state) {
     var text = DynamicsDecorators.stateDecorator(state);
     // make this a link as well
-    return '<a href="#"><font color="999">'+'<div class="taskState taskState'+state+'">'+text+'</div>' + '</a>';
+    return '<a href="javascript:"><font color="999">'+'<div class="taskState taskState'+state+'">'+text+'</div>' + '</a>';
   },
   storyStateColorDecorator: function(state) {
     var text = DynamicsDecorators.stateDecorator(state);
-    return '<div class="storyState storyState'+state+'">'+text+'</div>';
+    // make it a link
+    return '<a href="javascript:"><font color="999">' + '<div class="storyState storyState'+state+'">'+text+'</div>' + '</a>';
   },
   enabledDisabledOptions: {
     "true":  "Enabled",
@@ -85,7 +86,7 @@ var DynamicsDecorators = {
       text = Math.round(10*value/60)/10+"h";
     }
     // Want to make it a link so that Firefox's search locks onto it
-    return '<a href="#"><font color="999">' + text + '</a>';
+    return '<a href="javascript:"><font color="999">' + text + '</a>';
   },
   exactEstimateAppendManHourDecorator: function(value) {
 	    if (typeof (value) === 'string') {
@@ -204,7 +205,7 @@ var DynamicsDecorators = {
     return user.getFullName();
   },
   responsiblesDecorator: function(userList) {
-    return DynamicsDecorators.userInitialsListDecorator(userList, '<span class="smallGreyText">(none)</span>');
+    return '<a href="javascript:"><font color="999">' + DynamicsDecorators.userInitialsListDecorator(userList, '<span class="smallGreyText">(none)</span>') + '</a>';
   },
   userInitialsListDecorator: function(userList, emptyText) {
     if(!userList || !userList.length) {
