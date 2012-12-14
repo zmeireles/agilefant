@@ -32,7 +32,8 @@ var DynamicsDecorators = {
   },
   taskStateColorDecorator: function(state) {
     var text = DynamicsDecorators.stateDecorator(state);
-    return '<div class="taskState taskState'+state+'">'+text+'</div>';
+    // make this a link as well
+    return '<a href="#"><font color="999">'+'<div class="taskState taskState'+state+'">'+text+'</div>' + '</a>';
   },
   storyStateColorDecorator: function(state) {
     var text = DynamicsDecorators.stateDecorator(state);
@@ -73,16 +74,18 @@ var DynamicsDecorators = {
     };
   }, 
   exactEstimateDecorator: function(value) {
+    var text;
     if (typeof (value) === 'string') {
-      return value;
-    }
-    if(!value) {
-      return "&mdash;";
+      text = value;
+    } else if(!value) {
+      text = "&mdash;";
     } else if(value === 0) {
-      return "0h";
+      text = "0h";
     } else {
-      return Math.round(10*value/60)/10+"h";
+      text = Math.round(10*value/60)/10+"h";
     }
+    // Want to make it a link so that Firefox's search locks onto it
+    return '<a href="#"><font color="999">' + text + '</a>';
   },
   exactEstimateAppendManHourDecorator: function(value) {
 	    if (typeof (value) === 'string') {
