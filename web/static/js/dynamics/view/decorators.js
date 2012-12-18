@@ -30,6 +30,9 @@ var DynamicsDecorators = {
       }
     };
   },
+  linkifyDecorator: function(val) {
+    return '<a href="javascript:"><font color="999">' + val + '</a>';
+  },
   taskStateColorDecorator: function(state) {
     var text = DynamicsDecorators.stateDecorator(state);
     // make this a link as well
@@ -265,7 +268,7 @@ var DynamicsDecorators = {
   },
   teamUserInitialsListDecorator: function(userList) {
     if(!userList || !userList.length) {
-      return "(Select users)";
+      return '<a href="javascript:"><font color="999">' + "(Select users)" + '</a>';
     }
     var initials = [];
     for(var i = 0; i < userList.length; i++) {
