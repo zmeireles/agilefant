@@ -225,7 +225,7 @@ CreateDialog.Project.prototype.initFormConfig = function() {
   config.addColumnConfiguration(CreateDialog.Project.columnIndices.name,
       ProjectController.columnConfigs.name);
   config.addColumnConfiguration(CreateDialog.Project.columnIndices.parent,{
-    title : "Parent",
+    title : "Product",
     get : ProjectModel.prototype.getParent,
     decorator: DynamicsDecorators.backlogSelectDecorator,
     editable : true,
@@ -294,7 +294,7 @@ CreateDialog.Iteration.prototype.initFormConfig = function() {
   config.addColumnConfiguration(CreateDialog.Iteration.columnIndices.name,IterationController.columnConfigs.name);
   
   config.addColumnConfiguration(CreateDialog.Iteration.columnIndices.parent,{
-    title : "Parent",
+    title : "Project (leave empty to create a standalone iteration)",
     get: IterationModel.prototype.getParent,
     decorator: DynamicsDecorators.backlogSelectDecorator,
     editable : true,
