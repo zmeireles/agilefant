@@ -243,7 +243,7 @@ var DynamicsDecorators = {
   },
   productTeamListDecorator: function(teamList) {
   	if(!teamList || !teamList.length) {
-  		return "(no teams)";
+  		return '<a href="javascript:"><font color="999">' + "(no teams)" + '</a>';
   	}
   	var teamNames = [];
   	for(var i = 0; i < teamList.length; i++) {
