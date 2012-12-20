@@ -30,12 +30,15 @@ var DynamicsDecorators = {
       }
     };
   },
+  // does not work for some reason - fix and replace the manual linkifications to 3.0.3
   linkifyDecorator: function(val) {
-    return '<a href="javascript:"><font color="999">' + val + '</a>';
+    val = '<a href="javascript:"><font color="999">' + val + '</a>';
+    return val;
   },
   taskStateColorDecorator: function(state) {
-    var text = DynamicsDecorators.stateDecorator(state);
-    // make this a link as well
+    var text = DynamicsDecorators.stateDecorator(state);    
+    //text = linkifyDecorator(text);
+    //return text;
     return '<a href="javascript:"><font color="999">'+'<div class="taskState taskState'+state+'">'+text+'</div>' + '</a>';
   },
   storyStateColorDecorator: function(state) {
