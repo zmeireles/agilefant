@@ -30,7 +30,7 @@ var DynamicsDecorators = {
       }
     };
   },
-  // does not work for some reason - fix and replace the manual linkifications to 3.0.3
+  // Does not work for some reason - syntax error? Fix and replace the manual linkifications to 3.0.3 (search for 'javascript:')
   linkifyDecorator: function(val) {
     val = '<a href="javascript:"><font color="999">' + val + '</a>';
     return val;

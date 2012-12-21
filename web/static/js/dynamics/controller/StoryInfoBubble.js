@@ -196,22 +196,22 @@ StoryInfoBubble.prototype.addLinks = function() {
   var links = $('<div style="height: 1.5em;" />').addClass('details-links');
   this.element.find('.close-button').after(links);
 
-  $('<a>spent effort</a>').click(function() {
+  $('<a href="javascript:">spent effort</a>').click(function() {
     me.bubble.destroy();
     me.openLogEffort();
   }).appendTo(links);
 
-  $('<a>add child</a>').click(function() {
+  $('<a href="javascript:">add child</a>').click(function() {
     me.bubble.destroy();
     me.treeController.createNode(me.storyElement,"inside", me.model);
   }).appendTo(links);
   
-  $('<a>add sibling</a>').click(function() {
+  $('<a href="javascript:">add sibling</a>').click(function() {
     me.bubble.destroy();
     me.treeController.createNode(me.storyElement,"after", me.model);
   }).appendTo(links);
   
-  $('<a>delete</a>').click(function() {
+  $('<a href="javascript:">delete</a>').click(function() {
     me.bubble.destroy();
     me.treeController._getStoryForId(me.id, function(storyModel) {
       storyModel.addListener(function(evt) {
