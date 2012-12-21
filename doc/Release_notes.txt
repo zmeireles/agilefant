@@ -1,6 +1,6 @@
-Agilefant 3.0.1
+Agilefant 3.0.2
 Release notes
-2012-11-09
+2012-12-21
 --
 
 Please spend a couple of minutes to register your organization at
@@ -10,6 +10,17 @@ This helps us keep a full-featured Agilefant free-of-charge forever!
 +--------------------+
 |     CHANGESET      |
 +--------------------+
+
+Changes from 3.0.1 to 3.0.2
+2012-12-21
++ Added hyperlink-keyboard shortcuts to some commonly used operations:
+  + Task and story state, responsibles, effort left, original estimate, effort spent
+  + spent effort, add child, add sibling, delete in the story
+  + Select users in the Team creation dialog
++ See http://agilefant.freeforums.org/how-to-enable-the-keyboard-shortcuts-t346.html 
+  on how to effectively use the keyboard shortcuts!   
++ Iteration and Product creation dialogs now read 'Project' and 'Product' (respectively) instead of 'Parent'
++ Rewrote a couple of error messages to be more comprehensible
 
 Changes from 3.0.0 to 3.0.1
 2012-11-09
