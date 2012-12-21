@@ -30,21 +30,21 @@ var DynamicsDecorators = {
       }
     };
   },
-  // Does not work for some reason - syntax error? Fix and replace the manual linkifications to 3.0.3 (search for 'javascript:')
+  // Does not work for some reason - syntax error? Fix and replace the manual linkifications to 3.0.3 (search for 'javascript:' in all files)
   linkifyDecorator: function(val) {
-    val = '<a href="javascript:"><font color="999">' + val + '</a>';
+    val = '<a href="javascript:"><font color="999">' + val + '</font>' + '</a>';
     return val;
   },
   taskStateColorDecorator: function(state) {
     var text = DynamicsDecorators.stateDecorator(state);    
-    //text = linkifyDecorator(text);
+    // text = linkifyDecorator(text);
     //return text;
-    return '<a href="javascript:"><font color="999">'+'<div class="taskState taskState'+state+'">'+text+'</div>' + '</a>';
+    return '<a href="javascript:"><font color="999">'+'<div class="taskState taskState'+state+'">'+text+'</div>' + '</font>' + '</a>';
   },
   storyStateColorDecorator: function(state) {
     var text = DynamicsDecorators.stateDecorator(state);
     // make it a link
-    return '<a href="javascript:"><font color="999">' + '<div class="storyState storyState'+state+'">'+text+'</div>' + '</a>';
+    return '<a href="javascript:"><font color="999">' + '<div class="storyState storyState'+state+'">'+text+'</div>' + '</font>' + '</a>';
   },
   enabledDisabledOptions: {
     "true":  "Enabled",
@@ -92,7 +92,7 @@ var DynamicsDecorators = {
       text = Math.round(10*value/60)/10+"h";
     }
     // Want to make it a link so that Firefox's search locks onto it
-    return '<a href="javascript:"><font color="999">' + text + '</a>';
+    return '<a href="javascript:"><font color="999">' + text + '</font>' + '</a>';
   },
   exactEstimateAppendManHourDecorator: function(value) {
 	    if (typeof (value) === 'string') {
@@ -211,7 +211,7 @@ var DynamicsDecorators = {
     return user.getFullName();
   },
   responsiblesDecorator: function(userList) {
-    return '<a href="javascript:"><font color="999">' + DynamicsDecorators.userInitialsListDecorator(userList, '<span class="smallGreyText">(none)</span>') + '</a>';
+    return '<a href="javascript:"><font color="999">' + DynamicsDecorators.userInitialsListDecorator(userList, '<span class="smallGreyText">(none)</span>') + '</font>' + '</a>';
   },
   userInitialsListDecorator: function(userList, emptyText) {
     if(!userList || !userList.length) {
@@ -246,7 +246,7 @@ var DynamicsDecorators = {
   },
   productTeamListDecorator: function(teamList) {
   	if(!teamList || !teamList.length) {
-  		return '<a href="javascript:"><font color="999">' + "(no teams)" + '</a>';
+  		return '<a href="javascript:"><font color="999">' + "(no teams)" + '</font>' + '</a>';
   	}
   	var teamNames = [];
   	for(var i = 0; i < teamList.length; i++) {
@@ -271,7 +271,7 @@ var DynamicsDecorators = {
   },
   teamUserInitialsListDecorator: function(userList) {
     if(!userList || !userList.length) {
-      return '<a href="javascript:"><font color="999">' + "(Select users)" + '</a>';
+      return '<a href="javascript:"><font color="999">' + "(Select users)" + '</font>' + '</a>';
     }
     var initials = [];
     for(var i = 0; i < userList.length; i++) {

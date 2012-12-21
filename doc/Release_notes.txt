@@ -1,4 +1,4 @@
-Agilefant 3.0.2
+Agilefant 3.0.2.1
 Release notes
 2012-12-21
 --
@@ -10,6 +10,10 @@ This helps us keep a full-featured Agilefant free-of-charge forever!
 +--------------------+
 |     CHANGESET      |
 +--------------------+
+
+Changes from 3.0.2 to 3.0.2.1
+2012-12-21
++ fixed missing </font> tags in hyperlink-keyboard shortcuts in case they would cause problems in some browser/OS combination
 
 Changes from 3.0.1 to 3.0.2
 2012-12-21
