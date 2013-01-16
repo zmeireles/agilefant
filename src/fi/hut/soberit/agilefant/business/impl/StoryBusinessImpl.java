@@ -36,6 +36,7 @@ import fi.hut.soberit.agilefant.model.Product;
 import fi.hut.soberit.agilefant.model.Project;
 import fi.hut.soberit.agilefant.model.Story;
 import fi.hut.soberit.agilefant.model.StoryRank;
+import fi.hut.soberit.agilefant.model.StoryState;
 import fi.hut.soberit.agilefant.model.Task;
 import fi.hut.soberit.agilefant.model.TaskHourEntry;
 import fi.hut.soberit.agilefant.transfer.StoryTO;
@@ -164,6 +165,8 @@ public class StoryBusinessImpl extends GenericBusinessImpl<Story> implements
         // Store the story
         storyDAO.store(persisted);
 
+        updateParentStates(persisted);
+   
         if (tasksToDone && iteration != null) {
             for (Task t : persisted.getTasks()) {
                 taskBusiness.setTaskToDone(t);
@@ -186,6 +189,18 @@ public class StoryBusinessImpl extends GenericBusinessImpl<Story> implements
         }
         
         return persisted;
+    }
+    
+    /** {@inheritDoc} */
+    @Override
+    public void updateParentStates(Story story) {
+        if (story.getState() != StoryState.NOT_STARTED && story.getState() != StoryState.DEFERRED) {
+            Story parent = story.getParent();
+            while (parent != null && parent.getState() == StoryState.NOT_STARTED) {
+                parent.setState(StoryState.STARTED);
+                parent = parent.getParent();
+            }
+        }
     }
 
     private static void checkStoriesBacklogIfAssignedToIteration(Story persisted) {

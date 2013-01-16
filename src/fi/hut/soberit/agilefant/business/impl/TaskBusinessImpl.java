@@ -95,11 +95,18 @@ public class TaskBusinessImpl extends GenericBusinessImpl<Task> implements
                 this.rankToBottom(task, storyId, iterationId);
             }
         }
-        
+    
         Story parent = task.getStory();
+        Story grandFather=null;
         if(currentTaskState == TaskState.NOT_STARTED && task.getState() != TaskState.NOT_STARTED) {
             if (storyToStarted && parent != null && parent.getState() == StoryState.NOT_STARTED) {
                 parent.setState(StoryState.STARTED);
+                grandFather=parent.getParent();
+                while (grandFather != null && grandFather.getState() == StoryState.NOT_STARTED){
+                    grandFather.setState(StoryState.STARTED);
+                    grandFather=grandFather.getParent();
+                }
+               
             }
         }
 
