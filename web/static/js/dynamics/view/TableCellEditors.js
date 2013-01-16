@@ -1270,7 +1270,14 @@ TableEditors.DialogEditor.defaultOptions = {
      * Default: "(Insert title here)"
      * @member TableEditors.DialogEditor
      */
-    dialogTitle: "(Insert title here)"
+    dialogTitle: "(Insert title here)",
+    
+    /**
+     * Dialog close
+     * Default: function() { }
+     * @member TableEditors.DialogEditor
+     */
+    dialogClose: function() { }
 };
 
 /**
@@ -1327,6 +1334,7 @@ TableEditors.DialogEditor.prototype.close = function() {
   this._closeDialog();
   this._fireTransactionEditEvent();
   TableEditors.CommonEditor.prototype.close.call(this);
+  this.options.dialogClose.call();
 };
 
 

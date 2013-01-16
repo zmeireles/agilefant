@@ -685,6 +685,8 @@ CreateDialog.Team.prototype.initFormConfig = function() {
     edit : {
       editor : "Autocomplete",
       dialogTitle: "Select users",
+      dialogClose: function() { jQuery('.dynamics-editor-element:eq(' +
+        CreateDialog.Team.columnIndices.users + ')').focus(); },
       dataType: "usersAndTeams",
       set : TeamModel.prototype.setUsers
     }
