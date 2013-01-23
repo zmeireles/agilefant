@@ -64,8 +64,8 @@ CreateDialogClass.prototype.init = function(config) {
     width: 750,
     position: 'top',
     buttons: {
-      "Cancel": function() { me._cancel(); },
-      "Ok": function() { me._ok(); }
+      "Ok": function() { me._ok(); },
+      "Cancel": function() { me._cancel(); }
     }
   };
   jQuery.extend(opts, config);
@@ -693,9 +693,12 @@ CreateDialog.Team.prototype.initFormConfig = function() {
   });
   
   if (currentUser.getAdmin()) {
+	  var falseFunction = function() {
+		  return "false";
+	  }
   	config.addColumnConfiguration(CreateDialog.Team.columnIndices.products, {
     	title: "Add all products to team",
-    	get: currentUser.getAdmin,
+    	get: falseFunction,
     	editable: true,
     	edit: {
       		editor : "Selection",
@@ -707,7 +710,7 @@ CreateDialog.Team.prototype.initFormConfig = function() {
   	});
   	config.addColumnConfiguration(CreateDialog.Team.columnIndices.iterations, {
     	title: "Add all standalone iterations to team",
-    	get: currentUser.getAdmin,
+    	get: falseFunction,
     	editable: true,
     	edit: {
       		editor : "Selection",
