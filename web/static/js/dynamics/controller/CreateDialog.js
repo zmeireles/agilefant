@@ -64,8 +64,8 @@ CreateDialogClass.prototype.init = function(config) {
     width: 750,
     position: 'top',
     buttons: {
-      "Ok": function() { me._ok(); },
-      "Cancel": function() { me._cancel(); }
+      "Cancel": function() { me._cancel(); },
+      "Ok": function() { me._ok(); }
     }
   };
   jQuery.extend(opts, config);
@@ -685,8 +685,7 @@ CreateDialog.Team.prototype.initFormConfig = function() {
     edit : {
       editor : "Autocomplete",
       dialogTitle: "Select users",
-      dialogClose: function() { jQuery('.dynamics-editor-element:eq(' +
-        CreateDialog.Team.columnIndices.users + ')').focus(); },
+      dialogClose: function() { jQuery('.ui-button:eq(' + 1 + ')').focus(); }, // After selecting users focus on ok button
       dataType: "usersAndTeams",
       set : TeamModel.prototype.setUsers
     }

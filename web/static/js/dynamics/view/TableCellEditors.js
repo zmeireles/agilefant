@@ -1277,7 +1277,7 @@ TableEditors.DialogEditor.defaultOptions = {
      * Default: function() { }
      * @member TableEditors.DialogEditor
      */
-    dialogClose: function() { }
+    dialogClose: function() { return true; }
 };
 
 /**
