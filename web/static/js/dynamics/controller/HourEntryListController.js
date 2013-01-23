@@ -63,7 +63,19 @@ HourEntryListController.prototype.paintHourEntryTable = function() {
   this.hourEntryTableView.render(); 
   this.logEffortController.openRowEdit();
   
-  this.logEffortRow.getCellByName("effortSpent").getEditor().focus();
+  var elEditor = this.logEffortRow.getCellByName("effortSpent").getEditor();
+  elEditor.focus();
+
+ jQuery.getJSON(
+      "ajax/retrieveLatestHourEntryDelta.action",
+      {},
+      function(data,status) {
+        if (data) {
+          elEditor.setEditorValue(data.delta);
+        }
+        elEditor.focus();
+      });
+  
 };
 HourEntryListController.prototype.showLogEffortRow = function() {
 
@@ -73,7 +85,6 @@ HourEntryListController.prototype.showLogEffortRow = function() {
   this.logEffortModel.setUsers([], [PageController.getInstance().getCurrentUser()]);
   this.logEffortModel.setDate(new Date());
   this.logEffortModel.setHourEntryList(this.model);
- 
   this.logEffortController = new HourEntryController(this.logEffortModel, null, this);
   
   this.logEffortRow = new DynamicTableRow(this.addEntryConfig);
