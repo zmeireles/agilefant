@@ -172,7 +172,7 @@ CreateDialog.Product.prototype.initFormConfig = function() {
   
   if (currentUser.getAdmin()) {
   	config.addColumnConfiguration(CreateDialog.Product.columnIndices.teams, {
-    	title: "Add all teams to product",
+    	title: "Grant all teams access to product?",
     	get: currentUser.getAdmin,
     	editable: true,
     	edit: {
@@ -696,7 +696,7 @@ CreateDialog.Team.prototype.initFormConfig = function() {
 		  return "false";
 	  }
   	config.addColumnConfiguration(CreateDialog.Team.columnIndices.products, {
-    	title: "Add all products to team",
+    	title: "Grant the team access to all products?",
     	get: falseFunction,
     	editable: true,
     	edit: {
@@ -708,7 +708,7 @@ CreateDialog.Team.prototype.initFormConfig = function() {
     	}
   	});
   	config.addColumnConfiguration(CreateDialog.Team.columnIndices.iterations, {
-    	title: "Add all standalone iterations to team",
+    	title: "Grant the team access to all standalone iterations?",
     	get: falseFunction,
     	editable: true,
     	edit: {
