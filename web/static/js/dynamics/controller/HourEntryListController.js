@@ -64,7 +64,7 @@ HourEntryListController.prototype.paintHourEntryTable = function() {
   this.logEffortController.openRowEdit();
   
   var elEditor = this.logEffortRow.getCellByName("effortSpent").getEditor();
-  elEditor.focus();
+  var jqueryElEditor = jQuery('.dynamics-editor-element:eq(' + 1 + ')');
 
  jQuery.getJSON(
       "ajax/retrieveLatestHourEntryDelta.action",
@@ -73,7 +73,7 @@ HourEntryListController.prototype.paintHourEntryTable = function() {
         if (data) {
           elEditor.setEditorValue(data.delta);
         }
-        elEditor.focus();
+        jqueryElEditor.select();
       });
   
 };
