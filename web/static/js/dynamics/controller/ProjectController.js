@@ -772,7 +772,7 @@ ProjectController.prototype.initializeStoryConfig = function() {
     headerTooltip : 'The iteration the story has been scheduled to (if any)',
     get : StoryModel.prototype.getIteration,
     decorator: DynamicsDecorators.iterationSelectDecorator,
-    sortCallback: DynamicsComparators.storyBacklogNameComparator,
+    sortCallback: DynamicsComparators.storyIterationNameComparator,
     editable : true,
     openOnRowEdit: false,
     edit: {
