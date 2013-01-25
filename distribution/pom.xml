@@ -10,6 +10,7 @@
 
 	<artifactId>agilefant-distribution</artifactId>
 	<packaging>pom</packaging>
+	<name>Agilefant :: Zip distribution</name>
 
 	<build>
 		<finalName>agilefant</finalName>
