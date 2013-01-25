@@ -53,6 +53,7 @@
 	</properties>
 
 	<modules>
+		<module>distribution</module>
 		<module>webapp</module>
 	</modules>
 

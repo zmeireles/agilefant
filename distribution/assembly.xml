@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+	<id>distribution</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<dependencySets>
+		<dependencySet>
+			<outputDirectory>/</outputDirectory>
+			<outputFileNameMapping>agilefant.war</outputFileNameMapping>
+			<includes>
+				<include>${project.groupId}:agilefant</include>
+			</includes>
+		</dependencySet>
+	</dependencySets>
+	<files>
+		<file>
+			<source>doc/License.txt</source>
+			<outputDirectory>/</outputDirectory>
+		</file>
+		<file>
+			<source>doc/sql/insert-users.sql</source>
+			<outputDirectory>/</outputDirectory>
+		</file>
+		<file>
+			<!-- A horrible hack, but there are no known simpler alternatives for now -->
+			<source>../webapp/target/create-db.ddl</source>
+			<outputDirectory>/</outputDirectory>
+		</file>
+		<file>
+			<source>doc/Release_notes.txt</source>
+			<outputDirectory>/</outputDirectory>
+		</file>
+		<file>
+			<source>doc/Summary_about_used_libraries.txt</source>
+			<outputDirectory>/</outputDirectory>
+		</file>
+		<file>
+			<source>doc/Install.txt</source>
+			<outputDirectory>/</outputDirectory>
+		</file>
+	</files>
+	<fileSets>
+		<fileSet>
+			<directory>doc/upgrade</directory>
+			<outputDirectory>/upgrade</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<directory>doc/sql/upgrader</directory>
+			<outputDirectory>/upgrade</outputDirectory>
+		</fileSet>
+	</fileSets>
+</assembly>
