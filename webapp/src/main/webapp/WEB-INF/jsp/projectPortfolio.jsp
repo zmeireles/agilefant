@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="static/css/timeline/event.css" type="text/css"/>
 
 <script type="text/javascript" src="static/js/excanvas.js"></script>
-<script type="text/javascript" src="static/js/simile-widgets.js"></script>
+<%@include file="inc/includeSimile.jsp" %>
 <script type="text/javascript" src="static/js/simile/extensions/portfolio-eventsource.js"></script>
 
 <script type="text/javascript">
