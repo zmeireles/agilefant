@@ -212,6 +212,8 @@ StoryController.prototype.moveStory = function() {
     callback: function(id) { me._moveStory(id); },
     title: "Select backlog to move to"
   });
+  var backlogTextField = jQuery('.autocomplete-searchBoxContainer:eq(0) input');
+  backlogTextField.focus();
 };
 
 StoryController.prototype.rankStory = function(view, model, previousModel) {
