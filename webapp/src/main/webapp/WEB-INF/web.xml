@@ -64,7 +64,7 @@
 	
 	<filter> 
 	  <filter-name>GzipFilter</filter-name> 
-	  <filter-class>com.cj.gzipflt.GzipFilter</filter-class> 
+	  <filter-class>net.sf.ehcache.constructs.web.filter.GzipFilter</filter-class>
 	</filter>
 	
 	<filter> 
