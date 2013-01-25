@@ -1,114 +1,115 @@
-<script type="text/javascript" src="static/js/dynamics/Dynamics.events.js?<ww:text name="struts.agilefantReleaseId" />"></script>
+<%@taglib uri="/WEB-INF/tlds/aef.tld" prefix="aef" %>
+<script type="text/javascript" src="static/js/dynamics/Dynamics.events.js?${aef:buildTimestamp()}"></script>
 
-<script type="text/javascript" src="static/js/utils/ArrayUtils.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/utils/ClassUtils.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/utils/Parsers.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/utils/XworkSerializer.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-
-
-<script type="text/javascript" src="static/js/dynamics/view/ViewPart.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/CommonSubView.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/CommonFragmentSubView.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/MessageDisplay.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/DynamicView.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/Table.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/Row.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/Cell.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/subviews/RowActions.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/TableConfiguration.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/subviews/Toggle.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/TableCaption.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/TableCellEditors.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/decorators.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/subviews/SplitPanel.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/subviews/Tabs.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/subviews/Buttons.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/subviews/Button.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/ValidationManager.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/ConfirmationDialog.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/ChangePasswordDialog.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/LazyLoadedDialog.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/UserSpentEffortWidget.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/subviews/LabelsView.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/subviews/LabelsIcon.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/subviews/AutoSuggest.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/SearchByTextWidget.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/subviews/StoryInfoWidget.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/StoryFiltersView.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/StateFilterWidget.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/SpentEffortWidget.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/Bubble.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/subviews/CellBubble.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/view/MultiEditWidget.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-
-<script type="text/javascript" src="static/js/dynamics/model/CommonModel.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/BacklogModel.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/IterationModel.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/ProjectModel.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/ProductModel.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/StoryModel.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/TaskModel.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/UserModel.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/TeamModel.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/comparators.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/AssignmentModel.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/HourEntryModel.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/TaskSplitContainer.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/UserListContainer.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/TeamListContainer.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/HourEntryListContainer.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/PortfolioModel.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/LabelModel.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/DailyWorkModel.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/WorkQueueTaskModel.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/ModelFactory.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/model/AccessListContainer.js?<ww:text name="struts.agilefantReleaseId" />"></script>
+<script type="text/javascript" src="static/js/utils/ArrayUtils.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/utils/ClassUtils.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/utils/Parsers.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/utils/XworkSerializer.js?${aef:buildTimestamp()}"></script>
 
 
-<script type="text/javascript" src="static/js/dynamics/controller/CommonController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/BacklogController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/TaskController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/AssignmentController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/StoryController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/IterationController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/StoryListController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/ProductController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/IterationRowController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/ProjectController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/ProjectRowController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/DailyWorkController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/TasksWithoutStoryController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/DailyWorkStoryListController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/DailyWorkTasksWithoutStoryController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/WorkQueueController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/TaskSplitDialog.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/UserController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/StoryInfoBubble.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/UserListController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/UserRowController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/TeamListController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/TeamRowController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/CreateDialog.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/TaskInfoDialog.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/HourEntryController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/HourEntryListController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/StoryTreeController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/PortfolioController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/PortfolioRowController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/MyAssignmentsMenuController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/AdministrationMenuController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/PersonalLoadController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/AccessListController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/AccessRowController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/ROIterationController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/dynamics/controller/ROStoryListController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
+<script type="text/javascript" src="static/js/dynamics/view/ViewPart.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/CommonSubView.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/CommonFragmentSubView.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/MessageDisplay.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/DynamicView.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/Table.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/Row.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/Cell.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/subviews/RowActions.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/TableConfiguration.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/subviews/Toggle.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/TableCaption.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/TableCellEditors.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/decorators.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/subviews/SplitPanel.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/subviews/Tabs.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/subviews/Buttons.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/subviews/Button.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/ValidationManager.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/ConfirmationDialog.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/ChangePasswordDialog.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/LazyLoadedDialog.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/UserSpentEffortWidget.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/subviews/LabelsView.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/subviews/LabelsIcon.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/subviews/AutoSuggest.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/SearchByTextWidget.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/subviews/StoryInfoWidget.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/StoryFiltersView.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/StateFilterWidget.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/SpentEffortWidget.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/Bubble.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/subviews/CellBubble.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/view/MultiEditWidget.js?${aef:buildTimestamp()}"></script>
+
+<script type="text/javascript" src="static/js/dynamics/model/CommonModel.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/BacklogModel.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/IterationModel.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/ProjectModel.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/ProductModel.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/StoryModel.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/TaskModel.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/UserModel.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/TeamModel.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/comparators.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/AssignmentModel.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/HourEntryModel.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/TaskSplitContainer.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/UserListContainer.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/TeamListContainer.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/HourEntryListContainer.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/PortfolioModel.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/LabelModel.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/DailyWorkModel.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/WorkQueueTaskModel.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/ModelFactory.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/model/AccessListContainer.js?${aef:buildTimestamp()}"></script>
 
 
-<script type="text/javascript" src="static/js/autocomplete/autocompleteSearchBox.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/autocomplete/autocompleteSelectedBox.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/autocomplete/autocompleteRecent.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/autocomplete/autocompleteBundle.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/autocomplete/autocompleteDataProvider.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/autocomplete/autocompleteDialog.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/autocomplete/autocompleteSingleDialog.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-<script type="text/javascript" src="static/js/autocomplete/autocompleteInline.js?<ww:text name="struts.agilefantReleaseId" />"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/CommonController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/BacklogController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/TaskController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/AssignmentController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/StoryController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/IterationController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/StoryListController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/ProductController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/IterationRowController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/ProjectController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/ProjectRowController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/DailyWorkController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/TasksWithoutStoryController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/DailyWorkStoryListController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/DailyWorkTasksWithoutStoryController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/WorkQueueController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/TaskSplitDialog.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/UserController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/StoryInfoBubble.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/UserListController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/UserRowController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/TeamListController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/TeamRowController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/CreateDialog.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/TaskInfoDialog.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/HourEntryController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/HourEntryListController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/StoryTreeController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/PortfolioController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/PortfolioRowController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/MyAssignmentsMenuController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/AdministrationMenuController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/PersonalLoadController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/AccessListController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/AccessRowController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/ROIterationController.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/dynamics/controller/ROStoryListController.js?${aef:buildTimestamp()}"></script>
+
+
+<script type="text/javascript" src="static/js/autocomplete/autocompleteSearchBox.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/autocomplete/autocompleteSelectedBox.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/autocomplete/autocompleteRecent.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/autocomplete/autocompleteBundle.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/autocomplete/autocompleteDataProvider.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/autocomplete/autocompleteDialog.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/autocomplete/autocompleteSingleDialog.js?${aef:buildTimestamp()}"></script>
+<script type="text/javascript" src="static/js/autocomplete/autocompleteInline.js?${aef:buildTimestamp()}"></script>

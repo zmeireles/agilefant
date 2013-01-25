@@ -256,6 +256,19 @@
 					<dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+						<manifestEntries>
+							<Agilefant-Build>${maven.build.timestamp}</Agilefant-Build>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

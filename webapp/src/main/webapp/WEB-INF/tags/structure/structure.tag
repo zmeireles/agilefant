@@ -1,6 +1,7 @@
 <%@tag description="Wrapper for the Agilefant html structure" %>
 
 <%@taglib uri="../../tlds/aef_structure.tld" prefix="struct" %>
+<%@taglib uri="/WEB-INF/tlds/aef.tld" prefix="aef" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="/struts-tags" prefix="ww" %>
 
@@ -19,9 +20,9 @@
 
 <head>
   <title>Agilefant</title>
-  <link rel="stylesheet" type="text/css" href="static/css/main.css?<ww:text name="struts.agilefantReleaseId" />" />
-  <!--[if IE 7]><link rel="stylesheet" type="text/css" href="static/css/IE7styles.css?<ww:text name="struts.agilefantReleaseId" />" /><![endif]-->
-  <!--[if IE 8]><link rel="stylesheet" type="text/css" href="static/css/IE8styles.css?<ww:text name="struts.agilefantReleaseId" />" /><![endif]-->  
+  <link rel="stylesheet" type="text/css" href="static/css/main.css?${aef:buildTimestamp()}" />
+  <!--[if IE 7]><link rel="stylesheet" type="text/css" href="static/css/IE7styles.css?${aef:buildTimestamp()}" /><![endif]-->
+  <!--[if IE 8]><link rel="stylesheet" type="text/css" href="static/css/IE8styles.css?${aef:buildTimestamp()}" /><![endif]-->  
   
   <link rel="shortcut icon" href="static/img/favicon.png" type="image/png" />
   
@@ -32,29 +33,29 @@
   </script>
   
   
-  <script type="text/javascript" src="static/js/jquery.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-  <script type="text/javascript" src="static/js/jquery.cookie.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-  <script type="text/javascript" src="static/js/jquery-ui.min.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-  <script type="text/javascript" src="static/js/jquery.dynatree.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-  <script type="text/javascript" src="static/js/date.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-  <script type="text/javascript" src="static/js/jquery.wysiwyg.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-  <script type="text/javascript" src="static/js/backlogChooser.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-  <script type="text/javascript" src="static/js/backlogSelector.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-  <script type="text/javascript" src="static/js/jquery.hotkeys.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-  <script type="text/javascript" src="static/js/jquery.jstree.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-  <script type="text/javascript" src="static/js/jquery.tooltip.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-  <script type="text/javascript" src="static/js/jquery.autoSuggest.minified.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-  <script type="text/javascript" src="static/js/jquery.labelify.js?<ww:text name="struts.agilefantReleaseId" />"></script>  
-  <script type="text/javascript" src="static/js/jquery.tagcloud.min.js?<ww:text name="struts.agilefantReleaseId" />"></script>  
+  <script type="text/javascript" src="static/js/jquery.js?${aef:buildTimestamp()}"></script>
+  <script type="text/javascript" src="static/js/jquery.cookie.js?${aef:buildTimestamp()}"></script>
+  <script type="text/javascript" src="static/js/jquery-ui.min.js?${aef:buildTimestamp()}"></script>
+  <script type="text/javascript" src="static/js/jquery.dynatree.js?${aef:buildTimestamp()}"></script>
+  <script type="text/javascript" src="static/js/date.js?${aef:buildTimestamp()}"></script>
+  <script type="text/javascript" src="static/js/jquery.wysiwyg.js?${aef:buildTimestamp()}"></script>
+  <script type="text/javascript" src="static/js/backlogChooser.js?${aef:buildTimestamp()}"></script>
+  <script type="text/javascript" src="static/js/backlogSelector.js?${aef:buildTimestamp()}"></script>
+  <script type="text/javascript" src="static/js/jquery.hotkeys.js?${aef:buildTimestamp()}"></script>
+  <script type="text/javascript" src="static/js/jquery.jstree.js?${aef:buildTimestamp()}"></script>
+  <script type="text/javascript" src="static/js/jquery.tooltip.js?${aef:buildTimestamp()}"></script>
+  <script type="text/javascript" src="static/js/jquery.autoSuggest.minified.js?${aef:buildTimestamp()}"></script>
+  <script type="text/javascript" src="static/js/jquery.labelify.js?${aef:buildTimestamp()}"></script>  
+  <script type="text/javascript" src="static/js/jquery.tagcloud.min.js?${aef:buildTimestamp()}"></script>  
 
-  <script type="text/javascript" src="static/js/utils/HelpUtils.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-  <script type="text/javascript" src="static/js/utils/menuTimer.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-  <script type="text/javascript" src="static/js/utils/quickSearch.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-  <script type="text/javascript" src="static/js/utils/refLinkDisplay.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-  <script type="text/javascript" src="static/js/utils/aef.jstree.plugin.js?<ww:text name="struts.agilefantReleaseId" />"></script>
+  <script type="text/javascript" src="static/js/utils/HelpUtils.js?${aef:buildTimestamp()}"></script>
+  <script type="text/javascript" src="static/js/utils/menuTimer.js?${aef:buildTimestamp()}"></script>
+  <script type="text/javascript" src="static/js/utils/quickSearch.js?${aef:buildTimestamp()}"></script>
+  <script type="text/javascript" src="static/js/utils/refLinkDisplay.js?${aef:buildTimestamp()}"></script>
+  <script type="text/javascript" src="static/js/utils/aef.jstree.plugin.js?${aef:buildTimestamp()}"></script>
   
-  <script type="text/javascript" src="static/js/dynamics/controller/PageController.js?<ww:text name="struts.agilefantReleaseId" />"></script>
-  <script type="text/javascript" src="static/js/dynamics/controller/MenuController.js?<ww:text name="struts.agilefantReleaseId" />"></script>  
+  <script type="text/javascript" src="static/js/dynamics/controller/PageController.js?${aef:buildTimestamp()}"></script>
+  <script type="text/javascript" src="static/js/dynamics/controller/MenuController.js?${aef:buildTimestamp()}"></script>  
   
   <c:if test="${settings != null}">
   <script type="text/javascript">

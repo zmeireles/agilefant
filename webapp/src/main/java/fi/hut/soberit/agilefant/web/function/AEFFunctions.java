@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.support.PropertyComparator;
+import org.springframework.web.util.HtmlUtils;
 
 import fi.hut.soberit.agilefant.model.ExactEstimate;
 import fi.hut.soberit.agilefant.model.Iteration;
@@ -17,6 +18,7 @@ import fi.hut.soberit.agilefant.model.Project;
 import fi.hut.soberit.agilefant.model.Schedulable;
 import fi.hut.soberit.agilefant.model.User;
 import fi.hut.soberit.agilefant.transfer.AgilefantHistoryEntry;
+import fi.hut.soberit.agilefant.util.AgilefantVersion;
 import fi.hut.soberit.agilefant.util.MinorUnitsParser;
 
 /**
@@ -134,4 +136,12 @@ public class AEFFunctions {
         return list;
     }
     
+    public static String buildTimestamp() {
+        return Long.toString(AgilefantVersion.BUILD_TIMESTAMP.getMillis());
+    }
+
+    public static String version() {
+        return HtmlUtils.htmlEscape(AgilefantVersion.VERSION);
+    }
+
 }

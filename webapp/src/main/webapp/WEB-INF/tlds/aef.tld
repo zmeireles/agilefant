@@ -188,4 +188,17 @@
     <function-class>fi.hut.soberit.agilefant.web.function.AEFFunctions</function-class>
     <function-signature>String scheduleStatus(fi.hut.soberit.agilefant.model.Schedulable)</function-signature>
 	</function>
+
+	<function>
+		<name>version</name>
+		<function-class>fi.hut.soberit.agilefant.web.function.AEFFunctions</function-class>
+		<function-signature>String version()</function-signature>
+	</function>
+
+	<function>
+		<name>buildTimestamp</name>
+		<function-class>fi.hut.soberit.agilefant.web.function.AEFFunctions</function-class>
+		<function-signature>String buildTimestamp()</function-signature>
+	</function>
+
 </taglib>

@@ -449,7 +449,6 @@
 					<version>${maven.git-commit-id.version}</version>
 					<executions>
 						<execution>
-							<phase>generate-resources</phase>
 							<goals>
 								<goal>revision</goal>
 							</goals>
