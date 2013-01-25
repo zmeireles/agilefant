@@ -247,34 +247,9 @@
 		</dependency>
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>pl.project13.maven</groupId>
-				<artifactId>git-commit-id-plugin</artifactId>
-				<configuration>
-					<dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifest>
-							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-						</manifest>
-						<manifestEntries>
-							<Agilefant-Build>${maven.build.timestamp}</Agilefant-Build>
-						</manifestEntries>
-					</archive>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
 	<profiles>
 		<profile>
-			<id>generate-ddl</id>
+			<id>release</id>
 			<build>
 				<plugins>
 					<plugin>
@@ -298,6 +273,26 @@
 								</goals>
 							</execution>
 						</executions>
+					</plugin>
+					<plugin>
+						<groupId>pl.project13.maven</groupId>
+						<artifactId>git-commit-id-plugin</artifactId>
+						<configuration>
+							<dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<archive>
+								<manifest>
+									<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+								</manifest>
+								<manifestEntries>
+									<Agilefant-Build>${maven.build.timestamp}</Agilefant-Build>
+								</manifestEntries>
+							</archive>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>
