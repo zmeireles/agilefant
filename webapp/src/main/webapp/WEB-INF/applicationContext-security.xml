@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+	Spring security settings, similiar to example. 
+	See "filterInvocationInterceptor" for permissions.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:security="http://www.springframework.org/schema/security"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+          http://www.springframework.org/schema/security
+          http://www.springframework.org/schema/security/spring-security-2.0.xsd">
+
+	<bean id="filterChainProxy" class="org.springframework.security.util.FilterChainProxy">
+		<security:filter-chain-map path-type="ant">
+			<security:filter-chain filters="remoteServicesFilter"
+				pattern="/rs/**" />
+			<security:filter-chain filters="readonlyFilter"
+				pattern="/token/*" />
+			<security:filter-chain filters="readonlyFilter"
+				pattern="/ROIteration.action" />
+			<security:filter-chain filters="readonlyFilter"
+				pattern="/ajax/RO*" />
+			<security:filter-chain
+				filters="httpSessionContextIntegrationFilter,securityContextHolderAwareRequestFilter,rememberMeProcessingFilter,anonymousProcessingFilter,ajaxExceptionTranslationFilter,filterInvocationInterceptor"
+				pattern="/ajax/**" />
+			<security:filter-chain
+				filters="httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,securityContextHolderAwareRequestFilter,rememberMeProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor"
+				pattern="/**" />
+		</security:filter-chain-map>
+	</bean>
+	
+	<bean id="remoteServicesFilter" class="fi.hut.soberit.agilefant.security.RemoteServicesFilter" />
+	
+	<bean id="readonlyFilter" class="fi.hut.soberit.agilefant.readonly.ReadonlyFilter" />
+
+	<bean id="httpSessionContextIntegrationFilter"
+		class="org.springframework.security.context.HttpSessionContextIntegrationFilter" />
+
+	<bean id="logoutFilter"
+		class="org.springframework.security.ui.logout.LogoutFilter">
+		<constructor-arg value="/login.jsp?logout=1" />
+		<!-- URL redirected to after logout -->
+		<constructor-arg>
+			<list>
+				<ref bean="rememberMeServices" />
+				<bean
+					class="org.springframework.security.ui.logout.SecurityContextLogoutHandler" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="authenticationProcessingFilter"
+		class="org.springframework.security.ui.webapp.AuthenticationProcessingFilter">
+		<property name="authenticationManager"
+			ref="authenticationManager" />
+		<property name="authenticationFailureUrl" value="/login.jsp?error=1" />
+		<property name="defaultTargetUrl" value="/index.jsp" />
+		<property name="filterProcessesUrl"
+			value="/j_spring_security_check" />
+		<property name="rememberMeServices" ref="rememberMeServices" />
+	</bean>
+
+	<bean id="securityContextHolderAwareRequestFilter"
+		class="org.springframework.security.wrapper.SecurityContextHolderAwareRequestFilter" />
+
+	<bean id="rememberMeProcessingFilter"
+		class="org.springframework.security.ui.rememberme.RememberMeProcessingFilter">
+		<property name="authenticationManager"
+			ref="authenticationManager" />
+		<property name="rememberMeServices" ref="rememberMeServices" />
+	</bean>
+
+	<bean id="anonymousProcessingFilter"
+		class="org.springframework.security.providers.anonymous.AnonymousProcessingFilter">
+		<property name="key" value="a67e3f47ba349bea3020f2c0e782c174" />
+		<property name="userAttribute"
+			value="anonymousUser,ROLE_ANONYMOUS" />
+	</bean>
+
+	<bean id="exceptionTranslationFilter"
+		class="org.springframework.security.ui.ExceptionTranslationFilter">
+		<property name="authenticationEntryPoint">
+			<bean
+				class="org.springframework.security.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+				<property name="loginFormUrl" value="/login.jsp" />
+				<property name="forceHttps" value="false" />
+			</bean>
+		</property>
+		<property name="accessDeniedHandler">
+			<bean
+				class="org.springframework.security.ui.AccessDeniedHandlerImpl">
+				<property name="errorPage" value="/login.jsp?access_denied=1" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="ajaxExceptionTranslationFilter"
+    class="org.springframework.security.ui.ExceptionTranslationFilter">
+    <property name="authenticationEntryPoint">
+      <bean class="org.springframework.security.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+        <property name="loginFormUrl" value="/static/error.json" />
+        <property name="forceHttps" value="false" />
+      </bean>
+    </property>
+    <property name="accessDeniedHandler">
+      <bean
+        class="org.springframework.security.ui.AccessDeniedHandlerImpl">
+        <property name="errorPage" value="/static/error.json" />
+      </bean>
+    </property>
+  </bean>
+
+	<bean id="filterInvocationInterceptor"
+		class="org.springframework.security.intercept.web.FilterSecurityInterceptor">
+		<property name="authenticationManager"
+			ref="authenticationManager" />
+		<property name="accessDecisionManager">
+			<bean class="org.springframework.security.vote.AffirmativeBased">
+				<property name="allowIfAllAbstainDecisions"
+					value="false" />
+				<property name="decisionVoters">
+					<list>
+						<bean class="org.springframework.security.vote.RoleVoter" />
+						<bean
+							class="org.springframework.security.vote.AuthenticatedVoter" />
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="objectDefinitionSource">
+			<value>
+				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+				PATTERN_TYPE_APACHE_ANT
+				/login.jsp=IS_AUTHENTICATED_ANONYMOUSLY
+				/jsp/inc/_taglibs.jsp=IS_AUTHENTICATED_ANONYMOUSLY
+				/jsp/inc/_footer.jsp=IS_AUTHENTICATED_ANONYMOUSLY
+				/newpassword.action=IS_AUTHENTICATED_ANONYMOUSLY
+				/generatenewpassword.action=IS_AUTHENTICATED_ANONYMOUSLY
+				/ro*=IS_AUTHENTICATED_ANONYMOUSLY
+				/static/**=IS_AUTHENTICATED_ANONYMOUSLY
+				/**=IS_AUTHENTICATED_REMEMBERED
+				<!-- /showReadOnlyIteration.action?**=IS_AUTHENTICATED_ANONYMOUSLY -->
+			</value>
+		</property>
+	</bean>
+
+	<bean id="rememberMeServices"
+		class="org.springframework.security.ui.rememberme.TokenBasedRememberMeServices">
+		<property name="userDetailsService" ref="userDetailsService" />
+		<property name="key" value="bcba656388094a54afa82757e2de2070" />
+
+		<!-- uncomment this to change duration of "remember me -->
+		<!-- <property name="tokenValiditySeconds" value="1209600"/> -->
+	</bean>
+
+	<bean id="authenticationManager"
+		class="org.springframework.security.providers.ProviderManager">
+		<property name="providers">
+			<list>
+				<ref local="daoAuthenticationProvider" />
+				<bean
+					class="org.springframework.security.providers.anonymous.AnonymousAuthenticationProvider">
+					<property name="key"
+						value="a67e3f47ba349bea3020f2c0e782c174" />
+				</bean>
+				<bean
+					class="org.springframework.security.providers.rememberme.RememberMeAuthenticationProvider">
+					<property name="key"
+						value="bcba656388094a54afa82757e2de2070" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!-- encode passwords using built-in MD5 encoder -->
+	<bean id="passwordEncoder"
+		class="org.springframework.security.providers.encoding.Md5PasswordEncoder" />
+
+	<bean id="daoAuthenticationProvider"
+		class="org.springframework.security.providers.dao.DaoAuthenticationProvider">
+		<!-- use agilefant user details service -->
+		<property name="userDetailsService" ref="userDetailsService" />
+
+		<!-- use the password encoder defined earlier-->
+		<property name="passwordEncoder" ref="passwordEncoder" />
+	</bean>
+
+	<bean id="userDetailsService"
+		class="fi.hut.soberit.agilefant.security.AgilefantUserDetailsService"
+		autowire="byType" />
+
+	<!-- This bean is optional; it isn't used by any other bean as it only listens and logs -->
+	<bean id="loggerListener"
+		class="org.springframework.security.event.authentication.LoggerListener" />
+
+</beans>
