@@ -16,6 +16,7 @@ import com.opensymphony.xwork2.Action;
 import fi.hut.soberit.agilefant.business.UserBusiness;
 import fi.hut.soberit.agilefant.exception.ObjectNotFoundException;
 import fi.hut.soberit.agilefant.model.User;
+import fi.hut.soberit.agilefant.security.SecurityUtil;
 
 public class UserActionTest {
     
@@ -69,43 +70,58 @@ public class UserActionTest {
         assertEquals(Action.SUCCESS, userAction.execute());
         assertEquals(555, userAction.getUserId());
     }
-    
+
     @Test
     public void testRetrieve() {
-        userAction.setUserId(user.getId());
-        
-        expect(userBusiness.retrieve(user.getId())).andReturn(user);
-       
-        replayAll();
-        assertEquals(Action.SUCCESS, userAction.retrieve());
-        assertEquals(user, userAction.getUser());
-        verifyAll();
+        try {
+            SecurityUtil.setLoggedUser(user);
+            userAction.setUserId(user.getId());
+
+            expect(userBusiness.retrieve(user.getId())).andReturn(user);
+
+            replayAll();
+            assertEquals(Action.SUCCESS, userAction.retrieve());
+            assertEquals(user, userAction.getUser());
+            verifyAll();
+        } finally {
+            SecurityUtil.clearLoggedUser();
+        }
     }
-    
+
     @Test(expected = ObjectNotFoundException.class)
     public void testRetrieve_noSuchUser() {
-        userAction.setUserId(-1);
-        
-        expect(userBusiness.retrieve(-1)).andThrow(new ObjectNotFoundException());
-        replayAll();
-        
-        userAction.retrieve();
-        
-        verifyAll();
+        try {
+            SecurityUtil.setLoggedUser(user);
+            userAction.setUserId(-1);
+
+            expect(userBusiness.retrieve(-1)).andThrow(new ObjectNotFoundException());
+            replayAll();
+
+            userAction.retrieve();
+
+            verifyAll();
+        } finally {
+            SecurityUtil.clearLoggedUser();
+        }
     }
-    
+
     @Test
     public void testRetrieveAll() {
-        Collection<User> userList = Arrays.asList(new User(), new User());
-        expect(userBusiness.retrieveAll()).andReturn(userList);
-        replayAll();
-        
-        assertEquals(Action.SUCCESS, userAction.retrieveAll());
-        assertEquals(userList, userAction.getUsers());
-        
-        verifyAll();
+        try {
+            SecurityUtil.setLoggedUser(user);
+            Collection<User> userList = Arrays.asList(new User(), new User());
+            expect(userBusiness.retrieveAll()).andReturn(userList);
+            replayAll();
+
+            assertEquals(Action.SUCCESS, userAction.retrieveAll());
+            assertEquals(userList, userAction.getUsers());
+
+            verifyAll();
+        } finally {
+            SecurityUtil.clearLoggedUser();
+        }
     }
-    
+
     @Test
     public void testStore() {
         User returned = new User();

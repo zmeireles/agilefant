@@ -92,6 +92,10 @@ public class SecurityUtil {
         threadLocalUser.set(user);
     }
 
+    public static void clearLoggedUser() {
+        threadLocalUser.remove();
+    }
+
     /**
      * Get currently logged-in user (for the current thread/request) as set by
      * setLoggedUser.
