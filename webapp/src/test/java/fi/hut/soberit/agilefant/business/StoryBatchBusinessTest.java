@@ -50,6 +50,10 @@ public class StoryBatchBusinessTest extends MockedTestCase{
         StoryState state = StoryState.IMPLEMENTED;
         
         expect(storyBusiness.retrieveMultiple(storyIds)).andReturn(Arrays.asList(story1, story2));
+        storyBusiness.updateParentStates(story1);
+        expectLastCall();
+        storyBusiness.updateParentStates(story2);
+        expectLastCall();
         
         storyBusiness.store(story1);
         storyBusiness.store(story2);
@@ -78,6 +82,10 @@ public class StoryBatchBusinessTest extends MockedTestCase{
         StoryState state = StoryState.IMPLEMENTED;
         
         expect(storyBusiness.retrieveMultiple(storyIds)).andReturn(Arrays.asList(story1, story2));
+        storyBusiness.updateParentStates(story1);
+        expectLastCall();
+        storyBusiness.updateParentStates(story2);
+        expectLastCall();
 
         storyBusiness.store(story1);
         storyBusiness.store(story2);
