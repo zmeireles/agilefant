@@ -14,7 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "file:conf/applicationContext-core.xml", "file:conf/applicationContext-notifications.xml" })
+@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/applicationContext-core.xml", "file:src/main/webapp/WEB-INF/applicationContext-notifications.xml" })
 public class ApplicationContextHolderTest {
 
     private List<NotificationConfiguration> notificationsConfiguration;
