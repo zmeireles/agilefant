@@ -286,6 +286,13 @@ TableEditors.TextFieldEditor.prototype.focus = function() {
 };
 
 /**
+ * Selects the text field contents.
+ */
+TableEditors.TextFieldEditor.prototype.select = function() {
+  this.textField.select();
+};
+
+/**
  * Sets the new value or uses <code>options.get</code> if the parameter
  * <code>value</code> is <code>undefined</code>.
  * @param {Object} value the value to set
