@@ -11,6 +11,23 @@ This helps us keep a full-featured Agilefant free-of-charge forever!
 |     CHANGESET      |
 +--------------------+
 
+Changes from 3.0.2.1 to 3.0.3
+2012-12-29
++ Workflow improvements to logging spent effort:
+  + The dialog automatically autofills ES with the delta from the last entry logged by the user
+  + Upon saving an effort entry, focus automatically to 'Close' button 
+    => If you log spent effort 'as you go', you can just hit 2x <enter> and you're done!
++ Story tree: Changing a child story as started automatically changes all its parent stories as started (adpated from code by Javier Bazzocco)
++ Sort by Iteration in Project Backlog view works again
++ Year-end bug in spent effort -scroller fixed
++ Move to Backlog -dialog: focus to text field upon dialog opening
++ Create new product and iteration dialogs: added text that warns that newly created products / standalone iterations seem to 'disappear' if
+  the user does not have access rights to them
++ Create team -dialog:
+  + After selecting users for a new team, focus to 'Add all products to team' dropdown
+  + Default values for 'Add all products to team' and 'Add all standalone iterations to team' changed to 'No'
++ Registration link fixed to point to the correct registration form
+
 Changes from 3.0.2 to 3.0.2.1
 2012-12-21
 + fixed missing </font> tags in hyperlink-keyboard shortcuts in case they would cause problems in some browser/OS combination
