@@ -69,42 +69,6 @@ public class StoryBusinessImplTest {
     
      
     @Test
-    public void movesRanks() {
-        final Set<StoryRank> ranks = new HashSet<StoryRank>();
-
-        final Iteration ite = new Iteration();
-        ite.setId(5);
-        s1.setIteration(ite);
-        
-        final StoryRank r1 = new StoryRank();
-        r1.setId(3);
-        final StoryRank r2 = new StoryRank();
-        r2.setId(4);
-        
-        ranks.add(r1);
-        ranks.add(r2);
-
-        r1.setBacklog(ite);
-        r2.setBacklog(ite);
-        ite.setStoryRanks(ranks);
-        
-        Iteration ite2 = new Iteration();
-        ite2.setId(6);
-        s2.setIteration(ite2);
-
-        ite.setStories(new HashSet<Story>() {{ add(s1); }});
-        ite2.setStories(new HashSet<Story>() {{ add(s2); }});
-
-        // action
-        impl.fixAssignedIterationRanks(s1, s2);
-        
-        // test
-        Assert.assertEquals(ite2.getId(), r1.getBacklog().getId());
-        Assert.assertEquals(ite2.getId(), r2.getBacklog().getId());
-    }
-    
-    
-    @Test
     public void storyHasChildren() {
         Assert.assertFalse(StoryBusinessImpl.storyHasChildren(null));
         
