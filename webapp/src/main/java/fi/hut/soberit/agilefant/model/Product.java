@@ -104,5 +104,11 @@ public class Product extends Backlog {
     public boolean isStandAlone() {
         return false;
     }
-    
+
+    @Transient
+    @Override
+    public boolean isProduct() {
+        return true;
+    }
+
 }

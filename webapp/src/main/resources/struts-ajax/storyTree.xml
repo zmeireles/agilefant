@@ -12,11 +12,11 @@
 	  </action>
 	  
 	  <action name="getProjectStoryTree" class="storyHierarchyAction" method="retrieveProjectRootStories">
-	    <result type="dispatcher">/WEB-INF/jsp/fragments/storyTree.jsp</result>
+	    <result type="freemarker">/WEB-INF/ftl/storyTree.ftl</result>
 	  </action>
 	
 	  <action name="getProductStoryTree" class="storyHierarchyAction" method="retrieveProductRootStories">
-	    <result type="dispatcher">/WEB-INF/jsp/fragments/storyTree.jsp</result>
+	    <result type="freemarker">/WEB-INF/ftl/storyTree.ftl</result>
 	  </action>
 	  <!-- /Story hierarchy -->
 	  

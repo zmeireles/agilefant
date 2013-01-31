@@ -211,4 +211,9 @@ public abstract class Backlog implements TimesheetLoggable, NamedObject {
         
         return rootCandidate;
     }
+
+    @Transient
+    public boolean isProduct() {
+        return false;
+    }
 }
