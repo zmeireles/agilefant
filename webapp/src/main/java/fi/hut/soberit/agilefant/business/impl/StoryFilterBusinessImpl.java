@@ -49,7 +49,7 @@ public class StoryFilterBusinessImpl implements StoryFilterBusiness {
         if(storyFilters.name == null) {
             return true;
         }
-        if (filterByName(story, storyFilters) || filterByLabels(story, storyFilters.name) || filterByBacklogName(story, storyFilters.name)) {
+        if (filterByName(story, storyFilters) || filterByLabels(story, storyFilters.name) || filterByBacklogName(story, storyFilters.name) || filterByIterationName(story, storyFilters.name)) {
             return true;
         }
         return false;
@@ -77,6 +77,14 @@ public class StoryFilterBusinessImpl implements StoryFilterBusiness {
         }
         String lowerCaseName = backlogName.toLowerCase();
         return story.getBacklog().getName().toLowerCase().contains(lowerCaseName);    
+    }
+    
+    public boolean filterByIterationName(Story story, String iterationName) {
+        if(story.getIteration() == null) {
+            return false;
+        }
+        String lowerCaseName = iterationName .toLowerCase();
+        return story.getIteration().getName().toLowerCase().contains(lowerCaseName);
     }
 
     public boolean filterByLabels(Story story, String labelName) {
