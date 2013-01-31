@@ -20,7 +20,7 @@
 		[/#list]
 		</a>
 
-		[#if story.children?size > 1]
+		[#if story.children?size > 0]
 		<ul>
 			[#list story.children as child]
 				[@storyTreeNode story=child forceOpen=forceOpen /]
