@@ -1,4 +1,4 @@
-<#ftl strip_whitespace=true><#compress>
-<#include "storyTreeNode.ftl">
-<@storyTreeNode story=story />
-</#compress>
+[#ftl strip_whitespace=true][#compress]
+[#include "storyTreeNode.ftl"]
+[@storyTreeNode story=story /]
+[/#compress]

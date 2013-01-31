@@ -1,5 +1,6 @@
 [#ftl]
 [#include "storyTreeField.ftl"]
+[#assign storyTreeFieldOrder = settings.storyTreeFieldOrder.split(",")]
 [#macro storyTreeNode story forceOpen=false]
 	[#if story.iteration??]
 		[#assign nodeType = "iteration_story"]
@@ -15,7 +16,7 @@
 	
 		<span style="display: none;">[#list story.labels as label]${label.displayName?html} [/#list]</span>
 		
-		[#list settings.storyTreeFieldOrder?split(",") as fieldType]
+		[#list storyTreeFieldOrder as fieldType]
 			[@storyTreeField story=story type=fieldType?trim /]
 		[/#list]
 		</a>
