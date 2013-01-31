@@ -11,9 +11,9 @@
 			[#if story.labels?size == 0]
 				<span class="labelIcon labelIconNoLabel">&nbsp;</span>
 			[#elseif story.labels?size == 1]
-				<span class="labelIcon">[#list story.labels as label][#if label.name?length > 3]${label.name?substring(0, 4)}[#else]${label.name}[/#if][/#list]</span>
+				<span class="labelIcon">[#list story.labels as label][#if label.name?length > 3]${label.name?html?substring(0, 4)}[#else]${label.name?html}[/#if][/#list]</span>
 			[#else]
-				<span class="labelIcon labelIconMultiple" title="">&nbsp;</span>
+				<span class="labelIcon labelIconMultiple" title="[#list story.labels as label]${label.name?html}[#if label_has_next], [/#if][/#list]">&nbsp;</span>
 			[/#if]
 			[#break]
 		[#case "name"]

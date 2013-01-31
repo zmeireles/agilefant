@@ -13,7 +13,7 @@
 			<a>
 		[/#if]
 	
-		<span style="display: none;">[#list story.labels as label]${label.displayName} [/#list]</span>
+		<span style="display: none;">[#list story.labels as label]${label.displayName?html} [/#list]</span>
 		
 		[#list settings.storyTreeFieldOrder?split(",") as fieldType]
 			[@storyTreeField story=story type=fieldType?trim /]
