@@ -76,6 +76,11 @@
     </init-param> 
   </filter>
 
+  <filter-mapping>
+	  <filter-name>GzipFilter</filter-name>
+	  <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
   <!-- the order matters - spring security must come first -->
   <filter-mapping>
     <filter-name>readonlyFilter</filter-name>
@@ -112,11 +117,6 @@
     <url-pattern>*.jsp</url-pattern>
   </filter-mapping>
 
-  <filter-mapping> 
-	  <filter-name>GzipFilter</filter-name> 
-	  <url-pattern>/*</url-pattern> 
-  </filter-mapping>
- 
   <listener>
 		<listener-class>
 			org.springframework.web.context.ContextLoaderListener
