@@ -299,9 +299,32 @@
 							</archive>
 						</configuration>
 					</plugin>
+					<plugin>
+						<groupId>ro.isdc.wro4j</groupId>
+						<artifactId>wro4j-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>optimize-cssjs</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
+							<destinationFolder>${project.build.directory}/${project.build.finalName}</destinationFolder>
+							<cssDestinationFolder>${project.build.directory}/${project.build.finalName}/static/css</cssDestinationFolder>
+							<jsDestinationFolder>${project.build.directory}/${project.build.finalName}/static/js</jsDestinationFolder>
+						</configuration>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
 	</profiles>
+
+	<build>
+		<finalName>agilefant</finalName>
+	</build>
 
 </project>

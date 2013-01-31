@@ -8,12 +8,13 @@
 
 <head>
   <title>Agilefant</title>
-  <link rel="stylesheet" type="text/css" href="static/css/main.css" />
-  <!--[if IE 7]><link rel="stylesheet" type="text/css" href="static/css/IE7styles.css" /><![endif]-->  
+  <aef:css path="main" minify="true" />
+  <!--[if IE 7]><aef:css path="IE7styles.css" /><![endif]-->
+  <!--[if IE 8]><aef:css path="IE8styles.css" /><![endif]-->
   
   <link rel="shortcut icon" href="static/img/favicon.png" type="image/png" />
 
-  <script type="text/javascript" src="static/js/jquery.js?${aef:buildTimestamp()}"></script>
+  <aef:javascript path="jquery" minify="true" />
 
   <style type="text/css">  
     #outerWrapper {

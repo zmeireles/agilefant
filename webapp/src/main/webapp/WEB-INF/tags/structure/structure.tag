@@ -20,44 +20,50 @@
 
 <head>
   <title>Agilefant</title>
-  <link rel="stylesheet" type="text/css" href="static/css/main.css?${aef:buildTimestamp()}" />
-  <!--[if IE 7]><link rel="stylesheet" type="text/css" href="static/css/IE7styles.css?${aef:buildTimestamp()}" /><![endif]-->
-  <!--[if IE 8]><link rel="stylesheet" type="text/css" href="static/css/IE8styles.css?${aef:buildTimestamp()}" /><![endif]-->  
+  <aef:css path="main" minify="true" />
+  <!--[if IE 7]><aef:css path="IE7styles.css" /><![endif]-->
+  <!--[if IE 8]><aef:css path="IE8styles.css" /><![endif]-->
   
   <link rel="shortcut icon" href="static/img/favicon.png" type="image/png" />
-  
+
   <script type="text/javascript">
   if (!console) {
     var console = { log: function() {} }; 
   }
   </script>
-  
-  
-  <script type="text/javascript" src="static/js/jquery.js?${aef:buildTimestamp()}"></script>
-  <script type="text/javascript" src="static/js/jquery.cookie.js?${aef:buildTimestamp()}"></script>
-  <script type="text/javascript" src="static/js/jquery-ui.min.js?${aef:buildTimestamp()}"></script>
-  <script type="text/javascript" src="static/js/jquery.dynatree.js?${aef:buildTimestamp()}"></script>
-  <script type="text/javascript" src="static/js/date.js?${aef:buildTimestamp()}"></script>
-  <script type="text/javascript" src="static/js/jquery.wysiwyg.js?${aef:buildTimestamp()}"></script>
-  <script type="text/javascript" src="static/js/backlogChooser.js?${aef:buildTimestamp()}"></script>
-  <script type="text/javascript" src="static/js/backlogSelector.js?${aef:buildTimestamp()}"></script>
-  <script type="text/javascript" src="static/js/jquery.hotkeys.js?${aef:buildTimestamp()}"></script>
-  <script type="text/javascript" src="static/js/jquery.jstree.js?${aef:buildTimestamp()}"></script>
-  <script type="text/javascript" src="static/js/jquery.tooltip.js?${aef:buildTimestamp()}"></script>
-  <script type="text/javascript" src="static/js/jquery.autoSuggest.minified.js?${aef:buildTimestamp()}"></script>
-  <script type="text/javascript" src="static/js/jquery.labelify.js?${aef:buildTimestamp()}"></script>  
-  <script type="text/javascript" src="static/js/jquery.tagcloud.min.js?${aef:buildTimestamp()}"></script>  
 
-  <script type="text/javascript" src="static/js/utils/HelpUtils.js?${aef:buildTimestamp()}"></script>
-  <script type="text/javascript" src="static/js/utils/menuTimer.js?${aef:buildTimestamp()}"></script>
-  <script type="text/javascript" src="static/js/utils/quickSearch.js?${aef:buildTimestamp()}"></script>
-  <script type="text/javascript" src="static/js/utils/refLinkDisplay.js?${aef:buildTimestamp()}"></script>
-  <script type="text/javascript" src="static/js/utils/aef.jstree.plugin.js?${aef:buildTimestamp()}"></script>
-  
-  <script type="text/javascript" src="static/js/dynamics/controller/PageController.js?${aef:buildTimestamp()}"></script>
-  <script type="text/javascript" src="static/js/dynamics/controller/MenuController.js?${aef:buildTimestamp()}"></script>  
-  
-  <c:if test="${settings != null}">
+	<c:choose>
+		<c:when test="${aef:releaseMode()}">
+			<aef:javascript path="main" minify="always" />
+		</c:when>
+		<c:otherwise>
+			<aef:javascript path="jquery" />
+			<aef:javascript path="jquery.cookie" />
+			<aef:javascript path="jquery-ui" minify="always" />
+			<aef:javascript path="jquery.dynatree" />
+			<aef:javascript path="date" />
+			<aef:javascript path="jquery.wysiwyg" />
+			<aef:javascript path="backlogChooser" />
+			<aef:javascript path="backlogSelector" />
+			<aef:javascript path="jquery.hotkeys" />
+			<aef:javascript path="jquery.jstree" />
+			<aef:javascript path="jquery.tooltip" />
+			<aef:javascript path="jquery.autoSuggest" />
+			<aef:javascript path="jquery.labelify" />
+			<aef:javascript path="jquery.tagcloud" minify="always" />
+
+			<aef:javascript path="utils/HelpUtils" />
+			<aef:javascript path="utils/menuTimer" />
+			<aef:javascript path="utils/quickSearch" />
+			<aef:javascript path="utils/refLinkDisplay" />
+			<aef:javascript path="utils/aef.jstree.plugin" />
+
+			<aef:javascript path="dynamics/controller/PageController" />
+			<aef:javascript path="dynamics/controller/MenuController" />
+		</c:otherwise>
+  </c:choose>
+
+<c:if test="${settings != null}">
   <script type="text/javascript">
   $.ajaxSetup({
     traditional: true, //force jquery back to < 1.4 series style data serialization

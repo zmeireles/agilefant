@@ -18,7 +18,7 @@ import fi.hut.soberit.agilefant.model.Project;
 import fi.hut.soberit.agilefant.model.Schedulable;
 import fi.hut.soberit.agilefant.model.User;
 import fi.hut.soberit.agilefant.transfer.AgilefantHistoryEntry;
-import fi.hut.soberit.agilefant.util.AgilefantVersion;
+import fi.hut.soberit.agilefant.util.AgilefantBuild;
 import fi.hut.soberit.agilefant.util.MinorUnitsParser;
 
 /**
@@ -26,7 +26,6 @@ import fi.hut.soberit.agilefant.util.MinorUnitsParser;
  */
 public class AEFFunctions {
 
-    
     private static MinorUnitsParser minutesParser = new MinorUnitsParser("h", "min", 60);
 
     public static boolean isProduct(Object obj) {
@@ -40,9 +39,9 @@ public class AEFFunctions {
     public static boolean isIteration(Object obj) {
         return obj instanceof Iteration;
     }
-    
+
     public static boolean isStandaloneIteration(Object obj) {
-        return (obj instanceof Iteration && ((Iteration)obj).isStandAlone());
+        return (obj instanceof Iteration && ((Iteration) obj).isStandAlone());
     }
 
     public static boolean isUser(Object obj) {
@@ -50,21 +49,21 @@ public class AEFFunctions {
     }
 
     public static String minutesToString(Long minor) {
-        if(minor == null) {
+        if (minor == null) {
             return "";
         }
         return minutesParser.convertToString(minor);
     }
-    
+
     public static String estimateToHours(ExactEstimate estimate) {
-        if(estimate == null) {
+        if (estimate == null) {
             return "";
         }
         double rounded = Math.round(estimate.floatValue() * 10 / 60.0);
         double result = rounded / 10.0;
         return "" + result + "h";
     }
-    
+
     public static boolean isBeforeThisDay(DateTime date) {
         return date.isBeforeNow();
     }
@@ -84,15 +83,15 @@ public class AEFFunctions {
     public static Date dateTimeToDate(DateTime dateTime) {
         return dateTime.toDate();
     }
-    
+
     public static DateTime currentDateTime() {
         return new DateTime();
     }
-    
+
     public static String dateTimeToFormattedString(DateTime dateTime) {
         return dateTime.toString("YYYY-MM-dd HH:mm");
     }
-    
+
     public static String joinNamedObjects(Collection<NamedObject> objects) {
         String retval = "";
         for (NamedObject obj : objects) {
@@ -100,20 +99,19 @@ public class AEFFunctions {
         }
         return retval.substring(0, retval.length() - 2);
     }
-    
+
     public static String scheduleStatus(Schedulable obj) {
         if (obj.getEndDate().isBeforeNow()) {
             return "PAST";
-        }
-        else if (obj.getStartDate().isAfterNow()) {
+        } else if (obj.getStartDate().isAfterNow()) {
             return "FUTURE";
         }
         return "CURRENT";
     }
-    
+
     /**
-     * Merge story and task histories and sort them per the timestamp field.
-     * This is needed to generate mingled revision history for stories and tasks.
+     * Merge story and task histories and sort them per the timestamp field. This is needed to generate mingled revision
+     * history for stories and tasks.
      * 
      * @param first
      * @param second
@@ -126,22 +124,25 @@ public class AEFFunctions {
         List<AgilefantHistoryEntry> listFirst = new ArrayList<AgilefantHistoryEntry>(first);
         List<AgilefantHistoryEntry> listSecond = new ArrayList<AgilefantHistoryEntry>(second);
         List<AgilefantHistoryEntry> list = new ArrayList<AgilefantHistoryEntry>();
-      
+
         list.addAll(listFirst);
         list.addAll(listSecond);
-        
-        Collections.sort(list, new PropertyComparator("revision.timestamp",
-                true, false));
-        
+
+        Collections.sort(list, new PropertyComparator("revision.timestamp", true, false));
+
         return list;
     }
-    
+
     public static String buildTimestamp() {
-        return Long.toString(AgilefantVersion.BUILD_TIMESTAMP.getMillis());
+        return Long.toString(AgilefantBuild.getBuild().buildTimestamp.getMillis());
+    }
+
+    public static boolean releaseMode() {
+        return AgilefantBuild.getBuild().releaseMode;
     }
 
     public static String version() {
-        return HtmlUtils.htmlEscape(AgilefantVersion.VERSION);
+        return HtmlUtils.htmlEscape(AgilefantBuild.getBuild().version);
     }
 
 }

@@ -3,10 +3,7 @@
 <struct:htmlWrapper navi="portfolio">
 
 <jsp:attribute name="includeInHeader">
-<link rel="stylesheet" href="static/css/timeplot.css" type="text/css"/>
-<link rel="stylesheet" href="static/css/timeline/timeline.css" type="text/css"/>
-<link rel="stylesheet" href="static/css/timeline/ether.css" type="text/css"/>
-<link rel="stylesheet" href="static/css/timeline/event.css" type="text/css"/>
+<aef:css path="simile" minify="true" />
 
 <script type="text/javascript" src="static/js/excanvas.js"></script>
 <%@include file="inc/includeSimile.jsp" %>

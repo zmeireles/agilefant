@@ -45,7 +45,37 @@
     </attribute>
   </tag>
 
-	 
+	<tag>
+		<name>css</name>
+		<tag-class>fi.hut.soberit.agilefant.web.tag.CssTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>path</name>
+			<required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>minify</name>
+			<required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>javascript</name>
+		<tag-class>fi.hut.soberit.agilefant.web.tag.JavascriptTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>path</name>
+			<required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>minify</name>
+			<required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
  	 <tag-file>
 	    <name>datepicker</name>
 	    <path>/WEB-INF/tags/datepicker.tag</path>
@@ -201,4 +231,9 @@
 		<function-signature>String buildTimestamp()</function-signature>
 	</function>
 
+	<function>
+		<name>releaseMode</name>
+		<function-class>fi.hut.soberit.agilefant.web.function.AEFFunctions</function-class>
+		<function-signature>boolean releaseMode()</function-signature>
+	</function>
 </taglib>
