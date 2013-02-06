@@ -128,6 +128,7 @@ Bubble.prototype._bindEvents = function() {
   this.keypressListener = function(event) {
     if (event.keyCode === 27) {
       me.destroy();
+      return false;
     }
   };
   
