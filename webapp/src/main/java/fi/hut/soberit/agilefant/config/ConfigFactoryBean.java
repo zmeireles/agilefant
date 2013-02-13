@@ -4,6 +4,7 @@ import org.springframework.beans.factory.FactoryBean;
 
 import com.typesafe.config.Config;
 
+
 public class ConfigFactoryBean implements FactoryBean<Config> {
 
     private final Config object = BootstrapperListener.getConfig();

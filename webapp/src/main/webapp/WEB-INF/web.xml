@@ -4,9 +4,14 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee  http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
 	<display-name>AgilEfant</display-name>
+
+	<context-param>
+		<param-name>contextClass</param-name>
+		<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+  </context-param>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>WEB-INF/applicationContext*.xml</param-value>
+		<param-value>fi.hut.soberit.agilefant.config.MasterConfiguration</param-value>
 	</context-param>
 
   <!-- Jersey REST service initialization for remote package  -->
