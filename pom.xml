@@ -298,11 +298,6 @@
 				<groupId>org.easymock</groupId>
 				<artifactId>easymock</artifactId>
 				<version>${easymock.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.easymock</groupId>
-				<artifactId>easymockclassextension</artifactId>
-				<version>${easymock.version}</version>
 				<exclusions>
 					<!-- Prevent duplicate cglib + cglib-nodep dependencies -->
 					<exclusion>
@@ -310,6 +305,11 @@
 						<artifactId>cglib-nodep</artifactId>
 					</exclusion>
 				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.easymock</groupId>
+				<artifactId>easymockclassextension</artifactId>
+				<version>${easymock.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.freemarker</groupId>
