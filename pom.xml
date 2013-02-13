@@ -35,7 +35,7 @@
 		<javax.servlet.jsp.jstl.version>1.2.1</javax.servlet.jsp.jstl.version>
 		<jersey.version>1.17</jersey.version>
 		<jfreechart.version>1.0.14</jfreechart.version>
-		<joda.time.version>1.6</joda.time.version>
+		<joda.time.version>2.1</joda.time.version>
 		<joda.time.hibernate.version>1.1</joda.time.hibernate.version>
 		<joda.time.jsptags.version>1.1.1</joda.time.jsptags.version>
 		<junit.version>4.11</junit.version>
