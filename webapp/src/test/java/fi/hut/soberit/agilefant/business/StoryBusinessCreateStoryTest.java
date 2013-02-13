@@ -13,11 +13,8 @@ import java.util.Set;
 
 import org.easymock.Capture;
 import org.easymock.EasyMock;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.matchers.Each;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -31,12 +28,12 @@ import fi.hut.soberit.agilefant.db.history.StoryHistoryDAO;
 import fi.hut.soberit.agilefant.exception.ObjectNotFoundException;
 import fi.hut.soberit.agilefant.model.Backlog;
 import fi.hut.soberit.agilefant.model.Iteration;
+import fi.hut.soberit.agilefant.model.Label;
 import fi.hut.soberit.agilefant.model.Product;
 import fi.hut.soberit.agilefant.model.Project;
 import fi.hut.soberit.agilefant.model.Story;
 import fi.hut.soberit.agilefant.model.StoryState;
 import fi.hut.soberit.agilefant.model.Task;
-import fi.hut.soberit.agilefant.model.Label;
 import fi.hut.soberit.agilefant.model.User;
 import fi.hut.soberit.agilefant.test.Mock;
 import fi.hut.soberit.agilefant.test.MockContextLoader;
@@ -83,6 +80,8 @@ public class StoryBusinessCreateStoryTest extends MockedTestCase {
     private StoryHierarchyBusiness storyHierarchyBusiness;
     @Mock
     private LabelBusiness labelBusiness;
+    @Mock
+    private StoryTreeIntegrityBusiness storyTreeIntegrityBusiness;
     
     @Test
     @DirtiesContext

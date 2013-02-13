@@ -35,6 +35,7 @@ import fi.hut.soberit.agilefant.db.IterationDAO;
 import fi.hut.soberit.agilefant.db.IterationHistoryEntryDAO;
 import fi.hut.soberit.agilefant.db.history.BacklogHistoryDAO;
 import fi.hut.soberit.agilefant.db.history.StoryHistoryDAO;
+import fi.hut.soberit.agilefant.db.history.TaskHistoryDAO;
 import fi.hut.soberit.agilefant.exception.ObjectNotFoundException;
 import fi.hut.soberit.agilefant.model.AgilefantRevisionEntity;
 import fi.hut.soberit.agilefant.model.Assignment;
@@ -91,6 +92,10 @@ public class IterationBusinessTest  extends MockedTestCase {
     StoryHistoryDAO storyHistoryDAO;
     @Mock
     BacklogHistoryDAO backlogHistoryDAO;
+    @Mock
+    TeamBusiness teamBusiness;
+    @Mock
+    TaskHistoryDAO taskHistoryDAO;
     
     Iteration iteration;
     Project project;

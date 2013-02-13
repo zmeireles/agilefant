@@ -24,7 +24,7 @@ public class WhatsNextEntryDAOHibernate extends GenericDAOHibernate<WhatsNextEnt
 WhatsNextEntryDAO {
 
     public WhatsNextEntryDAOHibernate() {
-        super(WhatsNextEntryDAO.class);
+        super(WhatsNextEntry.class);
     }
 
     private Criteria filterDoneTasks(Criteria crit) {

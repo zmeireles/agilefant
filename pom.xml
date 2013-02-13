@@ -38,14 +38,14 @@
 		<joda.time.version>1.6</joda.time.version>
 		<joda.time.hibernate.version>1.1</joda.time.hibernate.version>
 		<joda.time.jsptags.version>1.1.1</joda.time.jsptags.version>
-		<junit.version>4.4</junit.version>
+		<junit.version>4.11</junit.version>
 		<log4j.version>1.2.14</log4j.version>
 		<mysql.version>5.1.20</mysql.version>
 		<oro.version>2.0.8</oro.version>
 		<poi.version>3.6</poi.version>
 		<slf4j.version>1.5.8</slf4j.version>
-		<spring.version>2.5.6.SEC03</spring.version>
-		<spring.security.version>2.0.3</spring.security.version>
+		<spring.version>3.2.1.RELEASE</spring.version>
+		<spring.security.version>3.1.3.RELEASE</spring.security.version>
 		<stringtemplate.version>3.0</stringtemplate.version>
 		<struts.version>2.1.8.1</struts.version>
 
@@ -425,17 +425,10 @@
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-core</artifactId>
 				<version>${spring.security.version}</version>
-				<exclusions>
-					<!-- No longer exists in Spring >= 2.5 -->
-					<exclusion>
-						<groupId>org.springframework</groupId>
-						<artifactId>spring-support</artifactId>
-					</exclusion>
-				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-core-tiger</artifactId>
+				<artifactId>spring-security-config</artifactId>
 				<version>${spring.security.version}</version>
 			</dependency>
 			<dependency>

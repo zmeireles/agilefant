@@ -1,8 +1,12 @@
 package fi.hut.soberit.agilefant.security;
 
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.GrantedAuthorityImpl;
-import org.springframework.security.userdetails.UserDetails;
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.google.common.collect.ImmutableList;
 
 import fi.hut.soberit.agilefant.model.User;
 
@@ -39,13 +43,13 @@ public class AgilefantUserDetails implements UserDetails {
         enabled = user.isEnabled();
         admin = user.isAdmin();
     }
-
-    public GrantedAuthority[] getAuthorities() {
+    
+    public Collection<? extends GrantedAuthority> getAuthorities() {
         // I have no idea what's the proper thing to put here
         if(admin){
-            return new GrantedAuthority[] { new GrantedAuthorityImpl("USER"), new GrantedAuthorityImpl("ADMIN") };
+            return ImmutableList.of(new SimpleGrantedAuthority("USER"), new SimpleGrantedAuthority("ADMIN"));
         } else {
-            return new GrantedAuthority[] { new GrantedAuthorityImpl("USER") };
+            return ImmutableList.of(new SimpleGrantedAuthority("USER"));
         }
     }
 

@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import fi.hut.soberit.agilefant.business.StoryBusiness;
+import fi.hut.soberit.agilefant.business.TaskBusiness;
 import fi.hut.soberit.agilefant.model.Iteration;
 import fi.hut.soberit.agilefant.model.Product;
 import fi.hut.soberit.agilefant.model.Project;
@@ -28,6 +29,8 @@ public class ResolveSearchResultActionTest extends MockedTestCase {
     private ResolveSearchResultAction resolveSearchResultAction;
     @Mock
     private StoryBusiness storyBusiness;
+    @Mock
+    private TaskBusiness taskBusiness;
     
     @Test
     @DirtiesContext

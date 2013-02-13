@@ -7,10 +7,10 @@ import java.util.List;
 import org.easymock.EasyMock;
 import org.junit.After;
 import org.junit.Assert;
-import org.springframework.security.Authentication;
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import fi.hut.soberit.agilefant.model.User;
 import fi.hut.soberit.agilefant.security.AgilefantUserDetails;
@@ -99,7 +99,7 @@ public class MockedTestCase {
                         return null;
                     }
 
-                    public GrantedAuthority[] getAuthorities() {
+                    public List<? extends GrantedAuthority> getAuthorities() {
                         return null;
                     }
                 };

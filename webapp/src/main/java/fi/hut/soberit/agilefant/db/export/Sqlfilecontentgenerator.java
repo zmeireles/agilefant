@@ -3,6 +3,7 @@ package fi.hut.soberit.agilefant.db.export;
 import fi.hut.soberit.agilefant.util.DbConnectionInfo;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Driver;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.sql.DataSource;
@@ -16,9 +17,9 @@ public class Sqlfilecontentgenerator {
     private static DataSource createDataSource() {
         DbConnectionInfo dbInfo = new DbConnectionInfo();
 
-        Class<?> driverClass;
+        Class<? extends Driver> driverClass;
         try {
-            driverClass = Class.forName(dbInfo.getDriver());
+            driverClass = Class.forName(dbInfo.getDriver()).asSubclass(Driver.class);
         } catch (Exception e) {
             throw new RuntimeException("Failed to initialize driver class", e);
         }

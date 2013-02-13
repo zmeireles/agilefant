@@ -29,16 +29,10 @@
   </servlet-mapping>
 
 	<filter>
-		<filter-name>filterChainProxy</filter-name>
+		<filter-name>springSecurity</filter-name>
 		<filter-class>
-			org.springframework.security.util.FilterToBeanProxy
+			org.springframework.web.filter.DelegatingFilterProxy
 		</filter-class>
-		<init-param>
-			<param-name>targetClass</param-name>
-			<param-value>
-				org.springframework.security.util.FilterChainProxy
-			</param-value>
-		</init-param>
 	</filter>
 	
 	<filter>
@@ -88,7 +82,7 @@
   </filter-mapping>
   
   <filter-mapping>
-    <filter-name>filterChainProxy</filter-name>
+    <filter-name>springSecurity</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
   

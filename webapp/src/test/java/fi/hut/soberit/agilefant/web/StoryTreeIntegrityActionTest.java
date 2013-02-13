@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.opensymphony.xwork2.Action;
 
 import fi.hut.soberit.agilefant.business.BacklogBusiness;
+import fi.hut.soberit.agilefant.business.IterationBusiness;
 import fi.hut.soberit.agilefant.business.StoryBusiness;
 import fi.hut.soberit.agilefant.business.StoryTreeIntegrityBusiness;
 import fi.hut.soberit.agilefant.model.Backlog;
@@ -46,6 +47,9 @@ public class StoryTreeIntegrityActionTest extends MockedTestCase {
     @Mock
     BacklogBusiness backlogBusiness;
     
+    @Mock
+    IterationBusiness iterationBusiness;
+
     @Test
     @DirtiesContext
     public void testCheckChangeBacklog() {

@@ -54,6 +54,8 @@ public class ProductBusinessTest extends MockedTestCase {
     private HourEntryBusiness hourEntryBusiness;
     @Mock
     private TransferObjectBusiness transferObjectBusiness;
+    @Mock
+    private TeamBusiness teamBusiness;
 
     @Test
     @DirtiesContext

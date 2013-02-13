@@ -32,7 +32,7 @@ import fi.hut.soberit.agilefant.db.GenericDAO;
  */
 public abstract class GenericDAOHibernate<T> implements GenericDAO<T> {
 
-    private Class<?> clazz;
+    private Class<T> clazz;
 
     protected SessionFactory sessionFactory;
 
@@ -51,18 +51,17 @@ public abstract class GenericDAOHibernate<T> implements GenericDAO<T> {
         this.hibernateTemplate = new HibernateTemplate(sessionFactory);
     }
 
-    protected GenericDAOHibernate(Class<?> clazz) {
+    protected GenericDAOHibernate(Class<T> clazz) {
         this.clazz = clazz;
     }
 
-    protected Class<?> getPersistentClass() {
+    protected Class<T> getPersistentClass() {
         return clazz;
     }
 
     /** {@inheritDoc} */
-    @SuppressWarnings("unchecked")
     public T get(int id) {
-        return (T) hibernateTemplate.get(this.getPersistentClass(), id);
+        return hibernateTemplate.get(this.getPersistentClass(), id);
     }
 
     /** {@inheritDoc} */
@@ -73,8 +72,7 @@ public abstract class GenericDAOHibernate<T> implements GenericDAO<T> {
     }
     
     /** {@inheritDoc} */
-    @SuppressWarnings("unchecked")
-    public Collection<T> getAll() {
+    public List<T> getAll() {
         return hibernateTemplate.loadAll(getPersistentClass());
     }
     

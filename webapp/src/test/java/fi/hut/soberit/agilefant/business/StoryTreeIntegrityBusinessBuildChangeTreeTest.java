@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import fi.hut.soberit.agilefant.business.impl.StoryTreeIntegrityBusinessImpl;
 import fi.hut.soberit.agilefant.model.Story;
+import fi.hut.soberit.agilefant.test.Mock;
 import fi.hut.soberit.agilefant.test.MockContextLoader;
 import fi.hut.soberit.agilefant.test.MockedTestCase;
 import fi.hut.soberit.agilefant.test.TestedBean;
@@ -26,6 +27,9 @@ public class StoryTreeIntegrityBusinessBuildChangeTreeTest extends MockedTestCas
 
     @TestedBean
     private StoryTreeIntegrityBusinessImpl testable;
+    
+    @Mock
+    private BacklogBusiness backlogBusiness;
     
     @Test
     @DirtiesContext

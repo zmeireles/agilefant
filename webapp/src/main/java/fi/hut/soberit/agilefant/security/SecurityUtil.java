@@ -8,9 +8,9 @@ import javax.naming.NamingException;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.security.Authentication;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import fi.hut.soberit.agilefant.db.hibernate.UserDAOHibernate;
 import fi.hut.soberit.agilefant.model.User;

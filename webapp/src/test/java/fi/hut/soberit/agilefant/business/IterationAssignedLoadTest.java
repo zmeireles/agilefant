@@ -17,6 +17,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import fi.hut.soberit.agilefant.business.impl.IterationBusinessImpl;
 import fi.hut.soberit.agilefant.db.IterationDAO;
 import fi.hut.soberit.agilefant.db.IterationHistoryEntryDAO;
+import fi.hut.soberit.agilefant.db.history.BacklogHistoryDAO;
+import fi.hut.soberit.agilefant.db.history.StoryHistoryDAO;
+import fi.hut.soberit.agilefant.db.history.TaskHistoryDAO;
 import fi.hut.soberit.agilefant.model.Assignment;
 import fi.hut.soberit.agilefant.model.ExactEstimate;
 import fi.hut.soberit.agilefant.model.Iteration;
@@ -41,6 +44,8 @@ public class IterationAssignedLoadTest extends MockedTestCase {
     private IterationBusinessImpl iterationBusiness;
 
     @Mock(strict = true)
+    private TeamBusiness teamBusiness;
+    @Mock(strict = true)
     private IterationDAO iterationDAO;
     @Mock(strict = true)
     private TransferObjectBusiness transferObjectBusiness;
@@ -64,6 +69,12 @@ public class IterationAssignedLoadTest extends MockedTestCase {
     private StoryRankBusiness storyRankBusiness;
     @Mock(strict=true)
     private TaskBusiness taskBusiness;
+    @Mock(strict=true)
+    private BacklogHistoryDAO backlogHistoryDAO;
+    @Mock(strict=true)
+    private StoryHistoryDAO storyHistoryDAO;
+    @Mock(strict=true)
+    private TaskHistoryDAO taskHistoryDAO;
 
     private User user1;
     private User user2;

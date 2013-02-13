@@ -58,6 +58,8 @@ public class BacklogBusinessTest extends MockedTestCase {
     private StoryBusiness storyBusiness;
     @Mock
     private BacklogHistoryDAO backlogHistoryDAO;
+    @Mock
+    private AssignmentBusiness assignmentBusiness;
     
     @Test
     @DirtiesContext
