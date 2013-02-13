@@ -116,9 +116,7 @@
   </listener>
 
   <listener>
-		<listener-class>
-			org.springframework.web.context.ContextLoaderListener
-		</listener-class>
+		<listener-class>fi.hut.soberit.agilefant.config.BootstrapperListener</listener-class>
 	</listener>
 	
 	<welcome-file-list>
