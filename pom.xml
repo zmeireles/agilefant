@@ -9,7 +9,7 @@
 	<name>Agilefant :: Parent POM</name>
 
 	<properties>
-		<aspectj.version>1.6.12</aspectj.version>
+		<aspectj.version>1.7.1</aspectj.version>
 		<commons.beanutils.version>1.6</commons.beanutils.version>
 		<commons.codec.version>1.4</commons.codec.version>
 		<commons.collections.version>3.2.1</commons.collections.version>
