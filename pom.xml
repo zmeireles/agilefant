@@ -12,7 +12,7 @@
 		<aspectj.version>1.6.12</aspectj.version>
 		<commons.beanutils.version>1.6</commons.beanutils.version>
 		<commons.codec.version>1.4</commons.codec.version>
-		<commons.collections.version>3.1</commons.collections.version>
+		<commons.collections.version>3.2.1</commons.collections.version>
 		<commons.dbcp.version>1.2.1</commons.dbcp.version>
 		<commons.io.version>2.4</commons.io.version>
 		<commons.lang.version>2.3</commons.lang.version>
