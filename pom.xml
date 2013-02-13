@@ -51,7 +51,7 @@
 		<typesafe.config.version>1.0.0</typesafe.config.version>
 
 		<maven.compiler.version>2.5</maven.compiler.version>
-		<maven.war.version>2.2</maven.war.version>
+		<maven.war.version>2.3</maven.war.version>
 
 		<maven.git-commit-id.version>2.1.4</maven.git-commit-id.version>
 		<maven.jetty.version>8.1.8.v20121106</maven.jetty.version>
