@@ -26,3 +26,23 @@
     </td>
   </tr>
 </table>
+
+<table>
+  <tr>
+    <td style="font-weight: bold;" colspan="2">
+      Branch effort
+    </td>
+  </tr>
+
+  <c:if test="${settings.branchMetricsType == 'both' || settings.branchMetricsType == 'leaf' || settings.branchMetricsType == 'estimate'}">
+  <tr>
+    <td>Total spent <span title="Total spent effort">${branchMetrics.spentEffort}</span>h  <!--,  <span title="Effort left ">${branchMetrics.effortLeft}</span> hours effort left--> </td>
+  </tr>
+  </c:if>
+
+  <tr>
+    <td colspan="2">
+      
+    </td>
+  </tr>
+</table>

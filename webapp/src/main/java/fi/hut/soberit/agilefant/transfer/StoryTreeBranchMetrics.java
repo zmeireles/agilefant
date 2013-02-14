@@ -5,9 +5,11 @@ public class StoryTreeBranchMetrics {
     public long leafPoints = 0;
     public long estimatedDonePoints = 0;
     public long estimatedPoints = 0;
-    
-    
-    public long getDoneLeafPoints() {
+    public long spentEffort = 0;
+    public long effortLeft = 0;
+
+
+	public long getDoneLeafPoints() {
         return doneLeafPoints;
     }
     public long getLeafPoints() {
@@ -19,4 +21,10 @@ public class StoryTreeBranchMetrics {
     public long getEstimatedPoints() {
         return estimatedPoints;
     }
+    public long getSpentEffort() {
+		return spentEffort;
+	}
+	public long getEffortLeft() {
+		return effortLeft;
+	}
 }

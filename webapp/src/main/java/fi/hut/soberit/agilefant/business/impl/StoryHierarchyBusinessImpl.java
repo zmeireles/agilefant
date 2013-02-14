@@ -23,7 +23,10 @@ import fi.hut.soberit.agilefant.model.Backlog;
 import fi.hut.soberit.agilefant.model.Product;
 import fi.hut.soberit.agilefant.model.Project;
 import fi.hut.soberit.agilefant.model.Story;
+import fi.hut.soberit.agilefant.model.StoryHourEntry;
 import fi.hut.soberit.agilefant.model.StoryState;
+import fi.hut.soberit.agilefant.model.Task;
+import fi.hut.soberit.agilefant.model.TaskHourEntry;
 import fi.hut.soberit.agilefant.transfer.StoryTO;
 import fi.hut.soberit.agilefant.transfer.StoryTreeBranchMetrics;
 import fi.hut.soberit.agilefant.util.StoryFilters;
@@ -316,6 +319,28 @@ public class StoryHierarchyBusinessImpl implements StoryHierarchyBusiness {
         }
         return story.getStoryPoints();
     }
+    
+    private long storyHoursAsLong(Story story) {
+        double minutes = 0;
+        for (StoryHourEntry entry: story.getHourEntries()) {
+        	minutes += entry.getMinutesSpent();
+        }
+        for (Task task: story.getTasks()) {
+        	for (TaskHourEntry entry: task.getHourEntries()) {
+        		minutes += entry.getMinutesSpent();
+        	}
+        }
+    	return Math.round(minutes / 60.0);
+    }
+    
+    private long storyEffortLeftAsLong(Story story) {
+        double effortLeft = 0;
+        for (Task task: story.getTasks()) {
+        	effortLeft += task.getEffortLeft().doubleValue();
+        }
+    	return Math.round(effortLeft / 60.0);
+    }
+    
     public StoryTreeBranchMetrics calculateStoryTreeMetrics(Story story) {
         StoryTreeBranchMetrics metrics = new StoryTreeBranchMetrics();
         
@@ -330,14 +355,19 @@ public class StoryHierarchyBusinessImpl implements StoryHierarchyBusiness {
             }
         }
         
+        metrics.spentEffort = storyHoursAsLong(story);
+        metrics.effortLeft = storyEffortLeftAsLong(story);
+        
         for(Story child : story.getChildren()) {
+            StoryTreeBranchMetrics childMetrics = this.calculateStoryTreeMetrics(child);
             if(child.getState() != deferred) {
-                StoryTreeBranchMetrics childMetrics = this.calculateStoryTreeMetrics(child);
                 metrics.estimatedDonePoints += childMetrics.estimatedDonePoints;
                 metrics.estimatedPoints += childMetrics.estimatedPoints;
                 metrics.leafPoints += childMetrics.leafPoints;
                 metrics.doneLeafPoints += childMetrics.doneLeafPoints;
             }
+            metrics.spentEffort += childMetrics.spentEffort;
+            metrics.effortLeft += childMetrics.effortLeft;
         }
         
         if(storyPointsAsLong(story) > metrics.estimatedPoints) {
