@@ -33,7 +33,7 @@ public class DaoConfiguration {
         bean.setDataSource(dataSource);
 
         Properties props = new Properties();
-        Config hibernateConfig = config.getConfig("agilefant.hibernate");
+        Config hibernateConfig = config.getConfig("agilefant.hibernate").atPath("hibernate");
 
         for (Entry<String, ConfigValue> entry : hibernateConfig.entrySet()) {
             props.put(entry.getKey(), hibernateConfig.getString(entry.getKey()));
