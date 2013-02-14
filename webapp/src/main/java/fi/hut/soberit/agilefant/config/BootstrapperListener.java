@@ -1,5 +1,7 @@
 package fi.hut.soberit.agilefant.config;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Enumeration;
 import java.util.Properties;
 
@@ -65,22 +67,38 @@ public class BootstrapperListener implements ServletContextListener {
      * <ul>
      * <li>Servlet context init parameters
      * <li>Default overrides (System properties)
-     * <li>Main config from classpath (agilefant.conf)
-     * <li>Default config from classpath (agilefant/agilefant-default.conf)
+     * <li>Config from classpath (agilefant.conf)
+     * <li>Default config from WAR (/WEB-INF/agilefant.conf)
      * 
      * @param ctx
      *            servlet context
      * @return config object
      */
     private Config resolveConfig(ServletContext ctx) {
-        Config defaults = ConfigFactory.parseResources("agilefant/agilefant-default.conf");
-        Config mainConfig = ConfigFactory.parseResources("agilefant.conf");
-        Config overrides = ConfigFactory.defaultOverrides();
         Config servletParams = readServletParams(ctx);
+        Config overrides = ConfigFactory.defaultOverrides();
+        Config classpathConfig = ConfigFactory.parseResources("agilefant.conf");
+        Config warConfig = readWarConfig(ctx);
 
-        Config config = servletParams.withFallback(overrides).withFallback(mainConfig).withFallback(defaults).resolve();
+        Config config = servletParams.withFallback(overrides).withFallback(classpathConfig).withFallback(warConfig).resolve();
 
         return config;
+    }
+
+    /**
+     * Parses an immutable config object from configuration file in the WAR.
+     * 
+     * @param ctx
+     *            servlet context
+     * @return config object
+     */
+    private Config readWarConfig(ServletContext ctx) {
+        try {
+            URL url = Preconditions.checkNotNull(ctx.getResource("/WEB-INF/agilefant.conf"), "WAR config could not be found");
+            return ConfigFactory.parseURL(url);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Failed to parse config from WAR", e);
+        }
     }
 
     /**
