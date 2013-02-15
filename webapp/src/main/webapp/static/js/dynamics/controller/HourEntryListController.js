@@ -37,6 +37,8 @@ HourEntryListController.prototype.paintHourEntryTable = function() {
   //need to extend existing table configuration as that's the only way to get same with to columns
   var origConf = this.hourEntryTableConfig.getColumns();
   
+  var elEditor = null;
+  
   this.addEntryConfig = [];
   this.addEntryConfig[HourEntryController.columnIndices.date] = new DynamicTableColumnConfiguration(origConf[0].options);
   this.addEntryConfig[HourEntryController.columnIndices.user] = new DynamicTableColumnConfiguration(origConf[1].options);
@@ -48,6 +50,7 @@ HourEntryListController.prototype.paintHourEntryTable = function() {
   this.addEntryConfig[HourEntryController.columnIndices.user].options.edit = {
       editor : "Autocomplete",
       dialogTitle: "Select users",
+      dialogClose: function() { elEditor.select(); },
       dataType: "usersAndTeams",
       required: true,
       set: HourEntryModel.prototype.setUsers
@@ -63,7 +66,7 @@ HourEntryListController.prototype.paintHourEntryTable = function() {
   this.hourEntryTableView.render(); 
   this.logEffortController.openRowEdit();
   
-  var elEditor = this.logEffortRow.getCellByName("effortSpent").getEditor();
+  elEditor = this.logEffortRow.getCellByName("effortSpent").getEditor();
 
  jQuery.getJSON(
       "ajax/retrieveLatestHourEntryDelta.action",
