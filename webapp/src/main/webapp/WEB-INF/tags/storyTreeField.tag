@@ -37,7 +37,16 @@
   </c:choose>
 </c:when>
 <c:when test="${type == 'name'}">
-  <span class="storyTreeName"><c:out value="${story.name}" /></span>
+  <c:choose>
+  <c:when test="${displayLinksToStories == true}">
+    <a href="qrq.action?q=story:${story.id}">
+      <span class="storyTreeName"><c:out value="${story.name}" /></span>
+    </a>
+  </c:when>
+  <c:otherwise>
+    <span class="storyTreeName"><c:out value="${story.name}" /></span>
+   </c:otherwise>
+  </c:choose>
 </c:when>
 <c:when test="${type == 'backlog'}">
   <span style="font-size:80%; color: #666;" title="Story's backlog">
