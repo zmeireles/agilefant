@@ -183,6 +183,36 @@ public class Story implements TimesheetLoggable, LabelContainer, NamedObject, Ta
         this.storyPoints = storyPoints;
     }
     
+    private Integer retrieveChildPoints(Story story) {
+    	Integer childPoints = 0;
+    	for (Story child : story.getChildren()) {
+    		if (child.getState() != StoryState.DEFERRED && child.getStoryPoints() != null) {
+    			childPoints += child.getStoryPoints();
+    		}
+    		childPoints += retrieveChildPoints(child);
+    	}
+    	return childPoints;
+	}
+    
+    @JSON
+    @XmlAttribute
+    public String retrieveHighestPoints() {
+    	Integer storyPoints = 0;
+    	if (getStoryPoints() != null) {
+    		storyPoints = getStoryPoints();
+    	}
+    	Integer childPoints = retrieveChildPoints(this);
+    	if (childPoints > storyPoints) {
+    		return "<span class='treeChildStoryPoints treeStoryPoints' title='Story child points'>" + childPoints + "</span>";
+    	} else {
+    		if (storyPoints == 0) {
+    			return "<span class='treeStoryPoints' title='Story points'> - </span>";
+    		} else {
+    			return "<span class='treeStoryPoints' title='Story points'>" + storyPoints + "</span>";
+    		}
+    	}
+    }
+    
     @JSON
     @XmlAttribute
     public Integer getStoryValue() {

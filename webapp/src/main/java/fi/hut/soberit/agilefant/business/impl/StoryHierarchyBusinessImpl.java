@@ -336,7 +336,9 @@ public class StoryHierarchyBusinessImpl implements StoryHierarchyBusiness {
     private long storyEffortLeftAsLong(Story story) {
         double effortLeft = 0;
         for (Task task: story.getTasks()) {
-        	effortLeft += task.getEffortLeft().doubleValue();
+        	if (task.getEffortLeft() != null) {
+                effortLeft += task.getEffortLeft().doubleValue();
+        	}
         }
     	return Math.round(effortLeft / 60.0);
     }

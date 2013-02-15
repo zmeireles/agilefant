@@ -107,6 +107,10 @@ div.hierarchyContainer {
   height: 14px !important;
   padding: 0 2px;
 }
+
+.treeChildStoryPoints {
+	background: #ffeebb;
+}
 /**
  * LABEL ICONS
  */
