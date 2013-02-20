@@ -21,10 +21,6 @@
 			<outputDirectory>/</outputDirectory>
 		</file>
 		<file>
-			<source>doc/sql/insert-users.sql</source>
-			<outputDirectory>/</outputDirectory>
-		</file>
-		<file>
 			<source>doc/Release_notes.txt</source>
 			<outputDirectory>/</outputDirectory>
 		</file>
@@ -45,6 +41,10 @@
 		<fileSet>
 			<directory>doc/sql/upgrader</directory>
 			<outputDirectory>/upgrade</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<directory>doc/sql/exampledb</directory>
+			<outputDirectory>/exampledb</outputDirectory>
 		</fileSet>
 	</fileSets>
 </assembly>
