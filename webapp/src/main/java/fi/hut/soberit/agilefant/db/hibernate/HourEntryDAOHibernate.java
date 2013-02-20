@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
@@ -27,8 +26,6 @@ import fi.hut.soberit.agilefant.model.User;
 @Repository("hourEntryDAO")
 public class HourEntryDAOHibernate extends GenericDAOHibernate<HourEntry>
         implements HourEntryDAO {
-
-    private final Logger log = Logger.getLogger(this.getClass());
 
     public HourEntryDAOHibernate() {
         super(HourEntry.class);

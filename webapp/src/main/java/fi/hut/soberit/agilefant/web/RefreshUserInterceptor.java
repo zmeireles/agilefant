@@ -7,9 +7,10 @@ import java.io.Writer;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -33,7 +34,7 @@ public class RefreshUserInterceptor implements Interceptor {
 
     private static final long serialVersionUID = 1668784370092320107L;
 
-    private Logger log = Logger.getLogger(RefreshUserInterceptor.class);
+    private Logger log = LoggerFactory.getLogger(RefreshUserInterceptor.class);
     
     private static boolean isUnderReadOnlyAction = false;
 

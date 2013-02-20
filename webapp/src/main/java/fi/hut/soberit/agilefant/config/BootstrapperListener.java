@@ -9,7 +9,11 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.web.context.ContextLoaderListener;
+
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.joran.JoranConfigurator;
 
 import com.google.common.base.Preconditions;
 import com.typesafe.config.Config;
@@ -19,10 +23,12 @@ import com.typesafe.config.ConfigFactory;
  * Resolves configuration for the application, and bootstraps Spring.
  * 
  * <p>
- * It's possible to create the configuration in Spring context instead of using "magical" thread locals, but that
- * solution becomes problematic if we need access to the config in a class initialized by reflection. Many frameworks
- * (e.g. Hibernate) initialize extension classes directly without any support for injection, so the config must be
- * available through other means. Static fields are also an option, but a thread local is a much cleaner solution as
+ * It's possible to create the configuration in Spring context instead of using
+ * "magical" thread locals, but that solution becomes problematic if we need
+ * access to the config in a class initialized by reflection. Many frameworks
+ * (e.g. Hibernate) initialize extension classes directly without any support
+ * for injection, so the config must be available through other means. Static
+ * fields are also an option, but a thread local is a much cleaner solution as
  * long as the thread local is cleaned immediately after initialization.
  * 
  */
@@ -34,9 +40,11 @@ public class BootstrapperListener implements ServletContextListener {
     private static final ThreadLocal<Config> CONFIG = new ThreadLocal<Config>();
 
     /**
-     * Returns the current config from the thread local, which is only available at initialization time.
+     * Returns the current config from the thread local, which is only available
+     * at initialization time.
      * 
-     * <strong>This method exists only to pass Spring the config object without hassle</strong>
+     * <strong>This method exists only to pass Spring the config object without
+     * hassle</strong>
      * 
      * @throws NullPointerException
      *             if thread local is not available.
@@ -50,6 +58,8 @@ public class BootstrapperListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+        configureLogging(sce.getServletContext());
+
         Config config = resolveConfig(sce.getServletContext());
 
         try {
@@ -58,6 +68,43 @@ public class BootstrapperListener implements ServletContextListener {
         } finally {
             CONFIG.remove();
         }
+    }
+
+    private void configureLogging(ServletContext ctx) {
+        try {
+            String agilefantLogs = null;
+            if (ctx.getInitParameter("agilefant.logs") != null)
+                agilefantLogs = ctx.getInitParameter("agilefant.logs");
+            else if (System.getProperty("catalina.home") != null)
+                agilefantLogs = System.getProperty("catalina.home") + "/logs";
+
+            URL location = Preconditions.checkNotNull(findLoggingConfig(agilefantLogs != null, this.getClass().getClassLoader()),
+                    "Logging configuration could not be found");
+            ctx.log("Configuring logging from " + location);
+            LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+            JoranConfigurator joran = new JoranConfigurator();
+            joran.setContext(loggerContext);
+            loggerContext.reset();
+
+            if (agilefantLogs != null)
+                loggerContext.putProperty("agilefant.logs", agilefantLogs);
+
+            joran.doConfigure(location);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to configure logging", e);
+        }
+
+    }
+
+    private URL findLoggingConfig(boolean file, ClassLoader cl) {
+        URL config = cl.getResource("agilefant-logback.xml");
+        if (config != null)
+            return config;
+
+        if (file)
+            return cl.getResource("agilefant/logback-file.xml");
+        else
+            return cl.getResource("agilefant/logback-stdout.xml");
     }
 
     /**

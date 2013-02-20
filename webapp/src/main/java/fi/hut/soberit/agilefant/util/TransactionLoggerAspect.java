@@ -5,17 +5,18 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 
 @Aspect
 public class TransactionLoggerAspect {
 
-    private final Logger log = Logger.getLogger(this.getClass());
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private final Map<TransactionStatus, WeakReference<TransactionDefinition>> txCache = Collections
             .synchronizedMap(new WeakHashMap<TransactionStatus, WeakReference<TransactionDefinition>>());
