@@ -38,7 +38,16 @@ public class DaoConfiguration {
     }
 
     @Bean
+    public DatabaseInitializer databaseInitializer() {
+        flyway();
+        return new DatabaseInitializer();
+    }
+
+    @Bean
     public AnnotationSessionFactoryBean sessionFactory() throws Exception {
+        flyway();
+        databaseInitializer();
+
         AnnotationSessionFactoryBean bean = new AnnotationSessionFactoryBean();
         bean.setConfigLocation(resourceLoader.getResource("/WEB-INF/hibernate.cfg.xml"));
         bean.setDataSource(dataSource);
