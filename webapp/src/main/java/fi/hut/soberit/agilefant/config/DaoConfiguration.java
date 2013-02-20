@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
 
+import com.googlecode.flyway.core.Flyway;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigValue;
 
@@ -25,6 +26,16 @@ public class DaoConfiguration {
     private ResourceLoader resourceLoader;
     @Autowired
     private DataSource dataSource;
+
+    @Bean
+    public Flyway flyway() {
+        Flyway bean = new Flyway();
+        bean.setDataSource(dataSource);
+        bean.setInitOnMigrate(true);
+        bean.setLocations("agilefant/flyway");
+        bean.migrate();
+        return bean;
+    }
 
     @Bean
     public AnnotationSessionFactoryBean sessionFactory() throws Exception {

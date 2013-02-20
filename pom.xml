@@ -21,6 +21,7 @@
 		<easymock.version>3.1</easymock.version>
 		<ehcache.version>2.6.3</ehcache.version>
 		<ehcache.web.version>2.0.4</ehcache.web.version>
+		<flyway.version>2.0.3</flyway.version>
 		<freemarker.version>2.3.19</freemarker.version>
 		<glassfish.jstl.version>1.2</glassfish.jstl.version>
 		<guava.version>13.0.1</guava.version>
@@ -66,6 +67,11 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>com.googlecode.flyway</groupId>
+				<artifactId>flyway-core</artifactId>
+				<version>${flyway.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>com.h2database</groupId>
 				<artifactId>h2</artifactId>

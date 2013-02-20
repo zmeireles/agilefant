@@ -25,11 +25,6 @@
 			<outputDirectory>/</outputDirectory>
 		</file>
 		<file>
-			<!-- A horrible hack, but there are no known simpler alternatives for now -->
-			<source>../webapp/target/create-db.ddl</source>
-			<outputDirectory>/</outputDirectory>
-		</file>
-		<file>
 			<source>doc/Release_notes.txt</source>
 			<outputDirectory>/</outputDirectory>
 		</file>

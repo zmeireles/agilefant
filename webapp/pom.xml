@@ -30,6 +30,10 @@
 			<artifactId>commons-validator</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.googlecode.flyway</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 		</dependency>
@@ -261,28 +265,6 @@
 			<id>release</id>
 			<build>
 				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-antrun-plugin</artifactId>
-						<version>1.7</version>
-						<executions>
-							<execution>
-								<phase>compile</phase>
-								<configuration>
-									<target>
-										<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.EnversHibernateToolTask" classpathref="maven.compile.classpath" />
-										<hibernatetool destdir="${project.build.directory}">
-											<annotationconfiguration propertyfile="${basedir}/legacy/database-mysql5.properties" configurationfile="${basedir}/legacy/hibernate.cfg.xml" />
-											<hbm2ddl export="false" outputfilename="/create-db.ddl" />
-										</hibernatetool>
-									</target>
-								</configuration>
-								<goals>
-									<goal>run</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
 					<plugin>
 						<groupId>pl.project13.maven</groupId>
 						<artifactId>git-commit-id-plugin</artifactId>
