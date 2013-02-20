@@ -188,12 +188,12 @@ CreateDialog.Product.prototype.initFormConfig = function() {
   
 	var warningFunction = function() {
   		return "Warning! You will only be able to see the product if you belong to a team that has access to it. You can modify access rights later from the Administration tab.";
-  	}
+  	};
     config.addColumnConfiguration(CreateDialog.Product.columnIndices.warning, {
         title: "",
     	cssClass: "warning-text",
         editable: false,
-        get: warningFunction,
+        get: warningFunction
       });
   
   this.formConfig = config;
@@ -351,12 +351,12 @@ CreateDialog.Iteration.prototype.initFormConfig = function() {
   
 	var warningFunction = function() {
   		return "Warning! If you create a standalone iteration, you will only be able to see it if you belong to a team that has access to it. You can modify access rights later from the Administration tab.";
-  	}
+  	};
     config.addColumnConfiguration(CreateDialog.Iteration.columnIndices.warning, {
         title: "",
     	cssClass: "warning-text",
         editable: false,
-        get: warningFunction,
+        get: warningFunction
       });
   
   this.formConfig = config;
@@ -388,7 +388,7 @@ CreateDialog.Story.columnIndices = {
   storyPoints:4,
   responsibles:5,
   labels:     6,
-  description:7,
+  description:7
 };
 CreateDialog.Story.prototype.initFormConfig = function() {
   var config = new DynamicTableConfiguration({
@@ -715,7 +715,7 @@ CreateDialog.Team.prototype.initFormConfig = function() {
   if (currentUser.getAdmin()) {
 	  var falseFunction = function() {
 		  return "false";
-	  }
+	  };
   	config.addColumnConfiguration(CreateDialog.Team.columnIndices.products, {
     	title: "Grant the team access to all products?",
     	get: falseFunction,

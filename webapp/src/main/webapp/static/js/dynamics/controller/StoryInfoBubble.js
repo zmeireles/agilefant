@@ -266,7 +266,7 @@ StoryInfoBubble.prototype._createConfig = function() {
   config.addColumnConfiguration(2, {
     title: "Reference ID",
     get: StoryModel.prototype.getId,
-    decorator: DynamicsDecorators.linkToWorkItem ,
+    decorator: DynamicsDecorators.linkToWorkItem
   });
   config.addColumnConfiguration(3, {
     title : "State",
