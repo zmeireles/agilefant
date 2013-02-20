@@ -199,6 +199,8 @@ public class Story implements TimesheetLoggable, LabelContainer, NamedObject, Ta
     		return "<span class='treeChildStoryPoints treeStoryPoints' title='Story child points'>" + metrics.getEstimatedDonePoints() + " / " + estimatedPoints + "</span>";
     	} else if (storyPoints == 0) {
     		return "<span class='treeStoryPoints' title='Story points'> - </span>";
+    	} else if (this.hasChildren() && estimatedPoints > 0) {
+    		return "<span class='treeStoryPoints' title='Story points'>" + metrics.getEstimatedDonePoints() + " / " + storyPoints + "</span>";
     	} else {
     		return "<span class='treeStoryPoints' title='Story points'>" + storyPoints + "</span>";
     	}
