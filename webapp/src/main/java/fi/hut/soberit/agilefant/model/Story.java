@@ -33,6 +33,8 @@ import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 
+import fi.hut.soberit.agilefant.business.impl.StoryHierarchyBusinessImpl;
+import fi.hut.soberit.agilefant.transfer.StoryTreeBranchMetrics;
 import flexjson.JSON;
 
 @Entity
@@ -183,17 +185,6 @@ public class Story implements TimesheetLoggable, LabelContainer, NamedObject, Ta
         this.storyPoints = storyPoints;
     }
     
-    private Integer retrieveChildPoints(Story story) {
-    	Integer childPoints = 0;
-    	for (Story child : story.getChildren()) {
-    		if (child.getState() != StoryState.DEFERRED && child.getStoryPoints() != null) {
-    			childPoints += child.getStoryPoints();
-    		}
-    		childPoints += retrieveChildPoints(child);
-    	}
-    	return childPoints;
-	}
-    
     @JSON
     @XmlAttribute
     public String retrieveHighestPoints() {
@@ -201,15 +192,15 @@ public class Story implements TimesheetLoggable, LabelContainer, NamedObject, Ta
     	if (getStoryPoints() != null) {
     		storyPoints = getStoryPoints();
     	}
-    	Integer childPoints = retrieveChildPoints(this);
-    	if (childPoints > storyPoints) {
-    		return "<span class='treeChildStoryPoints treeStoryPoints' title='Story child points'>" + childPoints + "</span>";
+    	StoryHierarchyBusinessImpl impl = new StoryHierarchyBusinessImpl();
+    	StoryTreeBranchMetrics metrics = impl.calculateStoryTreeMetrics(this);
+    	long estimatedPoints = metrics.getEstimatedPoints();
+    	if (estimatedPoints > storyPoints) {
+    		return "<span class='treeChildStoryPoints treeStoryPoints' title='Story child points'>" + metrics.getEstimatedDonePoints() + " / " + estimatedPoints + "</span>";
+    	} else if (storyPoints == 0) {
+    		return "<span class='treeStoryPoints' title='Story points'> - </span>";
     	} else {
-    		if (storyPoints == 0) {
-    			return "<span class='treeStoryPoints' title='Story points'> - </span>";
-    		} else {
-    			return "<span class='treeStoryPoints' title='Story points'>" + storyPoints + "</span>";
-    		}
+    		return "<span class='treeStoryPoints' title='Story points'>" + storyPoints + "</span>";
     	}
     }
     
