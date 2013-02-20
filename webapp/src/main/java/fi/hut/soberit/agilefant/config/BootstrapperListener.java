@@ -165,7 +165,7 @@ public class BootstrapperListener implements ServletContextListener {
         Enumeration<String> names = ctx.getInitParameterNames();
         while (names.hasMoreElements()) {
             String name = names.nextElement();
-            properties.put(names, ctx.getInitParameter(name));
+            properties.put(name, ctx.getInitParameter(name));
         }
         return ConfigFactory.parseProperties(properties);
     }
