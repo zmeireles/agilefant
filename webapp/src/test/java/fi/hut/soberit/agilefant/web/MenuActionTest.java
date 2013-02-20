@@ -50,7 +50,7 @@ public class MenuActionTest {
     
     @Test
     public void testConstructAssignmentData() {
-        expect(menuBusiness.constructMyAssignmentsData(null)).andReturn(Arrays.asList(new MenuDataNode()));
+        expect(menuBusiness.constructMyAssignmentsData(SecurityUtil.getLoggedUser())).andReturn(Arrays.asList(new MenuDataNode()));
         replayAll();
         assertEquals(Action.SUCCESS, menuAction.constructAssignmentData());
         verifyAll();
