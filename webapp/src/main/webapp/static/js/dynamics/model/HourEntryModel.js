@@ -167,6 +167,9 @@ HourEntryModel.prototype._remove = function(successCallback) {
 	      data: {hourEntryId: me.getId()},
 	      success: function(data,status) {
 	        MessageDisplay.Ok("Hour entry removed");
+	        if (me.relations.hourEntryList) {
+	            me.relations.hourEntryList.reload();
+	        }
 	        if (successCallback) {
 	          successCallback();
 	        }
