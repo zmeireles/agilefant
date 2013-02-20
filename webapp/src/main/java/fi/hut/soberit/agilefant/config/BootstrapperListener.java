@@ -15,6 +15,7 @@ import org.springframework.web.context.ContextLoaderListener;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
 
+import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
@@ -72,6 +73,10 @@ public class BootstrapperListener implements ServletContextListener {
 
     private void configureLogging(ServletContext ctx) {
         try {
+            // Skip configuration if Logback is not managed by this webpap
+            if (!Objects.equal(LoggerContext.class.getClassLoader(), ctx.getClassLoader()))
+                return;
+
             String agilefantLogs = null;
             if (ctx.getInitParameter("agilefant.logs") != null)
                 agilefantLogs = ctx.getInitParameter("agilefant.logs");
