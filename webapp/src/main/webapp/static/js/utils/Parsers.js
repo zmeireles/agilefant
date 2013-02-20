@@ -1,8 +1,11 @@
 var ParserUtils = {
-    TimeStrPattern: /\s*((\d+)([.,]\d+)?h)?\s*((\d+)min)?\s*/,
-    TimeStrNumericPattern: /^\s*(\d+)([.,]\d+)?(h)?\s*$/,
+    TimeStrPattern: /\s*((\d+)([.,]\d+)?\s*h)?\s*((\d+)\s*min)?\s*/,
+    TimeStrNumericPattern: /^\s*(\d+)([.,]\d+)?(\s*h)?\s*$/,
 
     timeStrToMinutes: function(timeStr) {
+      if (timeStr.startsWith(".")) {
+    	  timeStr = "0" + timeStr;
+      }
       var matches = ParserUtils.TimeStrNumericPattern.exec(timeStr);
       var hours = 0;
       var minutes = 0;

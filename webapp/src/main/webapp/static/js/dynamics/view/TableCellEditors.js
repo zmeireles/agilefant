@@ -676,10 +676,14 @@ TableEditors.ExactEstimate.prototype._validate = function() {
           value = value.substr(1);
       }
   }
-  var majorOnly = /^[0-9]+h?$/; // 10h
-  var minorOnly = /^([1-9]|[1-5]\d)min$/; // 10min
-  var majorAndMinor = /^[ ]*[0-9]+h[ ]+[0-9]+min$/;
-  var shortFormat = /^[0-9]+\.[0-9]+h?$/;
+  var majorOnly = /^[0-9]+\s*h?$/; // 10h
+  var minorOnly = /^([1-9]|[1-5]\d)\s*min$/; // 10min
+  var majorAndMinor = /^[ ]*[0-9]+\s*h[ ]+[0-9]+\s*min$/;
+  var shortFormat = /^[0-9]+\.[0-9]+\s*h?$/;
+  
+  if (value.startsWith(".")) {
+	  value = "0" + value;
+  }
   
   var valid = (value.match(majorOnly) || value.match(minorOnly)
           || value.match(majorAndMinor) || value.match(shortFormat)
