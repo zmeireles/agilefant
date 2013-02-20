@@ -252,16 +252,16 @@ StoryInfoBubble.prototype._createConfig = function() {
       set: StoryModel.prototype.setName
     }
   });
-    config.addColumnConfiguration(1, {
-	    title : "Value",
-	    get : StoryModel.prototype.getStoryValue,
-	    decorator: DynamicsDecorators.estimateDecorator,
-	    editable : true,
-	    edit : {
-	      editor : "Number",
-	      set : StoryModel.prototype.setStoryValue
-	    }
-	  });
+  config.addColumnConfiguration(1, {
+    title : "Points",
+    get : StoryModel.prototype.getStoryPoints,
+    decorator: DynamicsDecorators.estimateDecorator,
+    editable : true,
+    edit : {
+      editor : "Number",
+      set : StoryModel.prototype.setStoryPoints
+    }
+  });
   
   config.addColumnConfiguration(2, {
     title: "Reference ID",
@@ -280,15 +280,16 @@ StoryInfoBubble.prototype._createConfig = function() {
     }
   });
   config.addColumnConfiguration(4, {
-    title : "Points",
-    get : StoryModel.prototype.getStoryPoints,
+    title : "Value",
+    get : StoryModel.prototype.getStoryValue,
     decorator: DynamicsDecorators.estimateDecorator,
     editable : true,
     edit : {
       editor : "Number",
-      set : StoryModel.prototype.setStoryPoints
+      set : StoryModel.prototype.setStoryValue
     }
   });
+
   config.addColumnConfiguration(5, {
     title : "Product&nbsp;/&nbsp;Project",
     headerTooltip : 'The backlog, where the story resides',
