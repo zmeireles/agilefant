@@ -681,7 +681,7 @@ TableEditors.ExactEstimate.prototype._validate = function() {
   var majorAndMinor = /^[ ]*[0-9]+\s*h[ ]+[0-9]+\s*min$/;
   var shortFormat = /^[0-9]+\.[0-9]+\s*h?$/;
   
-  if (value.startsWith(".")) {
+  if (value != null && value.indexOf('.') === 0) {
 	  value = "0" + value;
   }
   

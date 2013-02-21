@@ -3,7 +3,7 @@ var ParserUtils = {
     TimeStrNumericPattern: /^\s*(\d+)([.,]\d+)?(\s*h)?\s*$/,
 
     timeStrToMinutes: function(timeStr) {
-      if (timeStr.startsWith(".")) {
+      if (timeStr != null && timeStr.indexOf('.') === 0) {
     	  timeStr = "0" + timeStr;
       }
       var matches = ParserUtils.TimeStrNumericPattern.exec(timeStr);
