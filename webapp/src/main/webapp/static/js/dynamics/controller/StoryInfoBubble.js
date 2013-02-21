@@ -259,6 +259,7 @@ StoryInfoBubble.prototype._createConfig = function() {
     editable : true,
     edit : {
       editor : "Number",
+      required: false,
       set : StoryModel.prototype.setStoryPoints
     }
   });
@@ -286,6 +287,7 @@ StoryInfoBubble.prototype._createConfig = function() {
     editable : true,
     edit : {
       editor : "Number",
+      required: false,
       set : StoryModel.prototype.setStoryValue
     }
   });
