@@ -44,10 +44,11 @@ $(document).ready(function() {
     </c:choose>
     </li>
     
+	<c:if test="${currentUser.admin}">    
     <li>
         <a href="#" id="createNewIteration" onclick="return false;"  title="Create a new iteration">Iteration &raquo;</a>
     </li>
-    
+    </c:if>
     
     <li>
     <c:choose>
