@@ -3,6 +3,7 @@ package fi.hut.soberit.agilefant.web;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import fi.hut.soberit.agilefant.business.TaskBusiness;
 import fi.hut.soberit.agilefant.business.TransferObjectBusiness;
 import fi.hut.soberit.agilefant.business.UserBusiness;
 import fi.hut.soberit.agilefant.model.Task;
+import fi.hut.soberit.agilefant.model.Team;
 import fi.hut.soberit.agilefant.model.User;
 import fi.hut.soberit.agilefant.security.SecurityUtil;
 import fi.hut.soberit.agilefant.transfer.AssignedWorkTO;
@@ -59,15 +61,31 @@ public class DailyWorkAction extends ActionSupport {
     @Override
     public String execute() {
         /* 
-         * Non-admin user can only watch his/her own daily work, but admin has priviledge to view daily works of other users.
-         * This also prevent non-admin to try url-hack other user's daily work. 
-         * Non-admin user -> userId = 0;
+         * Non-admin user can watch his/her own daily work and also of other users who belong to a same team
+         * Admin has priviledge to view daily works of all users.
+         * This also prevent non-admin to try url-hack other user's daily work who do not belong to his/her team. 
+         * Non-admin user trying to see daily work of someone not in his/her team -> userId = 0
          */
         User loggedUser = getLoggedInUser();
         Boolean isAdmin = loggedUser.isAdmin();
+        Collection<User> teamUsers = new HashSet<User>();
 
         if (!isAdmin) {
-            userId = 0;
+            int newUserId = 0;
+            teamUsers.add(loggedUser);
+            Collection<Team> teams = loggedUser.getTeams();
+            for (Team team: teams) {
+                teamUsers.addAll(team.getUsers());
+                Collection<User> users = team.getUsers();
+                if (newUserId != userId) {
+                    for (User user: users) {
+                        if (user.getId() == userId) {
+                            newUserId = userId;
+                        }
+                    }
+                }
+            }
+            userId = newUserId;
         }
         
         if (userId == 0) {
@@ -77,7 +95,7 @@ public class DailyWorkAction extends ActionSupport {
         if (isAdmin) {
             enabledUsers.addAll(userBusiness.getEnabledUsers());
         } else {
-            enabledUsers.add(loggedUser);
+            enabledUsers.addAll(teamUsers);
         }
         Collections.sort(enabledUsers, new PropertyComparator("fullName", true, true));
       
