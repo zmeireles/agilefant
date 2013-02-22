@@ -85,6 +85,13 @@ public class TeamAction extends ActionSupport implements CRUDAction, Prefetching
         }
         return Action.SUCCESS;
     }
+    
+    public String retrieveMyTeams() {
+        
+        User loggedUser = getLoggedInUser();
+        teamList.addAll(loggedUser.getTeams());
+        return Action.SUCCESS;
+    }
 
     /**
      * Store the team.

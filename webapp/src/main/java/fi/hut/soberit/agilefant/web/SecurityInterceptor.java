@@ -104,6 +104,8 @@ public class SecurityInterceptor implements Interceptor {
                     || actionName.equals("retrieveAllSAIterations")){
                 //access matrix operations
                 access = false;
+            } else if(actionName.equals("storeNewIteration") || actionName.equals("storeNewProduct") ) {
+                access = true;
             } else {
                 // Default case: Try to find a backlog id of some kind to check.
                 

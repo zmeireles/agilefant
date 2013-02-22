@@ -12,6 +12,15 @@ var DynamicsDecorators = {
       "true" : "Yes",
       "false" : "No"
   },
+  teamAdminOptions: {
+      "MYTEAMS" : "Teams that I belong to",
+      "ALL" : "All",
+      "NONE" : "None"
+  },
+  teamNonAdminOptions: {
+      "MYTEAMS" : "Teams that I belong to",
+      "NONE" : "None"
+  },
   stateDecorator: function(val) {
     return DynamicsDecorators.stateOptions[val];
   },

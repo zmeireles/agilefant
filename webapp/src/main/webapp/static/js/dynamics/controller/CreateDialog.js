@@ -171,23 +171,34 @@ CreateDialog.Product.prototype.initFormConfig = function() {
     }
   });
   
-  if (currentUser.getAdmin()) {
-  	config.addColumnConfiguration(CreateDialog.Product.columnIndices.teams, {
-    	title: "Grant all teams access to product?",
-    	get: currentUser.getAdmin,
-    	editable: true,
-    	edit: {
-      		editor : "Selection",
-      		items : DynamicsDecorators.adminOptions,
-      		set: ProductModel.prototype.setAllTeams,
-      		size: '20ex',
-      		required: true
+  var teamDefaultFunction = function() {
+	  return "MYTEAMS";
+  };
+  var itemOptions = function() {
+	  if (currentUser.getAdmin()) {
+        return DynamicsDecorators.teamAdminOptions;
+	  } else {
+        return DynamicsDecorators.teamNonAdminOptions;
+	  }
+  };
+  config.addColumnConfiguration(CreateDialog.Product.columnIndices.teams, {
+    title: "Grant which teams access to product?",
+    get: teamDefaultFunction,
+    editable: true,
+    edit: {
+      editor : "Selection",
+      items : itemOptions(),
+      set: ProductModel.prototype.setAllTeams,
+      size: '25ex',
+      required: true
     }
-  	});
-  }
-  
+  });
 	var warningFunction = function() {
-  		return "Warning! You will only be able to see the product if you belong to a team that has access to it. You can modify access rights later from the Administration tab.";
+      if (currentUser.getAdmin()) {
+          return "Warning! You will only be able to see the product if you belong to a team that has access to it. You can modify access rights later from the Administration tab.";
+        } else {
+          return "Warning! You will only be able to see the product if you belong to a team that has access to it. You can ask your Agilefant admin to grant you access rights.";
+        }
   	};
     config.addColumnConfiguration(CreateDialog.Product.columnIndices.warning, {
         title: "",
@@ -334,23 +345,35 @@ CreateDialog.Iteration.prototype.initFormConfig = function() {
   config.addColumnConfiguration(
       CreateDialog.Iteration.columnIndices.description,
       IterationController.columnConfigs.description);
-  if (currentUser.getAdmin()) {
-  	config.addColumnConfiguration(CreateDialog.Iteration.columnIndices.teams, {
-    	title: "Grant all teams access to iteration?",
-    	get: currentUser.getAdmin,
-    	editable: true,
-    	edit: {
-      		editor : "Selection",
-      		items : DynamicsDecorators.adminOptions,
-      		set: IterationModel.prototype.setAllTeams,
-      		size: '20ex',
-      		required: true
-    	}
-  	});
-  }	  	
+  var teamDefaultFunction = function() {
+	  return "MYTEAMS";
+  };
+  var itemOptions = function() {
+	  if (currentUser.getAdmin()) {
+        return DynamicsDecorators.teamAdminOptions;
+	  } else {
+        return DynamicsDecorators.teamNonAdminOptions;
+	  }
+  };
+  config.addColumnConfiguration(CreateDialog.Iteration.columnIndices.teams, {
+    title: "Grant which teams access to iteration?",
+    get: teamDefaultFunction,
+    editable: true,
+    edit: {
+      editor : "Selection",
+      items : itemOptions(),
+      set: IterationModel.prototype.setAllTeams,
+      size: '20ex',
+      required: true
+    }
+  });
   
-	var warningFunction = function() {
-  		return "Warning! If you create a standalone iteration, you will only be able to see it if you belong to a team that has access to it. You can modify access rights later from the Administration tab.";
+  var warningFunction = function() {
+      if (currentUser.getAdmin()) {
+          return "Warning! If you create a standalone iteration, you will only be able to see it if you belong to a team that has access to it. You can modify access rights later from the Administration tab.";
+        } else {
+          return "Warning! If you create a standalone iteration, you will only be able to see it if you belong to a team that has access to it. You can ask your Agilefant admin to grant you access rights.";
+        }
   	};
     config.addColumnConfiguration(CreateDialog.Iteration.columnIndices.warning, {
         title: "",

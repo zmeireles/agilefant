@@ -40,6 +40,13 @@
       </result>
     </action>  
     
+    <action name="retrieveMyTeams" method="retrieveMyTeams" class="teamAction">
+      <result name="success" type="json">
+        <param name="target">teamList</param>
+        <param name="patterns">+users</param>
+      </result>
+    </action>
+    
     <action name="deleteTeamForm" method="deleteTeamForm" class="teamAction">
       <result type="dispatcher">/WEB-INF/jsp/forms/deleteTeamForm.jsp</result>
     </action>

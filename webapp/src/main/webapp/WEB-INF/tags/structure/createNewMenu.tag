@@ -26,11 +26,9 @@ $(document).ready(function() {
 </script>
 
 <ul id="createNewMenu" style="display: none">
-	<c:if test="${currentUser.admin}">
     <li>
         <a href="#" id="createNewProduct" onclick="return false;"  title="Create a new product">Product &raquo;</a>
     </li>
-    </c:if>
 
     <li>
     <c:choose>
@@ -44,11 +42,10 @@ $(document).ready(function() {
     </c:choose>
     </li>
     
-	<c:if test="${currentUser.admin}">    
     <li>
         <a href="#" id="createNewIteration" onclick="return false;"  title="Create a new iteration">Iteration &raquo;</a>
     </li>
-    </c:if>
+    
     
     <li>
     <c:choose>

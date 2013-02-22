@@ -306,21 +306,25 @@ IterationModel.prototype.setTeams = function(teamIds, teamJson) {
   this.currentData.teamsChanged = true;
 };
 
-IterationModel.prototype.setAllTeams = function(allTeams) {
+IterationModel.prototype.setAllTeams = function(teams) {
   var me = this;
-  if(allTeams == "true"){
+  if(teams == "MYTEAMS" || teams == "ALL"){
+    var ajaxUrl = "ajax/retrieveAllTeams.action";
+    if (teams == "MYTEAMS") {
+    	ajaxUrl = "ajax/retrieveMyTeams.action";
+    }
   	var teams = [];
   	var data = {};
   	jQuery.ajax({
   		type: "POST",
-  		url: "ajax/retrieveAllTeams.action",
+  		url: ajaxUrl,
     	async: false,
     	cache: false,
     	data: data,
     	dataType: "json",
     	success: function(data,status) {
-      		for(i = 0; i < data.length; i++) {
-      			teams.push(data[i].id)
+      		for(var i = 0; i < data.length; i++) {
+      			teams.push(data[i].id);
       		}
     	}
     });
