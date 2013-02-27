@@ -62,7 +62,7 @@ public class StoryAccess {
     }
     
     @JSON
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @XmlAttribute
     @XmlJavaTypeAdapter(XmlDateTimeAdapter.class)
     public DateTime getDate() {

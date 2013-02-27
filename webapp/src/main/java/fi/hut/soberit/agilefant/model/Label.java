@@ -54,7 +54,7 @@ public class Label implements NamedObject, Serializable {
     @ManyToOne
     private Story story;
 
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime timestamp;
 
     public User getCreator() {

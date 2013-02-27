@@ -79,7 +79,7 @@ public class Iteration extends Backlog implements Schedulable, TaskContainer {
     private Collection<Team> teams = new HashSet<Team>();
 
     @JSON
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @XmlAttribute
     @XmlJavaTypeAdapter(XmlDateTimeAdapter.class)
     public DateTime getEndDate() {
@@ -92,7 +92,7 @@ public class Iteration extends Backlog implements Schedulable, TaskContainer {
 
     
     @JSON
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @XmlAttribute
     @XmlJavaTypeAdapter(XmlDateTimeAdapter.class)
     public DateTime getStartDate() {

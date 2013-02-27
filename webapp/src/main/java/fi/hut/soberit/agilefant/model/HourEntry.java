@@ -91,7 +91,7 @@ public class HourEntry {
         return this.user;
     }
 
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @XmlJavaTypeAdapter(XmlDateTimeAdapter.class)
     @XmlAttribute
     public DateTime getDate() {

@@ -75,10 +75,6 @@
 		</dependency>
 		<dependency>
 			<groupId>joda-time</groupId>
-			<artifactId>joda-time-hibernate</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>joda-time</groupId>
 			<artifactId>joda-time-jsptags</artifactId>
 		</dependency>
 		<dependency>
@@ -136,6 +132,16 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jadira.usertype</groupId>
+			<artifactId>usertype.core</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.joda</groupId>
+					<artifactId>joda-money</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.jfree</groupId>

@@ -35,7 +35,6 @@
 		<jersey.version>1.17</jersey.version>
 		<jfreechart.version>1.0.14</jfreechart.version>
 		<joda.time.version>2.1</joda.time.version>
-		<joda.time.hibernate.version>1.2</joda.time.hibernate.version>
 		<joda.time.jsptags.version>1.1.1</joda.time.jsptags.version>
 		<junit.version>4.11</junit.version>
 		<logback.version>1.0.9</logback.version>
@@ -48,6 +47,7 @@
 		<stringtemplate.version>3.0</stringtemplate.version>
 		<struts.version>2.1.8.1</struts.version>
 		<typesafe.config.version>1.0.0</typesafe.config.version>
+		<usertype.version>3.0.0.GA</usertype.version>
 
 		<maven.compiler.version>3.0</maven.compiler.version>
 		<maven.war.version>2.3</maven.war.version>
@@ -198,37 +198,6 @@
 			</dependency>
 			<dependency>
 				<groupId>joda-time</groupId>
-				<artifactId>joda-time-hibernate</artifactId>
-				<version>${joda.time.hibernate.version}</version>
-				<exclusions>
-					<exclusion>
-						<artifactId>antlr</artifactId>
-						<groupId>antlr</groupId>
-					</exclusion>
-					<exclusion>
-						<artifactId>cglib-full</artifactId>
-						<groupId>cglib</groupId>
-					</exclusion>
-					<exclusion>
-						<artifactId>commons-logging-api</artifactId>
-						<groupId>commons-logging</groupId>
-					</exclusion>
-					<exclusion>
-						<artifactId>hsqldb</artifactId>
-						<groupId>hsqldb</groupId>
-					</exclusion>
-					<exclusion>
-						<artifactId>ehcache</artifactId>
-						<groupId>ehcache</groupId>
-					</exclusion>
-					<exclusion>
-						<artifactId>hibernate</artifactId>
-						<groupId>org.hibernate</groupId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>joda-time</groupId>
 				<artifactId>joda-time-jsptags</artifactId>
 				<version>${joda.time.jsptags.version}</version>
 			</dependency>
@@ -373,6 +342,11 @@
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
 				<version>${hibernate.validator.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jadira.usertype</groupId>
+				<artifactId>usertype.core</artifactId>
+				<version>${usertype.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.jfree</groupId>

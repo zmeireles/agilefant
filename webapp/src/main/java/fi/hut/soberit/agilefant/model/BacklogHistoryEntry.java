@@ -80,7 +80,7 @@ public class BacklogHistoryEntry {
         this.branchMax = branchMax;
     }
     
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     public DateTime getTimestamp() {
         return timestamp;
     }

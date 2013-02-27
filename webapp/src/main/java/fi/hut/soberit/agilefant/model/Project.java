@@ -82,7 +82,7 @@ public class Project extends Backlog implements Schedulable, Rankable {
     }
     
     @JSON
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @XmlJavaTypeAdapter(XmlDateTimeAdapter.class)
     @XmlElement
     public DateTime getEndDate() {
@@ -94,7 +94,7 @@ public class Project extends Backlog implements Schedulable, Rankable {
     }
 
     @JSON
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @XmlJavaTypeAdapter(XmlDateTimeAdapter.class)
     @XmlElement
     public DateTime getStartDate() {
