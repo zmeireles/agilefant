@@ -195,9 +195,9 @@ CreateDialog.Product.prototype.initFormConfig = function() {
   });
 	var warningFunction = function() {
       if (currentUser.getAdmin()) {
-          return "Warning! You will only be able to see the product if you belong to a team that has access to it. You can modify access rights later from the Administration tab.";
+          return "Warning! If you select 'none', you won't be able to access the product. You can modify access rights later from the Administration tab.";
         } else {
-          return "Warning! You will only be able to see the product if you belong to a team that has access to it. You can ask your Agilefant admin to grant you access rights.";
+          return "Warning! If you select 'none', you won't be able to access the product. You can ask your Agilefant admin to grant you access rights.";
         }
   	};
     config.addColumnConfiguration(CreateDialog.Product.columnIndices.warning, {
@@ -363,16 +363,16 @@ CreateDialog.Iteration.prototype.initFormConfig = function() {
       editor : "Selection",
       items : itemOptions(),
       set: IterationModel.prototype.setAllTeams,
-      size: '20ex',
+      size: '25ex',
       required: true
     }
   });
   
   var warningFunction = function() {
       if (currentUser.getAdmin()) {
-          return "Warning! If you create a standalone iteration, you will only be able to see it if you belong to a team that has access to it. You can modify access rights later from the Administration tab.";
+          return "Warning! If you select 'none', you won't be able to access the standalone iteration. You can modify access rights later from the Administration tab.";
         } else {
-          return "Warning! If you create a standalone iteration, you will only be able to see it if you belong to a team that has access to it. You can ask your Agilefant admin to grant you access rights.";
+          return "Warning! If you select 'none', you won't be able to access the standalone iteration. You can ask your Agilefant admin to grant you access rights.";
         }
   	};
     config.addColumnConfiguration(CreateDialog.Iteration.columnIndices.warning, {
