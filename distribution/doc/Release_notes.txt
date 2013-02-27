@@ -1,6 +1,6 @@
-Agilefant 3.0.2.1
+Agilefant 3.1.0
 Release notes
-2012-12-21
+2013-02-27
 --
 
 Please spend a couple of minutes to register your organization at
@@ -11,19 +11,37 @@ This helps us keep a full-featured Agilefant free-of-charge forever!
 |     CHANGESET      |
 +--------------------+
 
-Changes from 3.0.3 to 3.1.4 (snapshot)
-2013-02-13
+Changes from 3.0.3 to 3.1
+2013-02-27
 + Improvements to roadmapping and release planning
   + The work breakdown view loads now much faster!
+  + Nodes' points' now display the greater of (child items' points vs. their own points)
+  + Nodes story points now show branch completion in terms of story points
   + Story info bubble shows the total effort spent in branch
   + Filtering works based on iteration name also (and not just backlog name)
-  + Bug fixed: Upon hitting Esc in the Story info bubble, the
-breakdown node "disappeared"
-+ Build manager changed Ant to Maven
-  + Static resources (CSS/JS) minimized and optimized
-  + BeanCopier optimized
+  + Sum of ES in child stories calculated to StoryInfoBubble  
+  + You can now navigate to parent stories from iteration view story hierarchy bubble  
+  + Bug fixed: Upon hitting Esc in the Story info bubble, the breakdown node "disappeared"
++ Improvements to access rights
+  + Bug fixed: Non-accessible standalone iterations no longer show up in all products' leaf stories view
+  + Non-admin users can now create standalone iterations, with access rights for their own teams
+  + Non-admin users can now create products, with access rights for their own teams
+  + Non-admin users can now view the Daily Work of those in their teams
++ Build manager changed from Ant to Maven
++ Small UX improvements
+  + Dialog for logging spent effort
+    + Doesn't lose focus upon changing user
+    + Daily total spent effort now refreshes upon deleting an effort entry
+  + More understandable help text when opening an empty daily work page
+  + Fixed problem with saving certain national characters
+  + Inverted positions of Value and Points in StoryInfoBubble
+  + Expanded accepted effort formats; now accepts .5, 30 min, and 0.5h
 + Database export failure in Cloud fixed
-+ Broken unit tests fixed
++ Technical changes
+  + Added database migration library (Flyway)
+  + Switched logging to SLF4J + Logback
+  + Updated most libraries
+  + Changed the way Agilefant is configured (using an XML file)
 
 Changes from 3.0.2.1 to 3.0.3
 2012-12-29
