@@ -2,7 +2,10 @@ package fi.hut.soberit.agilefant.db.hibernate;
 
 import java.io.Serializable;
 
-import org.hibernate.validator.Validator;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
+import com.google.common.base.Strings;
 
 /**
  * Implementation of the email validator. When using the email annotation in the
@@ -12,31 +15,19 @@ import org.hibernate.validator.Validator;
  * @author Turkka Äijälä
  * @see fi.fi.hut.soberit.agilefant.db.hibernate.Email
  */
-public class EmailValidator implements Validator<Email>, Serializable {
+public class EmailValidator implements ConstraintValidator<Email, String>, Serializable {
 
     private static final long serialVersionUID = 4334203403474352735L;
 
+    @Override
     public void initialize(Email parameters) {
     }
 
-    public boolean isValid(Object value) {
-
-        // nulls qualify
-        if (value == null)
+    @Override
+    public boolean isValid(String value, ConstraintValidatorContext context) {
+        if (Strings.isNullOrEmpty(value))
             return true;
-
-        // non-string objects don't qualify
-        if (!(value instanceof String))
-            return false;
-
-        String string = (String) value;
-
-        // empty strings qualify
-        if (string.equals(""))
-            return true;
-
-        // use commons-validator to validate email addresses
-        return org.apache.commons.validator.EmailValidator.getInstance()
-                .isValid(string);
+        return org.apache.commons.validator.routines.EmailValidator.getInstance().isValid(value);
     }
+
 }
