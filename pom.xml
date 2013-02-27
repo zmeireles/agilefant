@@ -616,6 +616,12 @@
 							</excludes>
 						</configuration>
 					</plugin>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<packagingExcludes>**/rebel.xml</packagingExcludes>
+						</configuration>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
