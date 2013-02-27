@@ -7,6 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
+import javax.validation.Payload;
 
 /**
  * Annotation to enable our hibernate custom email validator.
@@ -17,8 +18,12 @@ import javax.validation.Constraint;
 @Documented
 @Constraint(validatedBy = EmailValidator.class)
 // bind to EmailValidator
-@Target( { ElementType.METHOD, ElementType.FIELD })
+@Target({ ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Email {
     String message() default "is not a proper email address";
+
+    Class<? extends Payload>[] payload() default {};
+
+    Class<?>[] groups() default {};
 }
