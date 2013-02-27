@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fi.hut.soberit.agilefant.model.Product;
+import fi.hut.soberit.agilefant.model.Team;
+import fi.hut.soberit.agilefant.model.User;
+import fi.hut.soberit.agilefant.security.SecurityUtil;
 import fi.hut.soberit.agilefant.util.BeanCopier;
 
 public class ProductTO extends Product implements LeafStoryContainer {
@@ -31,6 +34,25 @@ public class ProductTO extends Product implements LeafStoryContainer {
     }
     public List<IterationTO> getStandaloneIterations() {
         return standaloneIterations;
+    }
+    public List<IterationTO> getMyStandaloneIterations() {
+        User loggedUser = getLoggedInUser();
+        if (loggedUser.isAdmin()) {
+            return standaloneIterations;
+        }
+        List<IterationTO> myStandaloneIterations = new ArrayList<IterationTO>();
+        for (IterationTO iteration: standaloneIterations) {
+            for (Team myTeam: loggedUser.getTeams()) {
+                if (iteration.getTeams().contains(myTeam)) {
+                    myStandaloneIterations.add(iteration);
+                    break;
+                }
+            }
+        }
+        return myStandaloneIterations;
+    }
+    private User getLoggedInUser() {
+        return SecurityUtil.getLoggedUser();
     }
     public void setStandaloneIterations(List<IterationTO> standaloneIterations) {
         this.standaloneIterations = standaloneIterations;

@@ -84,7 +84,7 @@ $(document).ready(function() {
 <div class="widgetContainer">
 <h3>Standalone Iterations</h3>
 <ul class="widgetList">
-    <c:forEach items="${product.standaloneIterations}" var="iteration">
+    <c:forEach items="${product.getMyStandaloneIterations()}" var="iteration">
       <li class="widget iterationWidget droppableWidget scheduled staticWidget" backlogid="${iteration.id}">
         <struct:widget name="${iteration.name}" widgetId="-1" backlogId="${iteration.id}">
           <div class="timeframe">Timeframe: <span><joda:format value="${iteration.startDate}" pattern="YYYY-MM-dd" /></span> to <span><joda:format value="${iteration.endDate}" pattern="YYYY-MM-dd" /></span></div>
