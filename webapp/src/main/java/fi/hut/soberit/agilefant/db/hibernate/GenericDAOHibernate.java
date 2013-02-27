@@ -15,7 +15,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import fi.hut.soberit.agilefant.db.GenericDAO;
 
@@ -36,8 +35,6 @@ public abstract class GenericDAOHibernate<T> implements GenericDAO<T> {
 
     protected SessionFactory sessionFactory;
 
-    protected HibernateTemplate hibernateTemplate;
-
     @PostConstruct
     public void init() {
         if (sessionFactory == null) {
@@ -48,7 +45,6 @@ public abstract class GenericDAOHibernate<T> implements GenericDAO<T> {
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        this.hibernateTemplate = new HibernateTemplate(sessionFactory);
     }
 
     protected GenericDAOHibernate(Class<T> clazz) {
@@ -61,7 +57,7 @@ public abstract class GenericDAOHibernate<T> implements GenericDAO<T> {
 
     /** {@inheritDoc} */
     public T get(int id) {
-    	return (T)this.getCurrentSession().get(getPersistentClass(), id);
+        return (T) this.getCurrentSession().get(getPersistentClass(), id);
     }
 
     /** {@inheritDoc} */
@@ -70,12 +66,12 @@ public abstract class GenericDAOHibernate<T> implements GenericDAO<T> {
         this.sessionFactory.getCurrentSession().evict(object);
         return object;
     }
-    
+
     /** {@inheritDoc} */
     public Collection<T> getAll() {
-    	return this.asList(this.createCriteria(this.getPersistentClass()));
+        return this.asList(this.createCriteria(this.getPersistentClass()));
     }
-    
+
     /** {@inheritDoc} */
     public Collection<T> getMultiple(Collection<Integer> ids) {
         if (ids == null || ids.isEmpty()) {
@@ -93,17 +89,17 @@ public abstract class GenericDAOHibernate<T> implements GenericDAO<T> {
 
     /** {@inheritDoc} */
     public void remove(T object) {
-    	this.getCurrentSession().delete(object);
+        this.getCurrentSession().delete(object);
     }
 
     /** {@inheritDoc} */
     public void store(T object) {
-    	this.getCurrentSession().saveOrUpdate(object);
+        this.getCurrentSession().saveOrUpdate(object);
     }
 
     /** {@inheritDoc} */
     public Serializable create(T object) {
-    	return this.getCurrentSession().save(object);
+        return this.getCurrentSession().save(object);
     }
 
     protected T getFirst(Collection<T> list) {
@@ -113,8 +109,7 @@ public abstract class GenericDAOHibernate<T> implements GenericDAO<T> {
         return list.iterator().next();
     }
 
-    protected <ResultType> ResultType getFirstTypeSafe(
-            Collection<ResultType> list) {
+    protected <ResultType> ResultType getFirstTypeSafe(Collection<ResultType> list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -123,23 +118,22 @@ public abstract class GenericDAOHibernate<T> implements GenericDAO<T> {
 
     protected Criteria createCriteria(Class clazz) {
         return this.getCurrentSession().createCriteria(clazz);
-    }    
+    }
 
     protected Criteria createCriteria(Class clazz, String alias) {
         return this.getCurrentSession().createCriteria(clazz, alias);
-    }    
-    
-    
+    }
+
     public int count() {
-    	Criteria criteria = this.createCriteria(this.getPersistentClass());
-    	criteria.setProjection(Projections.rowCount());
-    	return ((Long)this.uniqueResult(criteria)).intValue();
+        Criteria criteria = this.createCriteria(this.getPersistentClass());
+        criteria.setProjection(Projections.rowCount());
+        return ((Long) this.uniqueResult(criteria)).intValue();
     }
 
     public boolean exists(int id) {
-    	Criteria criteria = this.createCriteria(this.getPersistentClass());
+        Criteria criteria = this.createCriteria(this.getPersistentClass());
         criteria.add(Restrictions.idEq(id)).setProjection(Projections.rowCount());
-        return ((Long)this.uniqueResult(criteria)).intValue() > 0;
+        return ((Long) this.uniqueResult(criteria)).intValue() > 0;
     }
 
     public Session getCurrentSession() {
@@ -176,12 +170,12 @@ public abstract class GenericDAOHibernate<T> implements GenericDAO<T> {
 
     @SuppressWarnings("unchecked")
     protected List<T> asList(Query query) {
-    	return query.list();
+        return query.list();
     }
-    
+
     @SuppressWarnings("unchecked")
     protected List<Object[]> asTuplesList(Query query) {
-    	return query.list();
+        return query.list();
     }
-    
+
 }
