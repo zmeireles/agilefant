@@ -61,12 +61,15 @@ public class SettingBusinessImpl extends GenericBusinessImpl<Setting> implements
     private PlatformTransactionManager transactionManager;
     private Map<String,Setting> settingCache = new HashMap<String, Setting>();
 
-    
     public void setSettingDAO(SettingDAO settingDAO) {
         this.genericDAO = settingDAO;
         this.settingDAO = settingDAO;
     }
-    
+
+    public void setTransactionManager(PlatformTransactionManager transactionManager) {
+        this.transactionManager = transactionManager;
+    }
+
     @PostConstruct
     public void loadSettingCache() {
         this.settingCache.clear();
