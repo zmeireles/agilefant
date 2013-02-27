@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
@@ -82,7 +83,7 @@ public class Project extends Backlog implements Schedulable, Rankable {
     }
     
     @JSON
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime", parameters = @Parameter(name = "databaseZone", value = "jvm"))
     @XmlJavaTypeAdapter(XmlDateTimeAdapter.class)
     @XmlElement
     public DateTime getEndDate() {
@@ -94,7 +95,7 @@ public class Project extends Backlog implements Schedulable, Rankable {
     }
 
     @JSON
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime", parameters = @Parameter(name = "databaseZone", value = "jvm"))
     @XmlJavaTypeAdapter(XmlDateTimeAdapter.class)
     @XmlElement
     public DateTime getStartDate() {
