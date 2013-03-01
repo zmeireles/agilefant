@@ -6,7 +6,6 @@
 <ul class="backlogTabs">
   <li class=""><a href="#backlogDetails"><span><img
     alt="Edit" src="static/img/info.png" /> Info</span></a></li>
-  <li class=""><a href="#iterationHistory"><span>History</span></a></li>
 </ul>
 
 
@@ -19,11 +18,6 @@
 		<div id="iterationMetrics"><%@ include
   			file="./inc/iterationMetrics.jsp"%></div>
 		</div>
-	</div>
-  	<div class="details" id="iterationHistory">
-    	<div style="text-align:center; vertical-align: middle;">
-      		<img src="static/img/pleasewait.gif" style="display: inline-block; vertical-align: middle;"/> Loading...
-    	</div>
 	</div>
 </div>
 

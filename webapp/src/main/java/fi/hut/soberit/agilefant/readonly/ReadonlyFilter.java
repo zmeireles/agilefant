@@ -48,13 +48,14 @@ public class ReadonlyFilter extends GenericFilterBean {
         // Fetch url token from request.
         String requestUrl = reqt.getRequestURL().toString();
         String token = getTokenFromUrl(requestUrl);
+        String readonlyToken = reqt.getParameter("readonlyToken");
         session.disconnect();
         session.close();
         
         if (iterationDao.isValidReadonlyToken(token)) {
             resp.sendRedirect("/agilefant/ROIteration.action?readonlyToken=" + token);
             
-        } else if (requestUrl.contains("ROIteration") && !requestUrl.endsWith("ROIteration.action")) {
+        } else if (requestUrl.contains("ROIteration") && (!requestUrl.endsWith("ROIteration.action") || iterationDao.isValidReadonlyToken(readonlyToken))) {
             
             // I don't think this is needed but I am leaving it here for now, 
             // in case removing it does break something. - Dustin, Mar-21-2012
