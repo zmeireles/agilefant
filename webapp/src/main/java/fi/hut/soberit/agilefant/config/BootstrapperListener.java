@@ -44,7 +44,7 @@ public class BootstrapperListener implements ServletContextListener {
      * Returns the current config from the thread local, which is only available
      * at initialization time.
      * 
-     * <strong>This method exists only to pass Spring the config object without
+     * <strong>This method exists only to pass external libraries the config object without
      * hassle</strong>
      * 
      * @throws NullPointerException
@@ -65,6 +65,7 @@ public class BootstrapperListener implements ServletContextListener {
 
         try {
             CONFIG.set(config);
+            sce.getServletContext().setAttribute(ConfigFactoryBean.CONFIG_ATTR, config);
             springListener.contextInitialized(sce);
         } finally {
             CONFIG.remove();
