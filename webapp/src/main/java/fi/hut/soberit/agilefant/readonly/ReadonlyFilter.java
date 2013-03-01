@@ -47,13 +47,14 @@ public class ReadonlyFilter extends GenericFilterBean {
         
         // Fetch url token from request.
         String requestUrl = reqt.getRequestURL().toString();
+        String requestUri = reqt.getRequestURI().toString();
         String token = getTokenFromUrl(requestUrl);
         String readonlyToken = reqt.getParameter("readonlyToken");
         session.disconnect();
         session.close();
         
         if (iterationDao.isValidReadonlyToken(token)) {
-            resp.sendRedirect("/agilefant/ROIteration.action?readonlyToken=" + token);
+            resp.sendRedirect(getAgilefantPathFromURI(requestUri) + "/ROIteration.action?readonlyToken=" + token);
             
         } else if (requestUrl.contains("ROIteration") && (!requestUrl.endsWith("ROIteration.action") || iterationDao.isValidReadonlyToken(readonlyToken))) {
             
@@ -66,11 +67,11 @@ public class ReadonlyFilter extends GenericFilterBean {
                 chain.doFilter(request, response);
             } catch(NullPointerException npe){
                 //user tried to go back in the browser after unsharing
-                resp.sendRedirect("/agilefant/login.jsp");
+                resp.sendRedirect(getAgilefantPathFromURI(requestUri) + "/login.jsp");
             }
         } else {
             // Token is not valid, so redirect to login page.
-            resp.sendRedirect("/agilefant/login.jsp");
+            resp.sendRedirect(getAgilefantPathFromURI(requestUri) + "/login.jsp");
         }
     }
     
@@ -82,6 +83,15 @@ public class ReadonlyFilter extends GenericFilterBean {
         }
         else 
             return "";
+    }
+    
+    private String getAgilefantPathFromURI(String uri) {
+        if (uri != null && uri.indexOf("/", 1) != -1) {
+            String loginPath = uri.substring(0, uri.indexOf("/", 1));
+            return loginPath;
+        } else {
+            return "/agilefant";
+        }
     }
 
 }
