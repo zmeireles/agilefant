@@ -60,17 +60,17 @@ $(document).ready(function() {
     </c:choose>
     </li>
     
-    <c:if test="${currentUser.admin}">
-    
     <li class="separator"></li>
     
+    <c:if test="${currentUser.admin}">
     <li>
       <a href="#" id="createNewTeam" onclick="return false;"  title="Create a new team">Team &raquo;</a>
     </li>
- 
+     </c:if>
+     
     <li>
       <a href="#" id="createNewUser" onclick="return false;"  title="Create a new user">User &raquo;</a>
     </li>
     
-    </c:if>
 </ul>
+

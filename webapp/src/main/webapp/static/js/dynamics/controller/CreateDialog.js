@@ -580,7 +580,8 @@ CreateDialog.User.columnIndices = {
   email:     3,
   password1: 4,
   password2: 5,
-  admin:     6
+  admin:     6,
+  teams:     7
 };
 CreateDialog.User.prototype.initFormConfig = function() {
   var config = new DynamicTableConfiguration({
@@ -661,19 +662,46 @@ CreateDialog.User.prototype.initFormConfig = function() {
       required: true
     }
   });
-  
-  config.addColumnConfiguration(CreateDialog.User.columnIndices.admin,{
-    title: "Administrator",
-    editable: true,
-    get: UserModel.prototype.getAdmin,
-    edit: {
-      editor : "Selection",
-      items : DynamicsDecorators.adminOptions,
-      size: '20ex',
-      set: UserModel.prototype.setAdmin,
-      required: true
+
+  var currentUser = PageController.getInstance().getCurrentUser();
+  var noFunction = function() {
+    return "No";
+  };
+  if (currentUser.getAdmin()) {
+    config.addColumnConfiguration(CreateDialog.User.columnIndices.admin,{
+      title: "Administrator",
+      editable: true,
+      get: UserModel.prototype.getAdmin,
+      edit: {
+        editor : "Selection",
+        items : DynamicsDecorators.adminOptions,
+        size: '20ex',
+        set: UserModel.prototype.setAdmin,
+        required: true
+      }
+    });
+  } else {
+      config.addColumnConfiguration(CreateDialog.User.columnIndices.admin,{
+          title: "Administrator",
+          editable: false,
+          get: noFunction,
+      });
     }
+
+  config.addColumnConfiguration(CreateDialog.User.columnIndices.teams, {
+    title: "Teams",
+    get: UserModel.prototype.getTeams,
+    decorator: DynamicsDecorators.teamListDecorator,
+    editable: true,
+    openOnRowEdit: false,
+    edit: {
+        editor: "Autocomplete",
+        dataType: "teams",
+        dialogTitle: "Select teams",
+        set: UserModel.prototype.setTeams
+        }
   });
+
 
   this.formConfig = config;
 };
@@ -878,5 +906,6 @@ CreateDialog.createById = function(id) {
   var dialog = new C();
   return dialog;
 };
+
 
 

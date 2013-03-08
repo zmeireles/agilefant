@@ -77,8 +77,7 @@ public class SecurityInterceptor implements Interceptor {
                 access = true;
             }
         } else {
-            if(actionName.equals("storeNewUser")
-                    || actionName.equals("createTeam")
+            if(actionName.equals("createTeam")
                     || actionName.equals("deleteTeam")
                     || actionName.equals("deleteTeamForm")
                     || actionName.equals("storeTeam")
@@ -104,7 +103,10 @@ public class SecurityInterceptor implements Interceptor {
                     || actionName.equals("retrieveAllSAIterations")){
                 //access matrix operations
                 access = false;
-            } else if(actionName.equals("storeNewIteration") || actionName.equals("storeNewProduct") ) {
+            } else if(actionName.equals("storeNewIteration")
+                    || actionName.equals("storeNewProduct")
+                    || actionName.equals("storeNewUser")) {
+                // these are operations available to everyone
                 access = true;
             } else {
                 // Default case: Try to find a backlog id of some kind to check.
@@ -198,3 +200,4 @@ public class SecurityInterceptor implements Interceptor {
         return false;
     }
 }
+

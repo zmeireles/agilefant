@@ -18,7 +18,7 @@ var UserModel = function UserModel() {
   this.currentData = {
     initials: "",
     fullName: "",
-    admin: true
+    admin: false
   };
   this.copiedFields = {
       "fullName": "fullName",
@@ -271,6 +271,13 @@ UserModel.prototype.setPassword2 = function(password) {
 };
 
 UserModel.prototype.getTeams = function() {
+  if (this.currentData.teamIds) {
+    var teams = [];
+      $.each(this.currentData.teamIds, function(k, id) {
+        teams.push(ModelFactory.getObject(ModelFactory.types.team, id));
+      });
+    return teams;
+  }
   return this.relations.team;
 };
 
