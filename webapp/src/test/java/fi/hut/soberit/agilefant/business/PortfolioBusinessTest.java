@@ -24,6 +24,7 @@ import fi.hut.soberit.agilefant.db.ProjectDAO;
 import fi.hut.soberit.agilefant.model.Assignment;
 import fi.hut.soberit.agilefant.model.Project;
 import fi.hut.soberit.agilefant.model.User;
+import fi.hut.soberit.agilefant.security.SecurityUtil;
 import fi.hut.soberit.agilefant.test.Mock;
 import fi.hut.soberit.agilefant.test.MockContextLoader;
 import fi.hut.soberit.agilefant.test.SpringAssertions;
@@ -74,6 +75,8 @@ public class PortfolioBusinessTest {
 
         Project rankedProject = new Project();
         User user = new User();
+        user.setAdmin(true);
+        SecurityUtil.setLoggedUser(user);
         Assignment assignment = new Assignment();
         assignment.setUser(user);
 
