@@ -1,5 +1,12 @@
 package fi.hut.soberit.agilefant.business;
 
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.verify;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -7,15 +14,16 @@ import java.util.Collection;
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionException;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.SimpleTransactionStatus;
 
 import fi.hut.soberit.agilefant.business.SettingBusiness.BranchMetricsType;
 import fi.hut.soberit.agilefant.business.impl.SettingBusinessImpl;
 import fi.hut.soberit.agilefant.db.SettingDAO;
 import fi.hut.soberit.agilefant.model.Setting;
-
-import static org.easymock.EasyMock.*;
 
 public class SettingBusinessTest {
 
@@ -34,6 +42,20 @@ public class SettingBusinessTest {
     @Before
     public void setUp() {
         testable = new SettingBusinessImpl();
+        testable.setTransactionManager(new PlatformTransactionManager() {
+            @Override
+            public void rollback(TransactionStatus status) throws TransactionException {
+            }
+
+            @Override
+            public TransactionStatus getTransaction(TransactionDefinition definition) throws TransactionException {
+                return new SimpleTransactionStatus();
+            }
+
+            @Override
+            public void commit(TransactionStatus status) throws TransactionException {
+            }
+        });
         settingDAO = createMock(SettingDAO.class);
         testable.setSettingDAO(settingDAO);
         setting = new Setting();

@@ -12,7 +12,11 @@ import org.joda.time.Period;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import fi.hut.soberit.agilefant.business.SettingBusiness;
 import fi.hut.soberit.agilefant.db.SettingDAO;
@@ -53,21 +57,32 @@ public class SettingBusinessImpl extends GenericBusinessImpl<Setting> implements
 
     @Autowired
     private SettingDAO settingDAO;
+    @Autowired
+    private PlatformTransactionManager transactionManager;
     private Map<String,Setting> settingCache = new HashMap<String, Setting>();
 
-    
     public void setSettingDAO(SettingDAO settingDAO) {
         this.genericDAO = settingDAO;
         this.settingDAO = settingDAO;
     }
-    
+
+    public void setTransactionManager(PlatformTransactionManager transactionManager) {
+        this.transactionManager = transactionManager;
+    }
+
     @PostConstruct
     public void loadSettingCache() {
         this.settingCache.clear();
-        Collection<Setting> allSettings = this.settingDAO.getAll();
-        for(Setting setting : allSettings) {
-            this.settingCache.put(setting.getName(), setting);
-        }
+        TransactionTemplate tx = new TransactionTemplate(transactionManager);
+        tx.execute(new TransactionCallbackWithoutResult() {
+            @Override
+            protected void doInTransactionWithoutResult(TransactionStatus ts) {
+                Collection<Setting> allSettings = settingDAO.getAll();
+                for(Setting setting : allSettings) {
+                    settingCache.put(setting.getName(), setting);
+                }
+            }
+        });
     }
 
     @Transactional(readOnly = true)
