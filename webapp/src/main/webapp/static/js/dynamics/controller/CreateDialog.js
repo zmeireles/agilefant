@@ -219,8 +219,17 @@ CreateDialog.Project = function() {
   // Create the mock model
   this.model = ModelFactory.createObject(ModelFactory.typeToClassName.project);
   
-  this.model.setStartDate(new Date().getTime());
-  this.model.setEndDate(new Date().getTime());
+  var startdate = new Date();
+  var enddate   = new Date();
+
+  startdate.zeroTime();
+  startdate.addHours(8);
+  enddate.zeroTime();
+  enddate.addDays(14);
+  enddate.addHours(18);
+
+  this.model.setStartDate(startdate.getTime());
+  this.model.setEndDate(enddate.getTime());
 
   this.initFormConfig();
   this.init(CreateDialog.configurations.project);
@@ -286,8 +295,17 @@ CreateDialog.Iteration = function() {
   // Create the mock model
   this.model = ModelFactory.createObject(ModelFactory.typeToClassName.iteration);
   
-  this.model.setStartDate(new Date().getTime());
-  this.model.setEndDate(new Date().getTime());
+  var startdate = new Date();
+  var enddate   = new Date();
+
+  startdate.zeroTime();
+  startdate.addHours(8);
+  enddate.zeroTime();
+  enddate.addDays(14);
+  enddate.addHours(18);
+  
+  this.model.setStartDate(startdate.getTime());
+  this.model.setEndDate(enddate.getTime());
  
   this.initFormConfig();
   this.init(CreateDialog.configurations.iteration);
