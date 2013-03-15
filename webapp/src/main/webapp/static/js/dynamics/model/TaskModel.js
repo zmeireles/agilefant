@@ -184,6 +184,7 @@ TaskModel.prototype._saveData = function(id, changedData) {
       	me.getStory().reloadMetrics();
       if (PageController.getInstance().mainController instanceof IterationController)
       	PageController.getInstance().mainController.reloadMetricsBox();
+      jQuery('.ui-button:eq(' + 0 + ')').focus();
     },
     error: function(xhr, status, error) {
       MessageDisplay.Error("Error saving task", xhr);
