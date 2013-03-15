@@ -64,6 +64,8 @@ public class Story implements TimesheetLoggable, LabelContainer, NamedObject, Ta
     private Integer storyPoints;
     private Integer storyValue;
     
+    private Story fullInfoStory;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @XmlAttribute(name = "objectId")
@@ -185,6 +187,10 @@ public class Story implements TimesheetLoggable, LabelContainer, NamedObject, Ta
         this.storyPoints = storyPoints;
     }
     
+    public void setFullInfoStory(Story fullInfoStory) {
+        this.fullInfoStory = fullInfoStory;
+    }
+    
     @JSON
     @XmlAttribute
     public String retrieveHighestPoints() {
@@ -193,7 +199,12 @@ public class Story implements TimesheetLoggable, LabelContainer, NamedObject, Ta
     		storyPoints = getStoryPoints();
     	}
     	StoryHierarchyBusinessImpl impl = new StoryHierarchyBusinessImpl();
-    	StoryTreeBranchMetrics metrics = impl.calculateStoryTreeMetrics(this);
+    	StoryTreeBranchMetrics metrics;
+    	if (this.fullInfoStory != null) {
+    	    metrics = impl.calculateStoryTreeMetrics(this.fullInfoStory);
+    	} else {
+            metrics = impl.calculateStoryTreeMetrics(this);
+    	}
     	long estimatedPoints = metrics.getEstimatedPoints();
     	if (estimatedPoints > storyPoints) {
     		return "<span class='treeChildStoryPoints treeStoryPoints' title='Story child points'>" + metrics.getEstimatedDonePoints() + " / " + estimatedPoints + "</span>";
