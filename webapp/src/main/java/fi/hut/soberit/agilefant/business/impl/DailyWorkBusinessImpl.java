@@ -178,7 +178,7 @@ public class DailyWorkBusinessImpl implements DailyWorkBusiness {
         DateTime dayEnd   = dayStart.plusDays(1);
         Interval interval = new Interval(dayStart, dayEnd);
         
-        Collection<Task> tasks = taskDAO.getAllIterationAndStoryTasks(user, interval);
+        Collection<Task> tasks = taskDAO.getAllTasks(user, interval);
         Collection<Story> stories = storyDAO.getAllIterationStoriesByResponsibleAndInterval(user, interval);
         
         AssignedWorkTO returnable = transferObjectBusiness.constructAssignedWorkTO(tasks, stories);

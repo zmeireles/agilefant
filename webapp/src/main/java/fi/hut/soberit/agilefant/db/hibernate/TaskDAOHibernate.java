@@ -127,6 +127,53 @@ public class TaskDAOHibernate extends GenericDAOHibernate<Task> implements
 
         return tasks;
     }
+    
+    public List<Task> getAllTasks(User user, Interval interval) {
+        List<Task> tasks = new ArrayList<Task>();
+        
+        Criteria crit = this.createCriteria(Task.class);
+        crit.createCriteria("responsibles")
+            .add(Restrictions.idEq(user.getId()));
+        
+        Criteria iteration = crit.createCriteria("iteration");
+        iteration.setFetchMode("parent", FetchMode.SELECT);
+        IterationDAOHelpers.addIterationIntervalLimit(iteration, interval);
+        crit.add(Restrictions.isNull("story"));
+        crit.add(Restrictions.ne("state", TaskState.DONE));
+        crit.setFetchMode("creator", FetchMode.SELECT);
+
+        List<Task> dummy = asList(crit); 
+        tasks.addAll(dummy);
+        
+        crit = this.createCriteria(Task.class);
+        crit.createCriteria("responsibles")
+            .add(Restrictions.idEq(user.getId()));
+        crit.add(Restrictions.ne("state", TaskState.DONE));
+
+        Criteria storyIteration = crit.createCriteria("story").createCriteria("iteration");
+        storyIteration.setFetchMode("parent",FetchMode.SELECT);
+        IterationDAOHelpers.addIterationIntervalLimit(storyIteration, interval);
+        crit.setFetchMode("creator", FetchMode.SELECT);
+        
+        dummy = asList(crit);
+        tasks.addAll(dummy);
+        
+        crit = this.createCriteria(Task.class);
+        crit.createCriteria("responsibles")
+            .add(Restrictions.idEq(user.getId()));
+        crit.add(Restrictions.ne("state", TaskState.DONE));
+        crit.add(Restrictions.isNull("iteration"));
+
+        Criteria storyBacklog = crit.createCriteria("story").createCriteria("backlog");
+        storyBacklog.setFetchMode("parent",FetchMode.SELECT);
+        IterationDAOHelpers.addBacklogIntervalLimit(storyBacklog, interval);
+        crit.setFetchMode("creator", FetchMode.SELECT);
+        
+        dummy = asList(crit);
+        tasks.addAll(dummy);
+
+        return tasks;
+    }
 
     public List<UnassignedLoadTO> getUnassignedStoryTasksWithEffortLeft(User user,
             Interval interval) {
