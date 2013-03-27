@@ -70,7 +70,8 @@ public interface TaskDAO extends GenericDAO<Task> {
      * backlog (iteration, project or product).
      * Selects only tasks from iterations that overlap with the given interval,
      * or whose story timeframe overlaps with the given interval. Only
-     * returns tasks that are not yet done.
+     * returns tasks that are not done, deferred, or whose story is not
+     * deferred.
      * 
      * @param user
      *            Assignee or one of the assignees for the searched tasks.
