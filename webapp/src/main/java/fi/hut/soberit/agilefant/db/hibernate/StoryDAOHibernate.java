@@ -131,6 +131,7 @@ public class StoryDAOHibernate extends GenericDAOHibernate<Story> implements
         Criteria backlogCriteria = crit.createCriteria("backlog");
         IterationDAOHelpers.addBacklogIntervalLimit(backlogCriteria, interval);
         crit.add(Restrictions.ne("state", StoryState.DONE));
+        crit.add(Restrictions.ne("state", StoryState.DEFERRED));
         crit.add(Restrictions.isNull("iteration"));
         List<Story> dummy = asList(crit); 
         stories.addAll(dummy);
@@ -142,6 +143,7 @@ public class StoryDAOHibernate extends GenericDAOHibernate<Story> implements
         Criteria iterationCrit = standaloneCrit.createCriteria("iteration");
         IterationDAOHelpers.addIterationIntervalLimit(iterationCrit, interval);
         standaloneCrit.add(Restrictions.ne("state", StoryState.DONE));
+        standaloneCrit.add(Restrictions.ne("state", StoryState.DEFERRED));
         List<Story> standaloneStories = asList(standaloneCrit);
         stories.addAll(standaloneStories);
         
