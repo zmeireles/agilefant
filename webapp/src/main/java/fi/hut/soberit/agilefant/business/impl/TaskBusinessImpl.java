@@ -180,7 +180,6 @@ public class TaskBusinessImpl extends GenericBusinessImpl<Task> implements
         checkArgumentsForMoving(task, iterationId, storyId);
 
         Integer sourceIterationId = getTaskIterationId(task);
-
         assignParentForTask(task, iterationId, storyId);
         this.store(task);
 
@@ -349,7 +348,6 @@ public class TaskBusinessImpl extends GenericBusinessImpl<Task> implements
     @Transactional
     public Task rankAndMove(Task task, Task upperTask, Integer parentStoryId,
             Integer parentIterationId) throws IllegalArgumentException {
-
         assignParentForTask(task, parentIterationId, parentStoryId);
         rankToBottom(task, parentStoryId, parentIterationId);
         rankUnderTask(task, upperTask);

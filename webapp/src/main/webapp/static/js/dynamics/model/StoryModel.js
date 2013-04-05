@@ -27,7 +27,8 @@ var StoryModel = function StoryModel() {
     "description": "description",
     "state": "state",
     "storyPoints": "storyPoints",
-    "rank": "rank"
+    "rank": "rank",
+    "workQueueRank": "workQueueRank"
   };
   this.classNameToRelation = {
       "fi.hut.soberit.agilefant.model.Product":       "backlog",
@@ -203,6 +204,7 @@ StoryModel.prototype._saveData = function(id, changedData) {
     	// Set rank to be negative temporarily, otherwise the new story will be second on the list as there would be two 0 rank stories
     	// The rank will be have the correct value after the listeners callbacks are executed
     	object.setRank(-1);
+    	object.setWorkQueueRank(-1);
         if (possibleBacklog) {
           possibleBacklog.addStory(object);
         }
@@ -478,12 +480,20 @@ StoryModel.prototype.getParent = function() {
 		return this.getBacklog();
 };
 
+StoryModel.prototype.getThis = function() {
+	return this;
+};
+
 
 StoryModel.prototype.getRank = function() {
   return this.currentData.rank;
 };
 StoryModel.prototype.setRank = function(newRank) {
   this.currentData.rank = newRank;
+};
+
+StoryModel.prototype.setWorkQueueRank = function(newWorkQueueRank) {
+  this.currentData.workQueueRank = newWorkQueueRank;
 };
 
 
@@ -568,4 +578,18 @@ StoryModel.prototype.setLabels = function(labels) {
   this.currentData.labels = labels;
 };
 
-
+StoryModel.prototype.getMyStoriesRank = function() {
+	  return this.currentData.workQueueRank;
+	};
+	StoryModel.prototype.rankInMyStories = function(previousStoryId, userId) {
+	  var me = this;
+	  $.ajax({
+	    url:  'ajax/rankMyStoryAndMoveUnder.action',
+	    data: { storyId: this.id, storyRankUnderId: previousStoryId, userId: userId },
+	    type: "post",
+	    success: function(data, status) {
+	      MessageDisplay.Ok("Story ranked in my stories");
+	      me.callListeners(new DynamicsEvents.RankChanged(me, "myStoriesStory"));
+	    }
+	  });
+	};

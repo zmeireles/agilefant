@@ -16,9 +16,11 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import fi.hut.soberit.agilefant.business.DailyWorkBusiness;
+import fi.hut.soberit.agilefant.business.StoryBusiness;
 import fi.hut.soberit.agilefant.business.TaskBusiness;
 import fi.hut.soberit.agilefant.business.TransferObjectBusiness;
 import fi.hut.soberit.agilefant.business.UserBusiness;
+import fi.hut.soberit.agilefant.model.Story;
 import fi.hut.soberit.agilefant.model.Task;
 import fi.hut.soberit.agilefant.model.Team;
 import fi.hut.soberit.agilefant.model.User;
@@ -40,6 +42,9 @@ public class DailyWorkAction extends ActionSupport {
 
     @Autowired
     private TaskBusiness taskBusiness;
+    
+    @Autowired
+    private StoryBusiness storyBusiness;
 
     @Autowired
     private TransferObjectBusiness transferObjectBusiness;
@@ -55,8 +60,16 @@ public class DailyWorkAction extends ActionSupport {
     private int  taskId;
     private int  rankUnderId;
     private Task task;
-
     
+    private int storyId;
+
+
+    private int storyRankUnderId;
+
+
+    private Story story;
+
+
     @SuppressWarnings("unchecked")
     @Override
     public String execute() {
@@ -110,10 +123,27 @@ public class DailyWorkAction extends ActionSupport {
         user = this.userBusiness.retrieve(userId);
         queuedTasks = dailyWorkBusiness.getQueuedTasksForUser(user);
         AssignedWorkTO assignedWork = dailyWorkBusiness.getAssignedWorkFor(user);
-        this.stories = assignedWork.getStories();
         this.tasksWithoutStory = assignedWork.getTasksWithoutStory();
         
+        retrieveStories(assignedWork);
+        
         return Action.SUCCESS;
+    }
+    
+    private void retrieveStories(AssignedWorkTO assignedWork) {
+        Collection<StoryTO> rankedStories = dailyWorkBusiness.getQueuedStoriesForUser(user);
+        Collection<StoryTO> unrankedStories = assignedWork.getStories();
+        this.stories = new ArrayList<StoryTO>();
+        int unrankedNumber = 10000;
+        for (StoryTO storyTO: unrankedStories) {
+            Integer rank = getStoryRank(storyTO, rankedStories);
+            if (rank == null) {
+                rank = unrankedNumber;
+                unrankedNumber++;
+            }
+            storyTO.setWorkQueueRank(rank);
+            this.stories.add(storyTO);
+        }
     }
     
     public String retrieveWorkQueue() {
@@ -126,9 +156,18 @@ public class DailyWorkAction extends ActionSupport {
     public String retrieveAssignedStories() {
         user = this.userBusiness.retrieve(userId);
         AssignedWorkTO assignedWork = dailyWorkBusiness.getAssignedWorkFor(user);
-        this.stories = assignedWork.getStories();
+        retrieveStories(assignedWork);
         
         return Action.SUCCESS;
+    }
+    
+    private Integer getStoryRank(StoryTO storyTO, Collection<StoryTO> rankedStories) {
+        for (StoryTO rankedStory: rankedStories) {
+            if (rankedStory.getId() == storyTO.getId()) {
+                return rankedStory.getWorkQueueRank();
+            }
+        }
+        return null;
     }
     
     public String retrieveAssignedTasks() {
@@ -166,6 +205,47 @@ public class DailyWorkAction extends ActionSupport {
         dailyWorkBusiness.rankUnderTaskOnWhatsNext(user, task, taskBusiness.retrieveIfExists(rankUnderId));
         
         return Action.SUCCESS;
+    }
+    
+    public String rankMyStoryAndMoveUnder() {
+        User user = getDefaultUser();
+        Story story = storyBusiness.retrieve(storyId);
+
+        Story storyRankUnder = storyBusiness.retrieveIfExists(storyRankUnderId);
+        if (storyRankUnder != null) {
+            AssignedWorkTO assignedWork = dailyWorkBusiness.getAssignedWorkFor(user);
+            Collection<StoryTO> rankedStories = dailyWorkBusiness.getQueuedStoriesForUser(user);
+            Collection<StoryTO> unrankedStories = assignedWork.getStories();
+            Integer storyRankUnderIdRank = null;
+            for (StoryTO storyTO: unrankedStories) {
+                if (storyTO.getId() == storyRankUnderId) {
+                    storyRankUnderIdRank = getStoryRank(storyTO, rankedStories);
+                }
+            }
+            if (storyRankUnderIdRank == null) {
+                for (StoryTO storyTO: unrankedStories) {
+                    Integer rank = getStoryRank(storyTO, rankedStories);
+                    if (rank == null && storyTO.getId() != storyId) {
+                        addToWhatsNext(storyTO.getId());
+                    }
+                    
+                    if (storyTO.getId() == storyRankUnderId) {
+                        break;
+                    }
+                }
+            }
+        }
+        
+        dailyWorkBusiness.rankUnderStoryOnWhatsNext(user, story, storyBusiness.retrieveIfExists(storyRankUnderId));
+        
+        return Action.SUCCESS;
+    }
+    
+    private void addToWhatsNext(int id) {
+        User user = getDefaultUser();
+        Story story = storyBusiness.retrieve(id);
+        
+        dailyWorkBusiness.addToWhatsNext(user, story);
     }
     
     protected User getDefaultUser() {
@@ -237,6 +317,22 @@ public class DailyWorkAction extends ActionSupport {
 
     public void setTask(Task task) {
         this.task = task;
+    }
+    
+    public void setStoryId(int storyId) {
+        this.storyId = storyId;
+    }
+    
+    public void setStoryRankUnderId(int storyRankUnderId) {
+        this.storyRankUnderId = storyRankUnderId;
+    }
+    
+    public Story getStory() {
+        return story;
+    }
+    
+    public void setStory(Story story) {
+        this.story = story;
     }
 
     public void setUserBusiness(UserBusiness userBusiness) {

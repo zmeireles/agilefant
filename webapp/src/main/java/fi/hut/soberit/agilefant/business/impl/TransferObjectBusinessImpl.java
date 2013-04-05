@@ -31,6 +31,7 @@ import fi.hut.soberit.agilefant.model.Task;
 import fi.hut.soberit.agilefant.model.Team;
 import fi.hut.soberit.agilefant.model.User;
 import fi.hut.soberit.agilefant.model.WhatsNextEntry;
+import fi.hut.soberit.agilefant.model.WhatsNextStoryEntry;
 import fi.hut.soberit.agilefant.security.SecurityUtil;
 import fi.hut.soberit.agilefant.transfer.AssignedWorkTO;
 import fi.hut.soberit.agilefant.transfer.AutocompleteDataNode;
@@ -72,6 +73,10 @@ public class TransferObjectBusinessImpl implements TransferObjectBusiness {
     
     private void fillInEffortSpent(TaskTO taskTO) {
         taskTO.setEffortSpent(hourEntryBusiness.calculateSum(taskTO.getHourEntries()));
+    }
+    
+    private void fillInEffortSpent(StoryTO storyTO) {
+        storyTO.setEffortSpent(hourEntryBusiness.calculateSum(storyTO.getHourEntries()));
     }
     
     /** {@inheritDoc} */
@@ -323,6 +328,17 @@ public class TransferObjectBusinessImpl implements TransferObjectBusiness {
     public DailyWorkTaskTO constructQueuedDailyWorkTaskTO(WhatsNextEntry entry) {
         Task task = entry.getTask();
         DailyWorkTaskTO toReturn = new DailyWorkTaskTO(task);
+        fillInEffortSpent(toReturn);
+        toReturn.setWorkQueueRank(entry.getRank());
+
+        return toReturn;
+    }
+    
+    /** {@inheritDoc} */
+    @Transactional(readOnly = true)
+    public StoryTO constructQueuedStoryTO(WhatsNextStoryEntry entry) {
+        Story story = entry.getStory();
+        StoryTO toReturn = new StoryTO(story);
         fillInEffortSpent(toReturn);
         toReturn.setWorkQueueRank(entry.getRank());
 

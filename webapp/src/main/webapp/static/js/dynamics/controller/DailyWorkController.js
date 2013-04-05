@@ -89,9 +89,7 @@ DailyWorkController.prototype._paintLists = function() {
   this.tasksWithoutStoryController = new DailyWorkTasksWithoutStoryController(
       this.model, this.options.tasksWithoutStoryElement, this);
   this.assignedStoriesController = new DailyWorkStoryListController(this.model,
-      this.options.assignedStoriesElement, this);
+      this.options.assignedStoriesElement, this, { userId: this.options.userId });
   this.workQueueController = new WorkQueueController(this.model,
       this.options.workQueueElement, this, { userId: this.options.userId });
 };
-
-

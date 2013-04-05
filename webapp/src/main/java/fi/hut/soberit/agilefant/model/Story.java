@@ -60,11 +60,14 @@ public class Story implements TimesheetLoggable, LabelContainer, NamedObject, Ta
     private Set<StoryHourEntry> hourEntries = new HashSet<StoryHourEntry>();
     private Set<StoryRank> storyRanks = new HashSet<StoryRank>();
     private Set<StoryAccess> storyAccesses;
+    private Set<WhatsNextStoryEntry> whatsNextStoryEntries = new HashSet<WhatsNextStoryEntry>();
 
     private Integer storyPoints;
     private Integer storyValue;
     
     private Story fullInfoStory;
+    
+    //protected int workQueueRank = 5;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -163,6 +166,22 @@ public class Story implements TimesheetLoggable, LabelContainer, NamedObject, Ta
         this.responsibles = responsibles;
     }
     
+    @NotAudited
+    @OneToMany(
+            targetEntity = fi.hut.soberit.agilefant.model.WhatsNextStoryEntry.class,
+            fetch = FetchType.LAZY,
+            mappedBy = "story",
+            cascade = CascadeType.REMOVE
+    )
+    @JSON(include = false)
+    public Set<WhatsNextStoryEntry> getWhatsNextStoryEntries() {
+        return whatsNextStoryEntries;
+    }
+    
+    public void setWhatsNextStoryEntries(Set<WhatsNextStoryEntry> entries) {
+        this.whatsNextStoryEntries = entries;
+    }
+    
     @OneToMany(targetEntity = fi.hut.soberit.agilefant.model.Task.class,
             mappedBy = "story"
     )
@@ -226,7 +245,17 @@ public class Story implements TimesheetLoggable, LabelContainer, NamedObject, Ta
     public void setStoryValue(Integer storyValue) {
         this.storyValue = storyValue;
     }
+    /*
+    //@JSON
+    //@XmlAttribute
+    public int returnWorkQueueRank() {
+        return workQueueRank;
+    }
 
+    public void setWorkQueueRank(int workQueueRank) {
+        this.workQueueRank = workQueueRank;
+    }
+*/
     @OneToMany(mappedBy = "story",
             targetEntity = fi.hut.soberit.agilefant.model.StoryHourEntry.class )
     @NotAudited
@@ -360,6 +389,11 @@ public class Story implements TimesheetLoggable, LabelContainer, NamedObject, Ta
             Story newChild = new Story(childStory);
             newChild.setParent(this);
             this.getChildren().add(newChild);
+        }
+        for (WhatsNextStoryEntry we : otherStory.getWhatsNextStoryEntries())
+        {
+            WhatsNextStoryEntry newEntry = new WhatsNextStoryEntry(we);
+            this.getWhatsNextStoryEntries().add(newEntry);
         }
     }
 }

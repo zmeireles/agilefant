@@ -39,6 +39,7 @@ import fi.hut.soberit.agilefant.model.StoryRank;
 import fi.hut.soberit.agilefant.model.StoryState;
 import fi.hut.soberit.agilefant.model.Task;
 import fi.hut.soberit.agilefant.model.TaskHourEntry;
+import fi.hut.soberit.agilefant.model.User;
 import fi.hut.soberit.agilefant.transfer.StoryTO;
 import fi.hut.soberit.agilefant.util.ChildHandlingChoice;
 import fi.hut.soberit.agilefant.util.HourEntryHandlingChoice;
@@ -988,6 +989,10 @@ public class StoryBusinessImpl extends GenericBusinessImpl<Story> implements
     
     public void setStoryHierarchyBusiness(StoryHierarchyBusiness storyHierarchyBusiness) {
         this.storyHierarchyBusiness = storyHierarchyBusiness;
+    }
+    
+    public void addResponsible(Story story, User user) {
+        story.getResponsibles().add(user);
     }
     
 }
