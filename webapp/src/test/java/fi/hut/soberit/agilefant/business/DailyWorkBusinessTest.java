@@ -139,6 +139,7 @@ public class DailyWorkBusinessTest {
         expect(transferObjectBusiness.constructAssignedWorkTO(tasks, stories)).andReturn(assignedWork);
 
         expect(storyRankDAO.getIterationRanksForStories(EasyMock.isA(Collection.class))).andReturn(new ArrayList<StoryRank>());
+        expect(storyRankDAO.getProjectRanksForStories(EasyMock.isA(Collection.class))).andReturn(new ArrayList<StoryRank>());
         
         replayAll();
         AssignedWorkTO returned = testable.getAssignedWorkFor(user);
