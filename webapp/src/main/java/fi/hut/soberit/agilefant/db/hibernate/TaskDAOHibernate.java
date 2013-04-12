@@ -167,6 +167,7 @@ public class TaskDAOHibernate extends GenericDAOHibernate<Task> implements
         crit.add(Restrictions.isNull("iteration"));
 
         Criteria storyBacklog = crit.createCriteria("story");
+        storyBacklog.add(Restrictions.isNull("iteration"));
         storyBacklog.setFetchMode("parent",FetchMode.SELECT);
         storyBacklog = storyBacklog.createCriteria("backlog");
         IterationDAOHelpers.addBacklogIntervalLimit(storyBacklog, interval);

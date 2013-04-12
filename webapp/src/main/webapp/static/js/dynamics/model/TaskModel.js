@@ -336,7 +336,7 @@ TaskModel.prototype.addToMyWorkQueue = function(successCallback) {
            taskId: me.getId()
         },
         success: function(data,status) {
-            MessageDisplay.Ok("Task appended to your work queue");
+            MessageDisplay.Ok("Task appended to your task queue");
             me.setData(data);
             if (successCallback) {
                successCallback();
@@ -345,7 +345,7 @@ TaskModel.prototype.addToMyWorkQueue = function(successCallback) {
             me.callListeners(new DynamicsEvents.NamedEvent(me, "addedToWorkQueue"));
         },
         error: function(xhr,status) {
-            MessageDisplay.Error("Error adding task to work queue.", xhr);
+            MessageDisplay.Error("Error adding task to task queue.", xhr);
         }
     });
 };
@@ -363,7 +363,7 @@ TaskModel.prototype.removeFromMyWorkQueue = function(successCallback) {
            taskId: me.getId()
         },
         success: function(data,status) {
-            MessageDisplay.Ok("Task removed from your work queue");
+            MessageDisplay.Ok("Task removed from your task queue");
             
             me.setData(data);
             if (successCallback) {
@@ -373,7 +373,7 @@ TaskModel.prototype.removeFromMyWorkQueue = function(successCallback) {
             me.callListeners(new DynamicsEvents.NamedEvent(me, "removedFromWorkQueue"));
         },
         error: function(xhr,status) {
-            MessageDisplay.Error("Error removing task from work queue.", xhr);
+            MessageDisplay.Error("Error removing task from task queue.", xhr);
         }
     });
 };

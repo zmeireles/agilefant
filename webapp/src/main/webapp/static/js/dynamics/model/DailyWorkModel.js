@@ -55,7 +55,7 @@ DailyWorkModel.prototype.reloadWorkQueue = function(userId, callback) {
       }
     },
     error: function(xhr, status) {
-      MessageDisplay.Error("Unable to refresh work queue.", xhr);
+      MessageDisplay.Error("Unable to refresh task queue.", xhr);
     }
   });
 };
@@ -97,7 +97,7 @@ DailyWorkModel.prototype.reloadMyStories = function(userId, callback) {
       }
     },
     error: function(xhr, status) {
-      MessageDisplay.Error("Unable to refresh my stories.", xhr);
+      MessageDisplay.Error("Unable to refresh story queue.", xhr);
     }
   });
 };

@@ -596,7 +596,7 @@ StoryModel.prototype.getMyStoriesRank = function() {
 	    data: { storyId: this.id, storyRankUnderId: previousStoryId, userId: userId },
 	    type: "post",
 	    success: function(data, status) {
-	      MessageDisplay.Ok("Story ranked in my stories");
+	      MessageDisplay.Ok("Story ranked in story queue");
 	      me.callListeners(new DynamicsEvents.RankChanged(me, "myStoriesStory"));
 	    }
 	  });

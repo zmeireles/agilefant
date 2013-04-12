@@ -66,7 +66,7 @@ WorkQueueController.prototype.rankInWorkQueue = function(view, model, previousMo
 
 WorkQueueController.prototype._getTableConfig = function() {
   var config = new DynamicTableConfiguration({
-    caption: "My work queue",
+    caption: "Task queue",
     captionConfig: {
       cssClasses: "dynamictable-caption-block ui-widget-header ui-corner-all"
     },

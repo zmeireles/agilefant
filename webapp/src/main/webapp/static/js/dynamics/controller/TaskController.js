@@ -178,11 +178,11 @@ TaskController.prototype.actionColumnFactory = function(view, model) {
     text : "Delete",
     callback : TaskController.prototype.removeTask
   }, {
-    text : "Append to my work queue",
+    text : "Append to my task queue",
     callback : TaskController.prototype.addToMyWorkQueue,
     enabled : TaskController.prototype.addToQueueEnabled
   }, {
-    text : "Remove from work queue",
+    text : "Remove from my task queue",
     callback : TaskController.prototype.removeFromMyWorkQueue,
     enabled : TaskController.prototype.removeFromQueueEnabled
   }, {
