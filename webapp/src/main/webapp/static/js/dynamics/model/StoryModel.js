@@ -107,6 +107,8 @@ StoryModel.prototype._copyStory = function(story)
   var url = "ajax/copyStorySibling.action";
   data.storyId = story.id;
   document.body.style.cursor = "wait";
+  var userId = PageController.getInstance().getCurrentUser().getId();
+  var storyRank = story.getMyStoriesRank();
   jQuery.ajax({
     type: "POST",
     url: url,
@@ -121,8 +123,13 @@ StoryModel.prototype._copyStory = function(story)
         possibleIteration.addStory(object);
         object.callListeners(new DynamicsEvents.AddEvent(object));
       }
-      object.rankUnder(story.id, object);
+      object.rankUnder(story.id, object.getParent());
+  	  
+      if (storyRank != null && storyRank < 10000) {
+    	  object.rankInMyStories(story.id, userId);
+      }
       MessageDisplay.Ok("Story created successfully");
+      document.body.style.cursor = "default";
     },
     error: function(xhr, status, error) {
       MessageDisplay.Error("Error saving story", xhr);
@@ -346,18 +353,17 @@ StoryModel.prototype._rank = function(direction, targetStoryId, targetBacklog) {
     "storyId": me.getId(),
     "targetStoryId": targetStoryId
   };
-  
   if ((targetBacklog && targetBacklog != this.getParent()) || direction === "top" || direction === "bottom" ) {
     postData.backlogId = targetBacklog.getId();
   }
-  
+
   var urls = {
     "over": "ajax/rankStoryOver.action",
     "under": "ajax/rankStoryUnder.action",
     "top":  "ajax/rankStoryToTop.action",
     "bottom":  "ajax/rankStoryToBottom.action"
   };
-  
+
   jQuery.ajax({
     url: urls[direction],
     type: "post",
@@ -376,7 +382,9 @@ StoryModel.prototype._rank = function(direction, targetStoryId, targetBacklog) {
       if(me.relations.project) {
         //the story is being ranked in the project context in which the stories may have different parent backlogs
         me.relations.project.callListeners(new DynamicsEvents.RankChanged(me.relations.project,"story"));
-      } else {
+      } /*else if (me.relations.iteration == null && me.relations.backlog instanceof ProjectModel) {
+        me.relations.backlog.callListeners(new DynamicsEvents.RankChanged(me.relations.backlog,"story"));
+      }*/ else {
         oldParent.callListeners(new DynamicsEvents.RankChanged(oldParent,"story"));
         if (oldParent !== targetBacklog) {
           targetBacklog.callListeners(new DynamicsEvents.RankChanged(targetBacklog,"story"));

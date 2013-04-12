@@ -51,5 +51,19 @@ public class StoryRankDAOHibernate extends GenericDAOHibernate<StoryRank>
         
         return asCollection(filter);
     }
+    
+    public Collection<StoryRank> getProjectRanksForStories(Collection<Story> stories) {
+        if(stories.isEmpty()) {
+            return new ArrayList<StoryRank>();
+        }
+        Criteria filter = this.createCriteria(StoryRank.class);
+        filter.add(Restrictions.in("story", stories));
+        
+        // Project crit
+        Criteria projectFilter = filter.createCriteria("backlog");
+        projectFilter.add(Restrictions.eq("class", "Project"));
+        
+        return asCollection(filter);
+    }
 
 }

@@ -293,18 +293,26 @@ public class DailyWorkBusinessImpl implements DailyWorkBusiness {
 
         Collection<Story> finalStories = new ArrayList<Story>();
         finalStories.addAll(returnable.getStories());
-        Collection<StoryRank> ranks = storyRankDAO.getIterationRanksForStories(finalStories);
+        Collection<StoryRank> iterationRanks = storyRankDAO.getIterationRanksForStories(finalStories);
+        Collection<StoryRank> projectRanks = storyRankDAO.getProjectRanksForStories(finalStories);
 
-        setStoryRanks(returnable.getStories(), ranks);
+        setStoryRanks(returnable.getStories(), iterationRanks, projectRanks);
         
         return returnable; 
     }
     
     @SuppressWarnings("unchecked")
-    private static void setStoryRanks(List<StoryTO> stories, Collection<StoryRank> ranks) {
+    private static void setStoryRanks(List<StoryTO> stories, Collection<StoryRank> iterationRanks, Collection<StoryRank> projectRanks) {
         Map<Integer, Integer> rankMap = new HashMap<Integer, Integer>();
-        for (StoryRank rank : ranks) {
+        for (StoryRank rank : iterationRanks) {
             rankMap.put(rank.getStory().getId(), rank.getRank());
+        }
+        // Set project ranks only for stories which do not have iteration ranks
+        for (StoryRank rank : projectRanks) {
+            int id = rank.getStory().getId();
+            if (!rankMap.containsKey(id)) {
+                rankMap.put(id, rank.getRank());
+            }
         }
         // Set the ranks for the stories
         for (StoryTO s : stories) {
@@ -312,6 +320,7 @@ public class DailyWorkBusinessImpl implements DailyWorkBusiness {
         }
         
         Collections.sort(stories, new PropertyComparator("rank", true, true));
+        Collections.sort(stories, new PropertyComparator("iteration.name", true, true));
         Collections.sort(stories, new PropertyComparator("backlog.name", true, true));
         
         int i = 0;
