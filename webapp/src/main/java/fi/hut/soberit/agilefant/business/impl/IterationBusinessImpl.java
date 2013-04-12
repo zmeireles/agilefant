@@ -256,11 +256,6 @@ public class IterationBusinessImpl extends GenericBusinessImpl<Iteration>
 
         return new ExactEstimate((long) velocity);
     }
-    
-    public ExactEstimate calculateDailyStoryPointsVelocity(Iteration iteration) {
-        int doneStoryPoints = backlogBusiness.calculateDoneStoryPointSum(iteration.getId());
-        return calculateDailyStoryPointsVelocity(new LocalDate(iteration.getStartDate()), new LocalDate(iteration.getEndDate()), doneStoryPoints);
-    }
 
     private Integer calculatePercent(Integer part, Integer total) {
         if(total == 0) {
@@ -296,11 +291,12 @@ public class IterationBusinessImpl extends GenericBusinessImpl<Iteration>
         else
             metrics.setPlannedSize(new ExactEstimate(iteration.getBacklogSize().intValue()));
 
-        metrics.setDailyVelocity(calculateDailyStoryPointsVelocity(iteration));
+        int doneStoryPoints = backlogBusiness.calculateDoneStoryPointSum(iteration.getId());
+        metrics.setDailyVelocity(calculateDailyStoryPointsVelocity(new LocalDate(iteration.getStartDate()), new LocalDate(iteration.getEndDate()), doneStoryPoints));
 
         // 2. Set story points
         metrics.setStoryPoints(backlogBusiness.getStoryPointSumByIteration(iteration));
-        metrics.setDoneStoryPoints(backlogBusiness.calculateDoneStoryPointSum(iteration.getId()));
+        metrics.setDoneStoryPoints(doneStoryPoints);
 
         // 3. Set spent effort
         long spentEffort = hourEntryBusiness
