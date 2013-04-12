@@ -141,7 +141,6 @@ public class TaskDAOHibernate extends GenericDAOHibernate<Task> implements
         IterationDAOHelpers.addIterationIntervalLimit(iteration, interval);
         crit.add(Restrictions.isNull("story"));
         crit.add(Restrictions.ne("state", TaskState.DONE));
-        crit.add(Restrictions.ne("state", TaskState.DEFERRED));
         crit.setFetchMode("creator", FetchMode.SELECT);
 
         List<Task> dummy = asList(crit); 
@@ -151,11 +150,9 @@ public class TaskDAOHibernate extends GenericDAOHibernate<Task> implements
         crit.createCriteria("responsibles")
             .add(Restrictions.idEq(user.getId()));
         crit.add(Restrictions.ne("state", TaskState.DONE));
-        crit.add(Restrictions.ne("state", TaskState.DEFERRED));
 
         Criteria storyIteration = crit.createCriteria("story");
         storyIteration.setFetchMode("parent",FetchMode.SELECT);
-        storyIteration.add(Restrictions.ne("state", StoryState.DEFERRED));
         storyIteration = storyIteration.createCriteria("iteration");
         IterationDAOHelpers.addIterationIntervalLimit(storyIteration, interval);
         crit.setFetchMode("creator", FetchMode.SELECT);
@@ -167,12 +164,10 @@ public class TaskDAOHibernate extends GenericDAOHibernate<Task> implements
         crit.createCriteria("responsibles")
             .add(Restrictions.idEq(user.getId()));
         crit.add(Restrictions.ne("state", TaskState.DONE));
-        crit.add(Restrictions.ne("state", TaskState.DEFERRED));
         crit.add(Restrictions.isNull("iteration"));
 
         Criteria storyBacklog = crit.createCriteria("story");
         storyBacklog.setFetchMode("parent",FetchMode.SELECT);
-        storyBacklog.add(Restrictions.ne("state", StoryState.DEFERRED));
         storyBacklog = storyBacklog.createCriteria("backlog");
         IterationDAOHelpers.addBacklogIntervalLimit(storyBacklog, interval);
         crit.setFetchMode("creator", FetchMode.SELECT);
