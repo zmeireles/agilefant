@@ -239,6 +239,28 @@ public class IterationBusinessImpl extends GenericBusinessImpl<Iteration>
         final IterationHistoryEntry entry = iterationHistoryEntryDAO.retrieveByDate(iteration.getId(), today.minusDays(1));
         return calculateDailyVelocity(new LocalDate(iteration.getStartDate()), new LocalDate(iteration.getEndDate()), entry);
     }
+    
+    public ExactEstimate calculateDailyStoryPointsVelocity(LocalDate start, LocalDate end, int points) {
+        final LocalDate today = new LocalDate();
+
+        if (points == 0)
+            return new ExactEstimate(0);
+        final LocalDate day = (today.isBefore(end)) ? today : end;
+
+        double length = Days.daysBetween(start, day).getDays();
+        if (length < 1) {
+            length = 1;
+        }
+
+        final double velocity = points / length;
+
+        return new ExactEstimate((long) velocity);
+    }
+    
+    public ExactEstimate calculateDailyStoryPointsVelocity(Iteration iteration) {
+        int doneStoryPoints = backlogBusiness.calculateDoneStoryPointSum(iteration.getId());
+        return calculateDailyStoryPointsVelocity(new LocalDate(iteration.getStartDate()), new LocalDate(iteration.getEndDate()), doneStoryPoints);
+    }
 
     private Integer calculatePercent(Integer part, Integer total) {
         if(total == 0) {
@@ -274,7 +296,7 @@ public class IterationBusinessImpl extends GenericBusinessImpl<Iteration>
         else
             metrics.setPlannedSize(new ExactEstimate(iteration.getBacklogSize().intValue()));
 
-        metrics.setDailyVelocity(calculateDailyVelocity(iteration));
+        metrics.setDailyVelocity(calculateDailyStoryPointsVelocity(iteration));
 
         // 2. Set story points
         metrics.setStoryPoints(backlogBusiness.getStoryPointSumByIteration(iteration));
