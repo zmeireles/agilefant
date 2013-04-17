@@ -1,19 +1,14 @@
 var DailyWorkModel = function DailyWorkModel() {
   this.initialize();
   this.persistedClassName = "non.existent.DailyWork";
-  //this.persistedClassName = "fi.hut.soberit.agilefant.transfer.DailyWorkStoryTO";
   this.relations = {
       tasksWithoutStory: [],
       stories: [],
       queuedTasks: []
     };
     this.copiedFields = { };
-    //this.copiedFields.workQueueRank = "workQueueRank";
     this.classNameToRelation = {
         "fi.hut.soberit.agilefant.transfer.DailyWorkTaskTO":  "queuedTasks",
-    	//"fi.hut.soberit.agilefant.model.Task":  "queuedTasks",
-        //"fi.hut.soberit.agilefant.transfer.DailyWorkStoryTO":  "stories",
-        //"fi.hut.soberit.agilefant.model.WorkQueueStoryModel":  "stories",
         "fi.hut.soberit.agilefant.transfer.StoryTO":  "stories",
         "fi.hut.soberit.agilefant.model.Story":  "stories",
         "fi.hut.soberit.agilefant.transfer.TaskTO":  "tasksWithoutStory",

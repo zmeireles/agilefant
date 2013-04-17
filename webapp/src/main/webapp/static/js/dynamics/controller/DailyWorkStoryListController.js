@@ -23,9 +23,7 @@ DailyWorkStoryListController.prototype._getTableConfig = function() {
     dataSource: DailyWorkModel.prototype.getAssignedStories,
     beforeCommitFunction: StoryListController.prototype.confirmTasksToDone,    
     rowControllerFactory : StoryListController.prototype.storyControllerFactory,
-    //dataSource: DailyWorkModel.prototype.getWorkQueue,
     sortCallback: $.proxy(function(view, model, previousModel) {this.rankInMyStories(view, model, previousModel);}, this),
-    //sortCallback: this.rankInMyStories,
     sortOptions: {
       items: "> .dynamicTableDataRow",
       handle: "." + DynamicTable.cssClasses.dragHandle
@@ -70,7 +68,6 @@ DailyWorkStoryListController.prototype._addColumnConfigs = function(config) {
   
   /* Overwrite some rules */
   config.columns[DailyWorkStoryListController.columnIndices.name].options.minWidth = 200;
-  //config.columns[DailyWorkStoryListController.columnIndices.name].options.dragHandle = false;
 };
 
 
@@ -100,7 +97,6 @@ DailyWorkStoryListController.columnConfig.priority = {
   cssClass: "dailywork-story-table-row",
   /*get: StoryModel.prototype.getRank,*/
   sortCallback: DynamicsComparators.valueComparatorFactory(StoryModel.prototype.getMyStoriesRank),
-  //sortCallback: DynamicsComparators.valueComparatorFactory(StoryModel.prototype.getRank),
   defaultSortColumn: true,
   subViewFactory : StoryController.prototype.taskToggleFactory
 };

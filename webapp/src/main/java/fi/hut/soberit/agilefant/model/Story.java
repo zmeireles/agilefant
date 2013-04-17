@@ -67,8 +67,6 @@ public class Story implements TimesheetLoggable, LabelContainer, NamedObject, Ta
     
     private Story fullInfoStory;
     
-    //protected int workQueueRank = 5;
-    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @XmlAttribute(name = "objectId")
@@ -245,17 +243,7 @@ public class Story implements TimesheetLoggable, LabelContainer, NamedObject, Ta
     public void setStoryValue(Integer storyValue) {
         this.storyValue = storyValue;
     }
-    /*
-    //@JSON
-    //@XmlAttribute
-    public int returnWorkQueueRank() {
-        return workQueueRank;
-    }
 
-    public void setWorkQueueRank(int workQueueRank) {
-        this.workQueueRank = workQueueRank;
-    }
-*/
     @OneToMany(mappedBy = "story",
             targetEntity = fi.hut.soberit.agilefant.model.StoryHourEntry.class )
     @NotAudited
