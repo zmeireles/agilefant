@@ -36,6 +36,7 @@ import fi.hut.soberit.agilefant.db.history.TaskHistoryDAO;
 import fi.hut.soberit.agilefant.exception.ObjectNotFoundException;
 import fi.hut.soberit.agilefant.model.Assignment;
 import fi.hut.soberit.agilefant.model.Backlog;
+import fi.hut.soberit.agilefant.model.ExactDoubleEstimate;
 import fi.hut.soberit.agilefant.model.ExactEstimate;
 import fi.hut.soberit.agilefant.model.Iteration;
 import fi.hut.soberit.agilefant.model.IterationHistoryEntry;
@@ -240,11 +241,11 @@ public class IterationBusinessImpl extends GenericBusinessImpl<Iteration>
         return calculateDailyVelocity(new LocalDate(iteration.getStartDate()), new LocalDate(iteration.getEndDate()), entry);
     }
     
-    public ExactEstimate calculateDailyStoryPointsVelocity(LocalDate start, LocalDate end, int points) {
+    public ExactDoubleEstimate calculateDailyStoryPointsVelocity(LocalDate start, LocalDate end, int points) {
         final LocalDate today = new LocalDate();
 
         if (points == 0)
-            return new ExactEstimate(0);
+            return new ExactDoubleEstimate(0);
         final LocalDate day = (today.isBefore(end)) ? today : end;
 
         double length = Days.daysBetween(start, day).getDays();
@@ -254,7 +255,7 @@ public class IterationBusinessImpl extends GenericBusinessImpl<Iteration>
 
         final double velocity = points / length;
 
-        return new ExactEstimate((long) velocity);
+        return new ExactDoubleEstimate(velocity);
     }
 
     private Integer calculatePercent(Integer part, Integer total) {
