@@ -1,6 +1,6 @@
-Agilefant 3.1.1
+Agilefant 3.2
 Release notes
-2013-03-01
+2013-04-17
 --
 
 Please spend a couple of minutes to register your organization at
@@ -10,6 +10,27 @@ This helps us keep a full-featured Agilefant free-of-charge forever!
 +--------------------+
 |     CHANGESET      |
 +--------------------+
+
+Changes from 3.1.1 to 3.2
+2013-04-17
++ Improvements to Daily Work
++ Renamed My Work Queue => Task queue
++ Renamed My Stories => Story queue
++ You can now use the Story queue to plan what stories you take on next across all your iterations, projects and products (works like the task queue)
++ Improvements to user rights
++ Non-admin users can now access the portfolio view and rank all the projects their teams have access to
+  + Non-admin users can create new users to their teams
++ Bug fixes and small UX improvements
++ Story points in breakdown points always calculated correctly
++ Stories in projects and products with you as responsible for one or more non-done tasks are now visible in daily work
++ Create new -> Iteration: default end date = sysdate + 2 weeks
++ Navigation to parent stories now possible from Work Queue context bubbles
++ UX improvements to effort spent -dialog:
++ If delta to last logged entry > 8h => no ES autofill
++ Focus to close button upon saving EL
++ Stories in projects, products, and iterations with you as responsible for one or more tasks are now visible in daily work
++ Iteration velocity now calculated as story points / day
++ Hibernate updated to version 4
 
 Changes from 3.1 to 3.1.1
 2013-03-01
