@@ -181,7 +181,6 @@ var DynamicsDecorators = {
 		if (value.getMyStoriesRank() < 10000) {
 			var story = jQuery("#fi\\.hut\\.soberit\\.agilefant\\.model\\.Story_" + value.getId());
 			story.addClass("dailywork-story-table-row-parent");
-			return value.getMyStoriesRank();
 		}
 	}
 	return "";
