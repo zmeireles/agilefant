@@ -1,5 +1,6 @@
 package fi.hut.soberit.agilefant.business.impl;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -95,5 +96,19 @@ public class TeamBusinessImpl extends GenericBusinessImpl<Team> implements
         return stored;
     }
 
+	@Override
+	@Transactional(readOnly=true)
+	public Set<User> getUsersInSameTeams(int userId) {
+		User user = this.userBusiness.retrieve(userId);
+
+		Set<User> users = new HashSet<User>();
+		
+        Collection<Team> teams = user.getTeams();
+        for (Team team: teams) {
+            users.addAll(team.getUsers());
+        }
+        
+        return users;
+	}
 
 }
