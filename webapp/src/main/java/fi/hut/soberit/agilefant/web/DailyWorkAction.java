@@ -94,6 +94,10 @@ public class DailyWorkAction extends ActionSupport {
          * Non-admin user trying to see daily work of someone not in his/her team -> userId = 0
          */
         User loggedUser = getLoggedInUser();
+        
+        if(this.userId==0) {
+        	this.userId = loggedUser.getId();
+        }
 
         if(loggedUser.isAdmin()) {
             enabledUsers.addAll(userBusiness.getEnabledUsers());        	
