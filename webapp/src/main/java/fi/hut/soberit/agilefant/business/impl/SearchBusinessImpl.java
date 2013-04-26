@@ -83,7 +83,8 @@ public class SearchBusinessImpl implements SearchBusiness {
             List<Task> tasks) {
         for(Task task : tasks) {
             if(task.getStory()!= null){
-                if(checkAccess(task.getStory().getBacklog())){      
+            	Backlog backlog = task.getStory().getBacklog();
+                if(backlog!=null && checkAccess(backlog)){      
                     result.add(new SearchResultRow(task.getStory().getName() + " > " + 
                         task.getName(), task));
                 }
