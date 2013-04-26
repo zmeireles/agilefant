@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -109,6 +110,16 @@ public class TeamBusinessImpl extends GenericBusinessImpl<Team> implements
         }
         
         return users;
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public Collection<Team> withUsers(Call<Collection<Team>> call) {
+		Collection<Team> teams = call.call();
+		for(Team team : teams) {
+			Hibernate.initialize(team.getUsers());
+		}
+		return teams;
 	}
 
 }
