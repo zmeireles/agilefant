@@ -210,7 +210,7 @@ public class Story implements TimesheetLoggable, LabelContainer, NamedObject, Ta
     
     @JSON
     @XmlAttribute
-    public String retrieveHighestPoints() {
+    public String getHighestPoints() {
     	Integer storyPoints = 0;
     	if (getStoryPoints() != null) {
     		storyPoints = getStoryPoints();
