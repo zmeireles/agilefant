@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -210,6 +211,7 @@ public class Story implements TimesheetLoggable, LabelContainer, NamedObject, Ta
     
     @JSON
     @XmlAttribute
+    @Transient
     public String getHighestPoints() {
     	Integer storyPoints = 0;
     	if (getStoryPoints() != null) {
