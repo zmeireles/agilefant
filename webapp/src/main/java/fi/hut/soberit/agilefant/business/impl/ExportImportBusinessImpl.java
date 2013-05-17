@@ -1,6 +1,8 @@
 package fi.hut.soberit.agilefant.business.impl;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedHashSet;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +36,6 @@ import fi.hut.soberit.agilefant.model.Assignment;
 import fi.hut.soberit.agilefant.model.BacklogHistoryEntry;
 import fi.hut.soberit.agilefant.model.BacklogHourEntry;
 import fi.hut.soberit.agilefant.model.Holiday;
-import fi.hut.soberit.agilefant.model.HourEntry;
 import fi.hut.soberit.agilefant.model.Iteration;
 import fi.hut.soberit.agilefant.model.IterationHistoryEntry;
 import fi.hut.soberit.agilefant.model.Label;
@@ -82,6 +83,14 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 	@Autowired
 	SessionFactory sessionFactory;
 	
+	private void addInOrder(Story story, Collection<Story> stories) {
+		Story parent = story.getParent();
+		if(parent!=null && !stories.contains(parent)) {
+			this.addInOrder(parent, stories);
+		}
+		stories.add(story);
+	}
+	
 	@Override
 	@Transactional(readOnly=true)
 	public OrganizationDumpTO exportOrganization() {
@@ -92,16 +101,20 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 		organizationTO.backlogHistoryEntries = this.backlogHistoryEntryDAO.getAll();
 		organizationTO.backlogHourEntries = this.backlogHourEntryDAO.getAll();
 		organizationTO.holidays = this.holidayDAO.getAll();
-		organizationTO.hourEntrys = this.hourEntryDAO.getAll();
 		organizationTO.iterations = this.iterationDAO.getAll();
 		organizationTO.iterationHistoryEntries = this.iterationHistoryEntryDAO.getAll();
 		organizationTO.labels = this.labelDAO.getAll();
 		organizationTO.products = this.productDAO.getAll();
 		organizationTO.projects = this.projectDAO.getAll();
 		organizationTO.settings = this.settingDAO.getAll();
-		organizationTO.storys = this.storyDAO.getAll();
-		organizationTO.storyAccesss = this.storyAccessDAO.getAll();
-		organizationTO.storyHourEntrys = this.storyHourEntryDAO.getAll();
+		
+		organizationTO.stories = new LinkedHashSet<Story>();
+		for(Story story : this.storyDAO.getAll()) {
+			this.addInOrder(story, organizationTO.stories);
+		}
+		
+		organizationTO.storyAccesses = this.storyAccessDAO.getAll();
+		organizationTO.storyHourEntries = this.storyHourEntryDAO.getAll();
 		organizationTO.storyRanks = this.storyRankDAO.getAll();
 		organizationTO.tasks = this.taskDAO.getAll();
 		organizationTO.taskHourEntries = this.taskHourEntryDAO.getAll();
@@ -120,12 +133,9 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 		for(User user : organizationTO.users) {
 			user.setLoginName(user.getLoginName() + new Date().getTime());
 		}
-
+		
 		for(User user : organizationTO.users) {
 			this.userDAO.store(user);
-		}
-		for(Team team : organizationTO.teams) {
-			this.teamDAO.store(team);
 		}
 		for(Holiday holiday : organizationTO.holidays) {
 			this.holidayDAO.store(holiday);
@@ -139,35 +149,23 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 		for(Iteration iteration : organizationTO.iterations) {
 			this.iterationDAO.store(iteration);
 		}
-		for(BacklogHourEntry backlogHourEntry : organizationTO.backlogHourEntries) {
-			this.backlogHourEntryDAO.store(backlogHourEntry);
-		}
-		for(Story story : organizationTO.storys) {
+		for(Story story : organizationTO.stories) {
 			this.storyDAO.store(story);
-		}
-		for(StoryAccess storyAccess : organizationTO.storyAccesss) {
-			this.storyAccessDAO.store(storyAccess);
-		}
-		for(StoryHourEntry storyHourEntry : organizationTO.storyHourEntrys) {
-			this.storyHourEntryDAO.store(storyHourEntry);
-		}
-		for(StoryRank storyRank : organizationTO.storyRanks) {
-			this.storyRankDAO.store(storyRank);
-		}
-		for(Label label : organizationTO.labels) {
-			this.labelDAO.store(label);
 		}
 		for(Task task : organizationTO.tasks){
 			this.taskDAO.store(task);
 		}
+		for(Assignment assignment : organizationTO.assignments) {
+			this.assignmentDAO.store(assignment);
+		}
+		for(BacklogHourEntry backlogHourEntry : organizationTO.backlogHourEntries) {
+			this.backlogHourEntryDAO.store(backlogHourEntry);
+		}
+		for(StoryHourEntry storyHourEntry : organizationTO.storyHourEntries) {
+			this.storyHourEntryDAO.store(storyHourEntry);
+		}
 		for(TaskHourEntry taskHourEntry : organizationTO.taskHourEntries) {
 			this.taskHourEntryDAO.store(taskHourEntry);
-		}
-		for(Team team : organizationTO.teams) {
-			this.teamDAO.store(team);
-		}
-		for(Setting setting : organizationTO.settings) {
-			this.settingDAO.store(setting);
 		}
 		for(BacklogHistoryEntry backlogHistoryEntry : organizationTO.backlogHistoryEntries) {
 			this.backlogHistoryEntryDAO.store(backlogHistoryEntry);
@@ -175,11 +173,17 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 		for(IterationHistoryEntry iterationHistoryEntry : organizationTO.iterationHistoryEntries) {
 			this.iterationHistoryEntryDAO.store(iterationHistoryEntry);
 		}
-		for(HourEntry hourEntry : organizationTO.hourEntrys) {
-			this.hourEntryDAO.store(hourEntry);
+		for(Label label : organizationTO.labels) {
+			this.labelDAO.store(label);
 		}
-		for(Assignment assignment : organizationTO.assignments) {
-			this.assignmentDAO.store(assignment);
+		for(StoryAccess storyAccess : organizationTO.storyAccesses) {
+			this.storyAccessDAO.store(storyAccess);
+		}
+		for(StoryRank storyRank : organizationTO.storyRanks) {
+			this.storyRankDAO.store(storyRank);
+		}
+		for(Team team : organizationTO.teams) {
+			this.teamDAO.store(team);
 		}
 		for(WhatsNextEntry whatsNextEntry : organizationTO.whatsNextEntries) {
 			this.whatsNextEntryDAO.store(whatsNextEntry);
@@ -189,6 +193,9 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 		}
 		for(WidgetCollection widgetCollection : organizationTO.widgetCollections) {
 			this.widgetCollectionDAO.store(widgetCollection);
+		}
+		for(Setting setting : organizationTO.settings) {
+			this.settingDAO.store(setting);
 		}
 	}
 }
