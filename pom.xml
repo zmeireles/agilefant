@@ -49,6 +49,7 @@
 		<struts.version>2.3.8</struts.version>
 		<typesafe.config.version>1.0.0</typesafe.config.version>
 		<usertype.version>3.0.0.GA</usertype.version>
+		<jackson.version>2.2.0</jackson.version>
 
 		<maven.compiler.version>3.0</maven.compiler.version>
 		<maven.war.version>2.3</maven.war.version>
@@ -181,7 +182,27 @@
 			            <artifactId>jackson-xc</artifactId>
 					</exclusion>
 				</exclusions>
-			</dependency>			
+			</dependency>
+			<dependency>
+			  <groupId>com.fasterxml.jackson.core</groupId>
+			  <artifactId>jackson-core</artifactId>
+			  <version>${jackson.version}</version>
+			</dependency>		
+			<dependency>
+			  <groupId>com.fasterxml.jackson.core</groupId>
+			  <artifactId>jackson-annotations</artifactId>
+			  <version>${jackson.version}</version>
+			</dependency>		
+			<dependency>
+			  <groupId>com.fasterxml.jackson.core</groupId>
+			  <artifactId>jackson-databind</artifactId>
+			  <version>${jackson.version}</version>
+			</dependency>		
+			<dependency>
+			  <groupId>com.fasterxml.jackson.datatype</groupId>
+			  <artifactId>jackson-datatype-joda</artifactId>
+			  <version>${jackson.version}</version>
+			</dependency> 					
 			<dependency>
 				<groupId>javax.annotation</groupId>
 				<artifactId>jsr250-api</artifactId>
