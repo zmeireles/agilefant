@@ -6,8 +6,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.core.Version;
@@ -28,6 +30,7 @@ import fi.hut.soberit.agilefant.model.IterationHistoryEntry;
 import fi.hut.soberit.agilefant.model.Label;
 import fi.hut.soberit.agilefant.model.Product;
 import fi.hut.soberit.agilefant.model.Project;
+import fi.hut.soberit.agilefant.model.Setting;
 import fi.hut.soberit.agilefant.model.Story;
 import fi.hut.soberit.agilefant.model.StoryAccess;
 import fi.hut.soberit.agilefant.model.StoryHourEntry;
@@ -38,6 +41,7 @@ import fi.hut.soberit.agilefant.model.Team;
 import fi.hut.soberit.agilefant.model.User;
 import fi.hut.soberit.agilefant.model.WhatsNextEntry;
 import fi.hut.soberit.agilefant.model.WhatsNextStoryEntry;
+import fi.hut.soberit.agilefant.model.WidgetCollection;
 
 public class ExportImportUtil {
 
@@ -93,20 +97,42 @@ public class ExportImportUtil {
 		@Override
 		public void setupModule(SetupContext context) {
 			context.setMixInAnnotations(Backlog.class, ExportableBacklog.class);
+			context.setMixInAnnotations(User.class, ExportableUser.class);
+			context.setMixInAnnotations(Holiday.class, ExportableModel.class);
 			context.setMixInAnnotations(Product.class, ExportableProduct.class);
 			context.setMixInAnnotations(Project.class, ExportableProject.class);
 			context.setMixInAnnotations(Iteration.class, ExportableIteration.class);
-			context.setMixInAnnotations(User.class, ExportableUser.class);
 			context.setMixInAnnotations(Story.class, ExportableStory.class);
 			context.setMixInAnnotations(Task.class, ExportableTask.class);
+			context.setMixInAnnotations(Assignment.class, ExportableModel.class);
+			context.setMixInAnnotations(BacklogHourEntry.class, ExportableModel.class);
+			context.setMixInAnnotations(StoryHourEntry.class, ExportableModel.class);
+			context.setMixInAnnotations(TaskHourEntry.class, ExportableModel.class);
+			context.setMixInAnnotations(BacklogHistoryEntry.class, ExportableModel.class);
+			context.setMixInAnnotations(IterationHistoryEntry.class, ExportableModel.class);
+			context.setMixInAnnotations(Label.class, ExportableModel.class);
+			context.setMixInAnnotations(StoryAccess.class, ExportableModel.class);
+			context.setMixInAnnotations(StoryRank.class, ExportableModel.class);
+			context.setMixInAnnotations(Team.class, ExportableModel.class);
+			context.setMixInAnnotations(WhatsNextEntry.class, ExportableModel.class);
+			context.setMixInAnnotations(WhatsNextStoryEntry.class, ExportableModel.class);
+			context.setMixInAnnotations(WidgetCollection.class, ExportableModel.class);
+			context.setMixInAnnotations(Setting.class, ExportableModel.class);
+		
 		}
 	}
 
-	@JsonTypeInfo(use=JsonTypeInfo.Id.CLASS, include=JsonTypeInfo.As.PROPERTY, property="@class")
-	public interface ExportableBacklog {
+	@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
+	public interface ExportableModel {
+	    @JsonIgnore
+	    public int getId();
 	}
 	
-	public static abstract class ExportableUser extends User {
+	@JsonTypeInfo(use=JsonTypeInfo.Id.CLASS, include=JsonTypeInfo.As.PROPERTY, property="@class")
+	public interface ExportableBacklog extends ExportableModel {
+	}
+	
+	public static abstract class ExportableUser extends User implements ExportableModel {
 		@Override
 		@JsonIgnore
 		public abstract Collection<Team> getTeams();
@@ -229,7 +255,7 @@ public class ExportImportUtil {
 		public abstract Set<StoryRank> getStoryRanks();
 	}
 
-	public static abstract class ExportableStory extends Story {
+	public static abstract class ExportableStory extends Story implements ExportableModel {
 		@Override
 		@JsonIgnore
 		public abstract Set<StoryAccess> getStoryAccesses();
@@ -259,7 +285,7 @@ public class ExportImportUtil {
 		public abstract Set<Label> getLabels();
 	}
 	
-	public static abstract class ExportableTask extends Task {
+	public static abstract class ExportableTask extends Task implements ExportableModel {
 
 		@Override
 		@JsonIgnore
