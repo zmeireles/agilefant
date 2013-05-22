@@ -37,8 +37,6 @@ public interface ExportImportBusiness {
 		"teams", "whatsNextEntries", "whatsNextStoryEntries", "widgetCollections", "settings"})
 	public static class OrganizationDumpTO {
 
-		public String version;
-		
 		public Collection<User> users;
 		public Collection<Holiday> holidays;
 		public Collection<Product> products;

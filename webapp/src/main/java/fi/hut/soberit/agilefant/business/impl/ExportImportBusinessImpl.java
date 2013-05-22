@@ -76,9 +76,6 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 	@Autowired
 	SessionFactory sessionFactory;
 	
-	@Autowired
-	Config config;
-	
 	private void addInOrder(Story story, Collection<Story> stories) {
 		Story parent = story.getParent();
 		if(parent!=null && !stories.contains(parent)) {
@@ -92,8 +89,6 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 	public OrganizationDumpTO exportOrganization() {
 
 		OrganizationDumpTO organizationTO = new OrganizationDumpTO();
-		
-		organizationTO.version = this.config.getString("agilefant.version");
 		
 		organizationTO.assignments = this.assignmentDAO.getAll();
 		organizationTO.backlogHistoryEntries = this.backlogHistoryEntryDAO.getAll();

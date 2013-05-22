@@ -15,9 +15,11 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.typesafe.config.Config;
@@ -84,7 +86,11 @@ public class ExportImport {
 	
 	public void toJson(OutputStream out, OrganizationDumpTO organizationTO) {
 		try {
-			this.getObjectMapper().writer(new DefaultPrettyPrinter()).writeValue(out, organizationTO);			
+			ExportData exportData = new ExportData();
+			exportData.version = this.getVersion();
+			ObjectWriter objectWriter = this.getObjectMapper().writer(new DefaultPrettyPrinter());
+			objectWriter.writeValue(out, exportData);
+			objectWriter.writeValue(out, organizationTO);			
 		} catch(Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -92,10 +98,12 @@ public class ExportImport {
 	
 	public OrganizationDumpTO fromJson(InputStream in) throws VersionMismatchException {
 		try {
-	    	OrganizationDumpTO organizationTO = this.getObjectMapper().reader(OrganizationDumpTO.class).readValue(in);
-			if(!this.getVersion().equals(organizationTO.version)) {
-				throw new VersionMismatchException("Current application version is " + this.getVersion() + " while import version is " + organizationTO.version);
+			JsonParser parser = this.getObjectMapper().getFactory().createParser(in);
+	    	ExportData exportData = this.getObjectMapper().readValue(parser, ExportData.class);			
+			if(!this.getVersion().equals(exportData.version)) {
+				throw new VersionMismatchException("Current application version is " + this.getVersion() + " while import version is " + exportData.version);
 			}
+	    	OrganizationDumpTO organizationTO = this.getObjectMapper().readValue(parser, OrganizationDumpTO.class);
 	    	return organizationTO;
 		} catch(Exception e) {
 			throw new RuntimeException(e);
@@ -316,5 +324,9 @@ public class ExportImport {
 		public VersionMismatchException(String message) {
 			super(message);
 		}
+	}
+	
+	public static class ExportData {
+		public String version;
 	}
 }
