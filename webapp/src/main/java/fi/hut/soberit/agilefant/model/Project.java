@@ -108,7 +108,7 @@ public class Project extends Backlog implements Schedulable, Rankable {
         return rank;
     }
 
-    public void setRank(int rank) {
+    public void setRank(Integer rank) {
         this.rank = rank;
     }
 
