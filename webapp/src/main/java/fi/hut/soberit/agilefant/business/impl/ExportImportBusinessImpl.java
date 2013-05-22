@@ -1,5 +1,7 @@
 package fi.hut.soberit.agilefant.business.impl;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.typesafe.config.Config;
 
 import fi.hut.soberit.agilefant.business.ExportImportBusiness;
+import fi.hut.soberit.agilefant.business.IterationBusiness;
 import fi.hut.soberit.agilefant.db.AssignmentDAO;
 import fi.hut.soberit.agilefant.db.BacklogHistoryEntryDAO;
 import fi.hut.soberit.agilefant.db.BacklogHourEntryDAO;
@@ -37,6 +40,7 @@ import fi.hut.soberit.agilefant.db.UserDAO;
 import fi.hut.soberit.agilefant.db.WhatsNextEntryDAO;
 import fi.hut.soberit.agilefant.db.WhatsNextStoryEntryDAO;
 import fi.hut.soberit.agilefant.db.WidgetCollectionDAO;
+import fi.hut.soberit.agilefant.model.Iteration;
 import fi.hut.soberit.agilefant.model.Story;
 import fi.hut.soberit.agilefant.model.User;
 
@@ -65,6 +69,9 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 	@Autowired WhatsNextEntryDAO whatsNextEntryDAO;
 	@Autowired WhatsNextStoryEntryDAO whatsNextStoryEntryDAO;
 	@Autowired WidgetCollectionDAO widgetCollectionDAO;
+	
+	@Autowired
+	private IterationBusiness iterationBusiness;
 	
 	@Autowired
 	SessionFactory sessionFactory;
@@ -118,11 +125,31 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 		return organizationTO;
 	}
 	
+	private String generateReadonlyToken()
+	{
+		SecureRandom r = new SecureRandom();
+		String token = new BigInteger(130, r).toString();
+
+		int count = iterationBusiness.getIterationCountFromReadonlyToken(token);
+		while(count > 0){
+			r = new SecureRandom();
+			token = new BigInteger(130, r).toString();
+			count = iterationBusiness.getIterationCountFromReadonlyToken(token);
+		}
+
+		return token;
+	}
+	
 	@Override
 	@Transactional
 	public void importOrganization(OrganizationDumpTO organizationTO) {
 		for(User user : organizationTO.users) {
 			user.setLoginName(user.getLoginName() + new Date().getTime());
+		}
+		for(Iteration iteration : organizationTO.iterations) {
+			if (iteration.getReadonlyToken() != null) {
+				iteration.setReadonlyToken(generateReadonlyToken());
+			}
 		}
 
 		Collection<Object> objects = new ArrayList<Object>();
