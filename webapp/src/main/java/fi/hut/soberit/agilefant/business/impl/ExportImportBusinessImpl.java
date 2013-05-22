@@ -120,10 +120,9 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 		return organizationTO;
 	}
 	
-	private String generateReadonlyToken()
+	private String generateReadonlyToken(String token)
 	{
 		SecureRandom r = new SecureRandom();
-		String token = new BigInteger(130, r).toString();
 
 		int count = iterationBusiness.getIterationCountFromReadonlyToken(token);
 		while(count > 0){
@@ -143,7 +142,7 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 		}
 		for(Iteration iteration : organizationTO.iterations) {
 			if (iteration.getReadonlyToken() != null) {
-				iteration.setReadonlyToken(generateReadonlyToken());
+				iteration.setReadonlyToken(generateReadonlyToken(iteration.getReadonlyToken()));
 			}
 		}
 
