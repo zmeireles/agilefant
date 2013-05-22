@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.typesafe.config.Config;
+
 import fi.hut.soberit.agilefant.business.ExportImportBusiness;
 import fi.hut.soberit.agilefant.db.AssignmentDAO;
 import fi.hut.soberit.agilefant.db.BacklogHistoryEntryDAO;
@@ -67,6 +69,9 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 	@Autowired
 	SessionFactory sessionFactory;
 	
+	@Autowired
+	Config config;
+	
 	private void addInOrder(Story story, Collection<Story> stories) {
 		Story parent = story.getParent();
 		if(parent!=null && !stories.contains(parent)) {
@@ -80,6 +85,8 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 	public OrganizationDumpTO exportOrganization() {
 
 		OrganizationDumpTO organizationTO = new OrganizationDumpTO();
+		
+		organizationTO.version = this.config.getString("agilefant.version");
 		
 		organizationTO.assignments = this.assignmentDAO.getAll();
 		organizationTO.backlogHistoryEntries = this.backlogHistoryEntryDAO.getAll();
@@ -106,7 +113,7 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 		organizationTO.users = this.userDAO.getAll();
 		organizationTO.whatsNextEntries = this.whatsNextEntryDAO.getAll();
 		organizationTO.whatsNextStoryEntries = this.whatsNextStoryEntryDAO.getAll();
-		organizationTO.widgetCollections = this.widgetCollectionDAO.getAll();				
+		organizationTO.widgetCollections = this.widgetCollectionDAO.getAll();
 		
 		return organizationTO;
 	}

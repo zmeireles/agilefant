@@ -32,11 +32,13 @@ public interface ExportImportBusiness {
 	
 	public void importOrganization(OrganizationDumpTO organizationTO);
 
-	@JsonPropertyOrder({ "users", "holidays", "products", "projects", "iterations", "stories", "tasks", "assignments", "backlogHourEntries",
+	@JsonPropertyOrder({ "version", "users", "holidays", "products", "projects", "iterations", "stories", "tasks", "assignments", "backlogHourEntries",
 		"storyHourEntries", "taskHourEntries", "backlogHistoryEntries", "iterationHistoryEntries", "labels", "storyAccesses", "storyRanks",
 		"teams", "whatsNextEntries", "whatsNextStoryEntries", "widgetCollections", "settings"})
 	public static class OrganizationDumpTO {
 
+		public String version;
+		
 		public Collection<User> users;
 		public Collection<Holiday> holidays;
 		public Collection<Product> products;

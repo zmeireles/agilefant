@@ -6,6 +6,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -17,6 +20,7 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.typesafe.config.Config;
 
 import fi.hut.soberit.agilefant.business.ExportImportBusiness.OrganizationDumpTO;
 import fi.hut.soberit.agilefant.model.Assignment;
@@ -43,22 +47,21 @@ import fi.hut.soberit.agilefant.model.WhatsNextEntry;
 import fi.hut.soberit.agilefant.model.WhatsNextStoryEntry;
 import fi.hut.soberit.agilefant.model.WidgetCollection;
 
-public class ExportImportUtil {
+@Component
+public class ExportImport {
 
 	private static final ObjectMapper objectMapper;
+
+	private static final String VERSION = "agilefant.version";
+	
+	@Autowired
+    private Config config;
 	
 	static {
-		objectMapper = new ObjectMapper();
-    	SimpleModule importExportModule = new ImportExportModule();
-    	
-    	objectMapper.registerModule(importExportModule);
-    	objectMapper.registerModule(new JodaModule());
-
-    	objectMapper.setVisibility(PropertyAccessor.ALL, Visibility.NONE);
-    	objectMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);    	
-    }
+		objectMapper = initObjectMapper();
+	}
 	
-	private static ObjectMapper getObjectMapper() {
+	private static ObjectMapper initObjectMapper() {
 		ObjectMapper objectMapper = new ObjectMapper();
     	SimpleModule importExportModule = new ImportExportModule();
     	
@@ -71,17 +74,28 @@ public class ExportImportUtil {
     	return objectMapper;
 	}
 
-	public static void toJson(OutputStream out, OrganizationDumpTO organizationTO) {
+	private ObjectMapper getObjectMapper() {
+		return objectMapper;
+	}
+	
+	private String getVersion() {
+		return this.config.getString(VERSION);
+	}
+	
+	public void toJson(OutputStream out, OrganizationDumpTO organizationTO) {
 		try {
-			getObjectMapper().writer(new DefaultPrettyPrinter()).writeValue(out, organizationTO);			
+			this.getObjectMapper().writer(new DefaultPrettyPrinter()).writeValue(out, organizationTO);			
 		} catch(Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
-	public static OrganizationDumpTO fromJson(InputStream in) {
+	public OrganizationDumpTO fromJson(InputStream in) throws VersionMismatchException {
 		try {
-	    	OrganizationDumpTO organizationTO = getObjectMapper().readValue(in, OrganizationDumpTO.class);			
+	    	OrganizationDumpTO organizationTO = this.getObjectMapper().reader(OrganizationDumpTO.class).readValue(in);
+			if(!this.getVersion().equals(organizationTO.version)) {
+				throw new VersionMismatchException("Current application version is " + this.getVersion() + " while import version is " + organizationTO.version);
+			}
 	    	return organizationTO;
 		} catch(Exception e) {
 			throw new RuntimeException(e);
@@ -294,5 +308,13 @@ public class ExportImportUtil {
 		@Override
 		@JsonIgnore
 		public abstract Set<TaskHourEntry> getHourEntries();
+	}
+	
+	@SuppressWarnings("serial")
+	public static class VersionMismatchException extends Exception {
+
+		public VersionMismatchException(String message) {
+			super(message);
+		}
 	}
 }
