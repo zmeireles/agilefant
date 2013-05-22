@@ -66,7 +66,7 @@ public class Project extends Backlog implements Schedulable, Rankable {
 
     private DateTime startDate;
 
-    private int rank = 0;
+    private Integer rank = 0;
 
     private Status status = Status.GREEN;
 
