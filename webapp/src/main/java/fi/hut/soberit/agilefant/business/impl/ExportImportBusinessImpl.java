@@ -78,7 +78,7 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 	
 	private void addInOrder(Story story, Collection<Story> stories) {
 		Story parent = story.getParent();
-		if(parent!=null && !stories.contains(parent)) {
+		if(parent!=null && !stories.contains(parent) && story!=parent) {
 			this.addInOrder(parent, stories);
 		}
 		stories.add(story);
