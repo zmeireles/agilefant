@@ -90,32 +90,31 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 
 		OrganizationDumpTO organizationTO = new OrganizationDumpTO();
 		
-		organizationTO.assignments = this.assignmentDAO.getAll();
-		organizationTO.backlogHistoryEntries = this.backlogHistoryEntryDAO.getAll();
-		organizationTO.backlogHourEntries = this.backlogHourEntryDAO.getAll();
-		organizationTO.holidays = this.holidayDAO.getAll();
-		organizationTO.iterations = this.iterationDAO.getAll();
-		organizationTO.iterationHistoryEntries = this.iterationHistoryEntryDAO.getAll();
-		organizationTO.labels = this.labelDAO.getAll();
-		organizationTO.products = this.productDAO.getAll();
-		organizationTO.projects = this.projectDAO.getAll();
-		organizationTO.settings = this.settingDAO.getAll();
+		organizationTO.assignments.addAll(this.assignmentDAO.getAll());
+		organizationTO.backlogHistoryEntries.addAll(this.backlogHistoryEntryDAO.getAll());
+		organizationTO.backlogHourEntries.addAll(this.backlogHourEntryDAO.getAll());
+		organizationTO.holidays.addAll(this.holidayDAO.getAll());
+		organizationTO.iterations.addAll(this.iterationDAO.getAll());
+		organizationTO.iterationHistoryEntries.addAll(this.iterationHistoryEntryDAO.getAll());
+		organizationTO.labels.addAll(this.labelDAO.getAll());
+		organizationTO.products.addAll(this.productDAO.getAll());
+		organizationTO.projects.addAll(this.projectDAO.getAll());
+		organizationTO.settings.addAll(this.settingDAO.getAll());
 		
-		organizationTO.stories = new LinkedHashSet<Story>();
 		for(Story story : this.storyDAO.getAll()) {
 			this.addInOrder(story, organizationTO.stories);
 		}
 		
-		organizationTO.storyAccesses = this.storyAccessDAO.getAll();
-		organizationTO.storyHourEntries = this.storyHourEntryDAO.getAll();
-		organizationTO.storyRanks = this.storyRankDAO.getAll();
-		organizationTO.tasks = this.taskDAO.getAll();
-		organizationTO.taskHourEntries = this.taskHourEntryDAO.getAll();
-		organizationTO.teams = this.teamDAO.getAll();
-		organizationTO.users = this.userDAO.getAll();
-		organizationTO.whatsNextEntries = this.whatsNextEntryDAO.getAll();
-		organizationTO.whatsNextStoryEntries = this.whatsNextStoryEntryDAO.getAll();
-		organizationTO.widgetCollections = this.widgetCollectionDAO.getAll();
+		organizationTO.storyAccesses.addAll(this.storyAccessDAO.getAll());
+		organizationTO.storyHourEntries.addAll(this.storyHourEntryDAO.getAll());
+		organizationTO.storyRanks.addAll(this.storyRankDAO.getAll());
+		organizationTO.tasks.addAll(this.taskDAO.getAll());
+		organizationTO.taskHourEntries.addAll(this.taskHourEntryDAO.getAll());
+		organizationTO.teams.addAll(this.teamDAO.getAll());
+		organizationTO.users.addAll(this.userDAO.getAll());
+		organizationTO.whatsNextEntries.addAll(this.whatsNextEntryDAO.getAll());
+		organizationTO.whatsNextStoryEntries.addAll(this.whatsNextStoryEntryDAO.getAll());
+		organizationTO.widgetCollections.addAll(this.widgetCollectionDAO.getAll());
 		
 		return organizationTO;
 	}

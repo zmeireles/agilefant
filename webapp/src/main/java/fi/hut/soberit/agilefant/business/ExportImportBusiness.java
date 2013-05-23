@@ -1,6 +1,7 @@
 package fi.hut.soberit.agilefant.business;
 
 import java.util.Collection;
+import java.util.LinkedHashSet;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -37,26 +38,26 @@ public interface ExportImportBusiness {
 		"teams", "whatsNextEntries", "whatsNextStoryEntries", "widgetCollections", "settings"})
 	public static class OrganizationDumpTO {
 
-		public Collection<User> users;
-		public Collection<Holiday> holidays;
-		public Collection<Product> products;
-		public Collection<Project> projects;
-		public Collection<Iteration> iterations;
-		public Collection<Story> stories;
-		public Collection<Task> tasks;
-		public Collection<Assignment> assignments;
-		public Collection<BacklogHourEntry> backlogHourEntries;
-		public Collection<StoryHourEntry> storyHourEntries;
-		public Collection<TaskHourEntry> taskHourEntries;		
-		public Collection<BacklogHistoryEntry> backlogHistoryEntries;
-		public Collection<IterationHistoryEntry> iterationHistoryEntries;
-		public Collection<Label> labels;
-		public Collection<StoryAccess> storyAccesses;
-		public Collection<StoryRank> storyRanks;
-		public Collection<Team> teams;
-		public Collection<WhatsNextEntry> whatsNextEntries;
-		public Collection<WhatsNextStoryEntry> whatsNextStoryEntries;
-		public Collection<WidgetCollection> widgetCollections;		
-		public Collection<Setting> settings;
+		public Collection<User> users = new LinkedHashSet<User>();
+		public Collection<Holiday> holidays = new LinkedHashSet<Holiday>();
+		public Collection<Product> products = new LinkedHashSet<Product>();
+		public Collection<Project> projects = new LinkedHashSet<Project>();
+		public Collection<Iteration> iterations = new LinkedHashSet<Iteration>();
+		public Collection<Story> stories = new LinkedHashSet<Story>();
+		public Collection<Task> tasks = new LinkedHashSet<Task>();
+		public Collection<Assignment> assignments = new LinkedHashSet<Assignment>();
+		public Collection<BacklogHourEntry> backlogHourEntries = new LinkedHashSet<BacklogHourEntry>();
+		public Collection<StoryHourEntry> storyHourEntries = new LinkedHashSet<StoryHourEntry>();
+		public Collection<TaskHourEntry> taskHourEntries = new LinkedHashSet<TaskHourEntry>();		
+		public Collection<BacklogHistoryEntry> backlogHistoryEntries = new LinkedHashSet<BacklogHistoryEntry>();
+		public Collection<IterationHistoryEntry> iterationHistoryEntries = new LinkedHashSet<IterationHistoryEntry>();
+		public Collection<Label> labels = new LinkedHashSet<Label>();
+		public Collection<StoryAccess> storyAccesses = new LinkedHashSet<StoryAccess>();
+		public Collection<StoryRank> storyRanks = new LinkedHashSet<StoryRank>();
+		public Collection<Team> teams = new LinkedHashSet<Team>();
+		public Collection<WhatsNextEntry> whatsNextEntries = new LinkedHashSet<WhatsNextEntry>();
+		public Collection<WhatsNextStoryEntry> whatsNextStoryEntries = new LinkedHashSet<WhatsNextStoryEntry>();
+		public Collection<WidgetCollection> widgetCollections = new LinkedHashSet<WidgetCollection>();		
+		public Collection<Setting> settings = new LinkedHashSet<Setting>();
 	}
 }
