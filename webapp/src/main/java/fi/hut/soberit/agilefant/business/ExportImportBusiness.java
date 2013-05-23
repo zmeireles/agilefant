@@ -28,12 +28,32 @@ import fi.hut.soberit.agilefant.model.WhatsNextEntry;
 import fi.hut.soberit.agilefant.model.WhatsNextStoryEntry;
 import fi.hut.soberit.agilefant.model.WidgetCollection;
 
+/**
+ * Interface for export/import services
+ * 
+ * @author jkorri
+ */
 public interface ExportImportBusiness {
 
+	/**
+	 * Exports organization's data
+	 * 
+	 * @return
+	 */
 	public OrganizationDumpTO exportOrganization();
-	
+
+	/**
+	 * Imports data to an organization. Should only be done to a fresh organization, but will run and add incremental changes as well
+	 * 
+	 * @param organizationTO
+	 */
 	public void importOrganization(OrganizationDumpTO organizationTO);
 
+	/**
+	 * Transfer object for stuff that is exported from an organization
+	 * 
+	 * @author jkorri
+	 */
 	@JsonPropertyOrder({ "version", "users", "holidays", "products", "projects", "iterations", "stories", "tasks", "assignments", "backlogHourEntries",
 		"storyHourEntries", "taskHourEntries", "backlogHistoryEntries", "iterationHistoryEntries", "labels", "storyAccesses", "storyRanks",
 		"teams", "whatsNextEntries", "whatsNextStoryEntries", "widgetCollections", "widgets", "settings"})
@@ -59,7 +79,68 @@ public interface ExportImportBusiness {
 		public Collection<WhatsNextEntry> whatsNextEntries = new LinkedHashSet<WhatsNextEntry>();
 		public Collection<WhatsNextStoryEntry> whatsNextStoryEntries = new LinkedHashSet<WhatsNextStoryEntry>();
 		public Collection<WidgetCollection> widgetCollections = new LinkedHashSet<WidgetCollection>();		
-		public Collection<AgilefantWidget> widgets = new LinkedHashSet<AgilefantWidget>();		
+		public Collection<AgilefantWidgetAndRef> widgets = new LinkedHashSet<AgilefantWidgetAndRef>();		
 		public Collection<Setting> settings = new LinkedHashSet<Setting>();
 	}
+	
+	/**
+	 * Transfer object that attaches a reference to a specific story, user, project, iteration etc. in a widget.
+	 * This is needed because widget's objectId field is a reference to different types of model objects depending
+	 * on widget type
+	 * 
+	 * @author jkorri
+	 */
+ 	public static class AgilefantWidgetAndRef {
+		
+		private AgilefantWidget agilefantWidget;
+		private Story story;
+		private User user;
+		private Project project;
+		private Iteration iteration;
+
+		public AgilefantWidgetAndRef() {
+			
+		}
+		
+		public AgilefantWidgetAndRef(AgilefantWidget agilefantWidget, Story story) {
+			this.agilefantWidget = agilefantWidget;
+			this.story = story;
+		}
+
+		public AgilefantWidgetAndRef(AgilefantWidget agilefantWidget, User user) {
+			this.agilefantWidget = agilefantWidget;
+			this.user = user;
+		}
+
+		public AgilefantWidgetAndRef(AgilefantWidget agilefantWidget, Project project) {
+			this.agilefantWidget = agilefantWidget;
+			this.project = project;
+		}
+		
+		public AgilefantWidgetAndRef(AgilefantWidget agilefantWidget, Iteration iteration) {
+			this.agilefantWidget = agilefantWidget;
+			this.iteration = iteration;
+		}
+		
+		public AgilefantWidget getAgilefantWidget() {
+			try {
+				int objectId;
+				if(this.story!=null) {
+					objectId = this.story.getId();
+				} else if(this.user!=null) {
+					objectId = this.user.getId();
+				} else if(this.project!=null) {
+					objectId = this.project.getId();
+				} else if(this.iteration!=null){
+					objectId = this.iteration.getId();
+				} else {
+					throw new RuntimeException("Missing object id!");
+				}
+				this.agilefantWidget.setObjectId(objectId);
+			} catch(Exception e) {
+				throw new RuntimeException(e);
+			}
+			return this.agilefantWidget;
+		}
+	}	
 }

@@ -39,9 +39,16 @@ import fi.hut.soberit.agilefant.db.WhatsNextEntryDAO;
 import fi.hut.soberit.agilefant.db.WhatsNextStoryEntryDAO;
 import fi.hut.soberit.agilefant.db.WidgetCollectionDAO;
 import fi.hut.soberit.agilefant.model.Iteration;
+import fi.hut.soberit.agilefant.model.AgilefantWidget;
+import fi.hut.soberit.agilefant.model.Project;
 import fi.hut.soberit.agilefant.model.Story;
 import fi.hut.soberit.agilefant.model.User;
 
+/**
+ * Implementation class for export / import service
+ * 
+ * @author jkorri
+ */
 @Service("exportBusiness")
 public class ExportImportBusinessImpl implements ExportImportBusiness {
 
@@ -82,6 +89,26 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 		}
 		stories.add(story);
 	}
+	
+	public AgilefantWidgetAndRef addWidgetTypeInfo(AgilefantWidget widget) {
+		if(widget.getType().startsWith("story")) {
+			Story story = this.storyDAO.get(widget.getObjectId());
+			return new AgilefantWidgetAndRef(widget, story);
+		}
+		if(widget.getType().startsWith("iteration")) {
+			Iteration iteration = this.iterationDAO.get(widget.getObjectId());
+			return new AgilefantWidgetAndRef(widget, iteration);			
+		}
+		if(widget.getType().startsWith("project")) {
+			Project project = this.projectDAO.get(widget.getObjectId());
+			return new AgilefantWidgetAndRef(widget, project);			
+		}
+		if(widget.getType().startsWith("user")) {
+			User user = this.userDAO.get(widget.getObjectId());
+			return new AgilefantWidgetAndRef(widget, user);			
+		}
+		throw new RuntimeException("Unknown widget type " + widget.getType());
+	}
 		
 	@Override
 	@Transactional(readOnly=true)
@@ -114,7 +141,10 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 		organizationTO.whatsNextEntries.addAll(this.whatsNextEntryDAO.getAll());
 		organizationTO.whatsNextStoryEntries.addAll(this.whatsNextStoryEntryDAO.getAll());
 		organizationTO.widgetCollections.addAll(this.widgetCollectionDAO.getAll());
-		organizationTO.widgets.addAll(this.agilefantWidgetDAO.getAll());
+
+		for(AgilefantWidget widget : this.agilefantWidgetDAO.getAll()) {
+			organizationTO.widgets.add(this.addWidgetTypeInfo(widget));			
+		}
 		
 		return organizationTO;
 	}
@@ -175,13 +205,17 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 		try {
 			int index = 0;
 			for(Object object : objects) {
-				session.save(object);
+				if(object instanceof AgilefantWidgetAndRef) {
+					// Deref the widget object here, will set proper object id as the referenced object is persisted by now
+					object = ((AgilefantWidgetAndRef)object).getAgilefantWidget();
+				}
+				session.save(object);					
 				if(index++ % 50 == 0) {
 					session.flush();
 					session.clear();
 				}
 			}
-
+			
 			tx.commit();
 		} catch(Exception e) {
 			tx.rollback();

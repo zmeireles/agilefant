@@ -140,7 +140,7 @@ public class ExportImport {
 			context.setMixInAnnotations(WhatsNextEntry.class, ExportableModel.class);
 			context.setMixInAnnotations(WhatsNextStoryEntry.class, ExportableModel.class);
 			context.setMixInAnnotations(WidgetCollection.class, ExportableWidgetCollection.class);
-			context.setMixInAnnotations(AgilefantWidget.class, ExportableModel.class);
+			context.setMixInAnnotations(AgilefantWidget.class, ExportableAgilefantWidget.class);
 			context.setMixInAnnotations(Setting.class, ExportableModel.class);
 		
 		}
@@ -325,6 +325,14 @@ public class ExportImport {
 		@Override
 		@JsonIgnore
 		public abstract Collection<AgilefantWidget> getWidgets();
+	}
+
+	public static abstract class ExportableAgilefantWidget extends AgilefantWidget implements ExportableModel {
+
+		@Override
+		@JsonIgnore
+		public abstract Integer getObjectId();
+		
 	}
 	
 	@SuppressWarnings("serial")
