@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fi.hut.soberit.agilefant.business.ExportImportBusiness;
 import fi.hut.soberit.agilefant.business.IterationBusiness;
+import fi.hut.soberit.agilefant.business.UserBusiness;
 import fi.hut.soberit.agilefant.db.AgilefantWidgetDAO;
 import fi.hut.soberit.agilefant.db.AssignmentDAO;
 import fi.hut.soberit.agilefant.db.BacklogHistoryEntryDAO;
@@ -78,6 +79,9 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 	
 	@Autowired
 	private IterationBusiness iterationBusiness;
+	
+	@Autowired
+	private UserBusiness userBusiness;
 	
 	@Autowired
 	SessionFactory sessionFactory;
@@ -167,7 +171,9 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 	@Transactional
 	public void importOrganization(OrganizationDumpTO organizationTO) {
 		for(User user : organizationTO.users) {
-			user.setLoginName(user.getLoginName() + new Date().getTime());
+			if(this.userBusiness.retrieveByLoginName(user.getLoginName())!=null) {
+				user.setLoginName(user.getLoginName() + new Date().getTime());				
+			}
 		}
 		for(Iteration iteration : organizationTO.iterations) {
 			if (iteration.getReadonlyToken() != null) {
