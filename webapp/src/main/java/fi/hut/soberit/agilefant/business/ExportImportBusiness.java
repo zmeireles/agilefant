@@ -5,6 +5,7 @@ import java.util.LinkedHashSet;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import fi.hut.soberit.agilefant.model.AgilefantWidget;
 import fi.hut.soberit.agilefant.model.Assignment;
 import fi.hut.soberit.agilefant.model.BacklogHistoryEntry;
 import fi.hut.soberit.agilefant.model.BacklogHourEntry;
@@ -35,7 +36,7 @@ public interface ExportImportBusiness {
 
 	@JsonPropertyOrder({ "version", "users", "holidays", "products", "projects", "iterations", "stories", "tasks", "assignments", "backlogHourEntries",
 		"storyHourEntries", "taskHourEntries", "backlogHistoryEntries", "iterationHistoryEntries", "labels", "storyAccesses", "storyRanks",
-		"teams", "whatsNextEntries", "whatsNextStoryEntries", "widgetCollections", "settings"})
+		"teams", "whatsNextEntries", "whatsNextStoryEntries", "widgetCollections", "widgets", "settings"})
 	public static class OrganizationDumpTO {
 
 		public Collection<User> users = new LinkedHashSet<User>();
@@ -58,6 +59,7 @@ public interface ExportImportBusiness {
 		public Collection<WhatsNextEntry> whatsNextEntries = new LinkedHashSet<WhatsNextEntry>();
 		public Collection<WhatsNextStoryEntry> whatsNextStoryEntries = new LinkedHashSet<WhatsNextStoryEntry>();
 		public Collection<WidgetCollection> widgetCollections = new LinkedHashSet<WidgetCollection>();		
+		public Collection<AgilefantWidget> widgets = new LinkedHashSet<AgilefantWidget>();		
 		public Collection<Setting> settings = new LinkedHashSet<Setting>();
 	}
 }

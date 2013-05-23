@@ -25,6 +25,7 @@ import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.typesafe.config.Config;
 
 import fi.hut.soberit.agilefant.business.ExportImportBusiness.OrganizationDumpTO;
+import fi.hut.soberit.agilefant.model.AgilefantWidget;
 import fi.hut.soberit.agilefant.model.Assignment;
 import fi.hut.soberit.agilefant.model.Backlog;
 import fi.hut.soberit.agilefant.model.BacklogHistoryEntry;
@@ -138,7 +139,8 @@ public class ExportImport {
 			context.setMixInAnnotations(Team.class, ExportableModel.class);
 			context.setMixInAnnotations(WhatsNextEntry.class, ExportableModel.class);
 			context.setMixInAnnotations(WhatsNextStoryEntry.class, ExportableModel.class);
-			context.setMixInAnnotations(WidgetCollection.class, ExportableModel.class);
+			context.setMixInAnnotations(WidgetCollection.class, ExportableWidgetCollection.class);
+			context.setMixInAnnotations(AgilefantWidget.class, ExportableModel.class);
 			context.setMixInAnnotations(Setting.class, ExportableModel.class);
 		
 		}
@@ -316,6 +318,13 @@ public class ExportImport {
 		@Override
 		@JsonIgnore
 		public abstract Set<TaskHourEntry> getHourEntries();
+	}
+	
+	public static abstract class ExportableWidgetCollection extends WidgetCollection implements ExportableModel {
+
+		@Override
+		@JsonIgnore
+		public abstract Collection<AgilefantWidget> getWidgets();
 	}
 	
 	@SuppressWarnings("serial")

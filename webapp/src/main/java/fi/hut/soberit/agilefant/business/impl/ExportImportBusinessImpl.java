@@ -5,7 +5,6 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedHashSet;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,10 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.typesafe.config.Config;
-
 import fi.hut.soberit.agilefant.business.ExportImportBusiness;
 import fi.hut.soberit.agilefant.business.IterationBusiness;
+import fi.hut.soberit.agilefant.db.AgilefantWidgetDAO;
 import fi.hut.soberit.agilefant.db.AssignmentDAO;
 import fi.hut.soberit.agilefant.db.BacklogHistoryEntryDAO;
 import fi.hut.soberit.agilefant.db.BacklogHourEntryDAO;
@@ -69,6 +67,7 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 	@Autowired WhatsNextEntryDAO whatsNextEntryDAO;
 	@Autowired WhatsNextStoryEntryDAO whatsNextStoryEntryDAO;
 	@Autowired WidgetCollectionDAO widgetCollectionDAO;
+	@Autowired AgilefantWidgetDAO agilefantWidgetDAO;
 	
 	@Autowired
 	private IterationBusiness iterationBusiness;
@@ -115,6 +114,7 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 		organizationTO.whatsNextEntries.addAll(this.whatsNextEntryDAO.getAll());
 		organizationTO.whatsNextStoryEntries.addAll(this.whatsNextStoryEntryDAO.getAll());
 		organizationTO.widgetCollections.addAll(this.widgetCollectionDAO.getAll());
+		organizationTO.widgets.addAll(this.agilefantWidgetDAO.getAll());
 		
 		return organizationTO;
 	}
@@ -166,6 +166,7 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 		objects.addAll(organizationTO.whatsNextEntries);
 		objects.addAll(organizationTO.whatsNextStoryEntries);
 		objects.addAll(organizationTO.widgetCollections);
+		objects.addAll(organizationTO.widgets);
 		objects.addAll(organizationTO.settings);
 
 		Session session = this.sessionFactory.openSession();
