@@ -42,7 +42,7 @@
   if (latestVersionCookie == null) {
     jQuery.cookie("latestversion", "CONNECTIONFAILURE", { expires: 1 });
     jQuery.ajax({
-      url: "https://cloud.agilefant.org/versioncheck/versioncheck.json22?version=" + myVersion,
+      url: "https://cloud.agilefant.org/versioncheck/versioncheck.json?version=" + myVersion,
       dataType: "jsonp",
       jsonpCallback: "callback",
       error: function() { }
