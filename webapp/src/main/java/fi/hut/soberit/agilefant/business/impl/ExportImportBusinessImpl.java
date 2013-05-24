@@ -9,6 +9,8 @@ import java.util.Date;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,6 +55,8 @@ import fi.hut.soberit.agilefant.model.User;
 @Service("exportBusiness")
 public class ExportImportBusinessImpl implements ExportImportBusiness {
 
+	private static final Logger LOG = LoggerFactory.getLogger(ExportImportBusinessImpl.class);	
+	
 	@Autowired AssignmentDAO assignmentDAO;
 	@Autowired BacklogHistoryEntryDAO backlogHistoryEntryDAO;
 	@Autowired BacklogHourEntryDAO backlogHourEntryDAO;
@@ -167,9 +171,7 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 		return token;
 	}
 	
-	@Override
-	@Transactional
-	public void importOrganization(OrganizationDumpTO organizationTO) {
+	void renameDuplicateData(OrganizationDumpTO organizationTO) {
 		for(User user : organizationTO.users) {
 			if(this.userBusiness.retrieveByLoginName(user.getLoginName())!=null) {
 				user.setLoginName(user.getLoginName() + new Date().getTime());				
@@ -180,7 +182,13 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 				iteration.setReadonlyToken(generateReadonlyToken(iteration.getReadonlyToken()));
 			}
 		}
-
+	}
+	
+	@Override
+	@Transactional
+	public void importOrganization(OrganizationDumpTO organizationTO) {
+		this.renameDuplicateData(organizationTO);
+		
 		Collection<Object> objects = new ArrayList<Object>();
 		objects.addAll(organizationTO.users);
 		objects.addAll(organizationTO.holidays);
@@ -225,6 +233,7 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 			tx.commit();
 		} catch(Exception e) {
 			tx.rollback();
+			LOG.error("Error importing data");
 			throw new RuntimeException(e);
 		} finally {
 			session.close();			
