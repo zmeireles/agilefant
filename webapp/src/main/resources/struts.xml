@@ -486,7 +486,7 @@
 			<interceptor-ref name="exception"/>
             <interceptor-ref name="i18n"/>
             <interceptor-ref name="fileUpload">
-       			<param name="allowedTypes">text/xml, text/plain, application/xml</param>
+       			<param name="allowedTypes">application/zip</param>
        			<param name="maximumSize">104857600</param>
   			</interceptor-ref> 
             <interceptor-ref name="params">

@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.zip.ZipInputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -70,7 +71,9 @@ public class DatabaseExportAction extends ActionSupport {
     public String databaseImport() {
         try {
             InputStream inputStream = new FileInputStream(fileUpload);
-            OrganizationDumpTO organizationTO = exportImport.fromJson(inputStream);
+            ZipInputStream zipInputStream = new ZipInputStream(inputStream);
+            zipInputStream.getNextEntry();
+            OrganizationDumpTO organizationTO = exportImport.fromJson(zipInputStream);
             exportImportBusiness.importOrganization(organizationTO);
             return Action.SUCCESS;
         } catch (Exception e) {

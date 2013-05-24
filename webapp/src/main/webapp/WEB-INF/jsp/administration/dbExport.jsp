@@ -19,7 +19,7 @@
   </div> 
   
   <div class="warning-note">
-    You can create a zipped SQL dump of the database your Agilefant
+    You can create a zipped dump of the database your Agilefant
 	instance uses to save it on your computer. The database dump contains
 	a history of all the changes made, so it can be used e.g. for research
 	and learning purposes, such as exploring the evolution of a particular
@@ -37,7 +37,7 @@
   -->
   
   <s:form action="resultAction" namespace="/" method="POST" enctype="multipart/form-data">
-  <s:file name="fileUpload" label="Select a xml file to upload" size="40" />
+  <s:file name="fileUpload" label="Select a zip file to upload" size="40" />
   <s:submit value="Import database" name="submit" />
   </s:form>
   
