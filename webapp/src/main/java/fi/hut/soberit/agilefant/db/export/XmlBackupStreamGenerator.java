@@ -38,7 +38,7 @@ public class XmlBackupStreamGenerator {
             exportImport.toJson(out, organizationTO);
             
             ZipOutputStream outzip = new ZipOutputStream(zippedDbOutputStream);
-            outzip.putNextEntry(new ZipEntry("fantbackup.xml"));
+            outzip.putNextEntry(new ZipEntry("fantbackup.json"));
             out.writeTo(outzip);
             outzip.closeEntry();
             outzip.close();
