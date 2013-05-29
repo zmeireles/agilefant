@@ -5,7 +5,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="/struts-tags" prefix="ww" %>
 
-
 <div id="logoutDiv">
   <a href="#" id="createNewMenuLink" onclick="return false;">Create new</a> 
   |
@@ -17,8 +16,8 @@
   <a target="_blank" href="http://tinyurl.com/agilefant-registration-2013">Register</a>
   |
   <a href="j_spring_security_logout?exit=Logout">Logout</a>
-
-<struct:createNewMenu />
+  
+  <struct:createNewMenu />
 </div>
 <div id="updateMessage"></div>
 
@@ -31,6 +30,7 @@
     if (myVersion != latestVersion && myVersion != "CONNECTIONFAILURE") {
       jQuery("#updateMessage").append('<img id="updateImage" src="static/img/star_red.png"></img>');
       jQuery("#updateMessage").append('<div id="updateMessageBox">' + updateMessage + '</div>');
+      jQuery("#updateMessage").append('<div style="float:right">&nbsp|</div>');
       jQuery("#updateMessage").mouseover(function() {
         jQuery(this).children("#updateMessageBox").show();
       }).mouseout(function() {
