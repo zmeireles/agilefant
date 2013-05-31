@@ -48,6 +48,11 @@ public class TeamBusinessImpl extends GenericBusinessImpl<Team> implements
     public void setUserBusiness(UserBusiness userBusiness) {
         this.userBusiness = userBusiness;
     }
+    
+    @Transactional(readOnly = true)
+    public Team getByTeamName(String teamName) {
+        return teamDAO.getByTeamName(teamName);
+    }
 
 
     /** {@inheritDoc} */

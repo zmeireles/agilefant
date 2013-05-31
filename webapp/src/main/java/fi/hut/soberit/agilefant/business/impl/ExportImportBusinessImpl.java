@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import fi.hut.soberit.agilefant.business.ExportImportBusiness;
 import fi.hut.soberit.agilefant.business.IterationBusiness;
 import fi.hut.soberit.agilefant.business.UserBusiness;
+import fi.hut.soberit.agilefant.business.SettingBusiness;
+import fi.hut.soberit.agilefant.business.TeamBusiness;
 import fi.hut.soberit.agilefant.db.AgilefantWidgetDAO;
 import fi.hut.soberit.agilefant.db.AssignmentDAO;
 import fi.hut.soberit.agilefant.db.BacklogHistoryEntryDAO;
@@ -44,7 +46,9 @@ import fi.hut.soberit.agilefant.db.WidgetCollectionDAO;
 import fi.hut.soberit.agilefant.model.Iteration;
 import fi.hut.soberit.agilefant.model.AgilefantWidget;
 import fi.hut.soberit.agilefant.model.Project;
+import fi.hut.soberit.agilefant.model.Setting;
 import fi.hut.soberit.agilefant.model.Story;
+import fi.hut.soberit.agilefant.model.Team;
 import fi.hut.soberit.agilefant.model.User;
 
 /**
@@ -86,6 +90,12 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 	
 	@Autowired
 	private UserBusiness userBusiness;
+	
+	@Autowired
+	private SettingBusiness settingBusiness;
+	
+	@Autowired
+	private TeamBusiness teamBusiness;
 	
 	@Autowired
 	SessionFactory sessionFactory;
@@ -177,6 +187,11 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 				user.setLoginName(user.getLoginName() + new Date().getTime());				
 			}
 		}
+		for(Team team : organizationTO.teams) {
+			if (this.teamBusiness.getByTeamName(team.getName())!=null) {
+				team.setName(team.getName() + new Date().getTime());
+			}
+		}
 		for(Iteration iteration : organizationTO.iterations) {
 			if (iteration.getReadonlyToken() != null) {
 				iteration.setReadonlyToken(generateReadonlyToken(iteration.getReadonlyToken()));
@@ -211,7 +226,13 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 		objects.addAll(organizationTO.whatsNextStoryEntries);
 		objects.addAll(organizationTO.widgetCollections);
 		objects.addAll(organizationTO.widgets);
-		objects.addAll(organizationTO.settings);
+		if (settingDAO.count() == 0) {
+			objects.addAll(organizationTO.settings);
+		} else {
+			for (Setting setting: organizationTO.settings) {
+				settingBusiness.setValue(setting.getName(), setting.getValue());
+			}
+		}
 
 		Session session = this.sessionFactory.openSession();
 		Transaction tx = session.beginTransaction(); 

@@ -96,6 +96,11 @@ public class SettingBusinessImpl extends GenericBusinessImpl<Setting> implements
         } 
     }
     
+    @Transactional
+    public void setValue(String settingName, String value) {
+        this.storeSetting(settingName, value);
+    }
+    
     @Transactional(readOnly = true)
     public boolean isHourReportingEnabled() {
         Setting setting = this.retrieveByName(SETTING_NAME_HOUR_REPORTING);

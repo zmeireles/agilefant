@@ -22,6 +22,8 @@ public interface TeamBusiness extends GenericBusiness<Team> {
     Set<User> getUsersInSameTeams(int userId);
 
     public Collection<Team> withUsers(Call<Collection<Team>> call);
+
+    Team getByTeamName(String teamName);
     
 	/**
 	 * Interface to specify a method call
