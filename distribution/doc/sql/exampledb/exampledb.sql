@@ -381,7 +381,7 @@ CREATE TABLE `logins` (
   PRIMARY KEY (`id`),
   KEY `FK4B213410C1610AD4` (`user_id`),
   CONSTRAINT `FK4B213410C1610AD4` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -390,7 +390,7 @@ CREATE TABLE `logins` (
 
 LOCK TABLES `logins` WRITE;
 /*!40000 ALTER TABLE `logins` DISABLE KEYS */;
-INSERT INTO `logins` VALUES (12,5,'2013-05-31 15:06:59');
+INSERT INTO `logins` VALUES (12,5,'2013-05-31 15:06:59'),(13,5,'2013-05-31 16:00:37'),(14,5,'2013-05-31 18:22:34');
 /*!40000 ALTER TABLE `logins` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1209,7 +1209,7 @@ CREATE TABLE `widgets` (
 
 LOCK TABLES `widgets` WRITE;
 /*!40000 ALTER TABLE `widgets` DISABLE KEYS */;
-INSERT INTO `widgets` VALUES (1,1,23,0,'story',1),(2,0,21,1,'iterationMetrics',1),(3,1,10,1,'projectMetrics',1),(4,0,3,0,'userLoad',1);
+INSERT INTO `widgets` VALUES (1,1,23,0,'story',1),(2,0,21,1,'iterationMetrics',1),(3,1,10,1,'projectMetrics',1),(4,0,5,0,'userLoad',1);
 /*!40000 ALTER TABLE `widgets` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1222,4 +1222,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-05-31 15:11:33
+-- Dump completed on 2013-05-31 18:45:51
