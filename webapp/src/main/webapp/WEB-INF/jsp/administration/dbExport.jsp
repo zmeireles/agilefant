@@ -20,11 +20,8 @@
   
   <div class="warning-note">
     You can create a zipped dump of the database your Agilefant
-	instance uses to save it on your computer. The database dump contains
-	a history of all the changes made, so it can be used e.g. for research
-	and learning purposes, such as exploring the evolution of a particular
-	product backlog over time. You can also use this to e.g. create manual
-	backups of your database.
+	instance uses to save it on your computer. You can also
+        use this to e.g. create manual backups of your database.
   </div>
   
   <form action="generateDbExport.action">
