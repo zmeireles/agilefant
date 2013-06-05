@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.google.common.base.Throwables;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -27,6 +28,7 @@ public class DatabaseExportAction extends ActionSupport {
 
     private XmlBackupper takeDbBackup;
     private ByteArrayOutputStream databaseStream;
+    private String errorStacktrace;
     @Autowired
     private ExportImportBusiness exportImportBusiness;
     @Autowired
@@ -63,7 +65,7 @@ public class DatabaseExportAction extends ActionSupport {
             
             return Action.SUCCESS;
         } catch (Exception e) {
-            e.printStackTrace();
+        	errorStacktrace = Throwables.getStackTraceAsString(e);
             return Action.ERROR;
         }
     }
@@ -77,7 +79,7 @@ public class DatabaseExportAction extends ActionSupport {
             exportImportBusiness.importOrganization(organizationTO);
             return Action.SUCCESS;
         } catch (Exception e) {
-            e.printStackTrace();
+        	errorStacktrace = Throwables.getStackTraceAsString(e);
             return Action.ERROR;
         }
     }
@@ -88,6 +90,10 @@ public class DatabaseExportAction extends ActionSupport {
 
     public void setDatabaseStream(ByteArrayOutputStream databaseStream) {
         this.databaseStream = databaseStream;
+    }
+    
+    public String getErrorStacktrace() {
+    	return errorStacktrace;
     }
 
 }

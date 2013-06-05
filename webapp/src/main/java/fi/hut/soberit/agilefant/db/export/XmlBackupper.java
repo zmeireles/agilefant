@@ -23,13 +23,9 @@ public class XmlBackupper {
      * that is zipped DBdump from exportImportBusiness or
      * null if generating stream failed for some reason.
      */
-    public ByteArrayOutputStream generateDBDumpStream(ExportImportBusiness exportImportBusiness, ExportImport exportImport) {
+    public ByteArrayOutputStream generateDBDumpStream(ExportImportBusiness exportImportBusiness, ExportImport exportImport) throws Exception {
         XmlBackupStreamGenerator dbbackup = new XmlBackupStreamGenerator();
-        int exitvalue = dbbackup.generateZippedDbOutputStream(exportImportBusiness, exportImport);
-
-        if (exitvalue != 0) {
-            return null;
-        }
+        dbbackup.generateZippedDbOutputStream(exportImportBusiness, exportImport);
 
         this.dbOutputStream = dbbackup.getZippedDbOutputStream();
         return dbbackup.getZippedDbOutputStream();

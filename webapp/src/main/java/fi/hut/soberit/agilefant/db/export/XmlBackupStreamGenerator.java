@@ -29,25 +29,18 @@ public class XmlBackupStreamGenerator {
     }
 
 
-    public int generateZippedDbOutputStream(ExportImportBusiness exportImportBusiness, ExportImport exportImport) {
-        try {
-            zippedDbOutputStream = new ByteArrayOutputStream();
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
+    public void generateZippedDbOutputStream(ExportImportBusiness exportImportBusiness, ExportImport exportImport) throws Exception {
+        zippedDbOutputStream = new ByteArrayOutputStream();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
             
-            OrganizationDumpTO organizationTO = exportImportBusiness.exportOrganization();
-            exportImport.toJson(out, organizationTO);
+        OrganizationDumpTO organizationTO = exportImportBusiness.exportOrganization();
+        exportImport.toJson(out, organizationTO);
             
-            ZipOutputStream outzip = new ZipOutputStream(zippedDbOutputStream);
-            outzip.putNextEntry(new ZipEntry("fantbackup.json"));
-            out.writeTo(outzip);
-            outzip.closeEntry();
-            outzip.close();
-            return 0;
-
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
-        return -1; // return -1 if try didn't finish
+        ZipOutputStream outzip = new ZipOutputStream(zippedDbOutputStream);
+        outzip.putNextEntry(new ZipEntry("fantbackup.json"));
+        out.writeTo(outzip);
+        outzip.closeEntry();
+        outzip.close();
     }
 
 }

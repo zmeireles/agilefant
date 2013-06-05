@@ -8,4 +8,7 @@
 	href="javascript:history.back(-1)">Try again</a>
 <p><ww:actionerror /> <ww:fielderror /> <ww:actionmessage /> 
 
+<p>Error stacktrace:</p>
+<p>${errorStacktrace}</p>
+
 </struct:htmlWrapper>
