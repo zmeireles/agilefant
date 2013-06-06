@@ -5,7 +5,7 @@ public interface Rankable {
     /**
      * Get the Rankable's rank.
      */
-    public int getRank();
+    public Integer getRank();
     
     /**
      * Set the Rankable's new rank.

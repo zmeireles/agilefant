@@ -104,7 +104,7 @@ public class Project extends Backlog implements Schedulable, Rankable {
 
     @Column(nullable = true)
     @JSON
-    public int getRank() {
+    public Integer getRank() {
         return rank;
     }
 

@@ -26,7 +26,7 @@ import flexjson.JSON;
 @XmlAccessorType( XmlAccessType.NONE )
 public class WhatsNextEntry implements Rankable {
     private int id;
-    private int rank = 0;
+    private Integer rank = 0;
     private User user;
     private Task task;
    
@@ -70,7 +70,7 @@ public class WhatsNextEntry implements Rankable {
     }
 
     @Column(nullable = false, columnDefinition = "int default 0")
-    public int getRank() {
+    public Integer getRank() {
         return rank ;
     }
     
