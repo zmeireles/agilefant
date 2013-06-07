@@ -27,8 +27,10 @@ public class TokenFilter extends GenericFilterBean {
  
 	@Autowired
 	IterationBusiness iterationBusiness;
+	
+	private static final int GROUP = 1;
 
-	private static final Pattern tokenURLPattern = Pattern.compile("^.*/token/(?<token>[0-9]+)$");
+	private static final Pattern tokenURLPattern = Pattern.compile("^.*/token/([0-9]+)$");
 	
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse res = (HttpServletResponse) response;
@@ -36,7 +38,7 @@ public class TokenFilter extends GenericFilterBean {
                         
         Matcher matcher = tokenURLPattern.matcher(req.getRequestURL().toString());
         if(matcher.matches()) {
-        	String token = matcher.group("token");
+        	String token = matcher.group(GROUP);
             if (this.iterationBusiness.getIterationCountFromReadonlyToken(token)>0) {
                 res.sendRedirect(req.getContextPath() + "/ROIteration.action?readonlyToken=" + token);
                 return;
