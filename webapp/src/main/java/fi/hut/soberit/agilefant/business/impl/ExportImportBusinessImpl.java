@@ -50,6 +50,7 @@ import fi.hut.soberit.agilefant.model.Setting;
 import fi.hut.soberit.agilefant.model.Story;
 import fi.hut.soberit.agilefant.model.Team;
 import fi.hut.soberit.agilefant.model.User;
+import fi.hut.soberit.agilefant.util.TokenGenerator;
 
 /**
  * Implementation class for export / import service
@@ -99,6 +100,9 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 	
 	@Autowired
 	SessionFactory sessionFactory;
+	
+    @Autowired
+    private TokenGenerator tokenGenerator;
 	
 	private void addInOrder(Story story, Collection<Story> stories) {
 		Story parent = story.getParent();
@@ -167,20 +171,6 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 		return organizationTO;
 	}
 	
-	private String generateReadonlyToken(String token)
-	{
-		SecureRandom r = new SecureRandom();
-
-		int count = iterationBusiness.getIterationCountFromReadonlyToken(token);
-		while(count > 0){
-			r = new SecureRandom();
-			token = new BigInteger(130, r).toString();
-			count = iterationBusiness.getIterationCountFromReadonlyToken(token);
-		}
-
-		return token;
-	}
-	
 	void renameDuplicateData(OrganizationDumpTO organizationTO) {
 		for(User user : organizationTO.users) {
 			if(this.userBusiness.retrieveByLoginName(user.getLoginName())!=null) {
@@ -194,7 +184,7 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 		}
 		for(Iteration iteration : organizationTO.iterations) {
 			if (iteration.getReadonlyToken() != null) {
-				iteration.setReadonlyToken(generateReadonlyToken(iteration.getReadonlyToken()));
+				iteration.setReadonlyToken(tokenGenerator.generateReadonlyToken(iteration.getReadonlyToken()));
 			}
 		}
 	}
