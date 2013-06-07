@@ -14,9 +14,13 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Throwables;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
+import com.typesafe.config.Config;
 
 import fi.hut.soberit.agilefant.business.ExportImportBusiness;
 import fi.hut.soberit.agilefant.business.ExportImportBusiness.OrganizationDumpTO;
+import fi.hut.soberit.agilefant.business.IterationBusiness;
+import fi.hut.soberit.agilefant.business.ProductBusiness;
+import fi.hut.soberit.agilefant.business.UserBusiness;
 import fi.hut.soberit.agilefant.db.export.XmlBackupper;
 import fi.hut.soberit.agilefant.exportimport.ExportImport;
 
@@ -33,6 +37,18 @@ public class DatabaseExportAction extends ActionSupport {
     private ExportImportBusiness exportImportBusiness;
     @Autowired
     private ExportImport exportImport;
+    
+    @Autowired
+    private ProductBusiness productBusiness;
+    
+    @Autowired
+    private IterationBusiness iterationBusiness;
+    
+    @Autowired
+    private UserBusiness userBusiness;
+    
+    @Autowired
+    private Config config;
     
     private File fileUpload;
 
@@ -94,6 +110,17 @@ public class DatabaseExportAction extends ActionSupport {
     
     public String getErrorStacktrace() {
     	return errorStacktrace;
+    }
+    
+    public Boolean getDatabaseHasExistingData() {
+    	if (productBusiness.countAll() > 0 || iterationBusiness.countAll() > 0 || userBusiness.countAll() > 2) {
+    		return true;
+    	}
+    	return false;
+    }
+    
+    public Boolean getImportEnabled() {
+    	return this.config.getBoolean("agilefant.import.enabled");
     }
 
 }

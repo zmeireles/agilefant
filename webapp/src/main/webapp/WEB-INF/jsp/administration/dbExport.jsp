@@ -27,16 +27,26 @@
   <form action="generateDbExport.action">
   	<input type="submit" value="Export database" class="dynamics-button" />
   </form>
-  <!--
-  <form action="generateAnonymousDbExport.action">
-  	<input type="submit" value="Export anonymous database" class="dynamics-button" />
-  </form>
-  -->
   
-  <s:form action="resultAction" namespace="/" method="POST" enctype="multipart/form-data">
-  <s:file name="fileUpload" label="Select a zip file to upload" size="40" />
-  <s:submit value="Import database" name="submit" />
-  </s:form>
+  <c:choose>
+    <c:when test="${importEnabled}"> 
+    <s:form action="resultAction" namespace="/" method="POST" enctype="multipart/form-data">
+    <s:file name="fileUpload" label="Select a zip file to upload" size="40" />
+    <c:choose>
+      <c:when test="${databaseHasExistingData}"> 
+        <s:submit value="Import database" name="submit" 
+      onClick="return confirm('Your current database is not empty. Are you sure you want to import more data to it?');"/>
+      </c:when>
+      <c:otherwise>
+        <s:submit value="Import database" name="submit" />
+      </c:otherwise>
+    </c:choose>
+    </s:form>
+    </c:when>
+    <c:otherwise>
+      <div>Import database is disabled.</div>
+    </c:otherwise>
+  </c:choose>
   
 </div>
 </div> 
