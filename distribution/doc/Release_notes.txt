@@ -1,6 +1,6 @@
-Agilefant 3.3
+Agilefant 3.3.1
 Release notes
-2013-05-31
+2013-06-07
 --
 
 Please spend a couple of minutes to register your organization at
@@ -10,6 +10,19 @@ This helps us keep a full-featured Agilefant free-of-charge forever!
 +--------------------+
 |     CHANGESET      |
 +--------------------+
+
+Changes from 3.3
+2013-06-07
+Bug fixes:
++ Java 6 compatibility - version 3.3 required Java 7
++ Fixed Nullpointerexception when clicking story in standalone iteration
++ Fixed task sort order bug
++ Corrected a bug in the parsing of the double value which depends on the current Locale
++ Fixed bug in exampledb.sql - only affected those who initialized database with version 3.3 exampledb.sql
++ Refactoring
+
+Enhancements:
++ Added possibility to enable/disable import database
 
 Changes from 3.2
 2013-05-31
