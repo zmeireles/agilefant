@@ -176,6 +176,7 @@ IterationController.prototype.shareIteration = function() {
 		      dialog.init({
 					title: "Share Iteration",
 					url: "ajax/shareIterationForm.action",
+					hideCancelButton: true,
 					data: {
 						IterationId: me.model.getId(),
 						ReadonlyToken: token
@@ -192,6 +193,7 @@ IterationController.prototype.shareIteration = function() {
 		dialog.init({
 			title: "Share Iteration",
 			url: "ajax/shareIterationForm.action",
+			hideCancelButton: true,
 			data: {
 				IterationId: me.model.getId(),
 				ReadonlyToken: token
