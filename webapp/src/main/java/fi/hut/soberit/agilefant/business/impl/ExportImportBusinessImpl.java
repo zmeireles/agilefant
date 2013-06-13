@@ -4,7 +4,6 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -171,15 +170,20 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 		return organizationTO;
 	}
 	
+	private String generateDuplicateIdentifier() {
+		SecureRandom r = new SecureRandom();
+		return "_DUPLICATE" + new BigInteger(50, r).toString();
+	}
+	
 	void renameDuplicateData(OrganizationDumpTO organizationTO) {
 		for(User user : organizationTO.users) {
-			if(this.userBusiness.retrieveByLoginName(user.getLoginName())!=null) {
-				user.setLoginName(user.getLoginName() + new Date().getTime());				
+			while (this.userBusiness.retrieveByLoginName(user.getLoginName())!=null) {
+				user.setLoginName(user.getLoginName() + generateDuplicateIdentifier());				
 			}
 		}
 		for(Team team : organizationTO.teams) {
-			if (this.teamBusiness.getByTeamName(team.getName())!=null) {
-				team.setName(team.getName() + new Date().getTime());
+			while (this.teamBusiness.getByTeamName(team.getName())!=null) {
+				team.setName(team.getName() + generateDuplicateIdentifier());
 			}
 		}
 		for(Iteration iteration : organizationTO.iterations) {
