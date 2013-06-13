@@ -1,7 +1,6 @@
 package fi.hut.soberit.agilefant.db.hibernate;
 
 import java.io.Serializable;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.validation.ConstraintValidator;
@@ -20,8 +19,6 @@ import com.google.common.base.Strings;
 public class EmailValidator implements ConstraintValidator<Email, String>, Serializable {
 
     private static final long serialVersionUID = 4334203403474352735L;
-	private Pattern pattern;
-	private Matcher matcher;
 
     @Override
     public void initialize(Email parameters) {
@@ -31,20 +28,11 @@ public class EmailValidator implements ConstraintValidator<Email, String>, Seria
     public boolean isValid(String value, ConstraintValidatorContext context) {
         if (Strings.isNullOrEmpty(value) || org.apache.commons.validator.routines.EmailValidator.getInstance().isValid(value))
             return true;
-        return validate(value);
+        return EMAIL_PATTERN.matcher(value).matches();
     }
 
-	private static final String EMAIL_PATTERN = 
+	private static final Pattern EMAIL_PATTERN = Pattern.compile(
 		"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-		+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z0-9]{2,})$";
-
-	public EmailValidator() {
-		pattern = Pattern.compile(EMAIL_PATTERN);
-	}
-
-	public boolean validate(final String hex) {
-		matcher = pattern.matcher(hex);
-		return matcher.matches();
-	}
+		+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z0-9]{2,})$");
 
 }
