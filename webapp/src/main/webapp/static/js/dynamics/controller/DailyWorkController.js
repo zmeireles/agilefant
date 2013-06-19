@@ -43,7 +43,7 @@ DailyWorkController.prototype.handleModelEvents = function(event) {
   }
 
   //task oe/el changed
-  if (event.getObject() instanceof TaskModel) {
+  if (event.getObject() instanceof TaskModel && !(event instanceof DynamicsEvents.RankChanged) && !(event instanceof DynamicsEvents.EditEvent)) {
     this.options.onUserLoadUpdate();
   }
   
