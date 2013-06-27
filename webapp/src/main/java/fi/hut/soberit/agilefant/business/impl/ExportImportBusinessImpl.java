@@ -194,7 +194,7 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 	}
 	
 	@Override
-	@Transactional
+	@Transactional(rollbackFor=RuntimeException.class)
 	public void importOrganization(OrganizationDumpTO organizationTO) {
 		this.renameDuplicateData(organizationTO);
 		
@@ -228,9 +228,7 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 			}
 		}
 
-		Session session = this.sessionFactory.openSession();
-		Transaction tx = session.beginTransaction(); 
-		
+		Session session = this.sessionFactory.getCurrentSession();
 		try {
 			int index = 0;
 			for(Object object : objects) {
@@ -245,13 +243,9 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 				}
 			}
 			
-			tx.commit();
 		} catch(Exception e) {
-			tx.rollback();
 			LOG.error("Error importing data");
 			throw new RuntimeException(e);
-		} finally {
-			session.close();			
 		}
 	}
 }
