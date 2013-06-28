@@ -18,7 +18,7 @@ import org.springframework.web.filter.GenericFilterBean;
  */
 public class RestrictActionPathFilter extends GenericFilterBean {
 	
-	private static final String STRUTS_ACTION_PATTERN = "^(/ajax)?/[^/]*.action$";
+	private static final String STRUTS_ACTION_PATTERN = "^(/ajax(/widgets)?)?/[^/]*.action$";
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
