@@ -39,7 +39,7 @@ div.rightHandImage p {
 </style>
 
 <p>
-This is a quick start guide on using <a href="http://www.agilefant.org/">Agilefant</a>. More detailed instructions and online support is available on the <a href="http://agilefant.freeforums.org/">Agilefant forum</a>.
+This is a quick start guide on using <a href="http://www.agilefant.org/">Agilefant</a>. More detailed instructions and online support is available on the <a href="http://www.agilefant.org/support/">Agilefant website</a>.
 </p>
 
 <h4>Table of Contents</h4>
@@ -95,8 +95,7 @@ This is a quick start guide on using <a href="http://www.agilefant.org/">Agilefa
 <p class="infoBox">
 <strong>Note on user rights</strong><br/>
 Agilefant 3.0 makes a difference between Admin and Non-admin users, and supports limiting access to Products and/or Standalone iterations. 
-You can also share Iterations as 'read-only'.  
-See the related <a href="http://agilefant.freeforums.org/post957.html#p957">forum post</a> for further info regarding user rights.
+You can also share Iterations as 'read-only'. For further information see the User Rights section in <a href="http://www.agilefant.org/support/faq/">FAQ</a>.
 </p>
 
 <ol>
@@ -144,7 +143,7 @@ and Iterations to represent different levels of planning.</p>
  
 <p>Unlike regular iterations, standalone iterations can include stories from multiple products. Standalone iterations are 
 created like regular iterations, with the exception that the 'parent project' in the creation dialog is simply left empty. 
-For further info regarding standalone iterations, check out the <a href="http://agilefant.freeforums.org/how-do-standalone-iterations-work-t238.html">related forum post</a>.</p>
+For further info regarding standalone iterations, check out the related section in <a href="http://www.agilefant.org/support/faq/">FAQ</a>..</p>
 
 
 <div style="width:40%; border: 1px solid #ccc; margin: 1em; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;">
