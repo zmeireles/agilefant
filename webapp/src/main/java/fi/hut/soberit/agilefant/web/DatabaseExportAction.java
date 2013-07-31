@@ -88,6 +88,9 @@ public class DatabaseExportAction extends ActionSupport {
     
     public String databaseImport() {
         try {
+            if (fileUpload == null) {
+                return Action.NONE;
+            }
             InputStream inputStream = new FileInputStream(fileUpload);
             ZipInputStream zipInputStream = new ZipInputStream(inputStream);
             zipInputStream.getNextEntry();
