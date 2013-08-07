@@ -67,12 +67,16 @@ DailyWorkController.prototype.handleModelEvents = function(event) {
 
 DailyWorkController.prototype.initialize = function() {
   var me = this;
+  var overlay = $("#dailyworkLoadingOverlay");
+  overlay.fadeIn();
+  overlay.show();
   ModelFactory.initializeFor(ModelFactory.initializeForTypes.dailyWork,
     this.options.userId,
     function(model) {
       me.model = model;
       me._showNoteBox();
       me._paintLists();
+      jQuery("#dailyworkPleasewait").remove();
     }
   );
 };

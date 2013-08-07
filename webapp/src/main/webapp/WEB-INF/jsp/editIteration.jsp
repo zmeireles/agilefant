@@ -120,6 +120,13 @@ $(document).ready(function() {
 });
 </script>
 
+<div id="iterationPleasewait" style="height: 200px; width: 100%; position: relative;">
+  <div id="iterationLoadingOverlay" class="loadingOverlay">
+    <div class="pleaseWait" style="text-align:center;"><img src="static/img/pleasewait.gif" style="display:inline-block;vertical-align:middle;"/><span style="font-size:100%;color:#666;vertical-align: middle;">Loading...</span></div>
+    <div class="overlay"></div>
+  </div>
+</div>
+
 <form onsubmit="return false;"><div id="stories" class="structure-main-block">&nbsp;</div></form>
 
 <form onsubmit="return false;"><div id="tasksWithoutStory" class="structure-main-block">&nbsp;</div></form>
