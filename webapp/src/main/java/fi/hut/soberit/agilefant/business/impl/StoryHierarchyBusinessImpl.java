@@ -2,6 +2,7 @@ package fi.hut.soberit.agilefant.business.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PropertyComparator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -240,6 +242,7 @@ public class StoryHierarchyBusinessImpl implements StoryHierarchyBusiness {
         }
         try {
             stories = replaceStoryNodesWithRoots(stories);
+            Collections.sort(stories, new PropertyComparator("treeRank", true, true));
         } catch (Exception e) {
             e.printStackTrace();
         }
