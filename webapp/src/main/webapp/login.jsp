@@ -123,6 +123,12 @@
   <c:set var="errorAddedClass" value="loginWrapperWithError" />
 </c:if>
 
+<script type="text/javascript">
+window.onload = function() {
+  document.getElementById("username").focus();
+}
+</script>
+
 <div id="outerWrapper">
 
   <div id="loginWrapper" class="dynamictable ui-widget-content ui-corner-all ${errorAddedClass}">
