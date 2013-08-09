@@ -258,6 +258,8 @@ public class StoryBusinessImpl extends GenericBusinessImpl<Story> implements
                 storyRankBusiness.createRank(newStory, newStoryIteration);
             }
             return;
+        } else {
+            storyRankBusiness.removeRank(oldStory, oldStoryIteration);
         }
     }
 
