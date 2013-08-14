@@ -242,11 +242,20 @@ public class StoryHierarchyBusinessImpl implements StoryHierarchyBusiness {
         }
         try {
             stories = replaceStoryNodesWithRoots(stories);
-            Collections.sort(stories, new PropertyComparator("treeRank", true, true));
+            sortStoriesByTreeRank(stories);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return stories;
+    }
+    
+    private void sortStoriesByTreeRank(List<Story> stories) {
+        Collections.sort(stories, new PropertyComparator("treeRank", true, true));
+        for (Story story: stories) {
+            if (story.getChildren().size() > 0) {
+                sortStoriesByTreeRank(story.getChildren());
+            }
+        }
     }
 
     public List<Story> replaceStoryNodesWithRoots(List<Story> stories) {
