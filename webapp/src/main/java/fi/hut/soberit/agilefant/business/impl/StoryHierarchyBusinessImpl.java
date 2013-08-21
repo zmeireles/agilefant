@@ -373,6 +373,9 @@ public class StoryHierarchyBusinessImpl implements StoryHierarchyBusiness {
         metrics.effortLeft = storyEffortLeftAsLong(story);
         
         for(Story child : story.getChildren()) {
+            if (child.getId() == story.getId()) {
+                continue;
+            }
             StoryTreeBranchMetrics childMetrics = this.calculateStoryTreeMetrics(child);
             if(child.getState() != deferred) {
                 metrics.estimatedDonePoints += childMetrics.estimatedDonePoints;
