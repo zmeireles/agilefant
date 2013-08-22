@@ -313,11 +313,13 @@ public class TransferObjectBusinessImpl implements TransferObjectBusiness {
         Collection<Iteration> currentAndFutureIterations = this.iterationBusiness.retrieveCurrentAndFutureIterations();
         List<AutocompleteDataNode> autocompleteData = new ArrayList<AutocompleteDataNode>();
         for (Backlog blog : currentAndFutureIterations) {
-            String name = recurseBacklogNameWithParents(blog);
-            AutocompleteDataNode node = new AutocompleteDataNode(Backlog.class,
-                    blog.getId(), name);
-            node.setOriginalObject(blog);
-            autocompleteData.add(node);
+            if (checkAccess(blog)) {
+                String name = recurseBacklogNameWithParents(blog);
+                AutocompleteDataNode node = new AutocompleteDataNode(Backlog.class,
+                        blog.getId(), name);
+                node.setOriginalObject(blog);
+                autocompleteData.add(node);
+            }
         }
         return autocompleteData; 
     }
@@ -430,6 +432,10 @@ public class TransferObjectBusinessImpl implements TransferObjectBusiness {
 
     public void setStoryBusiness(StoryBusiness storyBusiness) {
         this.storyBusiness = storyBusiness;
+    }
+    
+    public void setAuthorizationBusiness(AuthorizationBusiness authorizationBusiness) {
+        this.authorizationBusiness = authorizationBusiness;
     }
     
     private User getloggedUser() {
