@@ -54,6 +54,7 @@ public class TransferObjectBusinessTest {
     private ProductBusiness productBusiness;
     private ProjectBusiness projectBusiness;
     private IterationBusiness iterationBusiness;
+    private AuthorizationBusiness authorizationBusiness;
     
     Project   project;
     Iteration iteration;
@@ -91,18 +92,21 @@ public class TransferObjectBusinessTest {
         storyBusiness = createMock(StoryBusiness.class);
         transferObjectBusiness.setStoryBusiness(storyBusiness);
         
+        authorizationBusiness = createMock(AuthorizationBusiness.class);
+        transferObjectBusiness.setAuthorizationBusiness(authorizationBusiness);
+        
     }
     
     private void verifyAll() {
         verify(hourEntryBusiness, userBusiness, storyBusiness, teamBusiness,
                 backlogBusiness, productBusiness, projectBusiness,
-                iterationBusiness);
+                iterationBusiness, authorizationBusiness);
     }
 
     private void replayAll() {
         replay(hourEntryBusiness, userBusiness, storyBusiness, teamBusiness,
                 backlogBusiness, productBusiness, projectBusiness,
-                iterationBusiness);
+                iterationBusiness, authorizationBusiness);
     }
     
     
@@ -450,6 +454,9 @@ public class TransferObjectBusinessTest {
         
         expect(iterationBusiness.retrieveCurrentAndFutureIterations())
             .andReturn(Arrays.asList(iterationUnderProject, iterationUnderProduct));
+        
+        expect(authorizationBusiness.isBacklogAccessible(333, SecurityUtil.getLoggedUser())).andReturn(true);
+        expect(authorizationBusiness.isBacklogAccessible(615, SecurityUtil.getLoggedUser())).andReturn(true);
         
         replayAll();
         
