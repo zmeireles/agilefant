@@ -314,9 +314,10 @@ public class TransferObjectBusinessTest {
         iterationUnderProduct.setParent(product);
         iterationUnderProduct.setName("Iter 2");
         
-        expect(userBusiness.retrieve(0)).andReturn(SecurityUtil.getLoggedUser());
         expect(backlogBusiness.retrieveAll())
             .andReturn(Arrays.asList(product, project, iterationUnderProject, iterationUnderProduct));
+        expect(authorizationBusiness.isBacklogAccessible(1, SecurityUtil.getLoggedUser())).andReturn(true);
+        expect(authorizationBusiness.isBacklogAccessible(7, SecurityUtil.getLoggedUser())).andReturn(true);
         
         replayAll();
         
@@ -359,8 +360,6 @@ public class TransferObjectBusinessTest {
         project.setId(7);
         project.setParent(product);
         project.setName("Project");
-        
-        expect(userBusiness.retrieve(0)).andReturn(SecurityUtil.getLoggedUser());
 
         expect(backlogBusiness.retrieveAll()).andReturn(Arrays.asList(product, project, product2));
 
@@ -370,6 +369,9 @@ public class TransferObjectBusinessTest {
         expect(backlogBusiness.getParentProduct(product)).andReturn(product);
         expect(backlogBusiness.getParentProduct(project)).andReturn(product);
         expect(backlogBusiness.getParentProduct(product2)).andReturn(product2);
+        
+        expect(authorizationBusiness.isBacklogAccessible(1, SecurityUtil.getLoggedUser())).andReturn(true);
+        expect(authorizationBusiness.isBacklogAccessible(7, SecurityUtil.getLoggedUser())).andReturn(true);
         
         replayAll();
         
@@ -412,14 +414,13 @@ public class TransferObjectBusinessTest {
         project.setParent(product);
         project.setName("Project");
         
-        expect(userBusiness.retrieve(0)).andReturn(SecurityUtil.getLoggedUser());
         expect(projectBusiness.retrieveAll()).andReturn(Arrays.asList(project));
+        expect(authorizationBusiness.isBacklogAccessible(7, SecurityUtil.getLoggedUser())).andReturn(true);
         
         replayAll();
         
         List<AutocompleteDataNode> nodes = transferObjectBusiness
                 .constructProjectAutocompleteData();
-        
         verifyAll();
         
         assertEquals(1, nodes.size());
@@ -506,6 +507,8 @@ public class TransferObjectBusinessTest {
         
         expect(userBusiness.retrieve(0)).andReturn(SecurityUtil.getLoggedUser()).anyTimes();
         expect(productBusiness.retrieveAll()).andReturn(Arrays.asList(product1, product2));
+        expect(authorizationBusiness.isBacklogAccessible(756, SecurityUtil.getLoggedUser())).andReturn(true);
+        expect(authorizationBusiness.isBacklogAccessible(918, SecurityUtil.getLoggedUser())).andReturn(true);
         replayAll();
         List<AutocompleteDataNode> nodes = transferObjectBusiness
                 .constructProductAutocompleteData();
