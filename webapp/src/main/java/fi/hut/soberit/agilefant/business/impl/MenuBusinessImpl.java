@@ -63,8 +63,7 @@ public class MenuBusinessImpl implements MenuBusiness {
     private AuthorizationBusiness authorizationBusiness;
 
     @SuppressWarnings("unchecked")
-    public List<MenuDataNode> constructBacklogMenuData(User user) {
-    	user = this.userBusiness.retrieve(user.getId());
+    public List<MenuDataNode> constructBacklogMenuData() {
     	
         List<MenuDataNode> nodes = new ArrayList<MenuDataNode>();
         List<Product> products = new ArrayList<Product>(productBusiness

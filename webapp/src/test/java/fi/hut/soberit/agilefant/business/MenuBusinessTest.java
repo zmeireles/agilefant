@@ -147,7 +147,6 @@ public class MenuBusinessTest {
         user.setTeams(teams);
         team.setProducts(products);
         
-        expect(userBusiness.retrieve(user.getId())).andReturn(user);
         expect(productBusiness.retrieveAllOrderByName()).andReturn(
                 products);
         expect(authorizationBusiness.isBacklogAccessible(1, SecurityUtil.getLoggedUser())).andReturn(true);
@@ -162,7 +161,7 @@ public class MenuBusinessTest {
         
         replayAll();
                
-        List<MenuDataNode> actual = menuBusiness.constructBacklogMenuData(user);
+        List<MenuDataNode> actual = menuBusiness.constructBacklogMenuData();
         verifyAll();
         
         assertEquals(2, actual.size());
