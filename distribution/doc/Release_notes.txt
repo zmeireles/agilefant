@@ -1,6 +1,6 @@
-Agilefant 3.3.2
+Agilefant 3.3.3
 Release notes
-2013-08-15
+2013-08-29
 --
 
 Please spend a couple of minutes to register your organization at
@@ -10,6 +10,18 @@ This helps us keep Agilefant open source and free forever!
 +--------------------+
 |     CHANGESET      |
 +--------------------+
+
+Changes from 3.3.2
+2013-08-29
+Bug fixes:
++ Allow non-admin user to create only other non-admin users
++ Autocomplete box shows only iterations that the user can access
++ Prevent infinite loop when fetching story metrics
++ Version check comparison fixed
++ Refactoring backlog access code
+
++ Small UX improvements
+  + Renamed Story queue => My stories
 
 Changes from 3.3.1
 2013-08-15
