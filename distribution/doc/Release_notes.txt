@@ -14,14 +14,14 @@ This helps us keep Agilefant open source and free forever!
 Changes from 3.3.2
 2013-08-29
 Bug fixes:
-+ Allow non-admin user to create only other non-admin users
-+ Autocomplete box shows only iterations that the user can access
-+ Prevent infinite loop when fetching story metrics
-+ Version check comparison fixed
-+ Refactoring backlog access code
++ Non-admin users no longer allowed to create admin users (gasp!)
++ Select iteration autocomplete box now shows only iterations that the user has access to
++ Infinite loop when fetching story metrics prevented
++ A bug in new wersion check comparison fixed
++ Backlog access code refactored
 
 + Small UX improvements
-  + Renamed Story queue => My stories
+  + Renamed 'Story queue' in left hand side accordion => 'My stories'
 
 Changes from 3.3.1
 2013-08-15
