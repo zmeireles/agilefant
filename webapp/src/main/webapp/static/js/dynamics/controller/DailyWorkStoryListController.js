@@ -14,7 +14,7 @@ DailyWorkStoryListController.columnIndices = CommonController.createColumnIndice
 
 DailyWorkStoryListController.prototype._getTableConfig = function() {
   var config = new DynamicTableConfiguration({
-    caption: "My stories",
+    caption: "Story queue",
     dataType: "stories",
     captionConfig: {
       cssClasses: "dynamictable-caption-block ui-widget-header ui-corner-all"
