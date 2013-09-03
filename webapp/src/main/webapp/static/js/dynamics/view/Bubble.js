@@ -6,6 +6,7 @@ var Bubble = function Bubble(referenceElement, options) {
     closeCallback: function() { return false; },
     removeOthers: true,
     removeSelector: null,
+    autoClose: true,
     title:     null,
     offsetX:   100,
     offsetY:   35,
@@ -83,7 +84,28 @@ Bubble.prototype._createElements = function() {
     me.destroy();
   }).appendTo(this.header);
   
+  if (me.options.autoClose) {
+    var initBubbleTime = new Date().getTime();
+    document.onclick = function(event) {
+      // Do not close the bubble if it was created just before the click event.
+      // The bubble is drawn before click event. There is 10-20ms delay between, but use 200ms value to be sure.
+      if (me.parentElement.width() > 0 && new Date().getTime() - initBubbleTime > 200) {
+        var offset = me.parentElement.offset();
+        var leftBorder = offset.left;
+        var topBorder = offset.top;
+        var rightBorder = leftBorder + me.parentElement.width() + 20;
+        var bottomBorder = topBorder + me.parentElement.height() + 20;
+        if (!intersects(leftBorder, topBorder, rightBorder, bottomBorder, event.pageX, event.pageY)) {
+          me.destroy();
+        }
+      }
+    };
+  }
 };
+
+function intersects(leftBorder, topBorder, rightBorder, bottomBorder, x, y) {
+  return !(rightBorder < x || leftBorder > x || bottomBorder < y || topBorder > y);
+}
 
 Bubble.prototype._position = function() {
   // Position the bubble
