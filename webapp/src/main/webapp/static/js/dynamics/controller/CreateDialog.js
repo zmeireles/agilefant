@@ -782,12 +782,12 @@ CreateDialog.Team.prototype.initFormConfig = function() {
   });
   
   if (currentUser.getAdmin()) {
-	  var falseFunction = function() {
-		  return "false";
+	  var trueFunction = function() {
+		  return "true";
 	  };
   	config.addColumnConfiguration(CreateDialog.Team.columnIndices.products, {
     	title: "Grant the team access to all products?",
-    	get: falseFunction,
+    	get: trueFunction,
     	editable: true,
     	edit: {
       		editor : "Selection",
@@ -799,7 +799,7 @@ CreateDialog.Team.prototype.initFormConfig = function() {
   	});
   	config.addColumnConfiguration(CreateDialog.Team.columnIndices.iterations, {
     	title: "Grant the team access to all standalone iterations?",
-    	get: falseFunction,
+    	get: trueFunction,
     	editable: true,
     	edit: {
       		editor : "Selection",
