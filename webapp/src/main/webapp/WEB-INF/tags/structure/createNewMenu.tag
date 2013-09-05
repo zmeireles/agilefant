@@ -49,12 +49,12 @@ $(document).ready(function() {
     
     <li>
     <c:choose>
-        <c:when test="${hasProducts}">
+        <c:when test="${hasProducts || hasIterations}">
             <a href="#" id="createNewStory" onclick="return false;"  title="Create a new story">Story &raquo;</a>
         </c:when>
         <c:otherwise>
             <span class="inactive"
-                title="Create a product before creating a story">
+                title="Create a product or iteration before creating a story">
             Story &raquo;</span>
         </c:otherwise>
     </c:choose>
