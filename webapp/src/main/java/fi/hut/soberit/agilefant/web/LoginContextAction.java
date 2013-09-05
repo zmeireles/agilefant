@@ -1,7 +1,6 @@
 package fi.hut.soberit.agilefant.web;
 
 
-import org.apache.struts2.ServletActionContext;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -54,15 +53,6 @@ public class LoginContextAction extends ActionSupport {
     private void saveLoginInformation() {
         User loggedUser = getLoggedInUser();
         DateTime now = new DateTime();
-        /*
-        String uri = ServletActionContext.getRequest().getRequestURI();
-        String agilefantName = "";
-        if (uri != null && uri.indexOf("/", 1) != -1) {
-            agilefantName = uri.substring(1, uri.indexOf("/", 1));
-        }
-        
-        System.out.println("LOGIN: loggedUser.getLoginName(): " + loggedUser.getLoginName() + " , agilefantName: " + agilefantName + " , now: " + now);
-        */
         Login login = new Login();
         login.setUser(loggedUser);
         login.setTime(now);
