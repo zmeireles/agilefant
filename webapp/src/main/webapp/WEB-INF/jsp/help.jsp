@@ -2,7 +2,7 @@
 
 <struct:htmlWrapper navi="none">
 
-<h2>Agilefant Quick Start Guide</h2>
+<h2>Welcome to Agilefant!</h2>
 
 <style type="text/css">
 p.infoBox {
@@ -39,7 +39,9 @@ div.rightHandImage p {
 </style>
 
 <p>
-For more detail, check out the <a href="http://agilefant.org/support/user-guide/">user guide</a>. The <a href="FAQ http://agilefant.org/support/faq/">FAQ</a> - which contains even more detail regarding specific features.
+This help page contains info on Agilefant. You can also read the <a href="http://agilefant.org/support/user-guide/">user guide</a> and check out the <a href="FAQ http://agilefant.org/support/faq/">FAQ</a>, which has much detail concerning specific features.</p>
+
+<p>Or, you can dive right in by going to see the example data. Just click on 'All backlogs' to the left!
 <p>
 
 </p>
@@ -112,13 +114,15 @@ Start by changing your password:
 
 <h3>Backlogs in Agilefant</h3>
 
-<p>Agilefant has three different levels of backlogs: Products, Projects
-and Iterations. These represent different levels of planning.</p>
+<p>The simplest way to use Agilefant is to create standalone iterations,
+and use them for iteration management.</p>
 
-<p>The simplest way to use Agilefant is to create standalone iterations, and use them for iteration management. 
+<p>However, if you have more than one team to manage, or wish to leverage
+Agilefant's capabilities for product and/or portfolio management, it's
+a good idea to create Products, then Projects under these, and divide
+the Projects into Iterations. These represent different levels of
+planning.
 
-However, if you have more than one team to manage, or wish to leverage Agilefant's capabilities for product and/or portfolio management, it's a good idea to create Products, then Projects under these, and divide the Projects into Iterations.
- 
 <div style="width:40%; border: 1px solid #ccc; margin: 1em; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;">
 <h4>An example of Agilefant's backlog structure</h4>
 
@@ -137,6 +141,16 @@ However, if you have more than one team to manage, or wish to leverage Agilefant
 <p>Unlike regular iterations, standalone iterations can include stories from multiple products. So, if you have a single team working on multiple Products and/or Projects, it's a good idea to gather all of the team's work into a Standalone iteration. Standalone iterations are 
 created like regular iterations, with the exception that the 'parent project' in the creation dialog is simply left empty. 
 For further info regarding standalone iterations, check out the related section in the <a href="http://agilefant.org/faq/how-do-standalone-iterations-work/">FAQ</a>.</p>
+
+<p>Standalone iterations can include stories from multiple products. So,
+if you have a single team working on multiple Products and/or
+Projects, it's a good idea to gather all of the team's work into a
+Standalone iteration.</p>
+
+<p>Standalone iterations are created like regular iterations, with the
+exception that the 'parent project' in the creation dialog is simply
+left empty. For further info regarding standalone iterations, check
+out the related section in the <a href="http://agilefant.org/faq/how-do-standalone-iterations-work/">FAQ</a>.</p>
 
 <h3>Creating a backlog</h3>
 
