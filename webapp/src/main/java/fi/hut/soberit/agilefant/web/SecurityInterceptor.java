@@ -1,6 +1,8 @@
 package fi.hut.soberit.agilefant.web;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,6 +21,7 @@ import fi.hut.soberit.agilefant.business.TaskBusiness;
 import fi.hut.soberit.agilefant.business.UserBusiness;
 import fi.hut.soberit.agilefant.model.Story;
 import fi.hut.soberit.agilefant.model.Task;
+import fi.hut.soberit.agilefant.model.Team;
 import fi.hut.soberit.agilefant.model.User;
 import fi.hut.soberit.agilefant.security.SecurityUtil;
 
@@ -104,7 +107,23 @@ public class SecurityInterceptor implements Interceptor {
                 boolean attemptToCreateNonAdmin = params.containsKey("user.admin") && ((String[]) params.get("user.admin"))[0].equals("false");
                 // Non admins can create only other non admin users
                 if(attemptToCreateNonAdmin) {
-                	access = true;
+                    // Non admins can only add new users to their teams
+                    if (params.containsKey("teamIds")) {
+                        Set<String> myTeamIds = new HashSet<String>();
+                        for (Team team: user.getTeams()) {
+                            myTeamIds.add(""+team.getId());
+                        }
+                        String[] teamIds = (String[])params.get("teamIds");
+                        Set<String> newUserTeamIds = new HashSet<String>();
+                        for (String teamId: teamIds) {
+                            newUserTeamIds.add(teamId);
+                        }
+                        if (myTeamIds.containsAll(newUserTeamIds)) {
+                            access = true;
+                        }
+                    } else {
+                        access = true;
+                    }
                 }
             } else if(actionName.equals("retrieveAllProducts")
                     || actionName.equals("retrieveAllSAIterations")){
