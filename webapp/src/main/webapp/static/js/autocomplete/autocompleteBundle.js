@@ -22,6 +22,10 @@ var AutocompleteVars = {
       recentElement: 'autocomplete-recentBox',
       recentList: 'autocomplete-recentList',
       
+      selectAllItemsElement: 'autocomplete-selectAllItemsBox',
+      
+      removeAllItemsElement: 'autocomplete-removeAllItemsBox',
+      
       suggestionIcon: 'autocomplete-suggestionIcon',
       suggestionUserIcon: 'autocomplete-userIcon',
       suggestionTeamIcon: 'autocomplete-teamIcon',
@@ -57,7 +61,8 @@ Autocomplete.prototype._init = function(element, options) {
   this.rightPanel = $('<div/>').addClass(AutocompleteVars.cssClasses.rightPanel);
   this.searchBoxContainer = $('<div/>');
   this.selectedBoxContainer = $('<div/>');
-  this.selectAllTeamsContainer = $('<div/>');
+  this.selectAllItemsContainer = $('<div/>');
+  this.removeAllItemsContainer = $('<div/>');
   this.recentContainer = $('<div/>');
   this.options = {
       multiSelect: true,
@@ -66,7 +71,8 @@ Autocomplete.prototype._init = function(element, options) {
       preSelected: [],
       visibleSuggestions: 5,
       showRecent: true,
-      showSelectAllTeams: true
+      showSelectAllItems: true,
+      showRemoveAllItems: true
   };
   jQuery.extend(this.options, options);
 
@@ -74,7 +80,8 @@ Autocomplete.prototype._init = function(element, options) {
   this.selectedBox = new AutocompleteSelected(this);
   this.searchBox = new AutocompleteSearch(this);
   this.recentBox = new AutocompleteRecent(this.recentContainer, this.options.dataType, this, {});  
-  this.selectAllTeamsBox = new AutocompleteSelectAllTeams(this.selectAllTeamsContainer, this.options.dataType, this, {});
+  this.selectAllItemsBox = new AutocompleteSelectAllItems(this.selectAllItemsContainer, this.options.dataType, this, {});
+  this.removeAllItemsBox = new AutocompleteRemoveAllItems(this.removeAllItemsContainer, this.options.dataType, this, {});
 };
 
 
@@ -87,11 +94,21 @@ Autocomplete.prototype.initialize = function() {
   this.element = $('<div/>').addClass(AutocompleteVars.cssClasses.autocompleteElement)
     .appendTo(this.parent);
   
-  if (this.options.showRecent || this.options.showSelectAllTeams) {
+  if (this.options.showRecent) {
     this.rightPanel.appendTo(this.element);
   }
   this.leftPanel.appendTo(this.element);
   this.dataProvider = AutocompleteDataProvider.getInstance();
+  
+  if (this.options.showSelectAllItems) {
+    this.element.addClass('autocomplete-selectallitems-visible');
+    this._initializeSelectAllItems();
+  }
+  
+  if (this.options.showRemoveAllItems) {
+    this.element.addClass('autocomplete-removeallitems-visible');
+    this._initializeRemoveAllItems();
+  }
   
   this.searchBoxContainer.appendTo(this.leftPanel);
   
@@ -100,11 +117,6 @@ Autocomplete.prototype.initialize = function() {
   }
   else {
     this._initializeSingleSelect();
-  }
-  
-  if (this.options.showSelectAllTeams) {
-    this.element.addClass('autocomplete-selectallteams-visible');
-    this._initializeSelectAllTeams();
   }
   
   if (this.options.showRecent) {
@@ -145,13 +157,23 @@ Autocomplete.prototype._initializeRecent = function() {
   }
 };
 
-Autocomplete.prototype._initializeSelectAllTeams = function() {
-  this.selectAllTeamsBox.initialize();
+Autocomplete.prototype._initializeSelectAllItems = function() {
+  this.selectAllItemsBox.initialize();
   
-  if (this.options.showSelectAllTeams) {
-    this.selectAllTeamsContainer.addClass(AutocompleteVars.cssClasses.selectAllTeamsElement)
-        .appendTo(this.rightPanel);
-    this.selectAllTeamsBox.render();
+  if (this.options.showSelectAllItems) {
+    this.selectAllItemsContainer.addClass(AutocompleteVars.cssClasses.selectAllItemsElement)
+        .appendTo(this.leftPanel);
+    this.selectAllItemsBox.render();
+  }
+};
+
+Autocomplete.prototype._initializeRemoveAllItems = function() {
+  this.removeAllItemsBox.initialize();
+  
+  if (this.options.showRemoveAllItems) {
+    this.removeAllItemsContainer.addClass(AutocompleteVars.cssClasses.removeAllItemsElement)
+        .appendTo(this.leftPanel);
+    this.removeAllItemsBox.render();
   }
 };
 
@@ -224,7 +246,11 @@ Autocomplete.prototype.getItemsByIdList = function(idList) {
   return list;
 };
 
-Autocomplete.prototype.getAllTeams = function() {
-  
-}
+Autocomplete.prototype.getAllItems = function() {
+  return this.items;
+};
+
+Autocomplete.prototype.removeAllSelected = function() {
+  this.selectedBox.removeAllItems();
+};
 

@@ -145,3 +145,7 @@ AutocompleteSelected.prototype.removeItem = function(id, listItem) {
   this.parent.focusSearchField();
 };
 
+AutocompleteSelected.prototype.removeAllItems = function() {
+  this.selectedIds = [];
+  this.selectedList.empty();
+};
