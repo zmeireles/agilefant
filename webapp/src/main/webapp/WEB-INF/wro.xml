@@ -179,6 +179,7 @@
 		<js>/static/js/autocomplete/autocompleteDialog.js</js>
 		<js>/static/js/autocomplete/autocompleteSingleDialog.js</js>
 		<js>/static/js/autocomplete/autocompleteInline.js</js>
+		<js>/static/js/autocomplete/autocompleteSelectAllTeams.js</js>
 	</group>
 
 </groups>

@@ -119,5 +119,6 @@
 		<aef:javascript path="autocomplete/autocompleteDialog" />
 		<aef:javascript path="autocomplete/autocompleteSingleDialog" />
 		<aef:javascript path="autocomplete/autocompleteInline" />
+		<aef:javascript path="autocomplete/autocompleteSelectAllTeams" />
 	</c:otherwise>
 </c:choose>
