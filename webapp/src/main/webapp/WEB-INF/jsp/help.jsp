@@ -38,10 +38,18 @@ div.rightHandImage p {
 }
 </style>
 
+<script>
+$(document).ready(function() {
+  window.openProductsMenu = function() {
+    $('#menuAccordion-products').click(); 
+  };
+});
+</script>
+
 <p>
 This help page contains info on Agilefant. You can also read the <a href="http://agilefant.org/support/user-guide/">user guide</a> and check out the <a href="FAQ http://agilefant.org/support/faq/">FAQ</a>, which has much detail concerning specific features.</p>
 
-<p>Or, you can dive right in by going to see the example data. Just click on 'All backlogs' to the left!
+<p>Or, you can dive right in by going to see the example data. Just click on <a href="#" onclick="openProductsMenu()">'All backlogs'</a> to the left!
 <p>
 
 </p>
@@ -65,12 +73,11 @@ This help page contains info on Agilefant. You can also read the <a href="http:/
 1. About the example data 
 </div>
 <p>
-If you signed up for a trial account, or imported the example database when you did the installation, your Agilefant is populated with example data: two products, a project with some iterations and a standalone iteration. You can see these in the 'All backlogs' section of the left hand side accordion.
-<p>
 Click on the plus (+) of the the Product named 'Agilefant'. You can see that it contains several projects. Click on the plus (+) sign of the project named '2013 Q1-Q3 TUTL'. There you can see that it contains several iterations. These contain stories and tasks. The Agilefant product is an example of how to use Agilefant for both long and short term planning. 
 <p>There's also a Product named 'ToDo-list', which represents probably the simplest way to use Agilefant. It is a single project containing several stories (such as "Get christmas presents for everyone").
 <p>In addition, there's a Standalone iteration (called 'Standalone iteration'), which represents a simple way to use Agilefant just for managing the iterations of a single team - for more info on standalone iterations, check out the <a href="http://agilefant.org/support/user-guide/">user guide</a>.
 
+Your Agilefant is populated with example data: two products, a project with some iterations and a standalone iteration. You can see these in the <a href="#" onclick="openProductsMenu()">'All backlogs'</a> section of the left hand side accordion.
 </div>
 
 <div class="dynamictable ui-widget-content ui-corner-all" id="changingPassword">
