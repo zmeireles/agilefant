@@ -378,8 +378,8 @@
 			<result type="dispatcher">/WEB-INF/jsp/help.jsp</result>
 		</action>
 		
-		<action name="welcome">
-			<result type="dispatcher">/WEB-INF/jsp/welcome.jsp</result>
+		<action name="extendedhelp">
+			<result type="dispatcher">/WEB-INF/jsp/extendedhelp.jsp</result>
 		</action>
 
 		<!-- Actions for generating a new password and e-mailing it to an <code>User</code> -->

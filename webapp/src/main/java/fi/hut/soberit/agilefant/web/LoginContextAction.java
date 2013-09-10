@@ -40,7 +40,7 @@ public class LoginContextAction extends ActionSupport {
         saveLoginInformation();
         
         if (loginBusiness.retrieveLoginCountByUser(getLoggedInUser()) < 2) {
-            return "welcome";
+            return "help";
         }
         else if (settingBusiness.isDailyWork()) {
             return "dailyWork";

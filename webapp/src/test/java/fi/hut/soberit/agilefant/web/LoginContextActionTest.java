@@ -70,7 +70,7 @@ public class LoginContextActionTest extends MockedTestCase {
         expect(loginBusiness.retrieveLoginCountByUser(EasyMock.anyObject(User.class))).andReturn(0);
         loginBusiness.store(anyObject(Login.class));
         replayAll();
-        assertEquals("welcome", testable.execute());
+        assertEquals("help", testable.execute());
         verifyAll();
     }
     
@@ -80,7 +80,7 @@ public class LoginContextActionTest extends MockedTestCase {
         expect(loginBusiness.retrieveLoginCountByUser(EasyMock.anyObject(User.class))).andReturn(0);
         loginBusiness.store(anyObject(Login.class));
         replayAll();
-        assertEquals("welcome", testable.execute());
+        assertEquals("help", testable.execute());
         verifyAll();
     }
 }

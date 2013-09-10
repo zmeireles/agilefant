@@ -2,7 +2,7 @@
 
 <struct:htmlWrapper navi="none">
 
-<h1 style="font-size:20pt">Welcome to Agilefant!</h1>
+<h2>Welcome to Agilefant!</h2>
 
 <style type="text/css">
 p.infoBox {
@@ -73,10 +73,6 @@ This help page contains info on Agilefant. You can also read the <a href="http:/
 1. About the example data 
 </div>
 <p>
-Click on the plus (+) of the the Product named 'Agilefant'. You can see that it contains several projects. Click on the plus (+) sign of the project named '2013 Q1-Q3 TUTL'. There you can see that it contains several iterations. These contain stories and tasks. The Agilefant product is an example of how to use Agilefant for both long and short term planning. 
-<p>There's also a Product named 'ToDo-list', which represents probably the simplest way to use Agilefant. It is a single project containing several stories (such as "Get christmas presents for everyone").
-<p>In addition, there's a Standalone iteration (called 'Standalone iteration'), which represents a simple way to use Agilefant just for managing the iterations of a single team - for more info on standalone iterations, check out the <a href="http://agilefant.org/support/user-guide/">user guide</a>.
-
 Your Agilefant is populated with example data: two products, a project with some iterations and a standalone iteration. You can see these in the <a href="#" onclick="openProductsMenu()">'All backlogs'</a> section of the left hand side accordion.
 </div>
 
@@ -204,7 +200,7 @@ back to the project or product backlogs.
 <h3>List and breakdown views</h3>
 
 <p>
-The work breakdown (or simply breakdown) is a view into the product and project backlogs that
+The story breakdown is a view into the product and project backlogs that
 displays how the smaller stories have been refined from the higher
 level epics and features. 
 
@@ -276,12 +272,7 @@ The Daily work, Timesheets and Portfolio views can be toggled on or off on the s
 
 </div>
 </div>
-<p style="font-size:14pt">This is an overview of the most important concepts:</p>
 
-<img src="static/img/featureoverview.png"></img>
 
-<p style="font-size:14pt">You can read more from the <a href="extendedhelp.action">online help</a>,
-<a href="http://agilefant.org/support/user-guide">user guide</a> and the
-<a href="http://agilefant.org/support/faq/">FAQ</a></p>
 
 </struct:htmlWrapper>
