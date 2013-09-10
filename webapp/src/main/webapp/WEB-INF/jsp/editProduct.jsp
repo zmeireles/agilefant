@@ -259,7 +259,7 @@ $(document).ready(function() {
 <div style="margin-top: 3em;" class="structure-main-block project-color-header" id="productContents">
 <ul class="backlogTabs">
   <li class=""><a href="#storyTreeContainer"><span><img
-        alt="Story tree" src="static/img/story_tree.png" /> Story breakdown</span></a></li>
+        alt="Story tree" src="static/img/story_tree.png" /> Breakdown</span></a></li>
   <li class=""><a href="#leafStories"><span><img
         alt="Backlogs" src="static/img/leaf_stories.png" /> Roadmap</span></a></li>
   <li class=""><a href="#projects"><span><img
