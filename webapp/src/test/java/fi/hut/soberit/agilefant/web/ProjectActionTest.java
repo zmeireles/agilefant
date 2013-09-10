@@ -3,6 +3,8 @@ package fi.hut.soberit.agilefant.web;
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,17 +12,23 @@ import org.junit.Test;
 import com.opensymphony.xwork2.Action;
 
 import fi.hut.soberit.agilefant.business.ProjectBusiness;
+import fi.hut.soberit.agilefant.business.StoryBusiness;
 import fi.hut.soberit.agilefant.exception.ObjectNotFoundException;
 import fi.hut.soberit.agilefant.model.Product;
 import fi.hut.soberit.agilefant.model.Project;
+import fi.hut.soberit.agilefant.model.Story;
+import fi.hut.soberit.agilefant.transfer.IterationTO;
 import fi.hut.soberit.agilefant.transfer.ProjectDataContainer;
 import fi.hut.soberit.agilefant.transfer.ProjectMetrics;
 import fi.hut.soberit.agilefant.transfer.ProjectTO;
+import fi.hut.soberit.agilefant.transfer.StoryTO;
+import fi.hut.soberit.agilefant.util.StoryFilters;
 
 public class ProjectActionTest {
 
     ProjectAction projectAction;
     ProjectBusiness projectBusiness;
+    StoryBusiness storyBusiness;
 
     Project project;
     ProjectDataContainer projectDataContainer;
@@ -31,7 +39,9 @@ public class ProjectActionTest {
         projectAction = new ProjectAction();
         projectAction.setProjectId(1);
         projectBusiness = createMock(ProjectBusiness.class);
+        storyBusiness = createMock(StoryBusiness.class);
         projectAction.setProjectBusiness(projectBusiness);
+        projectAction.setStoryBusiness(storyBusiness);
     }
 
     @Before
@@ -41,11 +51,11 @@ public class ProjectActionTest {
     }
 
     private void verifyAll() {
-        verify(projectBusiness);
+        verify(projectBusiness, storyBusiness);
     }
 
     private void replayAll() {
-        replay(projectBusiness);
+        replay(projectBusiness, storyBusiness);
     }
 
     @Test
@@ -96,6 +106,9 @@ public class ProjectActionTest {
     public void testRetrieve() {
         projectAction.setProjectId(1);
         expect(projectBusiness.retrieve(1)).andReturn(project);
+        expect(storyBusiness.retrieveStoriesInBacklog(project)).andReturn(new ArrayList<Story>());
+        expect(projectBusiness.retrieveLeafStories(1, new StoryFilters())).andReturn(new ArrayList<StoryTO>());
+        expect(projectBusiness.retrieveProjectIterations(1)).andReturn(new ArrayList<IterationTO>());
         replayAll();
         projectAction.retrieve();
         assertEquals(project, projectAction.getProject());

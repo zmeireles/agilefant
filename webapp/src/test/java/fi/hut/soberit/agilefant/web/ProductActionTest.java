@@ -7,6 +7,7 @@ import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.joda.time.DateTime;
@@ -16,7 +17,9 @@ import org.junit.Test;
 import com.opensymphony.xwork2.Action;
 
 import fi.hut.soberit.agilefant.business.ProductBusiness;
+import fi.hut.soberit.agilefant.business.StoryBusiness;
 import fi.hut.soberit.agilefant.model.Product;
+import fi.hut.soberit.agilefant.model.Story;
 import fi.hut.soberit.agilefant.transfer.ProductTO;
 import fi.hut.soberit.agilefant.util.DateTimeUtils;
 import fi.hut.soberit.agilefant.util.Pair;
@@ -25,12 +28,15 @@ public class ProductActionTest {
 
     ProductAction productAction = new ProductAction();
     ProductBusiness productBusiness;
+    StoryBusiness storyBusiness;
     Product product;
 
     @Before
     public void setUp() {
         productBusiness = createMock(ProductBusiness.class);
-        productAction.setProductBusiness(productBusiness);        
+        storyBusiness = createMock(StoryBusiness.class);
+        productAction.setProductBusiness(productBusiness);    
+        productAction.setStoryBusiness(storyBusiness);
     }
 
     @Before
@@ -39,11 +45,11 @@ public class ProductActionTest {
     }
 
     private void replayAll() {
-        replay(productBusiness);
+        replay(productBusiness, storyBusiness);
     }
 
     private void verifyAll() {
-        verify(productBusiness);
+        verify(productBusiness, storyBusiness);
     }
 
     @Test
@@ -65,6 +71,7 @@ public class ProductActionTest {
         productAction.setProductId(1);
         Pair<DateTime, DateTime> schedule = new Pair<DateTime, DateTime>(new DateTime(), new DateTime());
         expect(productBusiness.retrieve(1)).andReturn(product);
+        expect(storyBusiness.retrieveStoriesInBacklog(product)).andReturn(new ArrayList<Story>());
         expect(productBusiness.calculateProductSchedule(product)).andReturn(schedule);
         replayAll();
         productAction.retrieve();

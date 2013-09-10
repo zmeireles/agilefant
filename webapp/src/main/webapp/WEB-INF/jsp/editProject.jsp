@@ -83,19 +83,39 @@ $(document).ready(function() {
 <div style="margin-top: 3em;" class="structure-main-block project-color-header" id="releaseContents">
 <ul class="backlogTabs">
   <li class=""><a href="#storyTreeContainer"><span><img
-        alt="Edit" src="static/img/story_tree.png" /> Breakdown</span></a></li>
+        alt="Edit" src="static/img/story_tree.png" /> Story breakdown</span></a></li>
   <li class=""><a href="#stories"><span><img
-				alt="Edit" src="static/img/leaf_stories.png" /> Backlog</span></a></li>
+				alt="Edit" src="static/img/leaf_stories.png" /> Leaf stories</span></a></li>
   <li class=""><a href="#iterations"><span><img
 				alt="Edit" src="static/img/backlog.png" /> Iterations</span></a></li>
   <li id="searchByText" style="float: right;"> </li>
 </ul>
 
 <form onsubmit="return false;">
-  <div class="details projectStoryTreeContainer" id="storyTreeContainer" style="position: relative;"></div>
-  <div class="details" id="stories"></div>
+  <div class="details projectStoryTreeContainer" id="storyTreeContainer" style="position: relative;">
+  <c:choose>
+    <c:when test="${empty stories}">
+      <p class="instructionText">Create stories and organize them as a tree using drag & drop.</p>
+    </c:when>
+    </c:choose>
+  </div>
+  <div class="details" id="stories">
+  <c:choose>
+    <c:when test="${empty leafStories}">
+      <div class="static backloglink">
+        <p class="instructionText">Prioritize in-project leaf stories as a list using drag & drop.</p>
+      </div>
+    </c:when>
+  </c:choose>
+  </div>
   <div class="details" id="iterations">
-  		<div id="iterations">&nbsp;</div>
+  		<div id="iterations">&nbsp;
+  		<c:choose>
+          <c:when test="${empty iterations}">
+            <p class="instructionText">Develop the project via iterations.</p>
+          </c:when>
+        </c:choose>
+  		</div>
   </div>
 </form>
 

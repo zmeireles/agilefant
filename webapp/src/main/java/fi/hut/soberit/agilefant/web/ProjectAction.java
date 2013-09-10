@@ -1,5 +1,6 @@
 package fi.hut.soberit.agilefant.web;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,10 +14,13 @@ import com.opensymphony.xwork2.Action;
 
 import fi.hut.soberit.agilefant.annotations.PrefetchId;
 import fi.hut.soberit.agilefant.business.ProjectBusiness;
+import fi.hut.soberit.agilefant.business.StoryBusiness;
 import fi.hut.soberit.agilefant.model.Project;
 import fi.hut.soberit.agilefant.model.Story;
 import fi.hut.soberit.agilefant.transfer.IterationTO;
 import fi.hut.soberit.agilefant.transfer.ProjectMetrics;
+import fi.hut.soberit.agilefant.transfer.StoryTO;
+import fi.hut.soberit.agilefant.util.StoryFilters;
 
 @Component("projectAction")
 @Scope("prototype")
@@ -38,6 +42,8 @@ public class ProjectAction implements CRUDAction, Prefetching, ContextAware {
     private ProjectMetrics projectMetrics;
     
     private List<Story> stories;
+    
+    private List<StoryTO> leafStories;
 
     private Set<Integer> assigneeIds = new HashSet<Integer>();
     
@@ -49,6 +55,9 @@ public class ProjectAction implements CRUDAction, Prefetching, ContextAware {
     
     @Autowired
     private ProjectBusiness projectBusiness;
+    
+    @Autowired 
+    StoryBusiness storyBusiness;
     
     public String iterationList() {
         iterations = projectBusiness.retrieveProjectIterations(projectId);
@@ -85,11 +94,17 @@ public class ProjectAction implements CRUDAction, Prefetching, ContextAware {
         project = new Project();
         project.setStartDate(new DateTime());
         project.setEndDate(new DateTime());
+        stories = new ArrayList<Story>();
+        leafStories = new ArrayList<StoryTO>();
+        iterations = new ArrayList<IterationTO>();
         return Action.SUCCESS;
     }
 
     public String retrieve() {
         project = this.projectBusiness.retrieve(projectId);
+        stories = storyBusiness.retrieveStoriesInBacklog(project);
+        leafStories = projectBusiness.retrieveLeafStories(projectId, new StoryFilters());
+        iterations = projectBusiness.retrieveProjectIterations(projectId);
         return Action.SUCCESS;
     }
     
@@ -143,6 +158,10 @@ public class ProjectAction implements CRUDAction, Prefetching, ContextAware {
     public void setProjectBusiness(ProjectBusiness projectBusiness) {
         this.projectBusiness = projectBusiness;
     }
+    
+    public void setStoryBusiness(StoryBusiness storyBusiness) {
+        this.storyBusiness = storyBusiness;
+    }
 
     public ProjectMetrics getProjectMetrics() {
         return projectMetrics;
@@ -158,6 +177,10 @@ public class ProjectAction implements CRUDAction, Prefetching, ContextAware {
 
     public List<Story> getStories() {
         return stories;
+    }
+    
+    public List<StoryTO> getLeafStories() {
+        return leafStories;
     }
     
     public Integer getRankUnderId() {

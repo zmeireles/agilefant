@@ -259,28 +259,44 @@ $(document).ready(function() {
 <div style="margin-top: 3em;" class="structure-main-block project-color-header" id="productContents">
 <ul class="backlogTabs">
   <li class=""><a href="#storyTreeContainer"><span><img
-        alt="Story tree" src="static/img/story_tree.png" /> Breakdown</span></a></li>
+        alt="Story tree" src="static/img/story_tree.png" /> Story breakdown</span></a></li>
   <li class=""><a href="#leafStories"><span><img
-        alt="Backlogs" src="static/img/leaf_stories.png" /> Backlog</span></a></li>
+        alt="Backlogs" src="static/img/leaf_stories.png" /> Roadmap</span></a></li>
   <li class=""><a href="#projects"><span><img
         alt="Projects" src="static/img/backlog.png" /> Projects</span></a></li>
   <li id="searchByText" style="float: right;"> </li>
 </ul>
 
+<script type="text/javascript">
+$(document).ready(function() {
+  window.createNewProject = function() {
+	  CreateDialog.createById("createNewProject");
+  };
+  window.createNewIteration = function() {
+	  CreateDialog.createById("createNewIteration");
+  };
+});
+</script>
+
 <form onsubmit="return false;">
-  <div class="details" id="storyTreeContainer" style="position: relative;"></div>
+  <div class="details" id="storyTreeContainer" style="position: relative;">
+    <c:choose>
+    <c:when test="${empty stories}">
+      <p class="instructionText">Create stories and organize them as a tree using drag & drop.</p>
+    </c:when>
+    </c:choose>
+  </div>
   <div class="details" id="leafStories" style="position: relative;">
     
     <c:choose>
     <c:when test="${empty product.children}">
-      <div class="static">
-        <h2>Product Backlog</h2>
-        <p>This product has no projects</p>
+      <div class="static backloglink">
+        <p class="instructionText">Drag & drop the leaf stories into projects and iterations. Create a new <a href="javascript:void(0);" onclick="createNewProject()" title="Create a new project">project</a>
+           or <a href="javascript:void(0);" onclick="createNewIteration()" title="Create a new iteration">iteration</a> to the product to see them listed below.</p>
       </div>
     </c:when>
-    <c:otherwise>
+        </c:choose>
       <div class="static">
-        <h2>Product Backlog</h2>
         <div>
           <p style="font-size: 8pt; color: #666;">
             Displaying projects and iterations between
@@ -311,11 +327,16 @@ $(document).ready(function() {
       <div class="content">
         
       </div>
-    </c:otherwise>
-    </c:choose>
+
     
   </div>
-  <div class="details" id="projects"></div>
+  <div class="details" id="projects">
+    <c:choose>
+    <c:when test="${empty product.children}">
+      <p class="instructionText">Develop the product via projects. Click 'Create project' button to create projects to this product.</p>
+    </c:when>
+    </c:choose>
+  </div>
 </form>
 
 </div>

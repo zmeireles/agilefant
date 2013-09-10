@@ -21,7 +21,7 @@ WorkQueueController.columnConfig.prio = {
 WorkQueueController.columnConfig.context = {
   minWidth : 60,
   autoScale : true,
-  title : "Context",
+  title : "Iteration",
   headerTooltip : 'Task context',
   get : TaskModel.prototype.getContext,
   decorator: DynamicsDecorators.taskContextDecorator,
@@ -66,7 +66,7 @@ WorkQueueController.prototype.rankInWorkQueue = function(view, model, previousMo
 
 WorkQueueController.prototype._getTableConfig = function() {
   var config = new DynamicTableConfiguration({
-    caption: "Task queue",
+    caption: "My task queue",
     captionConfig: {
       cssClasses: "dynamictable-caption-block ui-widget-header ui-corner-all"
     },

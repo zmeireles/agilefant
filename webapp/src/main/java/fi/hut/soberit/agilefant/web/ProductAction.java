@@ -19,6 +19,7 @@ import fi.hut.soberit.agilefant.business.AuthorizationBusiness;
 import fi.hut.soberit.agilefant.business.BacklogBusiness;
 import fi.hut.soberit.agilefant.business.IterationBusiness;
 import fi.hut.soberit.agilefant.business.ProductBusiness;
+import fi.hut.soberit.agilefant.business.StoryBusiness;
 import fi.hut.soberit.agilefant.model.Product;
 import fi.hut.soberit.agilefant.model.Story;
 import fi.hut.soberit.agilefant.security.SecurityUtil;
@@ -40,6 +41,9 @@ public class ProductAction implements CRUDAction, Prefetching, ContextAware {
     
     @Autowired 
     BacklogBusiness backlogBusiness;
+    
+    @Autowired 
+    StoryBusiness storyBusiness;
     
     @Autowired
     AuthorizationBusiness authorizationBusiness;
@@ -65,6 +69,7 @@ public class ProductAction implements CRUDAction, Prefetching, ContextAware {
     public String create() {
         productId = 0;
         product = new Product();
+        stories = new ArrayList<Story>();
         return Action.SUCCESS;
     }
 
@@ -75,6 +80,7 @@ public class ProductAction implements CRUDAction, Prefetching, ContextAware {
 
     public String retrieve() {
         product = productBusiness.retrieve(productId);
+        stories = storyBusiness.retrieveStoriesInBacklog(product);
         Pair<DateTime, DateTime> schedule = productBusiness.calculateProductSchedule(product);
         // Round the dates
         this.scheduleEnd = DateTimeUtils.roundToNearestMidnight(schedule.second);
@@ -169,6 +175,10 @@ public class ProductAction implements CRUDAction, Prefetching, ContextAware {
 
     public void setProductBusiness(ProductBusiness productBusiness) {
         this.productBusiness = productBusiness;
+    }
+    
+    public void setStoryBusiness(StoryBusiness storyBusiness) {
+        this.storyBusiness = storyBusiness;
     }
 
     public List<Story> getStories() {

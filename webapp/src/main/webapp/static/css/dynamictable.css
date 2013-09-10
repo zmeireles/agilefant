@@ -261,13 +261,17 @@ li.dynamictable-captionaction {
 	background-position:100% 0;
 }
 
-.dynamictable a:link, .dynamictable a:visited {
+.dynamictable a:link, .dynamictable a:visited, .backloglink a:link, .backloglink a:visited {
   color: #1E5EEE;
   text-decoration: none;
 }
 
-.dynamictable a:hover, .dynamictable a:active {
+.dynamictable a:hover, .dynamictable a:active, .backloglink a:hover, .backloglink a:active {
   color: #e50;
+}
+
+.instructionText {
+	font-weight: bold;
 }
 
 .dynamictable-captionactions {
