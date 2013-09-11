@@ -777,7 +777,9 @@ CreateDialog.Team.prototype.initFormConfig = function() {
       dialogTitle: "Select users",
       dialogClose: function() { jQuery('.ui-button:eq(' + 1 + ')').focus(); }, // After selecting users focus on ok button
       dataType: "usersAndTeams",
-      set : TeamModel.prototype.setUsers
+      set : TeamModel.prototype.setUsers,
+      showSelectAllItems: true,
+      showRemoveAllItems: true
     }
   });
   

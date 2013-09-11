@@ -1405,7 +1405,9 @@ TableEditors.AutocompleteDialog.prototype.init = function(element, model, option
     params:         this.options.params,
     preSelected:    [],
     multiSelect:    this.options.multiSelect,
-    selectCallback: this.options.selectCallback
+    selectCallback: this.options.selectCallback,
+    showSelectAllItems: this.options.showSelectAllItems,
+    showRemoveAllItems: this.options.showRemoveAllItems
   };
   
   this.autocompleteElement = $('<div/>').appendTo(this.dialog);

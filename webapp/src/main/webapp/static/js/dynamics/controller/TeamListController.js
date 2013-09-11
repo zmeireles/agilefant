@@ -143,7 +143,9 @@ TeamListController.prototype.initConfig = function() {
 	      editor: "Autocomplete",
 	      dataType: "usersAndTeams",
 	      dialogTitle: "Select users",
-	      set: TeamModel.prototype.setUsers
+	      set: TeamModel.prototype.setUsers,	      
+		  showSelectAllItems: true,
+		  showRemoveAllItems: true
 	    }
 	  };
   } else {

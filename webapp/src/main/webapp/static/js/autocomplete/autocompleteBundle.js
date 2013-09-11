@@ -71,8 +71,8 @@ Autocomplete.prototype._init = function(element, options) {
       preSelected: [],
       visibleSuggestions: 5,
       showRecent: true,
-      showSelectAllItems: true,
-      showRemoveAllItems: true
+      showSelectAllItems: false,
+      showRemoveAllItems: false
   };
   jQuery.extend(this.options, options);
 

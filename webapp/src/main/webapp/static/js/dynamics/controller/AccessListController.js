@@ -126,7 +126,9 @@ AccessListController.prototype.initConfig = function() {
       editor: "Autocomplete",
       dataType: "teamsAndProducts",
       dialogTitle: "Select teams to have access",
-      set: ProductModel.prototype.setTeams
+      set: ProductModel.prototype.setTeams,
+      showSelectAllItems: true,
+      showRemoveAllItems: true      
     }
   };
     
@@ -179,7 +181,9 @@ AccessListController.prototype.initIterationConfig = function() {
       editor: "Autocomplete",
       dataType: "teamsAndIterations",
       dialogTitle: "Select teams to have access",
-      set: IterationModel.prototype.setTeams
+      set: IterationModel.prototype.setTeams,
+      showSelectAllItems: true,
+      showRemoveAllItems: true      
     }
   };
     
