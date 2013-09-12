@@ -910,8 +910,12 @@ TableEditors.InlineAutocomplete.prototype.init = function(element, model, option
   this.textField.autocomplete({
     source: jQuery.proxy(function(request, response) {
       response(this._getData(request.term));
-    },this)
-  });
+    },this),
+    minLength: 0
+  })
+  .click(function() {
+    jQuery(this).autocomplete('search', $(this).val());
+});
   
   this.setEditorValue();
 };
@@ -972,7 +976,7 @@ TableEditors.InlineAutocomplete.prototype._filterSuggestions = function(list, ma
 };
 
 TableEditors.InlineAutocomplete.prototype.matchSearchString = function(text, match) {
-  if (!match || !text) {
+  if ((!match && match != "") || !text) {
     return false;
   }
   
