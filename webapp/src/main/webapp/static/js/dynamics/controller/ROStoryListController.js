@@ -113,7 +113,6 @@ ROStoryListController.prototype._addColumnConfigs = function(config) {
   config.addColumnConfiguration(StoryController.columnIndices.state, ROStoryListController.columnConfig.state);
   config.addColumnConfiguration(StoryController.columnIndices.responsibles, ROStoryListController.columnConfig.responsibles);
   config.addColumnConfiguration(StoryController.columnIndices.el, ROStoryListController.columnConfig.effortLeft);
-  config.addColumnConfiguration(StoryController.columnIndices.oe, ROStoryListController.columnConfig.originalEstimate);
   if (Configuration.isTimesheetsEnabled()) {
     config.addColumnConfiguration(StoryController.columnIndices.es, ROStoryListController.columnConfig.effortSpent);
   }
@@ -205,19 +204,10 @@ ROStoryListController.columnConfig.effortLeft = {
   minWidth : 30,
   autoScale : true,
   cssClass : 'sum-column',
-  title : "Σ(Left)",
+  title : "Left",
   headerTooltip : "Total sum of stories' tasks' effort left estimates in man-hours",
   decorator: DynamicsDecorators.exactEstimateSumDecorator,
   get : StoryModel.prototype.getTotalEffortLeft
-};
-ROStoryListController.columnConfig.originalEstimate = {
-  minWidth : 30,
-  autoScale : true,
-  cssClass : 'sum-column',
-  title : "Σ(OE)",
-  headerTooltip : 'Total task original estimate',
-  decorator: DynamicsDecorators.exactEstimateSumDecorator,
-  get : StoryModel.prototype.getTotalOriginalEstimate
 };
 ROStoryListController.columnConfig.effortSpent = {
   minWidth : 30,

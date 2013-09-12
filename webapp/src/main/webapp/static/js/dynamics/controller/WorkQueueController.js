@@ -94,7 +94,6 @@ WorkQueueController.prototype._addColumnConfigs = function(config) {
   
   config.addColumnConfiguration(DailyWorkTasksWithoutStoryController.columnIndices.responsibles, TasksWithoutStoryController.columnConfig.responsibles);
   config.addColumnConfiguration(DailyWorkTasksWithoutStoryController.columnIndices.el, TasksWithoutStoryController.columnConfig.effortLeft);
-  config.addColumnConfiguration(DailyWorkTasksWithoutStoryController.columnIndices.oe, TasksWithoutStoryController.columnConfig.originalEstimate);
   if (Configuration.isTimesheetsEnabled()) {
     config.addColumnConfiguration(DailyWorkTasksWithoutStoryController.columnIndices.es, TasksWithoutStoryController.columnConfig.effortSpent);
   }

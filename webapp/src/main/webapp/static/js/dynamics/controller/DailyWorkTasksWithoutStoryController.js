@@ -7,7 +7,7 @@ extendObject(DailyWorkTasksWithoutStoryController, TasksWithoutStoryController);
 
 
 DailyWorkTasksWithoutStoryController.columnNames =
-  [ "prio", "name", "state", "context", "detailedContext", "responsibles", "el", "oe", "es", "actions", "description", "buttons"];
+  [ "prio", "name", "state", "context", "detailedContext", "responsibles", "el", "es", "actions", "description", "buttons"];
 DailyWorkTasksWithoutStoryController.columnIndices = CommonController.createColumnIndices(DailyWorkTasksWithoutStoryController.columnNames);
 
 
@@ -72,7 +72,6 @@ DailyWorkTasksWithoutStoryController.prototype._addColumnConfigs = function(conf
   
   config.addColumnConfiguration(DailyWorkTasksWithoutStoryController.columnIndices.responsibles, TasksWithoutStoryController.columnConfig.responsibles);
   config.addColumnConfiguration(DailyWorkTasksWithoutStoryController.columnIndices.el, TasksWithoutStoryController.columnConfig.effortLeft);
-  config.addColumnConfiguration(DailyWorkTasksWithoutStoryController.columnIndices.oe, TasksWithoutStoryController.columnConfig.originalEstimate);
   if (Configuration.isTimesheetsEnabled()) {
     config.addColumnConfiguration(DailyWorkTasksWithoutStoryController.columnIndices.es, TasksWithoutStoryController.columnConfig.effortSpent);
   }

@@ -217,20 +217,8 @@ TaskSplitDialog.prototype._initOriginalTaskConfig = function() {
         set : TaskModel.prototype.setEffortLeft
       }
     });
-
-    config.addColumnConfiguration(2, {
-      title: 'Original estimate',
-      get : TaskModel.prototype.getOriginalEstimate,
-      decorator: DynamicsDecorators.exactEstimateDecorator,
-      editable : true,
-      edit : {
-        editor : "ExactEstimate",
-        decorator: DynamicsDecorators.exactEstimateEditDecorator,
-        set : TaskModel.prototype.setOriginalEstimate
-      }
-  });
   
-  config.addColumnConfiguration(3, {
+  config.addColumnConfiguration(2, {
     title: 'State',
     get: TaskModel.prototype.getState,
     decorator: DynamicsDecorators.taskStateColorDecorator,
@@ -242,7 +230,7 @@ TaskSplitDialog.prototype._initOriginalTaskConfig = function() {
     }
   });
   
-  config.addColumnConfiguration(4, {
+  config.addColumnConfiguration(3, {
      minWidth : 60,
      autoScale : true,
      title : "Responsibles",
@@ -265,11 +253,10 @@ TaskSplitDialog.prototype._initOriginalTaskConfig = function() {
 
 TaskSplitDialog.columnIndices = {
     name: 0,
-    originalEstimate: 1,
-    state: 2,
-    responsibles: 3,
-    cancel: 4,
-    description: 5
+    state: 1,
+    responsibles: 2,
+    cancel: 3,
+    description: 4
 };
 
 TaskSplitDialog.prototype._initTaskListConfig = function() {
@@ -309,22 +296,6 @@ TaskSplitDialog.prototype._initTaskListConfig = function() {
       set : TaskModel.prototype.setName,
       required: true
     }
-  });
-
-  config.addColumnConfiguration(TaskSplitDialog.columnIndices.originalEstimate, {
-      minWidth : 40,
-      autoScale : true,
-      cssClass : 'projecttask-row',
-      title : "OE",
-      headerTooltip : 'Original effort',
-      get : TaskModel.prototype.getOriginalEstimate,
-      decorator: DynamicsDecorators.exactEstimateDecorator,
-      editable : true,
-      edit : {
-        editor : "ExactEstimate",
-        decorator: DynamicsDecorators.exactEstimateEditDecorator,
-        set : TaskModel.prototype.setOriginalEstimate
-      }
   });
   
   config.addColumnConfiguration(TaskSplitDialog.columnIndices.state, {

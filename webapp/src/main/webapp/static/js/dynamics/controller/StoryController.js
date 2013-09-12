@@ -7,7 +7,7 @@ var StoryController = function StoryController(model, view, backlogController) {
 };
 
 StoryController.columnNames =
-  ["priority", "labelsIcon", "id", "name", "value", "points", "state", "responsibles", "el", "oe", "es", "actions", "labels", "description", "buttons", "details", "tasksData"];
+  ["priority", "labelsIcon", "id", "name", "value", "points", "state", "responsibles", "el", "es", "actions", "labels", "description", "buttons", "details", "tasksData"];
 StoryController.columnIndices = CommonController.createColumnIndices(StoryController.columnNames);
 
 
@@ -600,22 +600,6 @@ StoryController.prototype.searchForTask = function() {
       editor : "ExactEstimate",
       decorator: DynamicsDecorators.exactEstimateEditDecorator,
       set : TaskModel.prototype.setEffortLeft
-    }
-  });
-  config.addColumnConfiguration(TaskController.columnIndices.oe, {
-    minWidth : 30,
-    autoScale : true,
-    cssClass : 'task-row',
-    title : "OE",
-    headerTooltip : 'Original estimate',
-    get : TaskModel.prototype.getOriginalEstimate,
-    decorator: DynamicsDecorators.exactEstimateDecorator,
-    editable : true,
-    editableCallback: TaskController.prototype.originalEstimateEditable,
-    edit : {
-      editor : "ExactEstimate",
-      decorator: DynamicsDecorators.exactEstimateEditDecorator,
-      set : TaskModel.prototype.setOriginalEstimate
     }
   });
   if (Configuration.isTimesheetsEnabled()) {

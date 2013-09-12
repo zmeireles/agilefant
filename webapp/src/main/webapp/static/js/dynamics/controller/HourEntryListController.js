@@ -204,7 +204,7 @@ HourEntryListController.prototype.initConfig = function() {
     decorator: DynamicsDecorators.userNameDecorator
   };
   var es = {
-    minWidth : 30,
+    minWidth : 50,
     autoScale : true,
     title : "Spent",
     headerTooltip: "Effort spent in man-hours",
@@ -215,6 +215,7 @@ HourEntryListController.prototype.initConfig = function() {
     edit : {
       editor : "ExactEstimate",
       decorator: DynamicsDecorators.exactEstimateEditDecorator,
+      size: "65%",
       set : HourEntryModel.prototype.setEffortSpent,
       required: false
     }

@@ -97,21 +97,6 @@ TasksWithoutStoryController.columnConfig.effortLeft = {
     set : TaskModel.prototype.setEffortLeft
   }
 };
-TasksWithoutStoryController.columnConfig.originalEstimate = {
-  minWidth : 30,
-  autoScale : true,
-  title : "OE",
-  headerTooltip : 'Original estimate',
-  get : TaskModel.prototype.getOriginalEstimate,
-  decorator: DynamicsDecorators.exactEstimateDecorator,
-  editable : true,
-  editableCallback: TaskController.prototype.originalEstimateEditable,
-  edit : {
-    editor : "ExactEstimate",
-    decorator: DynamicsDecorators.exactEstimateEditDecorator,
-    set : TaskModel.prototype.setOriginalEstimate
-  }
-};
 TasksWithoutStoryController.columnConfig.effortSpent = {
   minWidth : 30,
   autoScale : true,
@@ -270,7 +255,6 @@ TasksWithoutStoryController.prototype._addColumnConfigs = function(config) {
   config.addColumnConfiguration(TaskController.columnIndices.state, TasksWithoutStoryController.columnConfig.state);
   config.addColumnConfiguration(TaskController.columnIndices.responsibles, TasksWithoutStoryController.columnConfig.responsibles);
   config.addColumnConfiguration(TaskController.columnIndices.el, TasksWithoutStoryController.columnConfig.effortLeft);
-  config.addColumnConfiguration(TaskController.columnIndices.oe, TasksWithoutStoryController.columnConfig.originalEstimate);
   if (Configuration.isTimesheetsEnabled()) {
     config.addColumnConfiguration(TaskController.columnIndices.es, TasksWithoutStoryController.columnConfig.effortSpent);
   }

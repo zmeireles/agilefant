@@ -9,7 +9,7 @@ var DailyWorkStoryListController = function(model, element, parentController, op
 extendObject(DailyWorkStoryListController, StoryListController);
 
 DailyWorkStoryListController.columnNames =
-  ["priority", "labels", "name", "points", "context", "detailedContext", "state", "responsibles", "el", "oe", "es", "actions", "description", "buttons", "details", "tasksData"];
+  ["priority", "labels", "name", "points", "context", "detailedContext", "state", "responsibles", "el", "es", "actions", "description", "buttons", "details", "tasksData"];
 DailyWorkStoryListController.columnIndices = CommonController.createColumnIndices(DailyWorkStoryListController.columnNames);
 
 DailyWorkStoryListController.prototype._getTableConfig = function() {
@@ -56,7 +56,6 @@ DailyWorkStoryListController.prototype._addColumnConfigs = function(config) {
   
   config.addColumnConfiguration(DailyWorkStoryListController.columnIndices.responsibles, StoryListController.columnConfig.responsibles);
   config.addColumnConfiguration(DailyWorkStoryListController.columnIndices.el, StoryListController.columnConfig.effortLeft);
-  config.addColumnConfiguration(DailyWorkStoryListController.columnIndices.oe, StoryListController.columnConfig.originalEstimate);
   if (Configuration.isTimesheetsEnabled()) {
     config.addColumnConfiguration(DailyWorkStoryListController.columnIndices.es, StoryListController.columnConfig.effortSpent);
   }
