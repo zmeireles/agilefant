@@ -716,7 +716,9 @@ CreateDialog.User.prototype.initFormConfig = function() {
         editor: "Autocomplete",
         dataType: "teams",
         dialogTitle: "Select teams",
-        set: UserModel.prototype.setTeams
+        set: UserModel.prototype.setTeams,
+        showSelectAllItems: true,
+        showRemoveAllItems: true
         }
   });
 
