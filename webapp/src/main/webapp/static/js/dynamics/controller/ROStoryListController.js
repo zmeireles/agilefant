@@ -205,8 +205,8 @@ ROStoryListController.columnConfig.effortLeft = {
   minWidth : 30,
   autoScale : true,
   cssClass : 'sum-column',
-  title : "Σ(EL)",
-  headerTooltip : "Total sum of stories' tasks' effort left estimates",
+  title : "Σ(Left)",
+  headerTooltip : "Total sum of stories' tasks' effort left estimates in man-hours",
   decorator: DynamicsDecorators.exactEstimateSumDecorator,
   get : StoryModel.prototype.getTotalEffortLeft
 };
@@ -222,8 +222,8 @@ ROStoryListController.columnConfig.originalEstimate = {
 ROStoryListController.columnConfig.effortSpent = {
   minWidth : 30,
   autoScale : true,
-  title : "ES",
-  headerTooltip : 'Total task spent effort',
+  title : "Spent",
+  headerTooltip : 'Total task spent effort in man-hours',
   decorator: DynamicsDecorators.exactEstimateDecorator,
   get : StoryModel.prototype.getTotalEffortSpent,
   editable : false

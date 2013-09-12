@@ -103,7 +103,7 @@ UserSpentEffortWidget.prototype.initConfig = function() {
   var es = {
     minWidth : 40,
     autoScale : true,
-    title : "ES",
+    title : "Spent",
     get : HourEntryModel.prototype.getMinutesSpent,
     decorator: DynamicsDecorators.exactEstimateDecorator,
     editable: true,
@@ -117,7 +117,7 @@ UserSpentEffortWidget.prototype.initConfig = function() {
   var el = {
     minWidth : 40,
     autoScale : true,
-    title : "EL",
+    title : "Left",
     get : TaskModel.prototype.getEffortLeft,
     decorator: DynamicsDecorators.exactEstimateSumDecorator,
     editable : true,

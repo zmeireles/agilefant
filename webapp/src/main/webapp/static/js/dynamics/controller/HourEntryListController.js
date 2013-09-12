@@ -206,8 +206,8 @@ HourEntryListController.prototype.initConfig = function() {
   var es = {
     minWidth : 30,
     autoScale : true,
-    title : "ES",
-    headerTooltip: "Effort spent",
+    title : "Spent",
+    headerTooltip: "Effort spent in man-hours",
     get : HourEntryModel.prototype.getMinutesSpent,
     decorator: DynamicsDecorators.exactEstimateDecorator,
     editable: true,
@@ -222,8 +222,8 @@ HourEntryListController.prototype.initConfig = function() {
   var el = {
 	minWidth : 30,
 	autoScale : true,
-	title : "EL",
-	headerTooltip: "Effort left",
+	title : "Left",
+	headerTooltip: "Effort left in man-hours",
 	get : HourEntryModel.prototype.getEffortLeft,
 	decorator : DynamicsDecorators.exactEstimateDecorator,
 	editable: true,

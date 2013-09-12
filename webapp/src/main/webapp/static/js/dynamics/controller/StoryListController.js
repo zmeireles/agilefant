@@ -387,8 +387,8 @@ StoryListController.columnConfig.effortLeft = {
   minWidth : 30,
   autoScale : true,
   cssClass : 'sum-column',
-  title : "Σ(EL)",
-  headerTooltip : "Total sum of stories' tasks' effort left estimates",
+  title : "Σ(Left)",
+  headerTooltip : "Total sum of stories' tasks' effort left estimates in man-hours",
   decorator: DynamicsDecorators.exactEstimateSumDecorator,
   get : StoryModel.prototype.getTotalEffortLeft
 };
@@ -397,15 +397,15 @@ StoryListController.columnConfig.originalEstimate = {
   autoScale : true,
   cssClass : 'sum-column',
   title : "Σ(OE)",
-  headerTooltip : 'Total task original estimate',
+  headerTooltip : 'Total task original estimate in man-hours',
   decorator: DynamicsDecorators.exactEstimateSumDecorator,
   get : StoryModel.prototype.getTotalOriginalEstimate
 };
 StoryListController.columnConfig.effortSpent = {
   minWidth : 30,
   autoScale : true,
-  title : "ES",
-  headerTooltip : 'Total task spent effort',
+  title : "Spent",
+  headerTooltip : 'Total task effort spent in man-hours',
   decorator: DynamicsDecorators.exactEstimateDecorator,
   get : StoryModel.prototype.getTotalEffortSpent,
   editable : false,

@@ -85,8 +85,8 @@ TasksWithoutStoryController.columnConfig.responsibles = {
 TasksWithoutStoryController.columnConfig.effortLeft = {
   minWidth : 30,
   autoScale : true,
-  title : "EL",
-  headerTooltip : 'Effort left',
+  title : "Left",
+  headerTooltip : 'Effort left in man-hours',
   get : TaskModel.prototype.getEffortLeft,
   decorator: DynamicsDecorators.exactEstimateDecorator,
   editable : true,
@@ -115,8 +115,8 @@ TasksWithoutStoryController.columnConfig.originalEstimate = {
 TasksWithoutStoryController.columnConfig.effortSpent = {
   minWidth : 30,
   autoScale : true,
-  title : "ES",
-  headerTooltip : 'Spent effort',
+  title : "Spent",
+  headerTooltip : 'Spent effort in man-hours',
   get : TaskModel.prototype.getEffortSpent,
   decorator: DynamicsDecorators.exactEstimateDecorator,
   editable : false,
