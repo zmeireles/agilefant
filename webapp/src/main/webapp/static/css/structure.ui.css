@@ -404,7 +404,9 @@ ul.ui-autocomplete {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height:400px;
 }
 
 ul.ui-autocomplete li {
