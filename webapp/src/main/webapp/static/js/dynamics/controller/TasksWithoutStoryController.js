@@ -52,8 +52,8 @@ TasksWithoutStoryController.columnConfig.state = {
 TasksWithoutStoryController.columnConfig.context = {
     minWidth : 60,
     autoScale : true,
-    title : "Context",
-    headerTooltip : 'Task context',
+    title : "Iteration",
+    headerTooltip : 'Task iteration',
     get : TaskModel.prototype.getIteration,
     decorator: DynamicsDecorators.tasksWithoutStoryContextDecorator,
     editable: true,
