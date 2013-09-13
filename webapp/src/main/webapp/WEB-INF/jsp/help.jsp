@@ -276,7 +276,7 @@ The Daily work, Timesheets and Portfolio views can be toggled on or off on the s
 
 </div>
 </div>
-<p style="font-size:14pt">This is an overview of the most important concepts:</p>
+<p style="font-size:14pt">This is an overview of the most important concepts - also see the <a href="http://agilefant.com/basic-concepts/" target="_blank">tutorial video</a> (2min)!</p>
 
 <img src="static/img/featureoverview.png"></img>
 
