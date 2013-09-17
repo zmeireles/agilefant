@@ -30,14 +30,16 @@ BacklogMenuController.prototype.initTree = function() {
       }
     },
     onExpand: function(flag, dtnode) {
+      var currentPageBacklogId = getCurrentPageBacklogId();
       me.element.find("a.ui-dynatree-title").each(function(key, item) {
-        setLinkProperties(item);
+        setLinkProperties(item, currentPageBacklogId);
       });
     },
     onPostInit: function(isReloading, isError) {
+      var currentPageBacklogId = getCurrentPageBacklogId();
       //hack to get clicking the backlog name properly working
       me.element.find("a.ui-dynatree-title").each(function(key, item) {
-        setLinkProperties(item);
+        setLinkProperties(item, currentPageBacklogId);
       });
       var rootNode = me.element.dynatree("getRoot");
       if (rootNode.childList === null) {
@@ -59,13 +61,42 @@ BacklogMenuController.prototype.initTree = function() {
   this.tree = this.element.dynatree("getTree");
 };
 
-function setLinkProperties(item) {
+function setLinkProperties(item, currentPageBacklogId) {
+  var itemId = $(item.parentNode).attr("dtnode").data.id;
   // hack to set properties for [Standalone iterations] which is not a real product
-  if ($(item.parentNode).attr("dtnode").data.id == -1) {
+  if (itemId == -1) {
     item.href = "javascript:void(0);";
     item.style="color: #000 !important; cursor: default !important;";
   } else {
-    item.href = "editBacklog.action?backlogId=" + $(item.parentNode).attr("dtnode").data.id;
+    item.href = "editBacklog.action?backlogId=" + itemId;
+    if (currentPageBacklogId != null && itemId != null && currentPageBacklogId == itemId) {
+      item.style="background-color: #D9DDE7 !important; font-weight: bold";
+    }
+  }
+}
+
+function getCurrentPageBacklogId() {
+  var iterationId = getUrlParameter('iterationId');
+  if (iterationId != null) {
+    return iterationId;
+  }
+  var projectId = getUrlParameter('projectId');
+  if (projectId != null) {
+    return projectId;
+  }
+  var productId = getUrlParameter('productId');
+  if (productId != null) {
+    return productId;
+  }
+  return null;
+}
+
+function getUrlParameter(name) {
+  var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec($(location).attr('href'));
+  if (results && results[1]) {
+    return results[1];
+  } else {
+    return null;
   }
 }
 
