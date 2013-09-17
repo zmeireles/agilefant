@@ -122,6 +122,8 @@ StoryTreeController.prototype.initHeader = function() {
   
   var title = $('<div style="float: left; width:50%"><span style="float: left;">Story Breakdown</span></div>').appendTo(heading);
   this.filterImg = $('<div/>').addClass("storytree-filterimg").appendTo(title);
+  var actions = $('<ul/>').addClass('dynamictable-captionactions').css({'width': '40%', 'float': 'left'}).appendTo(this.headerElement);
+  var fillerDiv = $('<div/>').addClass('dynamictable-captionactions').css({'display': 'block', 'margin-bottom': '35px'}).appendTo(this.headerElement);
   
   this.filterImg.click(function() {
     var widget = new StateFilterWidget($(this), {
@@ -147,16 +149,13 @@ StoryTreeController.prototype.initHeader = function() {
     });
   });
   
-  
-  var actions = $('<ul/>').addClass('dynamictable-captionactions').css({'width': '40%', 'float': 'right'}).appendTo(heading);
-  
-  $('<li>Create story</li>').css({'float': 'right'})
+  $('<li>Create story</li>').css({'float': 'left'})
     .addClass("dynamictable-captionaction create").click(function() {
       me.createNode(-1, 0, 0);
   }).appendTo(actions);
   
-  this.expandButton = $('<li>Expand all</li>').css({'float': 'right'}).addClass("dynamictable-captionaction create").appendTo(actions);
-  this.collapseButton = $('<li>Collapse all</li>').css({'float': 'right'}).hide().addClass("dynamictable-captionaction create").appendTo(actions);
+  this.expandButton = $('<li>Expand all</li>').css({'float': 'left'}).addClass("dynamictable-captionaction create").appendTo(actions);
+  this.collapseButton = $('<li>Collapse all</li>').css({'float': 'left'}).hide().addClass("dynamictable-captionaction create").appendTo(actions);
   
   this.expandButton.click(function() {
     $(this).hide();
