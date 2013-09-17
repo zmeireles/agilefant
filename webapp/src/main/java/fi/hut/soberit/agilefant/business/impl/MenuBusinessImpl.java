@@ -2,6 +2,7 @@ package fi.hut.soberit.agilefant.business.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,11 +78,20 @@ public class MenuBusinessImpl implements MenuBusiness {
         }
         
         final List<Iteration> standAloneIterations = new ArrayList<Iteration>(iterationBusiness.retrieveAllStandAloneIterations());
-
+        
+        List<MenuDataNode> standaloneIterationNodes = new LinkedList<MenuDataNode>();
         for (Iteration iteration: standAloneIterations) {
-        	if (checkAccess(iteration)) {
-                nodes.add(constructMenuDataNode(iteration));
+            if (checkAccess(iteration)) {
+                standaloneIterationNodes.add(constructMenuDataNode(iteration));
             }
+        }
+        if (standAloneIterations.size() > 0) {
+            MenuDataNode standaloneIterationsParentNode = new MenuDataNode();
+            standaloneIterationsParentNode.setTitle("[Standalone iterations]");
+            standaloneIterationsParentNode.setType(BacklogType.PRODUCT);
+            standaloneIterationsParentNode.setId(-1);
+            standaloneIterationsParentNode.setChildren(standaloneIterationNodes);
+            nodes.add(standaloneIterationsParentNode);
         }
         
         return nodes;

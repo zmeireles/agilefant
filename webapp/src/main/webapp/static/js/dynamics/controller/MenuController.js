@@ -31,13 +31,13 @@ BacklogMenuController.prototype.initTree = function() {
     },
     onExpand: function(flag, dtnode) {
       me.element.find("a.ui-dynatree-title").each(function(key, item) {
-        item.href = "editBacklog.action?backlogId=" + $(item.parentNode).attr("dtnode").data.id;
+        setLinkProperties(item);
       });
     },
     onPostInit: function(isReloading, isError) {
       //hack to get clicking the backlog name properly working
       me.element.find("a.ui-dynatree-title").each(function(key, item) {
-        item.href = "editBacklog.action?backlogId=" + $(item.parentNode).attr("dtnode").data.id;
+        setLinkProperties(item);
       });
       var rootNode = me.element.dynatree("getRoot");
       if (rootNode.childList === null) {
@@ -58,6 +58,16 @@ BacklogMenuController.prototype.initTree = function() {
 
   this.tree = this.element.dynatree("getTree");
 };
+
+function setLinkProperties(item) {
+  // hack to set properties for [Standalone iterations] which is not a real product
+  if ($(item.parentNode).attr("dtnode").data.id == -1) {
+    item.href = "javascript:void(0);";
+    item.style="color: #000 !important; cursor: default !important;";
+  } else {
+    item.href = "editBacklog.action?backlogId=" + $(item.parentNode).attr("dtnode").data.id;
+  }
+}
 
 /**
  * Reload the backlog menu tree.
