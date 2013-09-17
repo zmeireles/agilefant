@@ -122,13 +122,20 @@ ul#createNewMenu {
   position: absolute;
   border: 1px solid #aaa;
   background: #fcfcfc;
-  top: 2em;
+  top: 6em;
+  left: 1em;
   width: 9em;
   z-index: 300;
   overflow: hidden;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
+}
+
+#createNewMenuLink img {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.2em;
 }
 
 ul#createNewMenu li {

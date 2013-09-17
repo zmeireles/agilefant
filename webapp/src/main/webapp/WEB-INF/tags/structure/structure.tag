@@ -220,6 +220,10 @@
     </div>
     
     <div style="position: absolute; left: 1em;">
+      <a href="#" id="createNewMenuLink" onclick="return false;"><img src="static/img/add.png" alt="+" /><span style="font-size: 80%;">Create new</span></a> 
+    </div>
+    
+    <div style="position: absolute; left: 7em;">
       <a id="quickSearchLink" href="#"><img src="static/img/search_small.png" alt="Search..." /><span id="quickSearchLinkText" style="font-size: 80%;">Search...</span></a>
     </div>
     
@@ -227,6 +231,7 @@
       <a id="quickRecentLink" href="#"><span id="quickRecentLinkText" style="font-size: 80%;">Recent</span></a>
     </div>
   </c:if>
+  <struct:createNewMenu />
 </div>
 
 
