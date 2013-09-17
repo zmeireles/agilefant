@@ -66,11 +66,11 @@ function setLinkProperties(item, currentPageBacklogId) {
   // hack to set properties for [Standalone iterations] which is not a real product
   if (itemId == -1) {
     item.href = "javascript:void(0);";
-    item.style="color: #000 !important; cursor: default !important;";
+    item.setAttribute('style', 'color: #000 !important; cursor: default !important;');
   } else {
     item.href = "editBacklog.action?backlogId=" + itemId;
     if (currentPageBacklogId != null && itemId != null && currentPageBacklogId == itemId) {
-      item.style="background-color: #D9DDE7 !important; font-weight: bold";
+      item.setAttribute('style', 'background-color: #D9DDE7 !important; font-weight: bold;');
     }
   }
 }
