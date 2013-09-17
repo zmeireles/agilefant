@@ -181,7 +181,7 @@ Do give yourself access when you create the Product! Otherwise, it won't appear 
 <div class="rightHandImage">
   <img src="static/img/help/story_info_bubble.png" alt="Story info bubble" />
   <br/>
-  <p>By clicking on a story in the breakdown view, you can see and change its details</p>
+  <p>By clicking on a story in the story tree view, you can see and change its details</p>
 </div>
 
 <h3>Stories</h3>
@@ -197,10 +197,10 @@ and edited in the iteration view, they do not disappear when a story is moved
 back to the project or product backlogs.
 </p>
 
-<h3>List and breakdown views</h3>
+<h3>List and story tree views</h3>
 
 <p>
-The story breakdown is a view into the product and project backlogs that
+The story tree is a view into the product and project backlogs that
 displays how the smaller stories have been refined from the higher
 level epics and features. 
 
