@@ -60,6 +60,9 @@
   border-top-width: 0;
   left: 20px;
   z-index: 1000;
+  overflow-y: auto;
+  overflow-x: hidden;  
+  max-height:400px;
 }
 
 .autocomplete-suggestionList li {
