@@ -266,7 +266,7 @@ TableEditors.TextFieldEditor.prototype.init = function(element, model, options) 
   TableEditors.CommonEditor.prototype.init.call(this, element, model, opts);
   
   if (this.options.required) {
-    $('<span class="required-input">*</span>').appendTo(element.prev());
+    element.prev().addClass("required-input");
   }
   
   this.textField = $('<input id="'+this.generateId()+'" type="' + this.options.fieldType + '"/>')
@@ -908,7 +908,7 @@ TableEditors.InlineAutocomplete.prototype.init = function(element, model, option
   TableEditors.CommonEditor.prototype.init.call(this, element, model, opts);
   
   if (this.options.required) {
-    $('<span class="required-input">*</span>').appendTo(element.prev());
+    element.prev().addClass("required-input");
   }
   
   this.textField = $('<input type="text" />').width(this.options.size).appendTo(this.element);

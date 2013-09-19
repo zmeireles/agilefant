@@ -897,7 +897,8 @@ span.labelsText {
   width: 100% !important;
 }
 
-.required-input {
+.required-input:after {
+  content: "*";
   color: #E75428;
   margin-left: 2px;
 }
