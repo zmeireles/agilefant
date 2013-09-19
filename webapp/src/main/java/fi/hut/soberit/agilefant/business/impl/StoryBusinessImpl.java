@@ -824,6 +824,12 @@ public class StoryBusinessImpl extends GenericBusinessImpl<Story> implements
         final List<Story> stories = storyDAO.retrieveStoriesInIteration(iteration);
         return stories;
     }
+
+    @Transactional(readOnly = true)
+    public List<Story> retrieveStoriesInBacklog(Backlog backlog) {
+        final List<Story> stories = storyDAO.retrieveStoriesInBacklog(backlog);
+        return stories;
+    }
     
     public void delete(Story story, TaskHandlingChoice taskHandlingChoice,
             HourEntryHandlingChoice storyHourEntryHandlingChoice,

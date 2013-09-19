@@ -103,9 +103,13 @@ $(document).ready(function() {
   <c:choose>
     <c:when test="${empty leafStories}">
       <div class="static backloglink">
-        <p class="instructionText">Prioritize in-project leaf stories as a list using drag & drop.</p>
+        <p class="instructionText">Create stories by clicking the 'Create story' button
+           , or go to the <a href="editBacklog.action?backlogId=${project.parent.id}#leafStories">product</a> and move some here!</p>
       </div>
     </c:when>
+    <c:otherwise>
+      <p class="instructionText">Prioritize in-project leaf stories as a list using drag & drop.</p>
+    </c:otherwise>
   </c:choose>
   </div>
   <div class="details" id="iterations">

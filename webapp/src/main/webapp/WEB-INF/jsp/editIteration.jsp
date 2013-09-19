@@ -44,6 +44,20 @@
 </div>-->
 </div>
 
+<c:choose>
+  <c:when test="${empty stories}">
+    <c:choose>
+      <c:when test="${not empty iteration.parent}">
+      <p class="instructionText">Create stories by clicking the 'Create story' button
+           , or go to the <a href="editBacklog.action?backlogId=${iteration.parent.id}#stories">project</a>
+           or the <a href="editBacklog.action?backlogId=${iteration.parent.parent.id}#leafStories">product</a> and move some here!</p>
+      </c:when>
+      <c:otherwise>
+        <p class="instructionText">Create stories by clicking the 'Create story' button!</p>
+      </c:otherwise>
+    </c:choose>
+  </c:when>
+</c:choose>
 
 <script type="text/javascript">
 $(document).ready(function() {

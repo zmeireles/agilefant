@@ -21,6 +21,7 @@ import org.springframework.stereotype.Repository;
 
 import fi.hut.soberit.agilefant.business.SearchBusiness;
 import fi.hut.soberit.agilefant.db.StoryDAO;
+import fi.hut.soberit.agilefant.model.Backlog;
 import fi.hut.soberit.agilefant.model.Iteration;
 import fi.hut.soberit.agilefant.model.Story;
 import fi.hut.soberit.agilefant.model.StoryState;
@@ -166,7 +167,21 @@ public class StoryDAOHibernate extends GenericDAOHibernate<Story> implements
         
         return stories;
     }
-    
+   
+    public List<Story> retrieveStoriesInBacklog(Backlog backlog) {
+        ArrayList<Story> stories = new ArrayList<Story>();
+
+        // all stories in backlog
+        Criteria criteria = this.createCriteria(Story.class);
+        criteria.add(Restrictions.eq("backlog.id", backlog.getId()));
+
+        criteria.addOrder(Order.asc("name"));
+
+        List<Story> dummy = asList(criteria);
+        stories.addAll(dummy);
+
+        return stories;
+    } 
     
     // :)
     private static final String QUERY_RETRIEVE_ACTIVE_ITERATION_STORIES_WITH_USER_RESPONSIBLE =

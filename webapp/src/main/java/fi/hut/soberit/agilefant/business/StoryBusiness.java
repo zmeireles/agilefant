@@ -68,6 +68,8 @@ public interface StoryBusiness extends GenericBusiness<Story> {
 
     public StoryTO retrieveStoryWithMetrics(int storyId);
 
+    public List<Story> retrieveStoriesInBacklog(Backlog backlog);
+
     public List<Story> retrieveStoriesInIteration(Iteration iteration);
     
     void delete(Story story, TaskHandlingChoice taskHandlingChoice,

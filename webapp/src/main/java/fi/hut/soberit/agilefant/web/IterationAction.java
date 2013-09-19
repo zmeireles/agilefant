@@ -3,6 +3,7 @@ package fi.hut.soberit.agilefant.web;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.joda.time.DateTime;
@@ -14,8 +15,10 @@ import com.opensymphony.xwork2.Action;
 
 import fi.hut.soberit.agilefant.annotations.PrefetchId;
 import fi.hut.soberit.agilefant.business.IterationBusiness;
+import fi.hut.soberit.agilefant.business.StoryBusiness;
 import fi.hut.soberit.agilefant.model.Backlog;
 import fi.hut.soberit.agilefant.model.Iteration;
+import fi.hut.soberit.agilefant.model.Story;
 import fi.hut.soberit.agilefant.transfer.AssignmentTO;
 import fi.hut.soberit.agilefant.transfer.IterationMetrics;
 import fi.hut.soberit.agilefant.util.TokenGenerator;
@@ -51,6 +54,8 @@ public class IterationAction implements CRUDAction, Prefetching, ContextAware {
     
     private Set<Integer> teamIds = new HashSet<Integer>();
     
+    private List<Story> stories;
+    
     private boolean teamsChanged;
     
     @Autowired
@@ -58,10 +63,14 @@ public class IterationAction implements CRUDAction, Prefetching, ContextAware {
     
     @Autowired
     private TokenGenerator tokenGenerator;
+    
+    @Autowired 
+    StoryBusiness storyBusiness;
 
     public String create() {
         iterationId = 0;
         iteration = new Iteration();
+        stories = new ArrayList<Story>();
         iteration.setStartDate(new DateTime());
         iteration.setEndDate(new DateTime());
         return Action.SUCCESS;
@@ -70,6 +79,7 @@ public class IterationAction implements CRUDAction, Prefetching, ContextAware {
     public String retrieve() {
         iteration = iterationBusiness.retrieve(iterationId);
         parentBacklog = iteration.getParent();
+        stories = storyBusiness.retrieveStoriesInIteration(iteration);
         // Load metrics data
         iterationMetrics = iterationBusiness.getIterationMetrics(iteration);
         return Action.SUCCESS;
@@ -211,6 +221,10 @@ public class IterationAction implements CRUDAction, Prefetching, ContextAware {
 
     public void setIterationId(int iterationId) {
         this.iterationId = iterationId;
+    }
+    
+    public List<Story> getStories() {
+        return stories;
     }
     
     public String getReadonlyToken() {
