@@ -34,10 +34,14 @@ AutocompleteSearch.prototype.setItems = function(items) {
 };
 
 AutocompleteSearch.prototype.initialize = function(element) {
+  var me = this;
   this.element = element;
   this.element.addClass(AutocompleteVars.cssClasses.searchParent);
   
   this.searchInput = $('<input type="text"/>').appendTo(this.element);
+  this.searchInput.click(function() {
+    me.timeoutUpdateMatches();
+  });
   
   this.suggestionList = $('<ul/>').hide().addClass(AutocompleteVars.cssClasses.suggestionList)
     .appendTo(this.element);
@@ -167,7 +171,7 @@ AutocompleteSearch.prototype.filterSuggestions = function(list, match) {
 };
 
 AutocompleteSearch.prototype.matchSearchString = function(text, match) {
-  if (!match || !text) {
+  if ((!match && match != "") || !text) {
     return false;
   }
   
