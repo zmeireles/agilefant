@@ -896,3 +896,8 @@ span.labelsText {
 .inline-labeleditor ul {
   width: 100% !important;
 }
+
+.required-input {
+  color: #E75428;
+  margin-left: 2px;
+}
