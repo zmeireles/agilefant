@@ -3,6 +3,7 @@ package fi.hut.soberit.agilefant.web;
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,9 +14,11 @@ import org.junit.Test;
 import com.opensymphony.xwork2.Action;
 
 import fi.hut.soberit.agilefant.business.IterationBusiness;
+import fi.hut.soberit.agilefant.business.StoryBusiness;
 import fi.hut.soberit.agilefant.exception.ObjectNotFoundException;
 import fi.hut.soberit.agilefant.model.Iteration;
 import fi.hut.soberit.agilefant.model.Project;
+import fi.hut.soberit.agilefant.model.Story;
 import fi.hut.soberit.agilefant.transfer.AssignmentTO;
 import fi.hut.soberit.agilefant.transfer.IterationMetrics;
 import fi.hut.soberit.agilefant.transfer.IterationTO;
@@ -32,20 +35,24 @@ public class IterationActionTest {
     // Dependencies
     IterationBusiness iterationBusiness;
     
+    StoryBusiness storyBusiness;
+    
     @Before
     public void setUp() {
         iterationAction = new IterationAction();
         iterationAction.setIterationId(1);
         iterationBusiness = createMock(IterationBusiness.class);
+        storyBusiness = createMock(StoryBusiness.class);
         iterationAction.setIterationBusiness(iterationBusiness);
+        iterationAction.setStoryBusiness(storyBusiness);
     }
     
     private void verifyAll() {
-        verify(iterationBusiness);
+        verify(iterationBusiness, storyBusiness);
     }
 
     private void replayAll() {
-        replay(iterationBusiness);
+        replay(iterationBusiness, storyBusiness);
     }
     
     @Test
@@ -55,6 +62,7 @@ public class IterationActionTest {
         iter.setParent(parent);
                
         expect(iterationBusiness.retrieve(1)).andReturn(iter);
+        expect(storyBusiness.retrieveStoriesInIteration(iter)).andReturn(new ArrayList<Story>());
         expect(iterationBusiness.getIterationMetrics(iter)).andReturn(
                 new IterationMetrics());
         replayAll();

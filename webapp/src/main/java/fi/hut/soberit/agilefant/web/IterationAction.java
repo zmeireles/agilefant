@@ -254,6 +254,10 @@ public class IterationAction implements CRUDAction, Prefetching, ContextAware {
     public void setIterationBusiness(IterationBusiness iterationBusiness) {
         this.iterationBusiness = iterationBusiness;
     }
+    
+    public void setStoryBusiness(StoryBusiness storyBusiness) {
+        this.storyBusiness = storyBusiness;
+    }
 
     public IterationMetrics getIterationMetrics() {
         return iterationMetrics;
