@@ -240,10 +240,8 @@ CreateDialog.Project.columnIndices = {
   parent: 1,
   startDate: 2,
   endDate: 3,
-  plannedSize: 4,
-  baselineLoad: 5,
-  assignees: 6,
-  description: 7
+  assignees: 4,
+  description: 5
 };
 CreateDialog.Project.prototype.initFormConfig = function() {
   var config = new DynamicTableConfiguration({
@@ -271,12 +269,6 @@ CreateDialog.Project.prototype.initFormConfig = function() {
       ProjectController.columnConfigs.startDate);
   config.addColumnConfiguration(CreateDialog.Project.columnIndices.endDate,
       ProjectController.columnConfigs.endDate);
-  config.addColumnConfiguration(
-      CreateDialog.Project.columnIndices.plannedSize,
-      ProjectController.columnConfigs.plannedSize);
-  config.addColumnConfiguration(
-      CreateDialog.Project.columnIndices.baselineLoad,
-      ProjectController.columnConfigs.baselineLoad);
   config.addColumnConfiguration(CreateDialog.Project.columnIndices.assignees,
       ProjectController.columnConfigs.assignees);
   config.addColumnConfiguration(
@@ -316,12 +308,10 @@ CreateDialog.Iteration.columnIndices = {
   parent:     1,
   startDate:  2,
   endDate:    3,
-  plannedSize:4,
-  baselineLoad:5,
-  assignees:  6,
-  description:7,
-  teams: 8,
-  warning: 9
+  assignees:  4,
+  description:5,
+  teams: 6,
+  warning: 7
 };
 CreateDialog.Iteration.prototype.initFormConfig = function() {
   var currentUser = PageController.getInstance().getCurrentUser();
@@ -352,12 +342,6 @@ CreateDialog.Iteration.prototype.initFormConfig = function() {
       IterationController.columnConfigs.startDate);
   config.addColumnConfiguration(CreateDialog.Iteration.columnIndices.endDate,
       IterationController.columnConfigs.endDate);
-  config.addColumnConfiguration(
-      CreateDialog.Iteration.columnIndices.plannedSize,
-      IterationController.columnConfigs.plannedSize);
-  config.addColumnConfiguration(
-      CreateDialog.Iteration.columnIndices.baselineLoad,
-      IterationController.columnConfigs.baselineLoad);
   config.addColumnConfiguration(CreateDialog.Iteration.columnIndices.assignees,
       IterationController.columnConfigs.assignees);
   config.addColumnConfiguration(
@@ -425,11 +409,9 @@ CreateDialog.Story.columnIndices = {
   name:       0,
   backlog:    1,
   state:      2,
-  storyValue: 3,
-  storyPoints:4,
-  responsibles:5,
-  labels:     6,
-  description:7
+  storyPoints:3,
+  responsibles:4,
+  description:5
 };
 CreateDialog.Story.prototype.initFormConfig = function() {
   var config = new DynamicTableConfiguration({
@@ -485,17 +467,6 @@ CreateDialog.Story.prototype.initFormConfig = function() {
     }
   });
   
-  config.addColumnConfiguration(CreateDialog.Story.columnIndices.storyValue,{
-    title: "Story value",
-    editable: true,
-    get: StoryModel.prototype.getStoryValue,
-    edit: {
-      editor: "Number",
-      required: false,
-      set: StoryModel.prototype.setStoryValue
-    }
-  });
-  
   config.addColumnConfiguration(CreateDialog.Story.columnIndices.storyPoints,{
     title: "Story points",
     editable: true,
@@ -518,17 +489,6 @@ CreateDialog.Story.prototype.initFormConfig = function() {
       dialogTitle: "Select users",
       dataType: "usersAndTeams",
       set : StoryModel.prototype.setResponsibles
-    }
-  });
-  
-  config.addColumnConfiguration(CreateDialog.Story.columnIndices.labels,{
-    title : "Labels",
-    get : StoryModel.prototype.getLabels,
-    editable : true,
-    openOnRowEdit: true,
-    edit : {
-      editor : "Labels",
-      set : StoryModel.prototype.setLabels
     }
   });
 
