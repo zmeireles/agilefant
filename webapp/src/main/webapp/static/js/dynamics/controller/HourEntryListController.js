@@ -46,7 +46,11 @@ HourEntryListController.prototype.paintHourEntryTable = function() {
   this.addEntryConfig[HourEntryController.columnIndices.effortLeft] = new DynamicTableColumnConfiguration(origConf[3].options);
   this.addEntryConfig[HourEntryController.columnIndices.description] = new DynamicTableColumnConfiguration(origConf[4].options);
   this.addEntryConfig[HourEntryController.columnIndices.actions] = new DynamicTableColumnConfiguration(origConf[5].options);
+  this.addEntryConfig[HourEntryController.columnIndices.date].options.visualizedEditable = false;
+  this.addEntryConfig[HourEntryController.columnIndices.spentEffort].options.visualizedEditable = false;
+  this.addEntryConfig[HourEntryController.columnIndices.description].options.visualizedEditable = false;
   this.addEntryConfig[HourEntryController.columnIndices.user].options.editable = true;
+  this.addEntryConfig[HourEntryController.columnIndices.user].options.visualizedEditable = true;
   this.addEntryConfig[HourEntryController.columnIndices.user].options.edit = {
       editor : "Autocomplete",
       dialogTitle: "Select users",
@@ -188,6 +192,7 @@ HourEntryListController.prototype.initConfig = function() {
     sortCallback: HourEntryModel.dateComparator,
     defaultSortColumn: true,
     editable: true,
+    visualizedEditable: true,
     edit: {
       editor: "Date",
       withTime: true,
@@ -211,6 +216,7 @@ HourEntryListController.prototype.initConfig = function() {
     get : HourEntryModel.prototype.getMinutesSpent,
     decorator: DynamicsDecorators.exactEstimateDecorator,
     editable: true,
+    visualizedEditable: true,
     columnName: "effortSpent",
     edit : {
       editor : "ExactEstimate",
@@ -243,6 +249,7 @@ HourEntryListController.prototype.initConfig = function() {
     headerTooltip: "Comment this effort",
     title : "Comment",
     editable: true,
+    visualizedEditable: true,
     get : HourEntryModel.prototype.getDescription,
     edit : {
       editor : "Text",

@@ -18,6 +18,7 @@ var DynamicTableColumnConfiguration = function DynamicTableColumnConfiguration(o
 			defaultSortColumn: false,
 			cssClass: null,
 			editable: false,
+			visualizedEditable: false,
 			subViewFactory: null,
 			visible: true,
 			dragHandle: false,
@@ -99,6 +100,9 @@ DynamicTableColumnConfiguration.prototype.setDefaultSortColumn = function(defaul
 };
 DynamicTableColumnConfiguration.prototype.isEditable = function() {
 	return this.options.editable;
+};
+DynamicTableColumnConfiguration.prototype.isVisualizedEditable = function() {
+	return this.options.visualizedEditable;
 };
 DynamicTableColumnConfiguration.prototype.isOpenOnRowEdit = function() {
   return this.options.openOnRowEdit;

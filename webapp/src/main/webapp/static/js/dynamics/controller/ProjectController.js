@@ -135,6 +135,7 @@ ProjectController.columnConfigs = {
 		title : "Name",
 		get : ProjectModel.prototype.getName,
 		editable : true,
+		visualizedEditable: true,
 		edit : {
 			editor : "Text",
 			required : true,
@@ -151,6 +152,7 @@ ProjectController.columnConfigs = {
 		get : ProjectModel.prototype.getStartDate,
 		decorator : DynamicsDecorators.dateTimeDecorator,
 		editable : true,
+		visualizedEditable: true,
 		edit : {
 			editor : "Date",
 			size : '18ex',
@@ -165,6 +167,7 @@ ProjectController.columnConfigs = {
 		get : ProjectModel.prototype.getEndDate,
 		decorator : DynamicsDecorators.dateTimeDecorator,
 		editable : true,
+		visualizedEditable: true,
 		edit : {
 			editor : "Date",
 			decorator : DynamicsDecorators.dateTimeDecorator,
@@ -179,6 +182,7 @@ ProjectController.columnConfigs = {
 		get : ProjectModel.prototype.getBacklogSize,
 		decorator : DynamicsDecorators.exactEstimateAppendManHourDecorator,
 		editable : true,
+		visualizedEditable: true,
 		edit : {
 			editor : "ExactEstimate",
 			decorator : DynamicsDecorators.exactEstimateEditDecorator,
@@ -191,6 +195,7 @@ ProjectController.columnConfigs = {
 		get : ProjectModel.prototype.getBaselineLoad,
 		decorator : DynamicsDecorators.exactEstimateDecorator,
 		editable : true,
+		visualizedEditable: true,
 		edit : {
 			editor : "ExactEstimate",
 			decorator : DynamicsDecorators.exactEstimateEditDecorator,
@@ -204,6 +209,7 @@ ProjectController.columnConfigs = {
 		get : BacklogModel.prototype.getAssignees,
 		decorator : DynamicsDecorators.responsiblesDecorator,
 		editable : true,
+		visualizedEditable: true,
 		openOnRowEdit : false,
 		edit : {
 			editor : "Autocomplete",
@@ -216,6 +222,7 @@ ProjectController.columnConfigs = {
 		title : "Description",
 		get : ProjectModel.prototype.getDescription,
 		editable : true,
+		visualizedEditable: true,
 		decorator : DynamicsDecorators.emptyDescriptionDecorator,
 		edit : {
 			editor : "Wysiwyg",
@@ -555,6 +562,7 @@ ProjectController.prototype._iterationListColumnConfig = function(config) {
 		sortCallback : DynamicsComparators
 				.valueComparatorFactory(IterationModel.prototype.getName),
 		editable : true,
+		visualizedEditable: true,
 		dragHandle : true,
 		edit : {
 			editor : "Text",
@@ -571,6 +579,7 @@ ProjectController.prototype._iterationListColumnConfig = function(config) {
 				get : BacklogModel.prototype.getAssignees,
 				decorator : DynamicsDecorators.responsiblesDecorator,
 				editable : true,
+				visualizedEditable: true,
 				openOnRowEdit : false,
 				edit : {
 					editor : "Autocomplete",
@@ -593,6 +602,7 @@ ProjectController.prototype._iterationListColumnConfig = function(config) {
 						decorator : DynamicsDecorators.dateTimeDecorator,
 						defaultSortColumn : true,
 						editable : true,
+						visualizedEditable: true,
 						dragHandle : true,
 						edit : {
 							editor : "Date",
@@ -615,6 +625,7 @@ ProjectController.prototype._iterationListColumnConfig = function(config) {
 								.valueComparatorFactory(IterationModel.prototype.getEndDate),
 						decorator : DynamicsDecorators.dateTimeDecorator,
 						editable : true,
+						visualizedEditable: true,
 						dragHandle : true,
 						edit : {
 							editor : "Date",
@@ -692,6 +703,7 @@ ProjectController.prototype.initializeStoryConfig = function() {
     sortCallback: DynamicsComparators.valueComparatorFactory(StoryModel.prototype.getName),
     dragHandle: true,
     editable : true,
+    visualizedEditable: true,
     edit : {
       editor : "Text",
       set : StoryModel.prototype.setName,
@@ -707,6 +719,7 @@ ProjectController.prototype.initializeStoryConfig = function() {
     get : StoryModel.prototype.getStoryValue,
     sortCallback: DynamicsComparators.valueComparatorFactory(StoryModel.prototype.getStoryValue),
     editable : true,
+    visualizedEditable: true,
     editableCallback: StoryController.prototype.storyValueOrPointsEditable,
     decorator: DynamicsDecorators.estimateDecorator,
     edit : {
@@ -723,6 +736,7 @@ ProjectController.prototype.initializeStoryConfig = function() {
     get : StoryModel.prototype.getStoryPoints,
     sortCallback: DynamicsComparators.valueComparatorFactory(StoryModel.prototype.getStoryPoints),
     editable : true,
+    visualizedEditable: true,
     editableCallback: StoryController.prototype.storyValueOrPointsEditable,
     decorator: DynamicsDecorators.estimateDecorator,
     edit : {
@@ -739,6 +753,7 @@ ProjectController.prototype.initializeStoryConfig = function() {
     get : StoryModel.prototype.getState,
     decorator: DynamicsDecorators.storyStateColorDecorator,
     editable : true,
+    visualizedEditable: true,
     filter: ProjectController.prototype.filterLeafStoriesByState,
     edit : {
       editor : "Selection",
@@ -755,6 +770,7 @@ ProjectController.prototype.initializeStoryConfig = function() {
     get : StoryModel.prototype.getResponsibles,
     decorator: DynamicsDecorators.responsiblesDecorator,
     editable : true,
+    visualizedEditable: true,
     openOnRowEdit: false,
     edit : {
       editor : "Autocomplete",
@@ -774,6 +790,7 @@ ProjectController.prototype.initializeStoryConfig = function() {
     decorator: DynamicsDecorators.iterationSelectDecorator,
     sortCallback: DynamicsComparators.storyIterationNameComparator,
     editable : true,
+    visualizedEditable: true,
     openOnRowEdit: false,
     edit: {
       editor: "Selection",
@@ -812,6 +829,7 @@ ProjectController.prototype.initializeStoryConfig = function() {
     fullWidth: true,
     visible: false,
     editable : true,
+    visualizedEditable: true,
     get: StoryModel.prototype.getDescription,
     edit : {
       editor : "Wysiwyg",

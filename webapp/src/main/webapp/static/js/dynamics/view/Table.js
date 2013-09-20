@@ -49,7 +49,8 @@ DynamicTable.cssClasses = {
   fieldError : "invalidValue",
   validationError : "validationError",
   validationErrorContainer : "cellError",
-  dragHandle: "dynamictable-dragHandle"
+  dragHandle: "dynamictable-dragHandle",
+  editableField: "dynamictable-editable-field"
 };
 
 DynamicTable.prototype = new DynamicView();

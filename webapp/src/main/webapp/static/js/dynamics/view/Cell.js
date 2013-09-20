@@ -60,6 +60,10 @@ DynamicTableCell.prototype.initialize = function() {
 	  this.element.addClass(DynamicTable.cssClasses.dragHandle);
 	}
 	
+	if(this.config.isVisualizedEditable()) {
+		this.element.addClass(DynamicTable.cssClasses.editableField);
+	}
+	
 	if(this.config.isEditable()) {
 	  //this.element.addClass('dynamictable-editable');
 	  this.element.attr("title", "Click to edit");
@@ -205,6 +209,7 @@ DynamicTableCell.prototype.openEditor = function(editRow, onClose, forceOpen) {
     this.editor.setFieldName(this.config.getTitle());
     if(editRow || this.row.isInRowEdit()) {
       this.editor.setInRowEdit(true);
+      this.element.removeClass(DynamicTable.cssClasses.editableField);
     }
     return true;
   }

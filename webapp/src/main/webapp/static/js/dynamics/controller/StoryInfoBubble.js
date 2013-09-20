@@ -246,6 +246,7 @@ StoryInfoBubble.prototype._createConfig = function() {
     title : "Name",
     get : StoryModel.prototype.getName,
     editable : true,
+    visualizedEditable: true,
     edit : {
       editor : "Text",
       required: true,
@@ -257,6 +258,7 @@ StoryInfoBubble.prototype._createConfig = function() {
     get : StoryModel.prototype.getStoryPoints,
     decorator: DynamicsDecorators.estimateDecorator,
     editable : true,
+    visualizedEditable: true,
     edit : {
       editor : "Number",
       required: false,
@@ -285,6 +287,7 @@ StoryInfoBubble.prototype._createConfig = function() {
     get : StoryModel.prototype.getStoryValue,
     decorator: DynamicsDecorators.estimateDecorator,
     editable : true,
+    visualizedEditable: true,
     edit : {
       editor : "Number",
       required: false,
@@ -298,6 +301,7 @@ StoryInfoBubble.prototype._createConfig = function() {
     get : StoryModel.prototype.getBacklog,
     decorator: DynamicsDecorators.backlogSelectDecorator,
     editable : true,
+    visualizedEditable: true,
     edit: {
       editor: "AutocompleteSingle",
       dialogTitle: "Select backlog",
@@ -311,6 +315,7 @@ StoryInfoBubble.prototype._createConfig = function() {
 	    get : StoryModel.prototype.getIteration,
 	    decorator: DynamicsDecorators.iterationSelectDecorator,
 	    editable : true,
+	    visualizedEditable: true,
 	    edit: {
 	      editor: "AutocompleteSingle",
 	      dialogTitle: "Select iteration",
@@ -323,6 +328,7 @@ StoryInfoBubble.prototype._createConfig = function() {
     get : StoryModel.prototype.getResponsibles,
     decorator: DynamicsDecorators.responsiblesDecorator,
     editable : true,
+    visualizedEditable: true,
     edit : {
       editor : "Autocomplete",
       dialogTitle: "Select users",
@@ -338,6 +344,7 @@ StoryInfoBubble.prototype._createConfig = function() {
     title : "Description",
     get : StoryModel.prototype.getDescription,
     editable : true,
+    visualizedEditable: true,
     decorator: StoryInfoBubble.prototype.descriptionDecorator,
     edit : {
       editor : "Wysiwyg",

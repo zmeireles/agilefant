@@ -189,6 +189,7 @@ PortfolioController.prototype.initConfig = function() {
     headerTooltip : 'Project name',
     get : ProjectModel.prototype.getName,
     editable : true,
+    visualizedEditable: true,
     dragHandle : true,
     edit : {
       editor : "Text",
@@ -212,6 +213,7 @@ PortfolioController.prototype.initConfig = function() {
 	    get : BacklogModel.prototype.getAssignees,
 	    decorator: DynamicsDecorators.responsiblesDecorator,
 	    editable: true,
+	    visualizedEditable: true,
 	    edit: {
         editor : "Autocomplete",
         dialogTitle: "Select users",
@@ -229,6 +231,7 @@ PortfolioController.prototype.initConfig = function() {
     decorator: DynamicsDecorators.dateTimeDecorator,
     defaultSortColumn: false,
     editable : true,
+    visualizedEditable: true,
     edit : {
       editor : "Date",
       decorator: DynamicsDecorators.dateTimeDecorator,
@@ -247,6 +250,7 @@ PortfolioController.prototype.initConfig = function() {
     decorator: DynamicsDecorators.dateTimeDecorator,
     defaultSortColumn: false,
     editable : true,
+    visualizedEditable: true,
     edit : {
       editor : "Date",
       decorator: DynamicsDecorators.dateTimeDecorator,

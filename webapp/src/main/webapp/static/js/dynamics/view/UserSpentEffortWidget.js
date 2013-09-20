@@ -93,6 +93,7 @@ UserSpentEffortWidget.prototype.initConfig = function() {
     sortCallback: HourEntryModel.dateComparator,
     defaultSortColumn: true,
     editable: true,
+    visualizedEditable: true,
     edit: {
       editor: "Date",
       withTime: true,
@@ -107,6 +108,7 @@ UserSpentEffortWidget.prototype.initConfig = function() {
     get : HourEntryModel.prototype.getMinutesSpent,
     decorator: DynamicsDecorators.exactEstimateDecorator,
     editable: true,
+    visualizedEditable: true,
     columnName: "effortSpent",
     edit : {
       editor : "ExactEstimate",
@@ -118,6 +120,7 @@ UserSpentEffortWidget.prototype.initConfig = function() {
     minWidth : 40,
     autoScale : true,
     title : "Left",
+    visualizedEditable: true,
     get : TaskModel.prototype.getEffortLeft,
     decorator: DynamicsDecorators.exactEstimateSumDecorator,
     editable : true,
@@ -133,6 +136,7 @@ UserSpentEffortWidget.prototype.initConfig = function() {
     autoScale : true,
     title : "Comment",
     editable: true,
+    visualizedEditable: true,
     get : HourEntryModel.prototype.getDescription,
     edit : {
       editor : "Text",

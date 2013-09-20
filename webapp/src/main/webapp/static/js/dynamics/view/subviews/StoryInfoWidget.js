@@ -53,6 +53,7 @@ StoryInfoWidget.prototype._draw = function() {
     get : StoryModel.prototype.getDescription,
     decorator: DynamicsDecorators.emptyDescriptionDecorator,
     editable : true,
+    visualizedEditable: true,
     edit : {
       editor : "Wysiwyg",
       set : StoryModel.prototype.setDescription

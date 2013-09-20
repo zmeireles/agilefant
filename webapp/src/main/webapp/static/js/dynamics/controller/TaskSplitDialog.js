@@ -196,6 +196,7 @@ TaskSplitDialog.prototype._initOriginalTaskConfig = function() {
     title: 'Name',
     get: TaskModel.prototype.getName,
     editable: true,
+    visualizedEditable: true,
     openOnRowEdit: false,
     edit: {
       editor: "Text",
@@ -211,6 +212,7 @@ TaskSplitDialog.prototype._initOriginalTaskConfig = function() {
       get : TaskModel.prototype.getEffortLeft,
       decorator: DynamicsDecorators.exactEstimateDecorator,
       editable : true,
+      visualizedEditable: true,
       edit : {
         editor : "ExactEstimate",
         decorator: DynamicsDecorators.exactEstimateEditDecorator,
@@ -239,6 +241,7 @@ TaskSplitDialog.prototype._initOriginalTaskConfig = function() {
      getView : TaskModel.prototype.getAnnotatedResponsibles,
      decorator: DynamicsDecorators.annotatedUserInitialsListDecorator,
      editable : true,
+     visualizedEditable: true,
      openOnRowEdit: false,
      edit : {
         editor : "Autocomplete",
@@ -290,6 +293,7 @@ TaskSplitDialog.prototype._initTaskListConfig = function() {
     headerTooltip : 'Task name',
     get : TaskModel.prototype.getName,
     editable : true,
+    visualizedEditable: true,
     defaultSortColumn: true,
     edit : {
       editor : "Text",
@@ -324,6 +328,7 @@ TaskSplitDialog.prototype._initTaskListConfig = function() {
      getView : TaskModel.prototype.getAnnotatedResponsibles,
      decorator: DynamicsDecorators.annotatedUserInitialsListDecorator,
      editable : true,
+     visualizedEditable: true,
      openOnRowEdit: false,
      edit : {
        editor : "Autocomplete",
@@ -349,6 +354,7 @@ TaskSplitDialog.prototype._initTaskListConfig = function() {
     get : TaskModel.prototype.getDescription,
     cssClass : 'projecttask-data',
     editable : true,
+    visualizedEditable: true,
     edit : {
       editor : "Wysiwyg",
       set : TaskModel.prototype.setDescription

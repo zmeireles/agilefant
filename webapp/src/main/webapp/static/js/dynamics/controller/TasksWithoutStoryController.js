@@ -28,6 +28,7 @@ TasksWithoutStoryController.columnConfig.name = {
   headerTooltip : 'Task name',
   get : TaskModel.prototype.getName,
   editable : true,
+  visualizedEditable: true,
   dragHandle: true,
   edit : {
     editor : "Text",
@@ -74,6 +75,7 @@ TasksWithoutStoryController.columnConfig.responsibles = {
   getView : TaskModel.prototype.getAnnotatedResponsibles,
   decorator: DynamicsDecorators.annotatedUserInitialsListDecorator,
   editable : true,
+  visualizedEditable: true,
   openOnRowEdit: false,
   edit : {
     editor : "Autocomplete",
@@ -90,6 +92,7 @@ TasksWithoutStoryController.columnConfig.effortLeft = {
   get : TaskModel.prototype.getEffortLeft,
   decorator: DynamicsDecorators.exactEstimateDecorator,
   editable : true,
+  visualizedEditable: true,
   editableCallback: TaskController.prototype.effortLeftEditable,
   edit : {
     editor : "ExactEstimate",
@@ -105,6 +108,7 @@ TasksWithoutStoryController.columnConfig.effortSpent = {
   get : TaskModel.prototype.getEffortSpent,
   decorator: DynamicsDecorators.exactEstimateDecorator,
   editable : false,
+  visualizedEditable: true,
   onClick: TaskController.prototype.openQuickLogEffort,
   edit : {
     editor : "ExactEstimate",

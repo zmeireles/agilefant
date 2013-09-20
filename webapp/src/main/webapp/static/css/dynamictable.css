@@ -902,3 +902,9 @@ span.labelsText {
   color: #E75428;
   margin-left: 2px;
 }
+
+.dynamictable-editable-field:before {
+  content:url('../img/triangle.png');
+  position: relative;
+  top: -3px;
+}

@@ -122,6 +122,7 @@ UserListController.prototype.initConfig = function() {
     minWidth : 80,
     autoScale : true,
     title: "Initials",
+    visualizedEditable: true,
     get: UserModel.prototype.getInitials,
     sortCallback: DynamicsComparators.valueComparatorFactory(UserModel.prototype.getInitials)
   };
@@ -156,6 +157,7 @@ UserListController.prototype.initConfig = function() {
   	minWidth : 60,
   	autoScale : true,
   	title: "Administrator",
+  	visualizedEditable: true,
   	get: UserModel.prototype.getAdminAsString,
   	sortCallback: DynamicsComparators.valueComparatorFactory(UserModel.prototype.getInitials)
   }

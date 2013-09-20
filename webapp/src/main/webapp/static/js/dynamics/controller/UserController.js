@@ -86,6 +86,7 @@ UserController.prototype._initUserInfoConfig = function() {
 	    title : "Name",
 	    get : UserModel.prototype.getFullName,
 	    editable : true,
+	    visualizedEditable: true,
 	    edit : {
 	      editor : "Text",
 	      required: true,
@@ -97,6 +98,7 @@ UserController.prototype._initUserInfoConfig = function() {
 	    title : "Login name",
 	    get : UserModel.prototype.getLoginName,
 	    editable : true,
+	    visualizedEditable: true,
 	    edit : {
 	      editor : "Text",
 	      required: true,
@@ -108,6 +110,7 @@ UserController.prototype._initUserInfoConfig = function() {
 	    title : "Initials",
 	    get : UserModel.prototype.getInitials,
 	    editable : true,
+	    visualizedEditable: true,
 	    edit : {
 	      editor : "Text",
 	      required: true,
@@ -119,6 +122,7 @@ UserController.prototype._initUserInfoConfig = function() {
 	    title : "Email",
 	    get : UserModel.prototype.getEmail,
 	    editable : true,
+	    visualizedEditable: true,
 	    edit : {
 	      editor : "Email",
 	      required: true,
@@ -130,6 +134,7 @@ UserController.prototype._initUserInfoConfig = function() {
 	    title : "Weekly hours",
 	    get : UserModel.prototype.getWeekEffort,
 	    editable : true,
+	    visualizedEditable: true,
 	    decorator: DynamicsDecorators.exactEstimateDecorator,
 	    edit : {
 	      editor : "ExactEstimate",
@@ -142,6 +147,7 @@ UserController.prototype._initUserInfoConfig = function() {
 		    title : "Recent items (weeks)",
 		    get : UserModel.prototype.getRecentItemsNumberOfWeeks,
 		    editable : true,
+		    visualizedEditable: true,
 		    edit : {
 		      editor : "Number",
 		      required: true,
@@ -156,6 +162,7 @@ UserController.prototype._initUserInfoConfig = function() {
 		    get: UserModel.prototype.getTeams,
 		    decorator: DynamicsDecorators.teamListDecorator,
 		    editable: true,
+		    visualizedEditable: true,
 		    edit: {
 		      editor: "Autocomplete",
 		      dataType: "teams",

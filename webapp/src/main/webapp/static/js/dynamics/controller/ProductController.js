@@ -313,6 +313,7 @@ ProductController.prototype.initializeProductDetailsConfig = function() {
     title : "Name",
     get : ProductModel.prototype.getName,
     editable : true,
+    visualizedEditable: true,
     edit : {
       editor : "Text",
       required: true,
@@ -328,6 +329,7 @@ ProductController.prototype.initializeProductDetailsConfig = function() {
     title : "Description",
     get : ProductModel.prototype.getDescription,
     editable : true,
+    visualizedEditable: true,
     decorator: DynamicsDecorators.emptyDescriptionDecorator,
     edit : {
       editor : "Wysiwyg",
@@ -404,6 +406,7 @@ ProductController.prototype.initializeProjectListConfig = function() {
     get : ProjectModel.prototype.getName,
     sortCallback: DynamicsComparators.valueComparatorFactory(ProjectModel.prototype.getName),
     editable : true,
+    visualizedEditable: true,
     edit : {
       editor : "Text",
       set : ProjectModel.prototype.setName,
@@ -418,6 +421,7 @@ ProductController.prototype.initializeProjectListConfig = function() {
     get : BacklogModel.prototype.getAssignees,
     decorator: DynamicsDecorators.responsiblesDecorator,
     editable : true,
+    visualizedEditable: true,
     openOnRowEdit: false,
     edit : {
       editor : "Autocomplete",
@@ -450,6 +454,7 @@ ProductController.prototype.initializeProjectListConfig = function() {
     decorator: DynamicsDecorators.dateTimeDecorator,
     defaultSortColumn: true,
     editable : true,
+    visualizedEditable: true,
     edit : {
       editor : "Date",
       decorator: DynamicsDecorators.dateTimeDecorator,
@@ -467,6 +472,7 @@ ProductController.prototype.initializeProjectListConfig = function() {
     sortCallback: DynamicsComparators.valueComparatorFactory(ProjectModel.prototype.getEndDate),
     decorator: DynamicsDecorators.dateTimeDecorator,
     editable : true,
+    visualizedEditable: true,
     edit : {
       editor : "Date",
       decorator: DynamicsDecorators.dateTimeDecorator,
@@ -487,6 +493,7 @@ ProductController.prototype.initializeProjectListConfig = function() {
     get : ProjectModel.prototype.getDescription,
     cssClass : 'productstory-data',
     editable : true,
+    visualizedEditable: true,
     edit : {
       editor : "Wysiwyg",
       set : ProjectModel.prototype.setDescription

@@ -44,6 +44,7 @@ IterationController.columnConfigs = {
     title : "Name",
     get : IterationModel.prototype.getName,
     editable : true,
+    visualizedEditable: true,
     edit : {
       editor : "Text",
       required: true,
@@ -60,6 +61,7 @@ IterationController.columnConfigs = {
     get : IterationModel.prototype.getStartDate,
     decorator: DynamicsDecorators.dateTimeDecorator,
     editable : true,
+    visualizedEditable: true,
     edit : {
       editor : "Date",
       size: '18ex',
@@ -74,6 +76,7 @@ IterationController.columnConfigs = {
     get : IterationModel.prototype.getEndDate,
     decorator: DynamicsDecorators.dateTimeDecorator,
     editable : true,
+    visualizedEditable: true,
     edit : {
       editor : "Date",
       decorator: DynamicsDecorators.dateTimeDecorator,
@@ -88,6 +91,7 @@ IterationController.columnConfigs = {
     get : IterationModel.prototype.getBacklogSize,
     decorator: DynamicsDecorators.exactEstimateAppendManHourDecorator,
     editable: true,
+    visualizedEditable: true,
     edit: {
       editor: "ExactEstimate",
       decorator: DynamicsDecorators.exactEstimateEditDecorator,
@@ -100,6 +104,7 @@ IterationController.columnConfigs = {
     get : IterationModel.prototype.getBaselineLoad,
     decorator: DynamicsDecorators.exactEstimateDecorator,
     editable: true,
+    visualizedEditable: true,
     edit: {
       editor: "ExactEstimate",
       decorator: DynamicsDecorators.exactEstimateEditDecorator,
@@ -113,6 +118,7 @@ IterationController.columnConfigs = {
     get : BacklogModel.prototype.getAssignees,
     decorator: DynamicsDecorators.responsiblesDecorator,
     editable: true,
+    visualizedEditable: true,
     openOnRowEdit: false,
     edit: {
       editor : "Autocomplete",
@@ -125,6 +131,7 @@ IterationController.columnConfigs = {
     title : "Description",
     get : IterationModel.prototype.getDescription,
     editable : true,
+    visualizedEditable: true,
     decorator: DynamicsDecorators.emptyDescriptionDecorator,
     edit : {
       editor : "Wysiwyg",
@@ -391,6 +398,7 @@ IterationController.prototype.initAssigneeConfiguration = function() {
     decorator: DynamicsDecorators.appendDecoratorFactory("%"),
     editableCallback: AssignmentController.prototype.canEdit,
     editable: true,
+    visualizedEditable: true,
     edit: {
       editor: "Number",
       minVal: 0,
@@ -405,6 +413,7 @@ IterationController.prototype.initAssigneeConfiguration = function() {
     get : AssignmentModel.prototype.getPersonalLoad,
     decorator: DynamicsDecorators.exactEstimateDecorator,
     editable: true,
+    visualizedEditable: true,
     edit: {
       editor: "ExactEstimate",
       acceptNegative: true,

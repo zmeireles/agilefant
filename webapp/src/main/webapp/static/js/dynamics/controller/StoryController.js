@@ -546,6 +546,7 @@ StoryController.prototype.searchForTask = function() {
     headerTooltip : 'Task name',
     get : TaskModel.prototype.getName,
     editable : true,
+    visualizedEditable: true,
     dragHandle: true,
     edit : {
       editor : "Text",
@@ -578,6 +579,7 @@ StoryController.prototype.searchForTask = function() {
     getView : TaskModel.prototype.getAnnotatedResponsibles,
     decorator: DynamicsDecorators.annotatedUserInitialsListDecorator,
     editable : true,
+    visualizedEditable: true,
     openOnRowEdit: false,
     edit : {
       editor : "Autocomplete",
@@ -595,6 +597,7 @@ StoryController.prototype.searchForTask = function() {
     get : TaskModel.prototype.getEffortLeft,
     decorator: DynamicsDecorators.exactEstimateDecorator,
     editable : true,
+    visualizedEditable: true,
     editableCallback: TaskController.prototype.effortLeftEditable,
     edit : {
       editor : "ExactEstimate",
@@ -612,6 +615,7 @@ StoryController.prototype.searchForTask = function() {
       get : TaskModel.prototype.getEffortSpent,
       decorator: DynamicsDecorators.exactEstimateDecorator,
       editable : false,
+      visualizedEditable: true,
       onClick: TaskController.prototype.openQuickLogEffort,
       edit : {
         editor : "ExactEstimate",
@@ -635,6 +639,7 @@ StoryController.prototype.searchForTask = function() {
     cssClass : 'task-data text-editor',
     visible : false,
     editable : true,
+    visualizedEditable: true,
     edit : {
       editor : "Wysiwyg",
       set : TaskModel.prototype.setDescription

@@ -122,6 +122,7 @@ AccessListController.prototype.initConfig = function() {
     get: ProductModel.prototype.getTeams,
     decorator: DynamicsDecorators.productTeamListDecorator,
     editable: true,
+    visualizedEditable: true,
     edit: {
       editor: "Autocomplete",
       dataType: "teamsAndProducts",
@@ -177,6 +178,7 @@ AccessListController.prototype.initIterationConfig = function() {
     get: IterationModel.prototype.getTeams,
     decorator: DynamicsDecorators.iterationTeamListDecorator,
     editable: true,
+    visualizedEditable: true,
     edit: {
       editor: "Autocomplete",
       dataType: "teamsAndIterations",

@@ -106,6 +106,7 @@ TeamListController.prototype.initConfig = function() {
 	    cssClass: 'strong-text',
 	    sortCallback: DynamicsComparators.valueComparatorFactory(TeamModel.prototype.getName),
 	    editable: true,
+	    visualizedEditable: true,
 	    edit: {
 	      editor: "Text",
 	      set: TeamModel.prototype.setName
@@ -139,6 +140,7 @@ TeamListController.prototype.initConfig = function() {
 	    get: TeamModel.prototype.getUsers,
 	    decorator: DynamicsDecorators.teamUserListDecorator,
 	    editable: true,
+	    visualizedEditable: true,
 	    edit: {
 	      editor: "Autocomplete",
 	      dataType: "usersAndTeams",

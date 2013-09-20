@@ -311,6 +311,7 @@ StoryListController.columnConfig.name = {
   sortCallback: DynamicsComparators.valueComparatorFactory(StoryModel.prototype.getName),
 //  defaultSortColumn: true,
   editable : true,
+  visualizedEditable: true,
   dragHandle: true,
   edit : {
     editor : "Text",
@@ -328,6 +329,7 @@ StoryListController.columnConfig.points = {
   sortCallback: DynamicsComparators.valueComparatorFactory(StoryModel.prototype.getStoryPoints),
   decorator: DynamicsDecorators.estimateDecorator,
   editable : true,
+  visualizedEditable: true,
   editableCallback: StoryController.prototype.storyValueOrPointsEditable,
   edit : {
     editor : "Estimate",
@@ -344,6 +346,7 @@ StoryListController.columnConfig.value = {
   sortCallback: DynamicsComparators.valueComparatorFactory(StoryModel.prototype.getStoryValue),
   decorator: DynamicsDecorators.estimateDecorator,
   editable : true,
+  visualizedEditable: true,
   editableCallback: StoryController.prototype.storyValueOrPointsEditable,
   edit : {
     editor : "StoryValue",
@@ -374,6 +377,7 @@ StoryListController.columnConfig.responsibles = {
   get : StoryModel.prototype.getResponsibles,
   decorator: DynamicsDecorators.responsiblesDecorator,
   editable : true,
+  visualizedEditable: true,
   openOnRowEdit: false,
   edit : {
     editor : "Autocomplete",
@@ -399,6 +403,7 @@ StoryListController.columnConfig.effortSpent = {
   decorator: DynamicsDecorators.exactEstimateDecorator,
   get : StoryModel.prototype.getTotalEffortSpent,
   editable : false,
+  visualizedEditable: true,
   onClick: StoryController.prototype.openQuickLogEffort,
   edit : {
     editor : "ExactEstimate",
