@@ -139,6 +139,7 @@ ProjectController.columnConfigs = {
 		edit : {
 			editor : "Text",
 			required : true,
+			visualizeRequired: true,
 			set : ProjectModel.prototype.setName
 		}
 	},
@@ -158,6 +159,7 @@ ProjectController.columnConfigs = {
 			size : '18ex',
 			decorator : DynamicsDecorators.dateTimeDecorator,
 			required : true,
+			visualizeRequired: true,
 			withTime : true,
 			set : ProjectModel.prototype.setStartDate
 		}
@@ -172,6 +174,7 @@ ProjectController.columnConfigs = {
 			editor : "Date",
 			decorator : DynamicsDecorators.dateTimeDecorator,
 			required : true,
+			visualizeRequired: true,
 			withTime : true,
 			size : '18ex',
 			set : ProjectModel.prototype.setEndDate

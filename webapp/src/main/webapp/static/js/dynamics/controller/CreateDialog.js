@@ -157,6 +157,7 @@ CreateDialog.Product.prototype.initFormConfig = function() {
     edit: {
       editor: "Text",
       required: true,
+      visualizeRequired: true,
       set: ProductModel.prototype.setName
     }
   });
@@ -261,6 +262,7 @@ CreateDialog.Project.prototype.initFormConfig = function() {
     edit : {
       editor : "InlineAutocomplete",
       dataType: "products",
+      visualizeRequired: true,
       decorator: DynamicsDecorators.propertyDecoratorFactory(BacklogModel.prototype.getName),
       set: ProjectModel.prototype.setParent
     }
@@ -428,6 +430,7 @@ CreateDialog.Story.prototype.initFormConfig = function() {
     edit: {
       editor: "Text",
       required: true,
+      visualizeRequired: true,
       set: StoryModel.prototype.setName
     }
   });
@@ -452,7 +455,8 @@ CreateDialog.Story.prototype.initFormConfig = function() {
       editor : "InlineAutocomplete",
       dataType: "backlogsAndIterations",
       decorator: DynamicsDecorators.propertyDecoratorFactory(BacklogModel.prototype.getName),
-      set: StoryModel.prototype.setBacklog
+      set: StoryModel.prototype.setBacklog,
+      visualizeRequired: true
     }
   });
   
@@ -576,6 +580,7 @@ CreateDialog.User.prototype.initFormConfig = function() {
     edit: {
       editor: "Text",
       required: true,
+      visualizeRequired: true,
       size: '40ex',
       set: UserModel.prototype.setFullName
     }
@@ -600,6 +605,7 @@ CreateDialog.User.prototype.initFormConfig = function() {
     edit: {
       editor: "Text",
       required: true,
+      visualizeRequired: true,
       size: '10ex',
       set: UserModel.prototype.setInitials
     }
@@ -612,6 +618,7 @@ CreateDialog.User.prototype.initFormConfig = function() {
     edit: {
       editor: "Email",
       required: true,
+      visualizeRequired: true,
       size: '40ex',
       set: UserModel.prototype.setEmail
     }
@@ -625,7 +632,8 @@ CreateDialog.User.prototype.initFormConfig = function() {
       editor: "Password",
       size: '20ex',
       set: UserModel.prototype.setPassword1,
-      required: true
+      required: true,
+      visualizeRequired: true
     }
   });
   
@@ -637,7 +645,8 @@ CreateDialog.User.prototype.initFormConfig = function() {
       editor: "Password",
       size: '20ex',
       set: UserModel.prototype.setPassword2,
-      required: true
+      required: true,
+      visualizeRequired: true
     }
   });
 
@@ -720,6 +729,7 @@ CreateDialog.Team.prototype.initFormConfig = function() {
     edit: {
       editor: "TeamName",
       required: true,
+      visualizeRequired: true,
       set: TeamModel.prototype.setName
     }
   });

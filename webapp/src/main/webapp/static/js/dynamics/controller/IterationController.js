@@ -48,6 +48,7 @@ IterationController.columnConfigs = {
     edit : {
       editor : "Text",
       required: true,
+      visualizeRequired: true,
       set: IterationModel.prototype.setName
     }
   },
@@ -67,6 +68,7 @@ IterationController.columnConfigs = {
       size: '18ex',
       decorator: DynamicsDecorators.dateTimeDecorator,
       required: true,
+      visualizeRequired: true,
       withTime: true,
       set: IterationModel.prototype.setStartDate
     }
@@ -81,6 +83,7 @@ IterationController.columnConfigs = {
       editor : "Date",
       decorator: DynamicsDecorators.dateTimeDecorator,
       required: true,
+      visualizeRequired: true,
       withTime: true,
       size: '18ex',
       set: IterationModel.prototype.setEndDate

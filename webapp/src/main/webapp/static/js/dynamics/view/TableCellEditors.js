@@ -265,7 +265,7 @@ TableEditors.TextFieldEditor.prototype.init = function(element, model, options) 
   jQuery.extend(opts, options);
   TableEditors.CommonEditor.prototype.init.call(this, element, model, opts);
   
-  if (this.options.required) {
+  if (this.options.visualizeRequired) {
     element.prev().addClass("required-input");
   }
   
@@ -907,7 +907,7 @@ TableEditors.InlineAutocomplete.prototype.init = function(element, model, option
   jQuery.extend(opts, options);
   TableEditors.CommonEditor.prototype.init.call(this, element, model, opts);
   
-  if (this.options.required) {
+  if (this.options.visualizeRequired) {
     element.prev().addClass("required-input");
   }
   
@@ -1056,6 +1056,11 @@ TableEditors.Selection.defaultOptions = {
    * Default: false
    * @member TableEditors.Selection */
   required: false,
+  /**
+   * Whether the field is visualized to be required or not.
+   * Default: false
+   * @member TableEditors.Selection */
+  visualizeRequired: false,
   /**
    * The css width of the input element.
    * Default: 95%
