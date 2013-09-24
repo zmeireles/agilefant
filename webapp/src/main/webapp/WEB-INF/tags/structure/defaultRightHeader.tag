@@ -110,8 +110,23 @@
   var pollingInterval = 1000 * secondsBeforeExpire / 4;
   // Send http request every once per hour to keep the session active, in case the user is not doing anything.
   setInterval(function(){
-    http_request = new XMLHttpRequest();
-    http_request.open('GET', "static/img/onepixelimage.gif");
-    http_request.send(null);
+    jQuery.ajax({
+      type: "GET",
+      url: "static/sessionkeepalive.json",
+      async: true,
+      cache: false,
+      data: {},
+      dataType: "json",
+      timeout: 10000,
+      success: function(data, status) {
+      },
+      error: function(xhr, status, error) {
+        // Reload the page if the user was disconnected from server.
+        if (status == "timeout") {
+          alert("Connection to server was disconnected. Click ok to reload the page.");
+          location.reload();
+        }
+      }
+    });
    }, pollingInterval);
 </script>
