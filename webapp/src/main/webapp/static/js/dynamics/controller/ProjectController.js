@@ -243,6 +243,16 @@ ProjectController.prototype.handleModelEvents = function(event) {
 		});
 	}
 };
+
+ProjectController.prototype.pageControllerDispatch = function(event) {
+	if(event instanceof DynamicsEvents.AddEvent) {
+		var tab = this.tabs.tabs("option","selected");
+		if(tab === 0) {
+			this.storyTreeController.refresh();
+		}
+	}
+};
+
 ProjectController.prototype._paintLeafStories = function(element) {
 	var me = this;
 	if (!this.storyListView) {
