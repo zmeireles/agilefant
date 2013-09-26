@@ -123,7 +123,7 @@
       error: function(xhr, status, error) {
         // Reload the page if the user was disconnected from server.
         if (status == "timeout") {
-          alert("Connection to server was disconnected. Click ok to reload the page.");
+          alert("It seems that your Internet connection was disconnected. Click ok to reload the page.");
           location.reload();
         }
       }
