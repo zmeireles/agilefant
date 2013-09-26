@@ -117,7 +117,7 @@
       cache: false,
       data: {},
       dataType: "json",
-      timeout: 10000,
+      timeout: 30000,
       success: function(data, status) {
       },
       error: function(xhr, status, error) {
