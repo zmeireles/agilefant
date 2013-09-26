@@ -77,7 +77,20 @@ ProductController.prototype.paintProductDetails = function() {
   this.productDetailsView.render();
 };
 
-
+ProductController.prototype.pageControllerDispatch = function(event) {
+  if(event instanceof DynamicsEvents.AddEvent) {
+    var tab = this.tabs.tabs("option","selected");
+    if(tab === 0) {
+      this.paintStoryTree();
+    }
+    if(tab === 1) {
+      this.paintLeafStories();
+    }
+    if (tab === 2) {
+      this.paintProjectList();
+    }
+  }
+};
 
 /**
  * Backlog view tab
