@@ -275,6 +275,9 @@ $(document).ready(function() {
   window.createNewIteration = function() {
 	  CreateDialog.createById("createNewIteration");
   };
+  window.createNewStory = function() {
+	  CreateDialog.createById("createNewStory");
+  };
 });
 </script>
 
@@ -288,14 +291,12 @@ $(document).ready(function() {
   </div>
   <div class="details" id="leafStories" style="position: relative;">
     
-    <c:choose>
-    <c:when test="${empty product.children}">
       <div class="static backloglink">
         <p class="instructionText">Drag & drop the leaf stories into projects and iterations. Create a new <a href="javascript:void(0);" onclick="createNewProject()" title="Create a new project">project</a>
-           or <a href="javascript:void(0);" onclick="createNewIteration()" title="Create a new iteration">iteration</a> to the product to see them listed below.</p>
+           , <a href="javascript:void(0);" onclick="createNewIteration()" title="Create a new iteration">iteration</a>
+           or <a href="javascript:void(0);" onclick="createNewStory()" title="Create a new story">story</a> to the product to see them listed below.</p>
       </div>
-    </c:when>
-        </c:choose>
+
       <div class="static">
         <div>
           <p style="font-size: 8pt; color: #666;">
