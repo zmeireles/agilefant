@@ -207,6 +207,7 @@ UserController.prototype._initUserInfoConfig = function() {
 	  
 	  config.addColumnConfiguration(UserController.columnIndices.weekEffort, {
 	    title : "Weekly hours",
+	    decorator: DynamicsDecorators.exactEstimateDecorator,
 	    get : UserModel.prototype.getWeekEffort,
 	    editable : false
 	  });
