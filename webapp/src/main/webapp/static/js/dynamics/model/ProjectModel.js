@@ -270,6 +270,10 @@ ProjectModel.prototype.setParent = function(backlog) {
   this.relations.product = backlog;
 };
 
+ProjectModel.prototype.setBacklog = function(backlog) {
+  this.relations.product = backlog;
+};
+
 /* GETTERS */
 ProjectModel.prototype.getBacklogSize = function() {
   return this.currentData.backlogSize;

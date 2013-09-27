@@ -268,15 +268,16 @@ $(document).ready(function() {
 </ul>
 
 <script type="text/javascript">
+var productId = ${product.id};
 $(document).ready(function() {
   window.createNewProject = function() {
-	  CreateDialog.createById("createNewProject");
+	  CreateDialog.createByIdWithAutofilledBacklogId("createNewProject", productId);
   };
   window.createNewIteration = function() {
 	  CreateDialog.createById("createNewIteration");
   };
   window.createNewStory = function() {
-	  CreateDialog.createById("createNewStory");
+	  CreateDialog.createByIdWithAutofilledBacklogId("createNewStory", productId);
   };
 });
 </script>

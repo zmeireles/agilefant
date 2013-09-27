@@ -216,7 +216,7 @@ CreateDialog.Product.prototype.initFormConfig = function() {
  * Project creation dialog.
  * @constructor
  */
-CreateDialog.Project = function() {
+CreateDialog.Project = function(backlogId) {
   // Create the mock model
   this.model = ModelFactory.createObject(ModelFactory.typeToClassName.project);
   
@@ -231,6 +231,9 @@ CreateDialog.Project = function() {
 
   this.model.setStartDate(startdate.getTime());
   this.model.setEndDate(enddate.getTime());
+  
+  // Fill backlog automatically if called from certain pages (e.g. product Roadmap)
+  CreateDialog.fillBacklogField(backlogId, this.model);
 
   this.initFormConfig();
   this.init(CreateDialog.configurations.project);
@@ -393,7 +396,7 @@ CreateDialog.Iteration.prototype.initFormConfig = function() {
  * Story creation dialog.
  * @constructor
  */
-CreateDialog.Story = function() {
+CreateDialog.Story = function(backlogId) {
   // Create the mock model
   this.model = ModelFactory.createObject(ModelFactory.typeToClassName.story);
   
@@ -402,6 +405,9 @@ CreateDialog.Story = function() {
   if (user.isAutoassignToStories()) {
     this.model.setResponsibles([user.getId()]);
   }
+  
+  // Fill backlog automatically if called from certain pages (e.g. product Roadmap)
+  CreateDialog.fillBacklogField(backlogId, this.model);
   
   this.initFormConfig();
   this.init(CreateDialog.configurations.story);
@@ -899,5 +905,16 @@ CreateDialog.createById = function(id) {
   return dialog;
 };
 
+CreateDialog.createByIdWithAutofilledBacklogId = function(id, backlogId) {
+  var C = CreateDialog.idToClass[id];
+  var dialog = new C(backlogId);
+  return dialog;
+};
 
+CreateDialog.fillBacklogField = function(backlogId, model) {
+  if (backlogId) {
+    var backlog = ModelFactory.getObject(ModelFactory.types.backlog, backlogId);
+    model.setBacklog(backlog);
+  }
+};
 
