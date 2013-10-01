@@ -29,7 +29,33 @@ DailyWorkStoryListController.prototype._getTableConfig = function() {
       handle: "." + DynamicTable.cssClasses.dragHandle
     }
   });
+  
+  config.addCaptionItem({
+    name:   "createStory",
+    text:   "Create story",
+    cssClass:"create",
+    callback: DailyWorkStoryListController.prototype.createStory
+  });
+  
   return config;
+};
+
+DailyWorkStoryListController.prototype.createStory = function(forceAssignCurrentUser) {
+  var mockModel = ModelFactory.createObject(ModelFactory.types.story);
+  // Check whether to add the current user as a responsible.
+  var currentUser = PageController.getInstance().getCurrentUser(); 
+  if (currentUser.isAutoassignToStories() || forceAssignCurrentUser) {
+    mockModel.addResponsible(currentUser.getId());
+  }
+  
+  var controller = new StoryController(mockModel, null, this);
+  var row = this.getCurrentView().createRow(controller, mockModel, "top");
+  controller.view = row;
+  row.autoCreateCells([StoryController.columnIndices.priority, StoryController.columnIndices.labels, StoryController.columnIndices.actions, StoryController.columnIndices.tasksData]); //hide priority column
+  row.render();
+  controller.openRowEdit();
+  row.getCellByName("buttons").show();
+  row.getCellByName("labels").hide();
 };
 
 DailyWorkStoryListController.prototype.storyContextFactory = function(cellView, storyModel) {
@@ -76,8 +102,17 @@ DailyWorkStoryListController.columnConfig.context = {
   autoScale: true,
   title: "Backlog",
   get: StoryModel.prototype.getParent,
-  decorator: DynamicsDecorators.storyContextDecorator
+  decorator: DynamicsDecorators.storyContextDecorator,
+  editable: true,
+  editableCallback: StoryController.prototype.contextEditable,
+  edit: {
+    editor: "InlineAutocomplete",
+    dataType: "backlogsAndIterations",
+    decorator: DynamicsDecorators.propertyDecoratorFactory(BacklogModel.prototype.getName),
+    set: StoryModel.prototype.setBacklog
+  }
 };
+
 DailyWorkStoryListController.columnConfig.detailedContext = {
   minWidth : 15,
   autoScale : true,

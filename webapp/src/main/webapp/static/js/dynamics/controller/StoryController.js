@@ -654,3 +654,10 @@ StoryController.prototype.searchForTask = function() {
   });
   StoryController.taskListConfig = config;
 })();
+
+StoryController.prototype.contextEditable = function() {
+  if (this.getCurrentView().isInRowEdit()) {
+    return true;
+  }
+  return false;
+};

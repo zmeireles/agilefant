@@ -645,3 +645,18 @@ StoryModel.prototype.getMyStoriesRank = function() {
 	    }
 	  });
 	};
+
+/**
+ * Add a responsible for the story and modify the current data.
+ * Does not commit the change.
+ */
+StoryModel.prototype.addResponsible = function(userId) {
+  if (this.currentData.responsibles) {
+    this.currentData.responsibles.push(userId);
+  }
+  else {
+    this.currentData.responsibles = [userId];
+  }
+  
+  this.currentData.responsiblesChanged = true;
+};
