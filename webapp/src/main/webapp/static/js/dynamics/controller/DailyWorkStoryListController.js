@@ -45,7 +45,7 @@ DailyWorkStoryListController.prototype.createStory = function(forceAssignCurrent
   // Check whether to add the current user as a responsible.
   var currentUser = PageController.getInstance().getCurrentUser(); 
   if (currentUser.isAutoassignToStories() || forceAssignCurrentUser) {
-    mockModel.addResponsible(currentUser.getId());
+    mockModel.setResponsibles([currentUser.getId()]);
   }
   
   var controller = new StoryController(mockModel, null, this);
@@ -56,6 +56,7 @@ DailyWorkStoryListController.prototype.createStory = function(forceAssignCurrent
   controller.openRowEdit();
   row.getCellByName("buttons").show();
   row.getCellByName("labels").hide();
+  row.getCellByName("tasksData").hide();
 };
 
 DailyWorkStoryListController.prototype.storyContextFactory = function(cellView, storyModel) {
