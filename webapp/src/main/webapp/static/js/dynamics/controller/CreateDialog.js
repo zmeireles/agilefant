@@ -232,7 +232,7 @@ CreateDialog.Project = function(backlogId) {
   this.model.setStartDate(startdate.getTime());
   this.model.setEndDate(enddate.getTime());
   
-  // Fill backlog automatically if called from certain pages (e.g. product Roadmap)
+  // Fill backlog automatically if called from certain pages (e.g. product page's Project planning)
   CreateDialog.fillBacklogField(backlogId, this.model);
 
   this.initFormConfig();
@@ -406,7 +406,7 @@ CreateDialog.Story = function(backlogId) {
     this.model.setResponsibles([user.getId()]);
   }
   
-  // Fill backlog automatically if called from certain pages (e.g. product Roadmap)
+  // Fill backlog automatically if called from certain pages (e.g. product page's Project planning)
   CreateDialog.fillBacklogField(backlogId, this.model);
   
   this.initFormConfig();

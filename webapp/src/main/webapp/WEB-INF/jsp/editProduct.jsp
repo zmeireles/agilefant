@@ -261,7 +261,7 @@ $(document).ready(function() {
   <li class=""><a href="#storyTreeContainer"><span><img
         alt="Story tree" src="static/img/story_tree.png" /> Story tree</span></a></li>
   <li class=""><a href="#leafStories"><span><img
-        alt="Backlogs" src="static/img/leaf_stories.png" /> Roadmap</span></a></li>
+        alt="Backlogs" src="static/img/leaf_stories.png" /> Project planning</span></a></li>
   <li class=""><a href="#projects"><span><img
         alt="Projects" src="static/img/backlog.png" /> Projects</span></a></li>
   <li id="searchByText" style="float: right;"> </li>
