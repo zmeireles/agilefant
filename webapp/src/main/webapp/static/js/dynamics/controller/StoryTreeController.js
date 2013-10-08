@@ -69,7 +69,7 @@ StoryTreeController.prototype.renderComplete = function() {
           }
           this.openNodeDetails(node);
           var pos = this.element.find(id).offset();
-          window.scrollTo(pos.left, pos.top);
+          jQuery("#bodyWrapper").scrollTop(pos.top - jQuery("#bodyWrapper").offset().top);
         }
       }
     }

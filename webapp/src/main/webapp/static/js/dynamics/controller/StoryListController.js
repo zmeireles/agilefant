@@ -164,7 +164,7 @@ StoryListController.prototype.firstRenderComplete = function() {
       var controller = row.getController();
       controller.showTasks();
       var pos = row.getElement().offset();
-      window.scrollTo(pos.left, pos.top);
+      jQuery("#bodyWrapper").scrollTop(pos.top - jQuery("#bodyWrapper").offset().top);
     }
     else {
     	var type = "story";

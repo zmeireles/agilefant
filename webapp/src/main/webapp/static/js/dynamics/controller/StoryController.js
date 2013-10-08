@@ -491,7 +491,7 @@ StoryController.prototype.searchForTask = function() {
       			if(this.childControllers[type][i].model.id == id) {
       				row = this.childControllers[type][i].view;
 				    var pos = row.getElement().offset();
-	      			window.scrollTo(pos.left, pos.top);
+				    jQuery("#bodyWrapper").scrollTop(pos.top - jQuery("#bodyWrapper").offset().top);
       				break;
       			}
     		}

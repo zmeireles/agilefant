@@ -208,7 +208,7 @@ TasksWithoutStoryController.prototype.firstRenderComplete = function() {
     var row = this.view.getRowById(hash.substring(1));
     if(row) {
       var pos = row.getElement().offset();
-      window.scrollTo(pos.left, pos.top);
+      jQuery("#bodyWrapper").scrollTop(pos.top - jQuery("#bodyWrapper").offset().top);
     }
   }
 };

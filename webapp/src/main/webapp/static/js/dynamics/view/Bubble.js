@@ -101,17 +101,20 @@ function intersects(leftBorder, topBorder, rightBorder, bottomBorder, x, y) {
 
 Bubble.prototype._position = function() {
   // Position the bubble
+  var bodyWrapper = jQuery("#bodyWrapper");
+  var bodyScrollTop = bodyWrapper.scrollTop();
+  var bodyOffsetTop = bodyWrapper.offset().top;
   var pos = this.referenceElement.offset();
   this.parentElement.css({
-    'top': pos.top + this.options.offsetY + 'px',
+    'top': pos.top + this.options.offsetY + bodyScrollTop - bodyOffsetTop + 'px',
     'left': pos.left + this.options.offsetX + 'px',
     'min-width': this.options.minWidth,
     'min-height': this.options.minHeight,
     'max-width': this.options.maxWidth,
     'z-index': this.options.zIndex
   });
-  // Add to document
-  this.parentElement.appendTo(document.body);
+  // Add to body wrapper
+  this.parentElement.appendTo(bodyWrapper);
 };
 
 Bubble.prototype._removeOthersIfNeeded = function() {
