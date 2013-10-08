@@ -51,6 +51,9 @@ Bubble.prototype.init = function() {
  */
 Bubble.prototype.destroy = function() {
   this.parentElement.remove();
+  if (this.options.autoClose) {
+    this.greySeeThroughElement.remove();
+  }
   
   //Remove the esc listener
   $(document).unbind('keydown.agilefantBubble', this.keypressListener);
@@ -85,21 +88,10 @@ Bubble.prototype._createElements = function() {
   }).appendTo(this.header);
   
   if (me.options.autoClose) {
-    var initBubbleTime = new Date().getTime();
-    document.onclick = function(event) {
-      // Do not close the bubble if it was created just before the click event.
-      // The bubble is drawn before click event. There is 10-20ms delay between, but use 200ms value to be sure.
-      if (me.parentElement.width() > 0 && new Date().getTime() - initBubbleTime > 200) {
-        var offset = me.parentElement.offset();
-        var leftBorder = offset.left;
-        var topBorder = offset.top;
-        var rightBorder = leftBorder + me.parentElement.width() + 20;
-        var bottomBorder = topBorder + me.parentElement.height() + 20;
-        if (!intersects(leftBorder, topBorder, rightBorder, bottomBorder, event.pageX, event.pageY)) {
-          me.destroy();
-        }
-      }
-    };
+    this.greySeeThroughElement = $('<div class="greySeeThroughElement"/>').appendTo(document.body);
+    this.greySeeThroughElement.click(function() {
+      me.destroy();
+    });
   }
 };
 

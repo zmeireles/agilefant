@@ -168,3 +168,15 @@ img {
 .ui-dialog .ui-dialog-buttonpane button {
 	float: none;
 } 
+
+.greySeeThroughElement {
+  background-color: rgb(119, 119, 119);
+  opacity: 0.7;
+  cursor: pointer;
+  display: block;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
