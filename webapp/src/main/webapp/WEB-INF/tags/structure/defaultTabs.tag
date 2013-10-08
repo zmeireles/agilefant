@@ -62,16 +62,4 @@ $(document).ready(function() {
 </li>
 </c:if>
 
-<%-- Settings --%>
-<c:if test="${currentUser.admin}">
-<li id="navitab-settings">
-    <a href="settings.action">
-    <span>
-    <img src="static/img/settings.png" alt="Administration" />
-    Administration
-    </span>
-    </a>
-</li>
-</c:if>
-
 </ul>

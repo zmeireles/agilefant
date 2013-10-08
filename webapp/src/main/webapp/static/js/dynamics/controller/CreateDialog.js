@@ -196,7 +196,7 @@ CreateDialog.Product.prototype.initFormConfig = function() {
   });
 	var warningFunction = function() {
       if (currentUser.getAdmin()) {
-          return "Warning! If you select 'none', you won't be able to access the product. You can modify access rights later from the Administration tab.";
+          return "Warning! If you select 'none', you won't be able to access the product. You can modify access rights later from 'Administration' => 'Access rights'.";
         } else {
           return "Warning! If you select 'none', you won't be able to access the product. You can ask your Agilefant admin to grant you access rights.";
         }
@@ -377,7 +377,7 @@ CreateDialog.Iteration.prototype.initFormConfig = function() {
   
   var warningFunction = function() {
       if (currentUser.getAdmin()) {
-          return "Warning! If you select 'none', you won't be able to access the standalone iteration. You can modify access rights later from the Administration tab.";
+          return "Warning! If you select 'none', you won't be able to access the standalone iteration. You can modify access rights later from 'Administration' => 'Access rights'.";
         } else {
           return "Warning! If you select 'none', you won't be able to access the standalone iteration. You can ask your Agilefant admin to grant you access rights.";
         }
