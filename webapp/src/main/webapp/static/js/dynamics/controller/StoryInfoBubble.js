@@ -10,6 +10,7 @@ var StoryInfoBubble = function StoryInfoBubble(id, treeController, storyElement,
   this.id = id;
   this.treeController = treeController;
   this.storyElement = storyElement;
+  this.options = options;
   this.init();
 };
 
@@ -140,13 +141,13 @@ StoryInfoBubble.prototype.handleModelEvents = function(event) {
 
 StoryInfoBubble.prototype.createBubble = function() {
   var me = this;
-  this.bubble = new Bubble(this.storyElement, {
+  this.bubble = new Bubble(this.storyElement, $.extend({}, {
     closeCallback: function() {
       me.treeController.refreshNode(me.storyElement);
       Bubble.closeAll();
     },
     title: "Story info"
-  });
+  }, this.options));
   this.element = this.bubble.getElement();
 };
 
@@ -201,15 +202,18 @@ StoryInfoBubble.prototype.addLinks = function() {
     me.openLogEffort();
   }).appendTo(links);
 
-  $('<a href="javascript:">add child</a>').click(function() {
-    me.bubble.destroy();
-    me.treeController.createNode(me.storyElement,"inside", me.model);
-  }).appendTo(links);
+  // mock is inside the backlog view in products
+  if(!this.treeController.mock) {
+    $('<a href="javascript:">add child</a>').click(function() {
+      me.bubble.destroy();
+      me.treeController.createNode(me.storyElement,"inside", me.model);
+    }).appendTo(links);
   
-  $('<a href="javascript:">add sibling</a>').click(function() {
-    me.bubble.destroy();
-    me.treeController.createNode(me.storyElement,"after", me.model);
-  }).appendTo(links);
+    $('<a href="javascript:">add sibling</a>').click(function() {
+      me.bubble.destroy();
+      me.treeController.createNode(me.storyElement,"after", me.model);
+    }).appendTo(links);
+  }
   
   $('<a href="javascript:">delete</a>').click(function() {
     me.bubble.destroy();

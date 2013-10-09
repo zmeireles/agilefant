@@ -126,6 +126,40 @@ ProductController.prototype.paintLeafStories = function() {
       containment: 'document',
       dropOnEmpty: true,
       revert: 'invalid'
+    }).each(function() {
+      $(this).click(function() {
+        var get_story = StoryTreeController.prototype._getStoryForId;
+        var story_id = $(this).attr('storyid');
+        var story_elem = $(this);
+        var treeController = {
+          _getStoryForId: get_story,
+          refreshNode: function() {
+            get_story(story_id, function(story) {
+              var state = story.currentData.state;
+              var abbr = {
+                 'NOT_STARTED': 'N',
+                 'STARTED': 'S',
+                 'PENDING': 'P',
+                 'BLOCKED': 'B',
+                 'IMPLEMENTED': 'R',
+                 'DONE': 'D',
+                 'DEFERRED': 'D'
+              }[state];
+              var title = DynamicsDecorators.stateOptions[state];
+              var elem = $('<span/>')
+                    .addClass('inlineStoryState')
+                    .addClass('storyState' + state)
+                    .attr('title', title)
+                    .text(abbr)
+              story_elem.empty().append(elem).append(' ' + story.currentData.name);
+            });
+          },
+          createNode: function() {  },
+          removeNode: function() { story_elem.remove(); },
+          mock: true
+        }
+        new StoryInfoBubble(story_id, treeController, story_elem, {offsetX: -200});
+      });
     });
 
     this.backlogsElement.find('.droppableWidget').droppable({
