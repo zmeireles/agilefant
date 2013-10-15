@@ -138,7 +138,7 @@ ProductController.prototype.paintLeafStories = function() {
               var state = story.currentData.state;
               var abbr = {
                  'NOT_STARTED': 'N',
-                 'STARTED': 'S',
+                 'STARTED': 'I',
                  'PENDING': 'P',
                  'BLOCKED': 'B',
                  'IMPLEMENTED': 'R',

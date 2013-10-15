@@ -5,7 +5,7 @@ var StoryFiltersView = function StoryFiltersView(options, controller, model, par
   this.storyStates = [];
   this.allStoryStates = [
     { name: "NOT_STARTED", abbr: "N" },
-    { name: "STARTED", abbr: "S" },
+    { name: "STARTED", abbr: "I" },
     { name: "PENDING", abbr: "P" },
     { name: "BLOCKED", abbr: "B" },
     { name: "IMPLEMENTED", abbr: "R" },

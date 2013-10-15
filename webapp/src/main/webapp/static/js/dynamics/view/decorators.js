@@ -1,7 +1,7 @@
 var DynamicsDecorators = {
   stateOptions:  {
       "NOT_STARTED" : "Not Started",
-      "STARTED" : "Started",
+      "STARTED" : "In progress",
       "PENDING" : "Pending",
       "BLOCKED" : "Blocked",
       "IMPLEMENTED" : "Ready",
