@@ -684,6 +684,23 @@ ProjectController.prototype.initializeStoryConfig = function() {
     callback : ProjectController.prototype.createStory
   });
   
+  config.addCaptionItem( {
+    name : "showTasks",
+    text : "Show tasks",
+    connectWith : "hideTasks",
+    cssClass : "hide",
+    visible: true,
+    callback : StoryListController.prototype.showTasks
+  });
+  config.addCaptionItem( {
+    name : "hideTasks",
+    text : "Hide tasks",
+    visible : false,
+    connectWith : "showTasks",
+    cssClass : "show",
+    callback : StoryListController.prototype.hideTasks
+  });
+  
   config.addColumnConfiguration(0, {
     minWidth : 24,
     autoScale : true,
