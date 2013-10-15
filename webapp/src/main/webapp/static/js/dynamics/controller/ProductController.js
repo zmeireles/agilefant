@@ -158,7 +158,7 @@ ProductController.prototype.paintLeafStories = function() {
           removeNode: function() { story_elem.remove(); },
           mock: true
         }
-        new StoryInfoBubble(story_id, treeController, story_elem, {offsetX: -200});
+        new StoryInfoBubble(story_id, treeController, story_elem, {offsetX: 0});
       });
     });
 
