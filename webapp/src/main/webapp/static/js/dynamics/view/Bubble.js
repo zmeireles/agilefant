@@ -104,10 +104,11 @@ Bubble.prototype._position = function() {
   var bodyWrapper = jQuery("#bodyWrapper");
   var bodyScrollTop = bodyWrapper.scrollTop();
   var bodyOffsetTop = bodyWrapper.offset().top;
+  var bodyOffsetLeft = bodyWrapper.offset().left;
   var pos = this.referenceElement.offset();
   this.parentElement.css({
     'top': pos.top + this.options.offsetY + bodyScrollTop - bodyOffsetTop + 'px',
-    'left': pos.left + this.options.offsetX + 'px',
+    'left': pos.left + this.options.offsetX - bodyOffsetLeft + 'px',
     'min-width': this.options.minWidth,
     'min-height': this.options.minHeight,
     'max-width': this.options.maxWidth,
