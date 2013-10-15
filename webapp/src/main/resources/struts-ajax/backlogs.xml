@@ -166,7 +166,11 @@
     <action name="projectLeafStories" class="storyListAction" method="projectLeafStories">
       <result name="success" type="json">
         <param name="target">stories</param>
-        <param name="patterns">+responsibles.class, +responsibles.id, +responsibles.initials, -responsibles.*, +backlog.name, +backlog.class, +backlog.id, -backlog.*, +parent.id, +parent.name, +parent.class, -parent.*, -tasks, +labels.displayName, +labels.class, +labels.id, -labels.*</param>
+        <param name="patterns">+responsibles.class, +responsibles.id, +responsibles.initials, -responsibles.*, +backlog.name, +backlog.class, +backlog.id, -backlog.*, +parent.id, +parent.name, +parent.class, -parent.*,
+        +tasks.responsibles.id, +tasks.responsibles.initials, +tasks.responsibles.class, -tasks.responsibles.*, 
+          +tasks.workingOnTask.user.id, +tasks.workingOnTask.user.initials, +tasks.workingOnTask.user.class, -tasks.workingOnTask.user.*, 
+          +tasks
+        +labels.displayName, +labels.class, +labels.id, -labels.*</param>
       </result>
     </action>
     

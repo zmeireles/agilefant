@@ -38,11 +38,13 @@ import fi.hut.soberit.agilefant.model.Product;
 import fi.hut.soberit.agilefant.model.Project;
 import fi.hut.soberit.agilefant.model.Rankable;
 import fi.hut.soberit.agilefant.model.Story;
+import fi.hut.soberit.agilefant.model.Task;
 import fi.hut.soberit.agilefant.model.User;
 import fi.hut.soberit.agilefant.transfer.IterationTO;
 import fi.hut.soberit.agilefant.transfer.ProjectMetrics;
 import fi.hut.soberit.agilefant.transfer.ProjectTO;
 import fi.hut.soberit.agilefant.transfer.StoryTO;
+import fi.hut.soberit.agilefant.transfer.TaskTO;
 import fi.hut.soberit.agilefant.util.StoryFilters;
 import fi.hut.soberit.agilefant.util.StoryMetrics;
 
@@ -273,6 +275,14 @@ public class ProjectBusinessImpl extends GenericBusinessImpl<Project> implements
         for(Story leafStory : leafStories) {
             StoryTO tmp = new StoryTO(leafStory);
             tmp.setRank(rank++);
+            
+            Set<Task> tasks = new HashSet<Task>();
+            for (Task task : tmp.getTasks()) {
+                TaskTO taskTO = new TaskTO(task);
+                tasks.add(taskTO);
+            }
+            tmp.setTasks(tasks);
+            
             leafStoriesWithRank.add(tmp);
         }
         return leafStoriesWithRank;

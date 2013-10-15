@@ -429,9 +429,10 @@ ProjectController.prototype.createIteration = function() {
 	var controller = new IterationRowController(mockModel, null, this);
 	var row = this.iterationsView.createRow(controller, mockModel, "top");
 	controller.view = row;
-	row.autoCreateCells([ 0, IterationRowController.columnIndices.actions ]);
+	row.autoCreateCells([ 0, IterationRowController.columnIndices.actions, StoryController.columnIndices.tasksData ]);
 	row.render();
 	controller.openRowEdit();
+	row.getCellByName("tasksData").hide();
 };
 
 /**
@@ -690,7 +691,7 @@ ProjectController.prototype.initializeStoryConfig = function() {
     columnName: "expand",
     headerTooltip : 'Priority',
     defaultSortColumn: true,
-    subViewFactory: StoryController.prototype.descriptionToggleFactory,
+    subViewFactory : StoryController.prototype.taskToggleFactory,
     sortCallback: DynamicsComparators.valueComparatorFactory(StoryModel.prototype.getRank)
   });
   
@@ -862,6 +863,16 @@ ProjectController.prototype.initializeStoryConfig = function() {
     visible : false,
     cssClass : 'projectstory-data',
     subViewFactory : DynamicsButtons.commonButtonFactory
+  });
+  
+  config.addColumnConfiguration(15, {
+    columnName: "tasksData",
+    fullWidth : true,
+    visible : false,
+    cssClass : 'story-task-container',
+    targetCell: StoryController.columnIndices.tasksData,
+    subViewFactory : StoryController.prototype.storyTaskListFactory,
+	  delayedRender: true
   });
 
   this.storyListConfig = config;
