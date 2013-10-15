@@ -767,7 +767,6 @@ ProjectController.prototype.initializeStoryConfig = function() {
     get : StoryModel.prototype.getState,
     decorator: DynamicsDecorators.storyStateColorDecorator,
     editable : true,
-    visualizedEditable: true,
     filter: ProjectController.prototype.filterLeafStoriesByState,
     edit : {
       editor : "Selection",
