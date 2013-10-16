@@ -443,7 +443,9 @@ public class IterationBurndownBusinessImpl implements IterationBurndownBusiness 
                 }
             }
             
-            valueAxis.setRange(0, Math.max(valueAxis.getRange().getUpperBound(), Math.max(spentMax, leftMax)));
+            double current = valueAxis.getRange().getUpperBound();
+            current = Double.isNaN(current) ? 0 : current;
+            valueAxis.setRange(0, Math.max(current, Math.max(spentMax, leftMax)));
         }
 
         plot.setDomainGridlinePaint(GRIDLINE_COLOR);
