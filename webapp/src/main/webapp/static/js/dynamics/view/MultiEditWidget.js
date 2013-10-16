@@ -24,7 +24,7 @@ MultiEditWidget.prototype.init = function() {
   var stateElement = $('<li><select name="state" /></li>').appendTo(this.content);
   this.stateSelect = stateElement.find('select');
 
-  var states = {'NOT_STARTED':'Not started','STARTED':'In progress','PENDING':'Pending','BLOCKED':'Blocked','IMPLEMENTED':'Ready','DONE':'Done', 'DEFERRED':'Deferred' };
+  var states = {'NOT_STARTED':'Not started','STARTED':'In Progress','PENDING':'Pending','BLOCKED':'Blocked','IMPLEMENTED':'Ready','DONE':'Done', 'DEFERRED':'Deferred' };
   
   $.each(states, jQuery.proxy(function(k,v) {
     this.stateSelect.append('<option value='+k+'>'+v+'</option>');
