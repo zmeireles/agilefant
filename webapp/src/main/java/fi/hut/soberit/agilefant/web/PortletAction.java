@@ -15,7 +15,6 @@ import fi.hut.soberit.agilefant.business.AgilefantWidgetBusiness;
 import fi.hut.soberit.agilefant.business.WidgetCollectionBusiness;
 import fi.hut.soberit.agilefant.model.AgilefantWidget;
 import fi.hut.soberit.agilefant.model.WidgetCollection;
-import fi.hut.soberit.agilefant.security.SecurityUtil;
 
 @Component("portletAction")
 @Scope("prototype")
@@ -33,8 +32,7 @@ public class PortletAction extends ActionSupport implements CRUDAction, ContextA
     private WidgetCollection contents;
     private List<List<AgilefantWidget>> widgetGrid = new ArrayList<List<AgilefantWidget>>();
 
-    private List<WidgetCollection> publicCollections = new ArrayList<WidgetCollection>();
-    private List<WidgetCollection> privateCollections = new ArrayList<WidgetCollection>();
+    private List<WidgetCollection> collections = new ArrayList<WidgetCollection>();
     
     @Autowired
     private AgilefantWidgetBusiness agilefantWidgetBusiness;
@@ -46,8 +44,7 @@ public class PortletAction extends ActionSupport implements CRUDAction, ContextA
         if (collectionId == 0) {
             return Action.SUCCESS + "_projectPortfolio";
         }
-        publicCollections = widgetCollectionBusiness.getAllPublicCollections();
-        privateCollections = widgetCollectionBusiness.getCollectionsForUser(SecurityUtil.getLoggedUser());
+        collections = widgetCollectionBusiness.getCollections();
         contents = widgetCollectionBusiness.retrieve(collectionId); 
         widgetGrid = agilefantWidgetBusiness.generateWidgetGrid(contents, 2);
         return Action.SUCCESS;
@@ -114,10 +111,6 @@ public class PortletAction extends ActionSupport implements CRUDAction, ContextA
         this.collectionId = collectionId;
     }
 
-    public List<WidgetCollection> getAllCollections() {
-        return publicCollections;
-    }
-
     public WidgetCollection getCollection() {
         return collection;
     }
@@ -134,13 +127,8 @@ public class PortletAction extends ActionSupport implements CRUDAction, ContextA
         this.objectId = objectId;
     }
 
-    public List<WidgetCollection> getPrivateCollections() {
-        return privateCollections;
+    public List<WidgetCollection> getCollections() {
+        return collections;
     }
-
-    public List<WidgetCollection> getPublicCollections() {
-        return publicCollections;
-    }
-
 
 }

@@ -51,14 +51,8 @@ Change to
     <option value="portfolio">Project portfolio</option>
   </optgroup>
   
-  <optgroup label="Public portfolios">
-    <c:forEach items="${publicCollections}" var="collection">
-      <option value="${collection.id}">${collection.name}</option>
-    </c:forEach>
-  </optgroup>
-  
-  <optgroup label="Private portfolios" class="privatePortfolios">
-    <c:forEach items="${privateCollections}" var="collection">
+  <optgroup label="Portfolios">
+    <c:forEach items="${collections}" var="collection">
       <option value="${collection.id}">${collection.name}</option>
     </c:forEach>
   </optgroup>

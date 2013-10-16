@@ -12,7 +12,6 @@ import com.opensymphony.xwork2.Action;
 
 import fi.hut.soberit.agilefant.business.PortfolioBusiness;
 import fi.hut.soberit.agilefant.business.WidgetCollectionBusiness;
-import fi.hut.soberit.agilefant.model.User;
 import fi.hut.soberit.agilefant.model.WidgetCollection;
 import fi.hut.soberit.agilefant.test.Mock;
 import fi.hut.soberit.agilefant.test.MockContextLoader;
@@ -52,13 +51,9 @@ public class ProjectPortfolioActionTest extends MockedTestCase {
     @Test
     @DirtiesContext
     public void testRetrieve() {
-        User user = new User();
-        this.setCurrentUser(user);
-        expect(widgetCollectionBusiness.getAllPublicCollections())
+        expect(widgetCollectionBusiness.getCollections())
             .andReturn(new ArrayList<WidgetCollection>());
         
-        expect(widgetCollectionBusiness.getCollectionsForUser(user))
-            .andReturn(new ArrayList<WidgetCollection>());
         replayAll();
         assertEquals(Action.SUCCESS, projectPortfolioAction.retrieve());
         verifyAll();

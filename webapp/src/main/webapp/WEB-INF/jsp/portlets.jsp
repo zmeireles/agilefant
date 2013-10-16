@@ -207,14 +207,8 @@ Change to
     <option value="portfolio">Project portfolio</option>
   </optgroup>
   
-  <optgroup label="Public portfolios">
-    <c:forEach items="${publicCollections}" var="collection">
-      <option value="${collection.id}">${collection.name}</option>
-    </c:forEach>
-  </optgroup>
-  
-  <optgroup label="Private portfolios" class="privatePortfolios">
-    <c:forEach items="${privateCollections}" var="collection">
+  <optgroup label="Portfolios">
+    <c:forEach items="${collections}" var="collection">
       <option value="${collection.id}">${collection.name}</option>
     </c:forEach>
   </optgroup>
@@ -286,6 +280,7 @@ Change to
     <div class="widgetContent">
       <ww:form action="storePortfolio">
         <input type="hidden" name="collectionId" value="${contents.id}"/>
+        <input type="hidden" name="collection.user" value="null" />
         <table id="portfolioPropertiesTable">
           <tr>
             <td>
@@ -293,23 +288,6 @@ Change to
             </td>
             <td>
               <input name="collection.name" value="${contents.name}"/>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Mark as
-            </td>
-            <td>
-              <c:choose>
-              <c:when test="${contents.user != null}">
-                <input type="radio" name="collection.user" value="null" /> Public<br/>
-                <input type="radio" name="collection.user" value="${contents.user.id}" checked="checked" /> Private
-              </c:when>
-              <c:otherwise>
-                <input type="radio" name="collection.user" value="null" checked="checked" /> Public<br/>
-                <input type="radio" name="collection.user" value="${currentUser.id}" /> Private
-              </c:otherwise>
-              </c:choose>
             </td>
           </tr>
         </table>

@@ -32,17 +32,9 @@ public class WidgetCollectionBusinessImpl extends
     
     /** {@inheritDoc} */
     @Transactional(readOnly = true)
-    public List<WidgetCollection> getAllPublicCollections() {
+    public List<WidgetCollection> getCollections() {
         List<WidgetCollection> allCollections = new ArrayList<WidgetCollection>();
-        allCollections.addAll(widgetCollectionDAO.getCollectionsForUser(null));
-        return allCollections;
-    }
-    
-    /** {@inheritDoc} */
-    @Transactional(readOnly = true)
-    public List<WidgetCollection> getCollectionsForUser(User user) {
-        List<WidgetCollection> allCollections = new ArrayList<WidgetCollection>();
-        allCollections.addAll(widgetCollectionDAO.getCollectionsForUser(user));
+        allCollections.addAll(widgetCollectionDAO.getCollections());
         return allCollections;
     }
     
