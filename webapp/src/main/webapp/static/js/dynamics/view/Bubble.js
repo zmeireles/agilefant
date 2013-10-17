@@ -88,10 +88,14 @@ Bubble.prototype._createElements = function() {
   }).appendTo(this.header);
   
   if (me.options.autoClose) {
-    this.greySeeThroughElement = $('<div class="greySeeThroughElement"/>').appendTo(document.body);
-    this.greySeeThroughElement.click(function() {
-      me.destroy();
-    });
+    var bodyWrapper = jQuery("#bodyWrapper");
+    if (bodyWrapper && bodyWrapper[0]) {
+      var elementHeight = bodyWrapper[0].scrollHeight;
+      this.greySeeThroughElement = $('<div class="greySeeThroughElement" style="height: ' + elementHeight + 'px"/>').appendTo(bodyWrapper);
+      this.greySeeThroughElement.click(function() {
+        me.destroy();
+      });
+    }
   }
 };
 
