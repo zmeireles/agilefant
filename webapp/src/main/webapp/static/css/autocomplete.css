@@ -153,6 +153,10 @@
   background-image: url('../img/backlog.png');
 }
 
+.autocomplete-noResultsIcon {
+  background-image: url('../img/noresults.png');
+}
+
 .autocomplete-selectedItemsList li .autocomplete-selectedName {
   float: left;
 }

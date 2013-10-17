@@ -29,7 +29,8 @@ var AutocompleteVars = {
       suggestionIcon: 'autocomplete-suggestionIcon',
       suggestionUserIcon: 'autocomplete-userIcon',
       suggestionTeamIcon: 'autocomplete-teamIcon',
-      suggestionBacklogIcon: 'autocomplete-backlogIcon'
+      suggestionBacklogIcon: 'autocomplete-backlogIcon',
+      noResultsIcon: 'autocomplete-noResultsIcon'
     },
     keyCodes: {
       enter: 13,

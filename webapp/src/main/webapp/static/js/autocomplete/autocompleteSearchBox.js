@@ -197,17 +197,22 @@ AutocompleteSearch.prototype.renderSuggestionList = function() {
   var me = this;
   this.suggestionList.empty();
   if (this.matchedItems.length === 0) {
-    this.cancelSelection();
-    return;
-  }
-  
-  $.each(this.matchedItems, function(k,item) {
-    var listItem = $('<li/>').attr('title',item.name).appendTo(me.suggestionList);
+    var noResults = 'No items found';
+    var noResultsHelpText = 'No items found with the given input.';
+    var listItem = $('<li/>').attr('title',noResultsHelpText).appendTo(me.suggestionList);
     var icon = $('<span/>').appendTo(listItem);
-    me.addSuggestionListItemIcon(icon, item.baseClassName);
-    var text = $('<span/>').text(item.name).appendTo(listItem);
-    listItem.click(function() { me.selectItem(item); });
-  });
+    me.addSuggestionListItemIcon(icon, "noResults");
+    var text = $('<span/>').text(noResults).appendTo(listItem);
+    listItem.click(function() { me.cancelSelection(); });
+  } else {
+    $.each(this.matchedItems, function(k,item) {
+      var listItem = $('<li/>').attr('title',item.name).appendTo(me.suggestionList);
+      var icon = $('<span/>').appendTo(listItem);
+      me.addSuggestionListItemIcon(icon, item.baseClassName);
+      var text = $('<span/>').text(item.name).appendTo(listItem);
+      listItem.click(function() { me.selectItem(item); });
+    });
+  }
   this.suggestionList.show();
 };
 
@@ -215,7 +220,8 @@ AutocompleteSearch.prototype.addSuggestionListItemIcon = function(element, baseC
   var classNamesToIconClasses = {
       "fi.hut.soberit.agilefant.model.User": AutocompleteVars.cssClasses.suggestionUserIcon,
       "fi.hut.soberit.agilefant.model.Team": AutocompleteVars.cssClasses.suggestionTeamIcon,
-      "fi.hut.soberit.agilefant.model.Backlog": AutocompleteVars.cssClasses.suggestionBacklogIcon
+      "fi.hut.soberit.agilefant.model.Backlog": AutocompleteVars.cssClasses.suggestionBacklogIcon,
+      "noResults": AutocompleteVars.cssClasses.noResultsIcon
   };
   
   element.addClass(AutocompleteVars.cssClasses.suggestionIcon);
