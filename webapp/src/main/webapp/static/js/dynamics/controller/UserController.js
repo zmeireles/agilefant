@@ -51,11 +51,12 @@ UserController.prototype.initConfigs = function() {
 UserController.columnIndices = {
   fullName:   0,
   loginName:  1,
-  initials:   2,
-  email:      3,
-  weekEffort: 4,
-  recentItemsNumberOfWeeks: 5,
-  teams:      6
+  password:   2,
+  initials:   3,
+  email:      4,
+  weekEffort: 5,
+  recentItemsNumberOfWeeks: 6,
+  teams:      7
 };
 
 UserController.prototype._initUserInfoConfig = function() {
@@ -73,13 +74,9 @@ UserController.prototype._initUserInfoConfig = function() {
   
   var currentUser = PageController.getInstance().getCurrentUser();
   
-  if (currentUser.getAdmin() || currentUser.getId() == this.id) {
-	  config.addCaptionItem({
-	    text: "Change password",
-	    name: "changePassword",
-	    callback: UserController.prototype.changePassword
-	  });
-  }
+  var passwordFunction = function() {
+      return "******";
+  };
   
   if (currentUser.getAdmin() || currentUser.getId() == this.id) {
 	  config.addColumnConfiguration(UserController.columnIndices.fullName, {
@@ -178,6 +175,13 @@ UserController.prototype._initUserInfoConfig = function() {
   		    editable: false
   		});
   	  }
+
+	  config.addColumnConfiguration(UserController.columnIndices.password, {
+		    title : "Password",
+		    get : passwordFunction,
+		    visualizedEditable: true,
+		    onClick: UserController.prototype.changePassword
+	  });
   }
   
   if (!currentUser.getAdmin() && currentUser.getId() != this.id) {
@@ -221,6 +225,10 @@ UserController.prototype._initUserInfoConfig = function() {
 	    get: UserModel.prototype.getTeams,
 	    decorator: DynamicsDecorators.teamListDecorator,
 	    editable: false
+	  });
+	  config.addColumnConfiguration(UserController.columnIndices.password, {
+		    title : "Password",
+		    get : passwordFunction
 	  });
   }
   
