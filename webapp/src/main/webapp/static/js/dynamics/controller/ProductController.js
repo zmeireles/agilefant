@@ -463,7 +463,7 @@ ProductController.prototype.initializeProjectListConfig = function() {
   config.addColumnConfiguration(ProjectRowController.columnIndices.assignees, {
     minWidth : 130,
     autoScale : true,
-    title : "Assignees",
+    title : "Project assignees",
     headerTooltip : 'Project assignees',
     get : BacklogModel.prototype.getAssignees,
     decorator: DynamicsDecorators.responsiblesDecorator,

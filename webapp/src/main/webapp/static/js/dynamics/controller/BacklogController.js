@@ -49,7 +49,7 @@ BacklogController.prototype.initAssigneeConfiguration = function() {
       {
         rowControllerFactory : BacklogController.prototype.assignmentControllerFactory,
         dataSource : BacklogModel.prototype.getAssignments,
-        caption : "Assignees"
+        caption : "Backlog assignees"
       });
 
   config.addCaptionItem( {

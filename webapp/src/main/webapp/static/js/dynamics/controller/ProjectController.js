@@ -207,7 +207,7 @@ ProjectController.columnConfigs = {
 		}
 	},
 	assignees : {
-		title : "Assignees",
+		title : "Project assignees",
 		headerTooltip : 'Project assignees',
 		get : BacklogModel.prototype.getAssignees,
 		decorator : DynamicsDecorators.responsiblesDecorator,
@@ -588,7 +588,7 @@ ProjectController.prototype._iterationListColumnConfig = function(config) {
 			IterationRowController.columnIndices.assignees, {
 				minWidth : 130,
 				autoScale : true,
-				title : "Assignees",
+				title : "Iteration assignees",
 				headerTooltip : 'Iteration assignees',
 				get : BacklogModel.prototype.getAssignees,
 				decorator : DynamicsDecorators.responsiblesDecorator,

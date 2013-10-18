@@ -116,8 +116,8 @@ IterationController.columnConfigs = {
     }
   },
   assignees: {
-    title : "Assignees",
-    headerTooltip : 'Project assignees',
+    title : "Iteration assignees",
+    headerTooltip : 'Iteration assignees',
     get : BacklogModel.prototype.getAssignees,
     decorator: DynamicsDecorators.responsiblesDecorator,
     editable: true,

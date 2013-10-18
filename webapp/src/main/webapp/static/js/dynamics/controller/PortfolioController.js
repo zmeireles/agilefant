@@ -208,7 +208,7 @@ PortfolioController.prototype.initConfig = function() {
   columns.push({
 	    minWidth : 16,
 	    autoScale : true,
-	    title : "Assignees",
+	    title : "Project assignees",
 	    headerTooltip : 'Project assignees',
 	    get : BacklogModel.prototype.getAssignees,
 	    decorator: DynamicsDecorators.responsiblesDecorator,
