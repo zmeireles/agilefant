@@ -38,7 +38,8 @@ AutocompleteSearch.prototype.initialize = function(element) {
   this.element = element;
   this.element.addClass(AutocompleteVars.cssClasses.searchParent);
   
-  this.searchInput = $('<input type="text"/>').appendTo(this.element);
+  this.combobox = $('<span class="autocomplete-custom-combobox"/>').appendTo(this.element);
+  this.searchInput = $('<input type="text"/>').appendTo(this.combobox);
   this.searchInput.click(function() {
     me.timeoutUpdateMatches();
   });
@@ -47,6 +48,34 @@ AutocompleteSearch.prototype.initialize = function(element) {
     .appendTo(this.element);
   
   this.bindEvents();
+
+  var input = this.searchInput,
+  wasOpen = false;
+  $( "<a>" )
+  .attr( "title", "Show all items" )
+  .appendTo(this.combobox)
+  .button({
+    icons: {
+      primary: "ui-icon-triangle-1-s"
+    },
+    text: false
+  })
+  .removeClass( "ui-corner-all" )
+  .addClass( "autocomplete-custom-combobox-toggle ui-corner-right" )
+  .mousedown(function() {
+    wasOpen = me.suggestionList.is(':visible');
+  })
+  .click(function() {
+    input.val("");
+    // Close if already visible
+    if ( wasOpen ) {
+      me.cancelSelection();
+      return;
+    }
+    input.click();
+    // Pass empty string as value to search for, displaying all results
+    input.autocomplete( "search", "" );
+  });
 };
 
 
