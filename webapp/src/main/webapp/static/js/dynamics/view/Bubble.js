@@ -6,7 +6,7 @@ var Bubble = function Bubble(referenceElement, options) {
     closeCallback: function() { return false; },
     removeOthers: true,
     removeSelector: null,
-    autoClose: false,
+    autoClose: true,
     title:     null,
     offsetX:   100,
     offsetY:   35,
