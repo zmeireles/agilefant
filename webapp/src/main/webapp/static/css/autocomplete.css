@@ -195,7 +195,7 @@
 
 .autocomplete-custom-combobox {
   position: relative;
-  display: inline-block;
+  display: block;
 }
 
 .autocomplete-custom-combobox-toggle {

@@ -910,9 +910,8 @@ TableEditors.InlineAutocomplete.prototype.init = function(element, model, option
   if (this.options.visualizeRequired) {
     element.prev().addClass("required-input");
   }
-  
-  this.textField = $('<input type="text" />').width(this.options.size).appendTo(this.element);
-  
+  this.combobox = $('<span class="autocomplete-custom-combobox"/>').appendTo(this.element);
+  this.textField = $('<input type="text" />').width(this.options.size).appendTo(this.combobox);
   this._registerEditField(this.textField);
   
   this.textField.autocomplete({
@@ -923,7 +922,36 @@ TableEditors.InlineAutocomplete.prototype.init = function(element, model, option
   })
   .click(function() {
     jQuery(this).autocomplete('search', $(this).val());
-});
+  });
+
+  var me = this;
+  var input = this.textField,
+  wasOpen = false;
+  $( "<a>" )
+  .attr( "title", "Show all items" )
+  .appendTo(this.combobox)
+  .button({
+    icons: {
+      primary: "ui-icon-triangle-1-s"
+    },
+    text: false
+  })
+  .removeClass( "ui-corner-all" )
+  .addClass( "autocomplete-custom-combobox-toggle ui-corner-right" )
+  .mousedown(function() {
+    wasOpen = me.autocompleteOpen;
+  })
+  .click(function() {
+    // Close if already visible
+    if ( wasOpen ) {
+      input.autocomplete('close');
+      return;
+    }
+    input.click();
+    // Pass empty string as value to search for, displaying all results
+    input.autocomplete( "search", "" );
+  });
+
   
   this.setEditorValue();
 };

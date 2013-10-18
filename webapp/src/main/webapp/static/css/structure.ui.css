@@ -407,7 +407,7 @@ div.smallBurndown {
  * AUTOCOMPLETE
  */
 ul.ui-autocomplete {
-  max-width: 400px;
+  max-width: 500px;
   list-style-type: none;
   margin: 0;
   padding: 0;
