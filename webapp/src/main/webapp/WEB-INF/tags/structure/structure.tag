@@ -57,6 +57,7 @@
 			<aef:javascript path="utils/quickSearch" />
 			<aef:javascript path="utils/refLinkDisplay" />
 			<aef:javascript path="utils/aef.jstree.plugin" />
+			<aef:javascript path="utils/purl" />
 
 			<aef:javascript path="dynamics/controller/PageController" />
 			<aef:javascript path="dynamics/controller/MenuController" />

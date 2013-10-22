@@ -23,6 +23,7 @@
 		<js>/static/js/utils/quickSearch.js</js>
 		<js>/static/js/utils/refLinkDisplay.js</js>
 		<js>/static/js/utils/aef.jstree.plugin.js</js>
+		<js>/static/js/utils/purl.js</js>
 		<js>/static/js/dynamics/controller/PageController.js</js>
 		<js>/static/js/dynamics/controller/MenuController.js</js>
 	</group>
