@@ -80,6 +80,27 @@ rootNode.addChild({
   this.element.find("a.ui-dynatree-title").each(function(key, item) {
     item.href = $(item.parentNode).attr("dtnode").data.key;
   });
+  
+  var currentLastSegment = getCurrentLastSegment();
+  // Setting background color is done in a separate loop,
+  // so that the links work even if calling purl does not work properly
+  this.element.find("a.ui-dynatree-title").each(function(key, item) {
+    var itemLastSegment = getUrlLastSegment(item);
+    if (currentLastSegment != null && itemLastSegment != null && currentLastSegment == itemLastSegment) {
+      item.setAttribute('style', 'background-color: #D9DDE7 !important; font-weight: bold;');
+    }
+  });
 };
+
+function getUrlLastSegment(url) {
+  url = $.url(url);
+  var lastSegment = url.segment().pop();
+  return lastSegment;
+}
+
+function getCurrentLastSegment() {
+  var url = $(location).attr('href');
+  return (getUrlLastSegment(url));
+}
 
 AdministrationMenuController.prototype.reload = function() {};
