@@ -53,7 +53,7 @@ $(document).ready(function() {
   </div> 
   
   <div class="warning-note">
-    <p>These settings only affect the account of <strong>${user.fullName}</strong></p>
+    <p>These settings only affect <strong>${user.fullName}</strong></p>
   </div>
   
   <ww:form action="storeUserAndRedirect" method="post">
@@ -62,21 +62,21 @@ $(document).ready(function() {
     
       <c:if test="${currentUser.admin}">
       <tr>
-        <td>Assign me as an Administrator</td>
+        <td>Make this user an Administrator</td>
         <td><ww:checkbox fieldValue="true" name="user.admin"/></td>
       </tr>
       </c:if>
       
       <tr>
-        <td>Assign me to tasks I create</td>
+        <td>Make this user responsible for the tasks he creates</td>
         <td><ww:radio list="#{'true':'Always','false':'Never'}" name="user.autoassignToTasks"/></td>
       </tr>
       <tr>
-        <td>Assign me to stories I create</td>
+        <td>Make this user responsible for the stories he creates</td>
         <td><ww:radio list="#{'true':'When not in story tree','false':'Never'}" name="user.autoassignToStories"/></td>
       </tr>
       <tr>
-        <td>Mark story started when its task is started</td>
+        <td>Change the story as started when one of its tasks becomes started</td>
         <td><ww:radio list="#{'always':'Always','ask':'Ask','never':'Never'}" name="user.markStoryStarted"/></td>
       </tr>
       <%--      
