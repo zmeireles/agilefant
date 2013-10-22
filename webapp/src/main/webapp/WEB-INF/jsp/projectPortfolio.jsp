@@ -39,19 +39,19 @@ $(document).ready(function() {
 </jsp:attribute>
 
 <jsp:body>
-<h2>Project portfolio</h2>
+<h2>Ongoing projects</h2>
 
 <p>
 
 Change to
 <select id="changeToSelection">
-  <option selected="selected" style="color: #666;">Select a portfolio...</option>
+  <option selected="selected" style="color: #666;">Select a dashboard...</option>
 
   <optgroup label="General">
-    <option value="portfolio">Project portfolio</option>
+    <option value="portfolio">Ongoing projects</option>
   </optgroup>
   
-  <optgroup label="Portfolios">
+  <optgroup label="Dashboards">
     <c:forEach items="${collections}" var="collection">
       <option value="${collection.id}">${collection.name}</option>
     </c:forEach>

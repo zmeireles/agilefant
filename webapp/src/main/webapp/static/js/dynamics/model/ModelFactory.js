@@ -556,7 +556,7 @@ ModelFactory.prototype._initProjectPortfolio = function(callback) {
       if (callback) { callback(model); }
     },
     error: function(xhr, status, error) {
-      var msg = MessageDisplay.ErrorMessage("Error loading portfolio.", xhr);
+      var msg = MessageDisplay.ErrorMessage("Error loading dashboard.", xhr);
     }
   });
 };

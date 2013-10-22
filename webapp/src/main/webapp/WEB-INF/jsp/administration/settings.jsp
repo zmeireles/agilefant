@@ -47,9 +47,9 @@ $(document).ready(function() {
       <td><a href="#" class="quickHelpLink" onclick="HelpUtils.openHelpPopup(this,'Daily Work','static/html/help/dailyWorkPopup.html'); return false;">What is Daily Work?</a></td>
     </tr>
     <tr>
-      <td><label for="devPortfolioEnabled">Enable Portfolio</label></td>
+      <td><label for="devPortfolioEnabled">Enable Dashboard</label></td>
       <td><ww:checkbox name="devPortfolioEnabled" fieldValue="true" value="%{devPortfolioEnabled}"></ww:checkbox></td>
-      <td><a href="#" class="quickHelpLink" onclick="HelpUtils.openHelpPopup(this,'Portfolio','static/html/help/devPortfolioPopup.html'); return false;">What is Portfolio?</a></td>
+      <td><a href="#" class="quickHelpLink" onclick="HelpUtils.openHelpPopup(this,'Dashboard','static/html/help/devPortfolioPopup.html'); return false;">What is Dashboard?</a></td>
     </tr>
     <tr>
       <td><label for="hourReportingEnabled">Enable Timesheets</label></td>

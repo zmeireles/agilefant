@@ -90,7 +90,7 @@ $(document).ready(function() {
         url: 'ajax/widgets/createWidget.action',
         data: { type: newObjectType, objectId: newObjectId, collectionId: ${contents.id}, position: 0, listNumber: 0 },
         success: function(data, status) {
-          MessageDisplay.Ok('Widget added');
+          MessageDisplay.Ok('Metric added');
           
           var newWidget = $('<li />');
           clone.replaceWith(newWidget);
@@ -110,7 +110,7 @@ $(document).ready(function() {
         },
         error: function(xhr,status,error) {
           overlay.hide();
-          MessageDisplay.Error("An error occurred when creating the widget",xhr);
+          MessageDisplay.Error("An error occurred when creating the metric",xhr);
         }
       });
     });
@@ -169,7 +169,7 @@ $(document).ready(function() {
 
 var deletePortfolio = function deletePortfolio(link) {
   var dialog = new DynamicsConfirmationDialog(
-      "Really delete the portfolio?",
+      "Really delete the dashboard?",
       "This action can't be reversed",
       function() {
         window.location.href = "deletePortfolio.action?collectionId=${collectionId}"
@@ -190,10 +190,10 @@ var cancelProperties = function cancelProperties(link) {
 
 <div class="structure-main-block">
 
-<h2>Portfolio: ${contents.name}</h2>
+<h2>Dashboard: ${contents.name}</h2>
 
 <div style="margin-right: 2.5%; min-width: 750px;">
-  <a href="#" class="controlLink newWidgetLink" style="float: right;"><span>Add widget</span> <span class="plusSign">+</span></a>
+  <a href="#" class="controlLink newWidgetLink" style="float: right;"><span>Add metric</span> <span class="plusSign">+</span></a>
   <a href="#" class="controlLink propertiesWidgetLink" style="float: right;"><span>Properties</span> <span class="plusSign">?</span></a>
 </div>
 
@@ -201,13 +201,13 @@ var cancelProperties = function cancelProperties(link) {
 
 Change to
 <select id="changeToSelection">
-  <option selected="selected" style="color: #666;">Select a portfolio...</option>
+  <option selected="selected" style="color: #666;">Select a dashboard...</option>
 
   <optgroup label="General">
-    <option value="portfolio">Project portfolio</option>
+    <option value="portfolio">Ongoing projects</option>
   </optgroup>
   
-  <optgroup label="Portfolios">
+  <optgroup label="Custom Dashboards">
     <c:forEach items="${collections}" var="collection">
       <option value="${collection.id}">${collection.name}</option>
     </c:forEach>
@@ -244,7 +244,7 @@ Change to
   <!-- Create new widget -->
   <li class="widget createNewWidget staticWidget" id="newWidget" style="position:relative;">
     
-    <div class="widgetHeader"><span>Create a new widget</span></div>
+    <div class="widgetHeader"><span>Create a new metric</span></div>
     <div class="widgetContent">
       <table>
         <tr>
@@ -275,7 +275,7 @@ Change to
   
   <li class="widget staticWidget" id="propertiesTemplate">
     <div class="widgetHeader">
-      Portfolio properties
+      Dashboard properties
     </div>
     <div class="widgetContent">
       <ww:form action="storePortfolio">
@@ -293,7 +293,7 @@ Change to
         </table>
         
         <div style="clear: left;">
-          <button class="dynamics-button deletePortfolio" style="width: 20ex;" onclick="deletePortfolio(this); return false;">Delete portfolio</button>
+          <button class="dynamics-button deletePortfolio" style="width: 20ex;" onclick="deletePortfolio(this); return false;">Delete dashboard</button>
           <button class="dynamics-button cancelProperties" style="float: right;" onclick="cancelProperties(this); return false;">Cancel</button>
           <button class="dynamics-button saveProperties" style="float: right;">Save</button>
         </div>

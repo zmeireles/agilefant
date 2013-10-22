@@ -72,7 +72,7 @@ PortfolioModel.prototype.reload = function() {
       me.isReloading = false;
     },
     error: function(xhr, status, error) {
-      var msg = MessageDisplay.ErrorMessage("Error loading portfolio.", xhr);
+      var msg = MessageDisplay.ErrorMessage("Error loading dashboard.", xhr);
     }
   });  
 };

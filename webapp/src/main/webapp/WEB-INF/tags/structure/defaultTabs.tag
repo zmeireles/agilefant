@@ -55,8 +55,8 @@ $(document).ready(function() {
 <li id="navitab-portfolio">
   <a href="contextView.action?contextName=portfolio">
   <span>
-  <img src="static/img/portfolio.png" alt="Dev Portfolio" />
-  Portfolio
+  <img src="static/img/portfolio.png" alt="Dev Dashboard" />
+  Dashboard
   </span>
   </a>
 </li>

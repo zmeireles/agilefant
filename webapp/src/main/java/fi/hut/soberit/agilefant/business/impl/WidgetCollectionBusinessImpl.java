@@ -42,12 +42,12 @@ public class WidgetCollectionBusinessImpl extends
     @Transactional
     public WidgetCollection createPortfolio() {
         WidgetCollection collection = new WidgetCollection();
-        collection.setName("New portfolio");
+        collection.setName("New dashboard");
         
         Integer newId = (Integer)widgetCollectionDAO.create(collection);
         collection = widgetCollectionDAO.get(newId);
         
-        collection.setName("New portfolio");
+        collection.setName("New dashboard");
         
         return collection;
     }
