@@ -52,7 +52,7 @@ public class WidgetCollectionBusinessTest extends MockedTestCase {
         assertSame(collection, testable.createPortfolio());
         verifyAll();
         
-        assertEquals("New portfolio", collection.getName());
+        assertEquals("New dashboard", collection.getName());
     }
     
     
