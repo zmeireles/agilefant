@@ -73,10 +73,13 @@ $(document).ready(function() {
           }
         })
       },
-      minLength: 3,
+      minLength: 0,
       select: function(event, ui) {
         idField.data('selectedId',ui.item.originalObject.id);
       }
+    })
+    .click(function() {
+      jQuery(this).autocomplete('search', $(this).val());
     });
 
     var overlay = clone.find('.widget-overlay');
@@ -183,6 +186,19 @@ var cancelProperties = function cancelProperties(link) {
   return false;
 };
 
+function clickDropdownMenu() {
+  var input = $("#objectIdInput");
+  wasOpen = $(".ui-autocomplete").is(':visible');
+  // Close if already visible
+  if ( wasOpen ) {
+    input.autocomplete('close');
+    return;
+  }
+  input.click();
+  // Pass empty string as value to search for, displaying all results
+  input.autocomplete( "search", "" );
+};
+
 </script>
 </jsp:attribute>
 <jsp:body>
@@ -253,7 +269,16 @@ Change to
         </tr>
         <tr>
           <td>Object</td>
-          <td><input name="object" class="objectId"/></td>
+          
+          <td>
+            <span class="autocomplete-custom-combobox">
+              <input id="objectIdInput" name="object" class="objectId" style="width: 95%;"/>
+              <a onclick="clickDropdownMenu()" title="Show all items" class="ui-button ui-widget ui-state-default ui-button-icon-only autocomplete-custom-combobox-toggle ui-corner-right">
+                <span class="ui-button-icon-primary ui-icon ui-icon-triangle-1-s"></span>
+                <span class="ui-button-text"></span>
+              </a>
+            </span>
+          </td>
         </tr>
       </table>
       <div style="clear: left; float: right;">
