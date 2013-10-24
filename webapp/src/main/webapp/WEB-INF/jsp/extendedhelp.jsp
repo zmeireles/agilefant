@@ -1,6 +1,6 @@
 <%@ include file="./inc/_taglibs.jsp"%>
 
-<struct:htmlWrapper navi="none">
+<struct:htmlWrapper navi="none" hideControl="true" hideMenu="true" hideLogout="true" hidecreateAndSearchWrapper="true">
 
 <h2>Welcome to Agilefant!</h2>
 

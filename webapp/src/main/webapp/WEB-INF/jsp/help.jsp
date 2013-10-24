@@ -285,5 +285,6 @@ The Daily work, Timesheets and Portfolio views can be toggled on or off on the s
 <p style="font-size:14pt">You can read more from the <a href="extendedhelp.action">online help</a>,
 <a href="http://agilefant.org/support/user-guide">user guide</a> and the
 <a href="http://agilefant.org/support/faq/">FAQ</a></p>
+<struct:help />
 
 </struct:htmlWrapper>

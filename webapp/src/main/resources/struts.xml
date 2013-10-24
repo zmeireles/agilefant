@@ -378,6 +378,10 @@
 			<result type="dispatcher">/WEB-INF/jsp/help.jsp</result>
 		</action>
 		
+		<action name="helpWithoutFrames">
+			<result type="dispatcher">/WEB-INF/jsp/helpWithoutFrames.jsp</result>
+		</action>
+		
 		<action name="extendedhelp">
 			<result type="dispatcher">/WEB-INF/jsp/extendedhelp.jsp</result>
 		</action>
