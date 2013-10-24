@@ -49,7 +49,7 @@ AutocompleteSearch.prototype.initialize = function(element) {
   
   this.bindEvents();
 
-  var input = this.searchInput,
+  var input = this.searchInput;
   wasOpen = false;
   $( "<a>" )
   .attr( "title", "Show all items" )

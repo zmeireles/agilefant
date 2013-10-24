@@ -925,7 +925,7 @@ TableEditors.InlineAutocomplete.prototype.init = function(element, model, option
   });
 
   var me = this;
-  var input = this.textField,
+  var input = this.textField;
   wasOpen = false;
   $( "<a>" )
   .attr( "title", "Show all items" )
