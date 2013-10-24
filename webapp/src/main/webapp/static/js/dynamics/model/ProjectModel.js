@@ -118,6 +118,7 @@ ProjectModel.prototype._saveData = function(id, changedData) {
       if(!id) {
         me.getParent().addProject(object);
         object.callListeners(new DynamicsEvents.AddEvent(object));
+        window.newElementId = data.id;
       }
     },
     error: function(xhr, status, error) {

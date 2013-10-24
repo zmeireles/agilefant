@@ -128,6 +128,7 @@ IterationModel.prototype._saveData = function(id, changedData) {
           parent.addIteration(object);
         }
         object.callListeners(new DynamicsEvents.AddEvent(object));
+        window.newElementId = data.id;
       }
     },
     error: function(xhr, status, error) {

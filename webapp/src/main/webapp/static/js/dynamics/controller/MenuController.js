@@ -41,6 +41,18 @@ BacklogMenuController.prototype.initTree = function() {
       me.element.find("a.ui-dynatree-title").each(function(key, item) {
         setLinkProperties(item, currentPageBacklogId);
       });
+
+      // If some element (project, iteration) has just been created, make it visible in the dynatree
+      var elementId = window.newElementId;
+      if (elementId != null) {
+        me.element.dynatree("getRoot").visit(function(node) {
+          if (node.data.id == elementId) {
+            node.makeVisible();
+          }
+        });
+        window.newElementId = null;
+      }
+      
       var rootNode = me.element.dynatree("getRoot");
       if (rootNode.childList === null) {
         me.emptyListNote.show();
