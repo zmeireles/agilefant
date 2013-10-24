@@ -27,14 +27,15 @@ $(document).ready(function() {
     if (value === "portfolio") {
       window.location.href = "projectPortfolio.action"
     }
-    else if (value === "createNew") {
-      window.location.href = "createPortfolio.action"
-    }
     else {
       window.location.href = "portlets.action?collectionId=" + value
     }
   });
 });
+
+function createNewDashboard() {
+  window.location.href = "createPortfolio.action";
+};
 </script>
 </jsp:attribute>
 
@@ -43,9 +44,9 @@ $(document).ready(function() {
 
 <p>
 
-Change to
+Change dashboard to
 <select id="changeToSelection">
-  <option selected="selected" style="color: #666;">Select a dashboard...</option>
+  <option selected="selected" style="color: #666;">Select...</option>
 
   <optgroup label="General">
     <option value="portfolio">Ongoing projects</option>
@@ -57,10 +58,9 @@ Change to
     </c:forEach>
   </optgroup>
   
-  <optgroup label="Other">
-    <option value="createNew" style="font-style: italic; color: #666;">Create new...</option>
-  </optgroup>
 </select>
+
+<button class="dynamics-button" onclick="createNewDashboard()" style="width: 130px; margin-left: 15px;">Create new dashboard</button>
 
 </p>
 

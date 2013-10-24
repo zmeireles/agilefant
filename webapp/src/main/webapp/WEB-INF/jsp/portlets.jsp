@@ -160,9 +160,6 @@ $(document).ready(function() {
     if (value === "portfolio") {
       window.location.href = "projectPortfolio.action"
     }
-    else if (value === "createNew") {
-      window.location.href = "createPortfolio.action"
-    }
     else {
       window.location.href = "portlets.action?collectionId=" + value
     }
@@ -199,6 +196,10 @@ function clickDropdownMenu() {
   input.autocomplete( "search", "" );
 };
 
+function createNewDashboard() {
+  window.location.href = "createPortfolio.action";
+};
+
 </script>
 </jsp:attribute>
 <jsp:body>
@@ -208,16 +209,11 @@ function clickDropdownMenu() {
 
 <h2>Dashboard: ${contents.name}</h2>
 
-<div style="margin-right: 2.5%; min-width: 750px;">
-  <a href="#" class="controlLink newWidgetLink" style="float: right;"><span>Add metric</span> <span class="plusSign">+</span></a>
-  <a href="#" class="controlLink propertiesWidgetLink" style="float: right;"><span>Properties</span> <span class="plusSign">?</span></a>
-</div>
-
 <p>
 
-Change to
+Change dashboard to
 <select id="changeToSelection">
-  <option selected="selected" style="color: #666;">Select a dashboard...</option>
+  <option selected="selected" style="color: #666;">Select...</option>
 
   <optgroup label="General">
     <option value="portfolio">Ongoing projects</option>
@@ -229,16 +225,18 @@ Change to
     </c:forEach>
   </optgroup>
   
-  <optgroup label="Other">
-    <option value="createNew" style="font-style: italic; color: #666;">Create new...</option>
-  </optgroup>
 </select>
+
+<button class="dynamics-button" onclick="createNewDashboard()" style="width: 130px; margin-left: 15px;">Create new dashboard</button>
 
 </p>
 
+<div style="margin-right: 2.5%; min-width: 750px;">
+  <a href="#" class="controlLink newWidgetLink" style="float: left;"><span>Add metric</span> <span class="plusSign">+</span></a>
+  <a href="#" class="controlLink propertiesWidgetLink" style="float: left;"><span>Properties</span> <span class="plusSign">?</span></a>
+</div>
 
-
-
+<br>
 
 <div style="margin-top: 2em; min-width: 750px; background: #def;">
   <c:set var="listCount" value="0"/>
