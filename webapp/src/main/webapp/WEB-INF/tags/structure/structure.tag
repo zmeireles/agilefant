@@ -13,7 +13,10 @@
 
 <%@attribute name="hideLogout" fragment="false" required="false" %>
 <%@attribute name="hideControl" fragment="false" required="false" %>
+<%@attribute name="hidecreateAndSearchWrapper" fragment="false" required="false" %>
 <%@attribute name="hideMenu" fragment="false" required="false" %>
+<%@attribute name="hideFooter" fragment="false" required="false" %>
+<%@attribute name="hideHeader" fragment="false" required="false" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -163,47 +166,49 @@
 
 <div id="outerWrapper"><!-- Start of outer wrapper -->
 
-<div id="headerWrapper">
-  <c:choose>
-  <c:when test="${headerContent != null}">
-    <jsp:invoke fragment="headerContent" />
-  </c:when>
-  <c:otherwise>
-    <struct:header />
-  </c:otherwise>
-  </c:choose>
-  
-  <c:if test="${hideLogout != true}">
-    <struct:defaultRightHeader />
-  </c:if>
-</div>
-
+<c:if test="${hideHeader != true}">
+  <div id="headerWrapper">
+    <c:choose>
+    <c:when test="${headerContent != null}">
+      <jsp:invoke fragment="headerContent" />
+    </c:when>
+    <c:otherwise>
+      <struct:header />
+    </c:otherwise>
+    </c:choose>
+    
+    <c:if test="${hideLogout != true}">
+      <struct:defaultRightHeader />
+    </c:if>
+  </div>
+</c:if>
 
 <div id="controlWrapper">
   <c:if test="${hideControl != true}">
-  
+    
     <div id="navigationTabsWrapper">
       <struct:mainTabs navi="${navi}" />
     </div>
-    
+      
   </c:if>
   <struct:createNewMenu />
 </div>
 
-<div id="createAndSearchWrapper">
-  <c:if test="${hideControl != true}">
-  
-    <div style="position: relative; left: 1em;">
-      <a href="#" id="createNewMenuLink" onclick="return false;"><img src="static/img/add.png" alt="+" /><span style="font-size: 120%;">Create new</span></a> 
-    </div>
+<c:if test="${hidecreateAndSearchWrapper != true}">
+  <div id="createAndSearchWrapper">
+    <c:if test="${hideControl != true}">
     
-    <div style="position: relative; left: 1em; top:0.5em;">
-      <a id="quickSearchLink" href="#"><img src="static/img/search_small.png" alt="Search items" /><span id="quickSearchLinkText" style="font-size: 120%;">Search items</span></a>
-    </div>
-    
-  </c:if>
-</div>
-
+      <div style="position: relative; left: 1em;">
+        <a href="#" id="createNewMenuLink" onclick="return false;"><img src="static/img/add.png" alt="+" /><span style="font-size: 120%;">Create new</span></a> 
+      </div>
+      
+      <div style="position: relative; left: 1em; top:0.5em;">
+        <a id="quickSearchLink" href="#"><img src="static/img/search_small.png" alt="Search items" /><span id="quickSearchLinkText" style="font-size: 120%;">Search items</span></a>
+      </div>
+      
+    </c:if>
+  </div>
+</c:if>
 
 <div id="menuWrapper">
   <c:if test="${hideMenu != true}">
@@ -246,9 +251,11 @@
   <div id="layoutEmptyDiv"> </div>
 </div>
 
-<div id="footerWrapper">
-  <struct:footer />
-</div>
+<c:if test="${hideFooter != true}">
+  <div id="footerWrapper">
+    <struct:footer />
+  </div>
+</c:if>
 
 
 </div> <!-- End of outer wrapper -->

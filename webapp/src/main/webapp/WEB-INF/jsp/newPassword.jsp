@@ -1,6 +1,6 @@
 <%@ include file="./inc/_taglibs.jsp"%>
 
-<struct:htmlWrapper navi="" hideLogout="true" hideControl="true" hideMenu="true">
+<struct:htmlWrapper navi="" hideLogout="true" hideControl="true" hideMenu="true" hidecreateAndSearchWrapper="true">
 
 <jsp:body>
 <ww:form action="generateNewPassword.action" cssClass="newPassword">

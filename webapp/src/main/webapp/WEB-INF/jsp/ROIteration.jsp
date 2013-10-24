@@ -1,5 +1,5 @@
 <%@ include file="./inc/_taglibs.jsp"%>
-<struct:htmlWrapper navi="backlog" hideControl="true" hideMenu="true" hideLogout="true">
+<struct:htmlWrapper navi="backlog" hideControl="true" hideMenu="true" hideLogout="true" hidecreateAndSearchWrapper="true">
 <jsp:body>
 
 <div class="structure-main-block" id="backlogInfo">
