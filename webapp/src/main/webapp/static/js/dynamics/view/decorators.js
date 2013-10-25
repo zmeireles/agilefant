@@ -217,6 +217,13 @@ var DynamicsDecorators = {
   	}
   	return iteration.getName();
   },
+  parentStorySelectDecorator: function(story) {
+    var text = "(none)";
+    if (story) {
+      text = story.getName();
+    }
+    return '<span>' + text + '</span>';
+  },
   dateDecorator: function(value) {
     if(!value) {
       return "";
