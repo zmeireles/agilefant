@@ -475,7 +475,7 @@ ProjectController.prototype.storyControllerFactory = function(view, model) {
 ProjectController.prototype.getSelectableBacklogs = function() {
 	var returned = {};
 
-	returned[this.model.getId()] = this.model.getName();
+	returned[this.model.getId()] = "(none)";
 
 	var children = this.model.getChildren();
 	for ( var i = 0; i < children.length; i++) {
