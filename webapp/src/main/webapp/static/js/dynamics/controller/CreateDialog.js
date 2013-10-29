@@ -216,7 +216,7 @@ CreateDialog.Product.prototype.initFormConfig = function() {
  * Project creation dialog.
  * @constructor
  */
-CreateDialog.Project = function(backlogId) {
+CreateDialog.Project = function(backlogId, iterationId) {
   // Create the mock model
   this.model = ModelFactory.createObject(ModelFactory.typeToClassName.project);
   
@@ -232,8 +232,8 @@ CreateDialog.Project = function(backlogId) {
   this.model.setStartDate(startdate.getTime());
   this.model.setEndDate(enddate.getTime());
   
-  // Fill backlog automatically if called from certain pages (e.g. product page's Project planning)
-  CreateDialog.fillBacklogField(backlogId, this.model);
+  // Fill backlog or iteration automatically if user is on backlog or iteration page
+  CreateDialog.fillBacklogField(this.model, backlogId, iterationId);
 
   this.initFormConfig();
   this.init(CreateDialog.configurations.project);
@@ -288,7 +288,7 @@ CreateDialog.Project.prototype.initFormConfig = function() {
  * Iteration creation dialog.
  * @constructor
  */
-CreateDialog.Iteration = function() {
+CreateDialog.Iteration = function(backlogId, iterationId) {
   // Create the mock model
   this.model = ModelFactory.createObject(ModelFactory.typeToClassName.iteration);
   
@@ -303,6 +303,9 @@ CreateDialog.Iteration = function() {
   
   this.model.setStartDate(startdate.getTime());
   this.model.setEndDate(enddate.getTime());
+  
+  // Fill backlog or iteration automatically if user is on backlog or iteration page
+  CreateDialog.fillBacklogField(this.model, backlogId, iterationId);
  
   this.initFormConfig();
   this.init(CreateDialog.configurations.iteration);
@@ -396,7 +399,7 @@ CreateDialog.Iteration.prototype.initFormConfig = function() {
  * Story creation dialog.
  * @constructor
  */
-CreateDialog.Story = function(backlogId) {
+CreateDialog.Story = function(backlogId, iterationId) {
   // Create the mock model
   this.model = ModelFactory.createObject(ModelFactory.typeToClassName.story);
   
@@ -406,8 +409,8 @@ CreateDialog.Story = function(backlogId) {
     this.model.setResponsibles([user.getId()]);
   }
   
-  // Fill backlog automatically if called from certain pages (e.g. product page's Project planning)
-  CreateDialog.fillBacklogField(backlogId, this.model);
+  // Fill backlog or iteration automatically if user is on backlog or iteration page
+  CreateDialog.fillBacklogField(this.model, backlogId, iterationId);
   
   this.initFormConfig();
   this.init(CreateDialog.configurations.story);
@@ -454,7 +457,7 @@ CreateDialog.Story.prototype.initFormConfig = function() {
   
   config.addColumnConfiguration(CreateDialog.Story.columnIndices.backlog,{
     title : "Backlog",
-    get : StoryModel.prototype.getBacklog,
+    get : StoryModel.prototype.getIterationOrBacklog,
     decorator: DynamicsDecorators.backlogSelectDecorator,
     editable : true,
     edit : {
@@ -905,16 +908,20 @@ CreateDialog.createById = function(id) {
   return dialog;
 };
 
-CreateDialog.createByIdWithAutofilledBacklogId = function(id, backlogId) {
+CreateDialog.createByIdWithAutofilledBacklogId = function(id, backlogId, iterationId) {
   var C = CreateDialog.idToClass[id];
-  var dialog = new C(backlogId);
+  var dialog = new C(backlogId, iterationId);
   return dialog;
 };
 
-CreateDialog.fillBacklogField = function(backlogId, model) {
-  if (backlogId) {
+CreateDialog.fillBacklogField = function(model, backlogId, iterationId) {
+  if (iterationId) {
+    var iteration = ModelFactory.getObject(ModelFactory.types.iteration, iterationId);
+    model.setIteration(iteration);
+  } else if (backlogId) {
     var backlog = ModelFactory.getObject(ModelFactory.types.backlog, backlogId);
     model.setBacklog(backlog);
   }
 };
+
 

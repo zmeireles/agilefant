@@ -494,6 +494,16 @@ StoryModel.prototype.getIteration = function() {
   return this.relations.iteration;
 };
 
+StoryModel.prototype.getIterationOrBacklog = function() {
+  if (this.currentData.iteration) {
+    return ModelFactory.getObject(ModelFactory.types.iteration, this.currentData.iteration);
+  }
+  if (this.relations.iteration) {
+    return this.relations.iteration;
+  }
+  return this.getBacklog();
+};
+
 StoryModel.prototype.setBacklog = function(backlog) {
   this.addRelation(backlog);
 };

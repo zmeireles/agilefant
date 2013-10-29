@@ -19,7 +19,29 @@ $(document).ready(function() {
   $('#createNewMenu a').click(function() {
     createNewMenu.hide();
     createNewMenu.menuTimer('destroy');
-    CreateDialog.createById($(this).attr('id'));
+    var id = $(this).attr('id');
+    <c:choose>
+      <c:when test="${product.id != null}">
+        CreateDialog.createByIdWithAutofilledBacklogId(id, ${product.id});
+      </c:when>
+      <c:when test="${project.id != null}">
+        if (id == "createNewProject") {
+          CreateDialog.createById(id);
+        } else {
+          CreateDialog.createByIdWithAutofilledBacklogId(id, ${project.id});
+        }
+      </c:when>
+      <c:when test="${iteration.id != null}">
+        if (id == "createNewStory") {
+          CreateDialog.createByIdWithAutofilledBacklogId(id, null, ${iteration.id});
+        } else {
+          CreateDialog.createById(id);
+        }
+      </c:when>
+      <c:otherwise>
+        CreateDialog.createById(id);
+      </c:otherwise>
+    </c:choose>
   });
   
 });

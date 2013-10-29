@@ -278,6 +278,10 @@ IterationModel.prototype.setBacklogSize = function(backlogSize) {
   this.currentData.backlogSize = backlogSize;
 };
 
+IterationModel.prototype.setBacklog = function(backlog) {
+  this.addRelation(backlog);
+};
+
 IterationModel.prototype.getBaselineLoad = function() {
   return this.currentData.baselineLoad;
 };
