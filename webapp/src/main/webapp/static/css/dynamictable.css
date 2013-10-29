@@ -83,9 +83,9 @@
 }
 
 .dynamictable-filterimg {
-  background-image: url('../img/filter.png');
+  background-image: url('../img/filter_large.png');
   background-position: 0% 0%;
-  width: 16px;
+  width: 50px;
   height: 16px;
   float: left;
   margin-left: 0.5em;
@@ -94,7 +94,7 @@
 }
 
 .dynamictable-filterimg-active {
-  background-position: 16px 0;  
+  background-position: 0% 100%;
 }
 
 .dynamictable-placeholder {
