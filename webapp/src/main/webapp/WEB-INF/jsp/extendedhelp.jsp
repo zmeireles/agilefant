@@ -49,7 +49,7 @@ $(document).ready(function() {
 <p>
 This help page contains info on Agilefant. You can also read the <a href="http://agilefant.org/support/user-guide/">user guide</a> and check out the <a href="FAQ http://agilefant.org/support/faq/">FAQ</a>, which has much detail concerning specific features.</p>
 
-<p>Or, you can dive right in by going to see the example data. Just click on <a href="#" onclick="openProductsMenu()">'Backlogs'</a> to the left!
+<p>Or, if you signed up for a trial account, or imported the example database when you did the installation, you can dive right in by going to see the example data. Just click on 'Backlogs'to the left!
 <p>
 
 </p>
@@ -73,7 +73,7 @@ This help page contains info on Agilefant. You can also read the <a href="http:/
 1. About the example data 
 </div>
 <p>
-Your Agilefant is populated with example data: two products, a project with some iterations and a standalone iteration. You can see these in the <a href="#" onclick="openProductsMenu()">'Backlogs'</a> section of the left hand side accordion.
+The Cloud Agilefant is populated with example data: two products, a project with some iterations and a standalone iteration. You can see these in the 'Backlogs' section of the left hand side accordion.
 </div>
 
 <div class="dynamictable ui-widget-content ui-corner-all" id="changingPassword">
