@@ -106,4 +106,12 @@
       }
     });
    }, pollingInterval);
+  var secondsBeforeExpire = ${pageContext.session.maxInactiveInterval};
+  var pollingInterval = 1000 * secondsBeforeExpire / 4;
+  // Send http request every once per hour to keep the session active, in case the user is not doing anything.
+  setInterval(function(){
+    http_request = new XMLHttpRequest();
+    http_request.open('GET', "static/img/onepixelimage.gif");
+    http_request.send(null);
+   }, pollingInterval);
 </script>
