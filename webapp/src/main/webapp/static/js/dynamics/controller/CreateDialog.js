@@ -496,6 +496,7 @@ CreateDialog.Story.prototype.initFormConfig = function() {
     get : StoryModel.prototype.getResponsibles,
     decorator: DynamicsDecorators.emptyValueWrapper(DynamicsDecorators.userInitialsListDecorator, "(Select users)"),
     editable : true,
+    visualizedEditable: true,
     openOnRowEdit: false,
     edit : {
       editor : "Autocomplete",
@@ -689,6 +690,7 @@ CreateDialog.User.prototype.initFormConfig = function() {
     get: UserModel.prototype.getTeams,
     decorator: DynamicsDecorators.teamListDecorator,
     editable: true,
+    visualizedEditable: true,
     openOnRowEdit: false,
     edit: {
         editor: "Autocomplete",
@@ -752,6 +754,7 @@ CreateDialog.Team.prototype.initFormConfig = function() {
     get : TeamModel.prototype.getUsers,
     decorator: DynamicsDecorators.teamUserInitialsListDecorator,
     editable : true,
+    visualizedEditable: true,
     openOnRowEdit: false,
     edit : {
       editor : "Autocomplete",
