@@ -350,7 +350,7 @@ StoryController.prototype.taskToggleFactory = function(view, model) {
   var me = this;
   var options = {
     collapse : function() { me.getCurrentView().getElement().removeClass("bottom-margin"); },
-    expand : function() { me.getCurrentView().getElement().addClass("bottom-margin"); $.post("ajax/storyViewed.action",{storyId: this.model.getId()}); },
+    expand : function() { me.getCurrentView().getElement().addClass("bottom-margin"); },
     expanded: false,
     targetCells: ["tasksData", "details"]
   };

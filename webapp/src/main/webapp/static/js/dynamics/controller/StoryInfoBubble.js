@@ -169,7 +169,6 @@ StoryInfoBubble.prototype.populateContent = function() {
     me.storyInfoView = new DynamicVerticalTable(me, me.model, me.storyInfoConfig, me.storyInfoElement);
     me.storyInfoView.render();
     me.addLinks();
-    $.post("ajax/storyViewed.action", {storyId: sid});
   });
   
   if (Configuration.getBranchMetricsType() !== 'off') {
