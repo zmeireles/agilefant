@@ -422,6 +422,7 @@
 
 		<action name="generateTree" method="generateTree" class="timesheetAction">
 			<result name="success">/WEB-INF/jsp/timesheet.jsp</result>
+			<result name="error">/WEB-INF/jsp/timesheetError.jsp</result>
 		</action>
 
 		<action name="generateExcel" method="generateExeclReport"
@@ -431,6 +432,7 @@
 				<param name="inputName">sheetData</param>
 				<param name="contentDisposition">filename="agilefantTimesheet.xls"</param>
 			</result>
+			<result name="error">/WEB-INF/jsp/timesheetError.jsp</result>
 		</action>
 
 		<!-- Hour Entry actions -->

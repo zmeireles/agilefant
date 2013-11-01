@@ -77,6 +77,8 @@ public class TimesheetAction extends ActionSupport {
     private long effortSum = 0;
     
     private ByteArrayOutputStream exportableReport;
+    
+    private String errorMessage = "";
    
     
     public Set<Integer> getSelectedBacklogs() {
@@ -98,7 +100,7 @@ public class TimesheetAction extends ActionSupport {
     public String generateTree(){
         Set<Integer> selectedBacklogIds = this.getSelectedBacklogs();
         if(selectedBacklogIds == null || selectedBacklogIds.size() == 0) {
-            addActionError("No backlogs selected.");
+            errorMessage = "Please select at least one backlog";
             return Action.ERROR;
         }        
         if (selectedBacklogIds.contains(0))
@@ -118,7 +120,7 @@ public class TimesheetAction extends ActionSupport {
     public String generateExeclReport(){
         Set<Integer> selectedBacklogIds = this.getSelectedBacklogs();
         if(selectedBacklogIds == null || selectedBacklogIds.size() == 0) {
-            addActionError("No backlogs selected.");
+            errorMessage = "Please select at least one backlog";
             return Action.ERROR;
         }        
         if (selectedBacklogIds.contains(0))
@@ -261,5 +263,7 @@ public class TimesheetAction extends ActionSupport {
     public void setExportableReport(ByteArrayOutputStream exportableReport) {
         this.exportableReport = exportableReport;
     }
-    
+    public String getErrorMessage() {
+        return this.errorMessage;
+    }
 }
