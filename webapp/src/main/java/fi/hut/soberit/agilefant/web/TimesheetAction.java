@@ -90,7 +90,7 @@ public class TimesheetAction extends ActionSupport {
         return new HashSet<Integer>();
     }
     public String initialize() {
-        this.interval = "TODAY";
+        this.interval = "NO_INTERVAL";
         this.onlyOngoing = false;
         return Action.SUCCESS;
     }
