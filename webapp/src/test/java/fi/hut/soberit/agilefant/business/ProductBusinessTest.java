@@ -56,6 +56,8 @@ public class ProductBusinessTest extends MockedTestCase {
     private TransferObjectBusiness transferObjectBusiness;
     @Mock
     private TeamBusiness teamBusiness;
+    @Mock
+    private AuthorizationBusiness authorizationBusiness;
 
     @Test
     @DirtiesContext

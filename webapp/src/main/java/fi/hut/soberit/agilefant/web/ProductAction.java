@@ -111,23 +111,7 @@ public class ProductAction implements CRUDAction, Prefetching, ContextAware {
     }
     
     public String retrieveAllTimeSheets() {
-        Product standaloneProduct = new Product();
-        standaloneProduct.setName("[Standalone Iterations]");
-        standaloneProduct.setId(0);
-        products.add(standaloneProduct);
-        
-        Collection<Product> canditateProducts = new ArrayList<Product>();
-        
-        canditateProducts.addAll(productBusiness.retrieveAll());
-        
-        // Make sure the user has sufficient rights to export timesheets.
-        for (Iterator<Product> iter = canditateProducts.iterator(); iter.hasNext();) {
-            Product product = iter.next();
-            
-            if (this.authorizationBusiness.isBacklogAccessible(product.getId(), SecurityUtil.getLoggedUser())) {
-                products.add(product);
-            }
-        }
+    	productBusiness.storeAllTimeSheets(products);
         return Action.SUCCESS;    
     }
     

@@ -24,10 +24,12 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
 import fi.hut.soberit.agilefant.business.BacklogBusiness;
+import fi.hut.soberit.agilefant.business.ProductBusiness;
 import fi.hut.soberit.agilefant.business.TimesheetBusiness;
 import fi.hut.soberit.agilefant.business.TimesheetExportBusiness;
 import fi.hut.soberit.agilefant.business.UserBusiness;
 import fi.hut.soberit.agilefant.model.Backlog;
+import fi.hut.soberit.agilefant.model.Product;
 import fi.hut.soberit.agilefant.model.User;
 import fi.hut.soberit.agilefant.transfer.BacklogTimesheetNode;
 import flexjson.JSONSerializer;
@@ -55,6 +57,9 @@ public class TimesheetAction extends ActionSupport {
     
     @Autowired
     private BacklogBusiness backlogBusiness;
+    
+    @Autowired
+    private ProductBusiness productBusiness;
     
     private Set<Integer> productIds = new HashSet<Integer>();
     
@@ -100,8 +105,11 @@ public class TimesheetAction extends ActionSupport {
     public String generateTree(){
         Set<Integer> selectedBacklogIds = this.getSelectedBacklogs();
         if(selectedBacklogIds == null || selectedBacklogIds.size() == 0) {
-            errorMessage = "Please select at least one backlog";
-            return Action.ERROR;
+            Collection<Product> products = new ArrayList<Product>();
+            productBusiness.storeAllTimeSheets(products);
+            for (Product product: products) {
+                selectedBacklogIds.add(product.getId());
+            }
         }        
         if (selectedBacklogIds.contains(0))
         {
@@ -120,8 +128,11 @@ public class TimesheetAction extends ActionSupport {
     public String generateExeclReport(){
         Set<Integer> selectedBacklogIds = this.getSelectedBacklogs();
         if(selectedBacklogIds == null || selectedBacklogIds.size() == 0) {
-            errorMessage = "Please select at least one backlog";
-            return Action.ERROR;
+            Collection<Product> products = new ArrayList<Product>();
+            productBusiness.storeAllTimeSheets(products);
+            for (Product product: products) {
+                selectedBacklogIds.add(product.getId());
+            }
         }        
         if (selectedBacklogIds.contains(0))
         {
@@ -162,6 +173,13 @@ public class TimesheetAction extends ActionSupport {
     public void setTimesheetBusiness(TimesheetBusiness timesheetBusiness) {
         this.timesheetBusiness = timesheetBusiness;
     }
+
+    public ProductBusiness getProductBusiness() {
+		return productBusiness;
+	}
+	public void setProductBusiness(ProductBusiness productBusiness) {
+		this.productBusiness = productBusiness;
+	}
 
     public Set<Integer> getProductIds() {
         return productIds;

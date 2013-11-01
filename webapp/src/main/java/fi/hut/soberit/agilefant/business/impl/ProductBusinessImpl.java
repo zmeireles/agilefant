@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -16,6 +17,7 @@ import org.springframework.beans.support.PropertyComparator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import fi.hut.soberit.agilefant.business.AuthorizationBusiness;
 import fi.hut.soberit.agilefant.business.HourEntryBusiness;
 import fi.hut.soberit.agilefant.business.IterationBusiness;
 import fi.hut.soberit.agilefant.business.ProductBusiness;
@@ -31,6 +33,7 @@ import fi.hut.soberit.agilefant.model.Product;
 import fi.hut.soberit.agilefant.model.Project;
 import fi.hut.soberit.agilefant.model.Story;
 import fi.hut.soberit.agilefant.model.Team;
+import fi.hut.soberit.agilefant.security.SecurityUtil;
 import fi.hut.soberit.agilefant.transfer.IterationTO;
 import fi.hut.soberit.agilefant.transfer.LeafStoryContainer;
 import fi.hut.soberit.agilefant.transfer.ProductTO;
@@ -58,6 +61,8 @@ public class ProductBusinessImpl extends GenericBusinessImpl<Product> implements
     private TransferObjectBusiness transferObjectBusiness;
     @Autowired
     private TeamBusiness teamBusiness;
+    @Autowired
+    private AuthorizationBusiness authorizationBusiness;
 
     public ProductBusinessImpl() {
         super(Product.class);
@@ -277,5 +282,25 @@ public class ProductBusinessImpl extends GenericBusinessImpl<Product> implements
 
     public Pair<DateTime, DateTime> calculateProductSchedule(Product product) {
         return productDAO.retrieveScheduleStartAndEnd(product);
+    }
+    
+    public void storeAllTimeSheets(Collection<Product> products) {
+        Product standaloneProduct = new Product();
+        standaloneProduct.setName("[Standalone Iterations]");
+        standaloneProduct.setId(0);
+        products.add(standaloneProduct);
+        
+        Collection<Product> canditateProducts = new ArrayList<Product>();
+        
+        canditateProducts.addAll(this.retrieveAll());
+        
+        // Make sure the user has sufficient rights to export timesheets.
+        for (Iterator<Product> iter = canditateProducts.iterator(); iter.hasNext();) {
+            Product product = iter.next();
+            
+            if (this.authorizationBusiness.isBacklogAccessible(product.getId(), SecurityUtil.getLoggedUser())) {
+                products.add(product);
+            }
+        }
     }
 }

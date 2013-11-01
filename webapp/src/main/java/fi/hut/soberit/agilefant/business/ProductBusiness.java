@@ -26,4 +26,6 @@ public interface ProductBusiness extends GenericBusiness<Product> {
     public ProductTO retrieveLeafStoriesOnly(Product product);
     
     public Pair<DateTime, DateTime> calculateProductSchedule(Product product);
+    
+    public void storeAllTimeSheets(Collection<Product> products) ;
 }

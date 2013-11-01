@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import com.opensymphony.xwork2.Action;
 
+import fi.hut.soberit.agilefant.business.ProductBusiness;
 import fi.hut.soberit.agilefant.business.TimesheetBusiness;
 import fi.hut.soberit.agilefant.business.UserBusiness;
 import fi.hut.soberit.agilefant.model.User;
@@ -28,6 +29,7 @@ public class TimesheetActionTest {
     private DateTime endDate;
     private TimesheetAction timesheetAction;
     private TimesheetBusiness timesheetBusiness;
+    private ProductBusiness productBusiness;
     
     @Before
     public void setUp() {
@@ -37,6 +39,8 @@ public class TimesheetActionTest {
         timesheetAction = new TimesheetAction();
         timesheetBusiness = createMock(TimesheetBusiness.class);
         timesheetAction.setTimesheetBusiness(timesheetBusiness);
+        productBusiness = createMock(ProductBusiness.class);
+        timesheetAction.setProductBusiness(productBusiness);
     }
     
     @Test
@@ -46,7 +50,14 @@ public class TimesheetActionTest {
         timesheetAction.setStartDate(new DateTime(2009,1,1,1,1,0,0));
         timesheetAction.setEndDate(new DateTime(2009,5,1,1,1,0,0));
         timesheetAction.setProductIds(productIds);
-        assertEquals(Action.ERROR, timesheetAction.generateTree());
+        List<BacklogTimesheetNode> rootNodes = Collections.emptyList();
+        expect(timesheetBusiness.getRootNodes(productIds, startDate, endDate, userIds)).andReturn(rootNodes);
+        expect(timesheetBusiness.getRootNodeSum(rootNodes)).andReturn(500L);
+        replay(timesheetBusiness);
+        assertEquals(Action.SUCCESS, timesheetAction.generateTree());
+        assertEquals(rootNodes, timesheetAction.getProducts());
+        assertEquals(500L, timesheetAction.getEffortSum());
+        verify(timesheetBusiness);
     }
     
     @Test
