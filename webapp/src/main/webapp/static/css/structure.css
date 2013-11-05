@@ -34,7 +34,7 @@ img {
   font-size: 2em;
 }
 
-#updateMessage {
+#updateMessage, #cloudMessage {
   margin-top: 0.2em;
   float: right;
   height: 1.5em;
@@ -42,12 +42,12 @@ img {
   margin-right: 0.5em;
 }
 
-#updateMessage a {
+#updateMessage a, #cloudMessage a {
   text-decoration: underline;
   margin: 0 0.1em;  
 }
 
-#updateMessageBox {
+#updateMessageBox, #cloudMessageBox {
     display:none;
     position:absolute;
     border:1px solid #AAAAAA;

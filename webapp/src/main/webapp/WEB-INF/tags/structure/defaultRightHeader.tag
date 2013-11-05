@@ -17,8 +17,34 @@
   
 </div>
 <div id="updateMessage"></div>
+<div id="cloudMessage"></div>
 
 <script type="text/javascript">
+  var cloudMessageCookie = jQuery.cookie("cloudmessage");
+  
+  var appendCloudMessage = function(cloudMessage) {
+    if (cloudMessage == null) {
+      cloudMessage = 'Agilefant is now available as a hosted cloud version!<br><a target="_blank" href="http://agilefant.com/faq/what-is-the-feature-wise-difference-between-the-open-source-and-the-hosted-versions/">Click here for more information</a>';
+      jQuery.cookie("cloudmessage", cloudMessage, { expires: 1 });
+    }
+    var cloudMessageDiv = jQuery("#cloudMessage");
+    cloudMessageDiv.append('<img id="cloudImage" src="static/img/cloud.png"></img>');
+    cloudMessageDiv.append('<div id="cloudMessageBox">' + cloudMessage + '</div>');
+    cloudMessageDiv.append('<div style="float:right">&nbsp|</div>');
+    var cloudMessageBoxDiv = jQuery("#cloudMessageBox");
+    cloudMessageDiv.mouseover(function() {
+      if(cloudMessageBoxDiv.is(':animated')) {
+        cloudMessageBoxDiv.stop().animate({opacity:'100'});
+      }
+      cloudMessageBoxDiv.show();
+    }).mouseout(function() {
+      cloudMessageBoxDiv.hide();
+    });
+    if (!cloudMessageCookie) {
+      cloudMessageBoxDiv.show().delay(5000).fadeOut(2000);
+    }
+  };
+
   var myVersion = "${aef:version()}";
   var latestVersionCookie = jQuery.cookie("latestversion");
   var updateMessageCookie = jQuery.cookie("updatemessage");
@@ -46,14 +72,18 @@
     });
   } else {
     compareVersions(latestVersionCookie, updateMessageCookie);
+    appendCloudMessage(cloudMessageCookie);
   }
   
   var callback = function(data) {
     var latestVersion = data.version;
     var updateMessage = data.message;
+    var cloudMessage = data.cloudmessage;
     jQuery.cookie("latestversion", latestVersion, { expires: 1 });
     jQuery.cookie("updatemessage", updateMessage, { expires: 1 });
+    jQuery.cookie("cloudmessage", cloudMessage, { expires: 1 });
     compareVersions(latestVersion, updateMessage);
+    appendCloudMessage(cloudMessage);
   };
   
   function isMyVersionOld(myVersion, latestVersion) {
