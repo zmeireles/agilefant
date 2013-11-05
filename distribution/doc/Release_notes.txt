@@ -1,6 +1,6 @@
-Agilefant 3.3.3
+Agilefant 3.4
 Release notes
-2013-08-29
+2013-11-05
 --
 
 Please spend a couple of minutes to register your organization at
@@ -10,6 +10,69 @@ This helps us keep Agilefant open source and free forever!
 +--------------------+
 |     CHANGESET      |
 +--------------------+
+
+
+Changes from 3.3.3
+2013-11-05
+
+Usability improved:
++ Calculate from all backlogs when no backlogs are selected on the Timesheets page
++ Changed Timesheets default interval from Today to All past entries
++ Fill backlog or iteration field automatically in Create new dialog if user is on backlog or iteration page
++ Show ‘Filters’ text in the filter image in list views (project leaf stories and iteration views)
++ Help pages to open in new window
++ Dashboards now created from a button instead of a select menu + minor text and positioning changes
++ Newly created backlog now opens automatically in the left hand backlog tree after it has been created via the Create new button
++ Parent story now displayed in the project leaf stories list
++ Show ‘(none)’ instead of project name in iteration dropdown to remove story from an iteration in the Project leaf stories list view
++ Changed the button that opens / closes stories in list views to plus/minus
++ Changed the link from Agilefant logo to Daily work (was pointing at www.agilefant.org)
++ Selected menu item in left hand Administration menu highlighted
++ Removed Recent link from top left menu (unused feature), restructured create new and search links
++ Added dropdown arrow in autocomplete boxes
++ Display  ’No items found’ message when text typed to autocomplete does not match anything in team, user or story parent selection
++ Shortened footer height
++ Enabled autoclose when clicking outside bubble popup
++ User settings: Removed change password button, password can now be changed using a text field
++ All custom portfolios are now public
++ Show tasks in project’s Leaf stories tab
++ Removed Administration tab (Administration is still accessible from left menu)
++ Added scrollbar to middle area so that the header, footer and left menu do not move when the page is scrolled
++ Stories can now be edited on the Project planning view on the product level
++ Show stories and tasks in daily work as long as they are not done, even if they belong to project or iteration that has ended
++ Added Create new story button to daily work’s My story queue
++ Added create new project, iteration and story links to the product Roadmap tab
++ ‘Backlog’ auto-filled when creating projects and stories in the Roadmap tab
++ Newly created projects, iterations and stories (via the Create new -dialog) populate automatically to the current view
++ Keep sessions active to prevent the feeling of suddenly being logged out when returning after a long period of inactivity
++ Highlighted editable text fields
++ Highlighted required fields in Create new dialogs
++ Show all possible choices (teams, users, backlogs, etc. ) when clicking auto-complete input fields
++ Simplified Create new -dialogs by removing baseline load, planned size, story value, and labels
++ Added tutorial video links to help page
++ Renamed Dashboard (formerly known as the Portfolio) tab to Portfolio & Dashboards
++ Renamed custom portfolios as dashboards and dashboard widgets as metrics
++ Renamed Assignees as Project assignees or Iteration assignees
++ Renamed ‘Started’ to ‘In progress’ and its abbreviation ‘S’ to ‘I’
++ Renamed Roadmap tab to Project planning
++ Renamed Breakdown as Story tree
++ Renamed the All backlogs accordion as Backlogs
++ Renamed ES as Spent and EL as Left
++ Renamed Context to Iteration for tasks without story
++ Renamed My stories to Story queue in daily work
++ Text changes to edit user page
++ Highlight the active backlog name in Backlogs menu
++ Moved standalone iterations as separate tree in Backlogs menu
++ Moved create new menu to left side
++ Removed My stories in iterations from left menu
++ Show add and remove all buttons in team selection when creating new user
++ Removed original estimate field from story lists
++ When creating new team, the default choice for access rights is ‘all’
+
+Bug fixes:
++ Prevent nonadmins from creating users that belong to teams that the nonadmin user does not belong to
++ Burndown with just Spent effort wasn’t shown
++ Show user’s weekly hours as hours instead of minutes also for non-admin users
 
 Changes from 3.3.2
 2013-08-29
