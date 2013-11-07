@@ -432,7 +432,6 @@ ProjectController.prototype.createIteration = function() {
 	row.autoCreateCells([ 0, IterationRowController.columnIndices.actions, StoryController.columnIndices.tasksData ]);
 	row.render();
 	controller.openRowEdit();
-	row.getCellByName("tasksData").hide();
 };
 
 /**
