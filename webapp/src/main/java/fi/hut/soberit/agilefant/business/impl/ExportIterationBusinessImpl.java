@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.SpreadsheetVersion;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.ClientAnchor;
@@ -462,6 +463,9 @@ public class ExportIterationBusinessImpl implements ExportIterationBusiness {
     private static void formatCell(Cell cell, CellStyle style, String value) {
         cell.setCellType(Cell.CELL_TYPE_STRING);
         cell.setCellStyle(style);
+        if (value != null && value.length() > SpreadsheetVersion.EXCEL97.getMaxTextLength()) {
+            value = value.substring(0, SpreadsheetVersion.EXCEL97.getMaxTextLength());
+        }
         cell.setCellValue(value);
     }
 
