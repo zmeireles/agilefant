@@ -17,6 +17,8 @@ import fi.hut.soberit.agilefant.util.BeanCopier;
 @XmlRootElement(name="iterationto")
 @XmlAccessorType( XmlAccessType.NONE )
 public class IterationTO extends Iteration implements LeafStoryContainer, Scheduled {
+    
+    private IterationMetrics iterationMetrics;
 
     private ScheduleStatus scheduleStatus;
     
@@ -65,5 +67,13 @@ public class IterationTO extends Iteration implements LeafStoryContainer, Schedu
     public void setLeafStories(List<StoryTO> leafStories) {
         this.rankedStories = leafStories;
         
+    }
+
+    public IterationMetrics getIterationMetrics() {
+        return iterationMetrics;
+    }
+
+    public void setIterationMetrics(IterationMetrics iterationMetrics) {
+        this.iterationMetrics = iterationMetrics;
     }    
 }

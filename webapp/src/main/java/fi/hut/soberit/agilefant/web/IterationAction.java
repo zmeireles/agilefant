@@ -90,6 +90,12 @@ public class IterationAction implements CRUDAction, Prefetching, ContextAware {
         iteration = iterationBusiness.getIterationContents(iterationId);
         return Action.SUCCESS;
     }
+    
+    public String retrieveIterationMetrics() {
+        iteration = iterationBusiness.getIterationContents(iterationId);
+        iterationMetrics = iterationBusiness.getIterationMetrics(iteration);
+        return Action.SUCCESS;
+    }
 
     public String delete() {
         if(confirmationString.equalsIgnoreCase("yes")) {

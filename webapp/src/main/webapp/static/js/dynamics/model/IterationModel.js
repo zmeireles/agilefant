@@ -17,6 +17,7 @@ var IterationModel = function IterationModel() {
     assignees: [],
     team: []
   };
+  this.metrics = {};
   this.copiedFields = {
     "name":   "name",
     "description": "description",
@@ -77,6 +78,10 @@ IterationModel.prototype._setData = function(newData) {
   
   if (newData.teams) {
   	this._updateRelations(ModelFactory.types.team, newData.teams);
+  }
+  
+  if(newData.iterationMetrics) {
+    this.metrics = newData.iterationMetrics;
   }
   
 };
@@ -337,4 +342,32 @@ IterationModel.prototype.setAllTeams = function(teams) {
     this.currentData.teamsChanged = true;
     this.currentData.teamIds = teams;
   }
+};
+
+IterationModel.prototype.getTotalEffortSpent = function() {
+  return this.metrics.spentEffort;
+};
+IterationModel.prototype.getTotalEffortLeft = function() {
+  return this.metrics.effortLeft;
+};
+IterationModel.prototype.getTotalOriginalEstimate = function() {
+  return this.metrics.originalEstimate;
+};
+
+IterationModel.prototype.reloadMetrics = function(callback) {
+  var me = this;
+  jQuery.getJSON(
+    "ajax/retrieveIterationMetrics.action",
+    {iterationId: this.getId()},
+    function(data,status) {
+      if(data) {
+        me.metrics = data;
+      }
+      if(callback) {
+        callback();
+      }
+      me.callListeners(new DynamicsEvents.EditEvent(me));
+      me.callListeners(new DynamicsEvents.MetricsEvent(me));
+    }
+  );
 };

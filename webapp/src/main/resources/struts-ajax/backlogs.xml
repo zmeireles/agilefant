@@ -272,6 +272,12 @@
       <result name="success" type="dispatcher">/WEB-INF/jsp/inc/iterationMetrics.jsp</result>
     </action>
     
+    <action name="retrieveIterationMetrics" class="iterationAction" method="retrieveIterationMetrics">
+       <result type="json">
+        <param name="target">iterationMetrics</param>
+       </result>
+    </action>
+    
     <action name="ROIterationMetricsByToken" class="iterationAction" method="iterationMetricsByToken">
       <result name="success" type="dispatcher">/WEB-INF/jsp/inc/iterationMetrics.jsp</result>
     </action>

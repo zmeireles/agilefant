@@ -13,10 +13,13 @@ import org.springframework.stereotype.Component;
 import com.opensymphony.xwork2.Action;
 
 import fi.hut.soberit.agilefant.annotations.PrefetchId;
+import fi.hut.soberit.agilefant.business.IterationBusiness;
 import fi.hut.soberit.agilefant.business.ProjectBusiness;
 import fi.hut.soberit.agilefant.business.StoryBusiness;
+import fi.hut.soberit.agilefant.model.Iteration;
 import fi.hut.soberit.agilefant.model.Project;
 import fi.hut.soberit.agilefant.model.Story;
+import fi.hut.soberit.agilefant.transfer.IterationMetrics;
 import fi.hut.soberit.agilefant.transfer.IterationTO;
 import fi.hut.soberit.agilefant.transfer.ProjectMetrics;
 import fi.hut.soberit.agilefant.transfer.StoryTO;
@@ -59,8 +62,15 @@ public class ProjectAction implements CRUDAction, Prefetching, ContextAware {
     @Autowired 
     StoryBusiness storyBusiness;
     
+    @Autowired 
+    IterationBusiness iterationBusiness;
+    
     public String iterationList() {
         iterations = projectBusiness.retrieveProjectIterations(projectId);
+        for (IterationTO iteration : iterations) {
+        	IterationMetrics iterationMetrics = iterationBusiness.getIterationMetrics(iteration);
+        	iteration.setIterationMetrics(iterationMetrics);
+        }
         return Action.SUCCESS;
     }
     

@@ -601,6 +601,33 @@ ProjectController.prototype._iterationListColumnConfig = function(config) {
 					set : BacklogModel.prototype.setAssignees
 				}
 			});
+	config.addColumnConfiguration(
+			IterationRowController.columnIndices.left, {
+				minWidth : 30,
+				  autoScale : true,
+				  cssClass : 'sum-column',
+				  title : "Left",
+				  headerTooltip : "Total sum of stories' tasks' effort left estimates in man-hours",
+				  decorator: DynamicsDecorators.exactEstimateSumDecorator,
+				  get : IterationModel.prototype.getTotalEffortLeft
+			});
+	config.addColumnConfiguration(
+			IterationRowController.columnIndices.spent, {
+				minWidth : 30,
+				  autoScale : true,
+				  title : "Spent",
+				  headerTooltip : 'Total task effort spent in man-hours',
+				  decorator: DynamicsDecorators.exactEstimateDecorator,
+				  get : IterationModel.prototype.getTotalEffortSpent,
+				  editable : false,
+				  visualizedEditable: true,
+				  onClick: StoryController.prototype.openQuickLogEffort,
+				  edit : {
+				    editor : "ExactEstimate",
+				    decorator: DynamicsDecorators.empty,
+				    set : StoryController.prototype.quickLogEffort
+				  }
+			});
 	config
 			.addColumnConfiguration(
 					IterationRowController.columnIndices.startDate,

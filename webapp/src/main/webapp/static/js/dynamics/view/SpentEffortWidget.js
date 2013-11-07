@@ -57,6 +57,8 @@ SpentEffortWidget.prototype.close = function() {
     this.model.reload();
   } else if(this.model instanceof StoryModel) {
     this.model.reloadMetrics();
+  } else if(this.model instanceof IterationModel) {
+    this.model.reloadMetrics();
   }
   if(this.onClose) {
     this.onClose();
