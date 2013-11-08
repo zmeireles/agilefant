@@ -607,7 +607,7 @@ ProjectController.prototype._iterationListColumnConfig = function(config) {
 				  autoScale : true,
 				  cssClass : 'sum-column',
 				  title : "Left",
-				  headerTooltip : "Total sum of stories' tasks' effort left estimates in man-hours",
+				  headerTooltip : "Total sum of tasks' effort left estimates in man-hours",
 				  decorator: DynamicsDecorators.exactEstimateSumDecorator,
 				  get : IterationModel.prototype.getTotalEffortLeft
 			});
@@ -616,7 +616,7 @@ ProjectController.prototype._iterationListColumnConfig = function(config) {
 				minWidth : 30,
 				  autoScale : true,
 				  title : "Spent",
-				  headerTooltip : 'Total task effort spent in man-hours',
+				  headerTooltip : "Total effort spent in man-hours (stories, tasks, the iteration)",
 				  decorator: DynamicsDecorators.exactEstimateDecorator,
 				  get : IterationModel.prototype.getTotalEffortSpent,
 				  editable : false,
