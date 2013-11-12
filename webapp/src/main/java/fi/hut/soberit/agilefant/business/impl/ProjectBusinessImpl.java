@@ -183,17 +183,13 @@ public class ProjectBusinessImpl extends GenericBusinessImpl<Project> implements
         List<IterationTO> iterations = this.retrieveProjectIterations(project.getId());
         for (Iteration iteration : iterations) {
             totalSpentEffort += hourEntryBusiness.calculateSumOfIterationsHourEntries(iteration);
-            for (Story story : iteration.getStories()) {
+        }
+        for (Story story: project.getStories()) {
+            if (story.getIteration() == null) {
                 totalSpentEffort += hourEntryBusiness.calculateSum(story.getHourEntries());
                 for (Task task : story.getTasks()) {
                     totalSpentEffort += hourEntryBusiness.calculateSum(task.getHourEntries());
                 }
-            }
-        }
-        for (Story story: project.getStories()) {
-            totalSpentEffort += hourEntryBusiness.calculateSum(story.getHourEntries());
-            for (Task task : story.getTasks()) {
-                totalSpentEffort += hourEntryBusiness.calculateSum(task.getHourEntries());
             }
         }
         return totalSpentEffort;
