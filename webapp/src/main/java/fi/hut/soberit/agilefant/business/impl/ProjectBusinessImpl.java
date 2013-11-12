@@ -192,6 +192,9 @@ public class ProjectBusinessImpl extends GenericBusinessImpl<Project> implements
         }
         for (Story story: project.getStories()) {
             totalSpentEffort += hourEntryBusiness.calculateSum(story.getHourEntries());
+            for (Task task : story.getTasks()) {
+                totalSpentEffort += hourEntryBusiness.calculateSum(task.getHourEntries());
+            }
         }
         return totalSpentEffort;
     }

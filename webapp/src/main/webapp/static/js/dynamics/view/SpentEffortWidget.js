@@ -55,6 +55,7 @@ SpentEffortWidget.prototype.close = function() {
   this.element.dialog('destroy').remove();
   if(this.model instanceof TaskModel) {
     this.model.reload();
+    this.reloadParent();
   } else if(this.model instanceof StoryModel) {
     this.model.reloadMetrics();
     this.reloadParent();
@@ -70,11 +71,19 @@ SpentEffortWidget.prototype.close = function() {
   }
 };
 
+// Reloads the project total hours in editProject.action page
 SpentEffortWidget.prototype.reloadParent = function() {
   var parent = this.model.getParent();
   var currentLastSegment = getCurrentLastSegment();
-  if (currentLastSegment == "editProject.action" && parent instanceof ProjectModel) {
-    parent.reloadTotalSpentEffort();
+  if (currentLastSegment == "editProject.action") {
+    if (parent instanceof ProjectModel) {
+      parent.reloadTotalSpentEffort();
+    } else if (parent instanceof StoryModel) {
+      var parentParent = parent.getParent();
+      if (parentParent instanceof ProjectModel) {
+        parentParent.reloadTotalSpentEffort();
+      }
+    }
   }
 };
 
