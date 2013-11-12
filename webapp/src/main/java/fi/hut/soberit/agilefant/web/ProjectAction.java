@@ -16,12 +16,14 @@ import fi.hut.soberit.agilefant.annotations.PrefetchId;
 import fi.hut.soberit.agilefant.business.IterationBusiness;
 import fi.hut.soberit.agilefant.business.ProjectBusiness;
 import fi.hut.soberit.agilefant.business.StoryBusiness;
+import fi.hut.soberit.agilefant.model.ExactEstimate;
 import fi.hut.soberit.agilefant.model.Iteration;
 import fi.hut.soberit.agilefant.model.Project;
 import fi.hut.soberit.agilefant.model.Story;
 import fi.hut.soberit.agilefant.transfer.IterationMetrics;
 import fi.hut.soberit.agilefant.transfer.IterationTO;
 import fi.hut.soberit.agilefant.transfer.ProjectMetrics;
+import fi.hut.soberit.agilefant.transfer.ProjectTO;
 import fi.hut.soberit.agilefant.transfer.StoryTO;
 import fi.hut.soberit.agilefant.util.StoryFilters;
 
@@ -43,6 +45,8 @@ public class ProjectAction implements CRUDAction, Prefetching, ContextAware {
     private Project project;
     
     private ProjectMetrics projectMetrics;
+    
+    private long totalSpentEffort;
     
     private List<Story> stories;
     
@@ -92,6 +96,12 @@ public class ProjectAction implements CRUDAction, Prefetching, ContextAware {
     public String projectMetrics() {
         project = projectBusiness.retrieve(projectId);
         projectMetrics = projectBusiness.getProjectMetrics(project);
+        return Action.SUCCESS;
+    }
+    
+    public String projectTotalSpentEffort() {
+        project = projectBusiness.retrieve(projectId);
+        this.totalSpentEffort = projectBusiness.getProjectTotalSpentEffort(project);
         return Action.SUCCESS;
     }
     
@@ -241,5 +251,13 @@ public class ProjectAction implements CRUDAction, Prefetching, ContextAware {
     public void setIterations(List<IterationTO> iterations) {
         this.iterations = iterations;
     }
+
+	public long getTotalSpentEffort() {
+		return totalSpentEffort;
+	}
+
+	public void setTotalSpentEffort(long totalSpentEffort) {
+		this.totalSpentEffort = totalSpentEffort;
+	}
     
 }

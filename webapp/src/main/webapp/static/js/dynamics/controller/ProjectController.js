@@ -126,7 +126,7 @@ ProjectController.prototype.filterLeafStoriesByState = function(element) {
  * @member ProjectController
  */
 ProjectController.columnNames = [ "name", "reference", "startDate", "endDate",
-		"plannedSize", "baselineLoad", "assignees", "description" ];
+		"plannedSize", "effortSpent", "baselineLoad", "assignees", "description" ];
 ProjectController.columnIndices = CommonController
 		.createColumnIndices(ProjectController.columnNames);
 
@@ -192,6 +192,21 @@ ProjectController.columnConfigs = {
 			size : '10ex',
 			set : ProjectModel.prototype.setBacklogSize
 		}
+	},
+	effortSpent : {
+		minWidth : 30,
+		  title : "Effort Spent",
+		  decorator: DynamicsDecorators.exactEstimateAppendManHourDecorator,
+		  get : ProjectModel.prototype.getTotalEffortSpent,
+		  editable : false,
+		  visualizedEditable: true,
+		  onClick: StoryController.prototype.openQuickLogEffort,
+		  edit : {
+		    editor : "ExactEstimate",
+		    decorator: DynamicsDecorators.exactEstimateEditDecorator,
+		    size : '10ex',
+		    set : StoryController.prototype.quickLogEffort
+		  }
 	},
 	baselineLoad : {
 		title : "Baseline load",
@@ -353,6 +368,7 @@ ProjectController.prototype.paint = function() {
 //            me.filter(); // reload the tab content (story tree, leaf stories)
 //          }
 //        );
+        model.reloadTotalSpentEffort();
         me.model = model;
         me.attachModelListener();
         me.paintProjectDetails();
@@ -511,6 +527,8 @@ ProjectController.prototype.initializeProjectDetailsConfig = function() {
 			ProjectController.columnConfigs.endDate);
 	config.addColumnConfiguration(ProjectController.columnIndices.plannedSize,
 			ProjectController.columnConfigs.plannedSize);
+	config.addColumnConfiguration(ProjectController.columnIndices.effortSpent,
+			ProjectController.columnConfigs.effortSpent);
 	config.addColumnConfiguration(ProjectController.columnIndices.baselineLoad,
 			ProjectController.columnConfigs.baselineLoad);
 	config.addColumnConfiguration(ProjectController.columnIndices.assignees,

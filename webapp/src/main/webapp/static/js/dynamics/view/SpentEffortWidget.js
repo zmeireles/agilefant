@@ -57,12 +57,29 @@ SpentEffortWidget.prototype.close = function() {
     this.model.reload();
   } else if(this.model instanceof StoryModel) {
     this.model.reloadMetrics();
+    this.reloadParent();
   } else if(this.model instanceof IterationModel) {
     this.model.reloadMetrics();
+    this.reloadParent();
+  }
+  else if(this.model instanceof ProjectModel) {
+    this.model.reloadTotalSpentEffort();
   }
   if(this.onClose) {
     this.onClose();
   }
 };
 
+SpentEffortWidget.prototype.reloadParent = function() {
+  var parent = this.model.getParent();
+  var currentLastSegment = getCurrentLastSegment();
+  if (currentLastSegment == "editProject.action" && parent instanceof ProjectModel) {
+    parent.reloadTotalSpentEffort();
+  }
+};
+
+function getCurrentLastSegment() {
+  var url = $(location).attr('href');
+  return (getUrlLastSegment(url));
+}
 

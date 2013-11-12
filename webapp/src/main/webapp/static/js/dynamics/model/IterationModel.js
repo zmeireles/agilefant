@@ -370,4 +370,19 @@ IterationModel.prototype.reloadMetrics = function(callback) {
       me.callListeners(new DynamicsEvents.MetricsEvent(me));
     }
   );
+  /*
+  jQuery.getJSON(
+		    "ajax/projectTotalSpentEffort.action",
+		    {projectId: this.getParent().getId()},
+		    function(data,status) {
+		      if(data != null) {
+		        me.totalSpentEffort = data;
+		      }
+		      if(callback) {
+		        callback();
+		      }
+		      this.getParent().callListeners(new DynamicsEvents.EditEvent(this.getParent()));
+		    }
+		  );
+		  */
 };

@@ -173,6 +173,30 @@ public class ProjectBusinessImpl extends GenericBusinessImpl<Project> implements
     }
     
     /** {@inheritDoc} */
+    @Transactional(readOnly = true)
+    public long getProjectTotalSpentEffort(Project project) {
+        if (project == null) {
+            throw new IllegalArgumentException("Project must be supplied");
+        }
+        
+        long totalSpentEffort = hourEntryBusiness.calculateSum(project.getHourEntries());
+        List<IterationTO> iterations = this.retrieveProjectIterations(project.getId());
+        for (Iteration iteration : iterations) {
+            totalSpentEffort += hourEntryBusiness.calculateSumOfIterationsHourEntries(iteration);
+            for (Story story : iteration.getStories()) {
+                totalSpentEffort += hourEntryBusiness.calculateSum(story.getHourEntries());
+                for (Task task : story.getTasks()) {
+                    totalSpentEffort += hourEntryBusiness.calculateSum(task.getHourEntries());
+                }
+            }
+        }
+        for (Story story: project.getStories()) {
+            totalSpentEffort += hourEntryBusiness.calculateSum(story.getHourEntries());
+        }
+        return totalSpentEffort;
+    }
+    
+    /** {@inheritDoc} */
     public ProjectTO store(int projectId,
             Integer productId, Project project, Set<Integer> assigneeIds) throws ObjectNotFoundException,
             IllegalArgumentException {

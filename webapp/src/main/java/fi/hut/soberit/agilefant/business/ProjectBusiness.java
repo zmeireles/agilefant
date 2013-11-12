@@ -26,6 +26,12 @@ public interface ProjectBusiness extends GenericBusiness<Project> {
 
     public ProjectMetrics getProjectMetrics(Project project);
     
+    /**
+     * Calculate the sum of spent effort from all hour entries from the project itself, 
+     * iterations, iteration tasks, iteration stories and iteration story tasks.
+     */
+    public long getProjectTotalSpentEffort(Project project);
+    
     public ProjectTO getProjectData(int projectId);
     
     Project rankUnderProject(Project project, Project upperProject)

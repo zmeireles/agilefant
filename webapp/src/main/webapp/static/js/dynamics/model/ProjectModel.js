@@ -16,6 +16,7 @@ var ProjectModel = function ProjectModel() {
     hourEntry: [],
     assignees: []
   };
+  this.totalSpentEffort = "Loading...";
   this.copiedFields = {
     "name":   "name",
     "description": "description",
@@ -451,3 +452,24 @@ ProjectModel.prototype.rank = function() {
 	    }
 	  });
 	};
+
+ProjectModel.prototype.getTotalEffortSpent = function() {
+  return this.totalSpentEffort;
+};
+
+ProjectModel.prototype.reloadTotalSpentEffort = function(callback) {
+  var me = this;
+  jQuery.getJSON(
+    "ajax/projectTotalSpentEffort.action",
+    {projectId: this.getId()},
+    function(data,status) {
+      if(data != null) {
+        me.totalSpentEffort = data;
+      }
+      if(callback) {
+        callback();
+      }
+      me.callListeners(new DynamicsEvents.EditEvent(me));
+    }
+  );
+};

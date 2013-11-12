@@ -65,6 +65,12 @@
       </result>
     </action>
     
+    <action name="projectTotalSpentEffort" class="projectAction" method="projectTotalSpentEffort">
+       <result type="json">
+        <param name="target">totalSpentEffort</param>
+       </result>
+    </action>
+    
     <action name="productBacklogView" method="retrieveLeafStories" class="productAction">
       <result name="success" type="dispatcher">/WEB-INF/jsp/fragments/productBacklogView.jsp</result>
     </action>
