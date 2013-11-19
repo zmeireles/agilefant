@@ -681,7 +681,7 @@ CreateDialog.User.prototype.initFormConfig = function() {
       config.addColumnConfiguration(CreateDialog.User.columnIndices.admin,{
           title: "Administrator",
           editable: false,
-          get: noFunction,
+          get: noFunction
       });
     }
 

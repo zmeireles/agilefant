@@ -3,7 +3,7 @@ var AutocompleteSelectAllItems = function AutocompleteSelectAllItems(element, da
   this.element = element;
   this.parent = parent;
   this.options = {
-      caption: "Add all",
+      caption: "Add all"
   };
 };
 

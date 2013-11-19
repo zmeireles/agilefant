@@ -3,7 +3,7 @@ var AutocompleteRemoveAllItems = function AutocompleteRemoveAllItems(element, da
   this.element = element;
   this.parent = parent;
   this.options = {
-      caption: "Remove all",
+      caption: "Remove all"
   };
 };
 
