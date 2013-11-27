@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import fi.hut.soberit.agilefant.business.NotificationBusiness;
 import fi.hut.soberit.agilefant.business.impl.NotificationEmailSender;
 import fi.hut.soberit.agilefant.core.ApplicationContextHolder;
+import fi.hut.soberit.agilefant.model.Story;
 import fi.hut.soberit.agilefant.model.notification.NotificationEvent;
 import fi.hut.soberit.agilefant.model.notification.NotificationEventType;
 
@@ -35,6 +36,10 @@ public class NotificationEventListener implements PostInsertEventListener, PostU
 
     public void onPostUpdate(PostUpdateEvent postUpdateEvent) {
         checkState();
+
+        if (checkIgnore(postUpdateEvent)) {
+            return;
+        }
 
         final NotificationEvent notificationEvent =
                 new NotificationEvent(postUpdateEvent.getEntity(), NotificationEventType.UPDATE);
@@ -62,5 +67,18 @@ public class NotificationEventListener implements PostInsertEventListener, PostU
             notificationBusiness = (NotificationBusiness) applicationContext.getBean(
                     NotificationEmailSender.NOTIFICATION_BUSINESS_BEAN_NAME);
         }
+    }
+
+    private boolean checkIgnore(PostUpdateEvent postUpdateEvent) {
+        if (postUpdateEvent.getEntity() instanceof Story) {
+            int[] dirtyProperties = postUpdateEvent.getDirtyProperties();
+            if (dirtyProperties.length == 1) {
+                if (postUpdateEvent.getPersister().getPropertyNames()[dirtyProperties[0]] == "treeRank") {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
