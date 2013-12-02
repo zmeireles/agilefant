@@ -22,7 +22,11 @@ $(document).ready(function() {
     var id = $(this).attr('id');
     <c:choose>
       <c:when test="${product.id != null}">
-        CreateDialog.createByIdWithAutofilledBacklogId(id, ${product.id});
+        if (id == "createNewIteration") {
+          CreateDialog.createById(id);
+        } else {
+          CreateDialog.createByIdWithAutofilledBacklogId(id, ${product.id});
+        }
       </c:when>
       <c:when test="${project.id != null}">
         if (id == "createNewProject") {
