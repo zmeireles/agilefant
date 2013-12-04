@@ -27,5 +27,7 @@ public interface BacklogDAO extends GenericDAO<Backlog> {
     
     public List<Backlog> searchByName(String name, Class<?> type);
     
+    public List<Backlog> searchByID(Integer id);
+    
     public Collection<Backlog> retrieveStandaloneIterations();
 }

@@ -33,6 +33,6 @@ public interface StoryDAO extends GenericDAO<Story> {
     
     public List<Story> searchByName(String name);
     
-    public List<Story> searchByID(String id);
+    public List<Story> searchByID(Integer id);
 
 }

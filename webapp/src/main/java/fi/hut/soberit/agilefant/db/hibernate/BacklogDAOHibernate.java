@@ -75,6 +75,15 @@ public class BacklogDAOHibernate extends GenericDAOHibernate<Backlog> implements
         return asList(crit);
     }
     
+    public List<Backlog> searchByID(Integer id) {
+        Criteria crit = this.createCriteria(Backlog.class);
+        crit.add(Restrictions.eq("id", id));
+        crit.addOrder(Order.asc("class"));
+        crit.addOrder(Order.asc("name"));
+        crit.setMaxResults(SearchBusiness.MAX_RESULTS_PER_TYPE);
+        return asList(crit);
+    }
+    
     public Collection<Backlog> retrieveStandaloneIterations() {
         Criteria crit = this.createCriteria(Backlog.class);
         crit.add(Restrictions.sqlRestriction("{alias}.parent_id is NULL"));

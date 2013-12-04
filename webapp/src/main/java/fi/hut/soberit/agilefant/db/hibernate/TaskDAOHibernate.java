@@ -295,4 +295,12 @@ public class TaskDAOHibernate extends GenericDAOHibernate<Task> implements
         crit.setMaxResults(SearchBusiness.MAX_RESULTS_PER_TYPE);
         return asList(crit);
     }
+    
+    public List<Task> searchByID(Integer id) {
+        Criteria crit = this.createCriteria(Task.class);
+        crit.add(Restrictions.eq("id", id));
+        crit.addOrder(Order.asc("name"));
+        crit.setMaxResults(SearchBusiness.MAX_RESULTS_PER_TYPE);
+        return asList(crit);
+    }
 }

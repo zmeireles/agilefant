@@ -138,4 +138,6 @@ public interface TaskDAO extends GenericDAO<Task> {
      * @return List of all tasks in search term
      */
     public List<Task> searchByName(String name);
+    
+    public List<Task> searchByID(Integer id);
 }

@@ -50,18 +50,20 @@ public class SearchBusinessImpl implements SearchBusiness {
                     quickRefMatch));
         }
         List<Backlog> backlogs = backlogDAO.searchByName(searchTerm);
-        backlogListSearchResult(result, backlogs);
         List<Story> stories = storyDAO.searchByName(searchTerm);
-        try {
-            stories.addAll(storyDAO.searchByID(searchTerm));
-            storyListSearchResult(result, stories);
-        }
-        catch (Exception e) {
-            // The search term is not an integer
-            storyListSearchResult(result, stories);
-        }
         List<Task> tasks = taskDAO.searchByName(searchTerm);
+        try {
+            Integer searchTermId = Integer.parseInt(searchTerm);
+            backlogs.addAll(backlogDAO.searchByID(searchTermId));
+            stories.addAll(storyDAO.searchByID(searchTermId));
+            tasks.addAll(taskDAO.searchByID(searchTermId));
+        } catch (Exception e) {
+            // The search term is not an integer
+        }
+        backlogListSearchResult(result, backlogs);
+        storyListSearchResult(result, stories);
         taskListSearchResult(result, tasks);
+        
         return result;
     }
 
@@ -83,9 +85,9 @@ public class SearchBusinessImpl implements SearchBusiness {
             List<Task> tasks) {
         for(Task task : tasks) {
             if(task.getStory()!= null){
-            	Backlog backlog = task.getStory().getBacklog();
-            	Iteration iteration = task.getStory().getIteration();
-            	if((backlog!=null && checkAccess(backlog)) || (iteration!=null && checkAccess(iteration))){
+                Backlog backlog = task.getStory().getBacklog();
+                Iteration iteration = task.getStory().getIteration();
+                if((backlog!=null && checkAccess(backlog)) || (iteration!=null && checkAccess(iteration))){
                     result.add(new SearchResultRow(task.getStory().getName() + " > " + 
                         task.getName(), task));
                 }
@@ -116,7 +118,7 @@ public class SearchBusinessImpl implements SearchBusiness {
     }
     
     private boolean checkAccess(Backlog bl){
-    	return this.authorizationBusiness.isBacklogAccessible(bl.getId(), SecurityUtil.getLoggedUser());
+        return this.authorizationBusiness.isBacklogAccessible(bl.getId(), SecurityUtil.getLoggedUser());
     }
 
     public NamedObject searchByReference(String searchTerm) {
