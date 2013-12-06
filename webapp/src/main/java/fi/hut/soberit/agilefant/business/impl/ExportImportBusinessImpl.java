@@ -114,19 +114,19 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 	public AgilefantWidgetAndRef addWidgetTypeInfo(AgilefantWidget widget) {
 		if(widget.getType().startsWith("story")) {
 			Story story = this.storyDAO.get(widget.getObjectId());
-			return new AgilefantWidgetAndRef(widget, story);
+			return story==null ? null : new AgilefantWidgetAndRef(widget, story);
 		}
 		if(widget.getType().startsWith("iteration")) {
 			Iteration iteration = this.iterationDAO.get(widget.getObjectId());
-			return new AgilefantWidgetAndRef(widget, iteration);			
+			return iteration==null ? null : new AgilefantWidgetAndRef(widget, iteration);			
 		}
 		if(widget.getType().startsWith("project")) {
 			Project project = this.projectDAO.get(widget.getObjectId());
-			return new AgilefantWidgetAndRef(widget, project);			
+			return project==null ? null : new AgilefantWidgetAndRef(widget, project);			
 		}
 		if(widget.getType().startsWith("user")) {
 			User user = this.userDAO.get(widget.getObjectId());
-			return new AgilefantWidgetAndRef(widget, user);			
+			return user==null ? null : new AgilefantWidgetAndRef(widget, user);			
 		}
 		throw new RuntimeException("Unknown widget type " + widget.getType());
 	}
@@ -164,7 +164,10 @@ public class ExportImportBusinessImpl implements ExportImportBusiness {
 		organizationTO.widgetCollections.addAll(this.widgetCollectionDAO.getAll());
 
 		for(AgilefantWidget widget : this.agilefantWidgetDAO.getAll()) {
-			organizationTO.widgets.add(this.addWidgetTypeInfo(widget));			
+			AgilefantWidgetAndRef widgetAndRef = this.addWidgetTypeInfo(widget);
+			if(widgetAndRef!=null) {
+				organizationTO.widgets.add(widgetAndRef);
+			}
 		}
 		
 		return organizationTO;
