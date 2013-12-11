@@ -5,6 +5,7 @@ import java.util.Set;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import com.opensymphony.xwork2.TextProvider;
 
@@ -31,7 +32,7 @@ public interface TimesheetExportBusiness {
     
 
     public Workbook generateTimesheet(TextProvider textProvider,
-            Set<Integer> backlogIds, DateTime startDate, DateTime endDate,
+            Set<Integer> backlogIds, DateTime startDate, DateTime endDate, DateTimeZone timeZone,
             Set<Integer> userIds);
 
 }

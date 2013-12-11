@@ -1,6 +1,7 @@
 package fi.hut.soberit.agilefant.util;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import fi.hut.soberit.agilefant.model.Backlog;
 import fi.hut.soberit.agilefant.model.BacklogHourEntry;
@@ -21,6 +22,8 @@ public class TimesheetExportRowData {
     private Iteration iteration = null;
     private Project project = null;
     private Product product = null;
+    private DateTimeZone timeZone;
+    private DateTimeZone serverTimeZone = new DateTime().getZone();
     
     public TimesheetExportRowData(TaskHourEntry entry) {
         this.entry = entry;
@@ -64,7 +67,17 @@ public class TimesheetExportRowData {
         return this.entry.getDescription();
     }
     public DateTime getDate() {
-        return this.entry.getDate();
+        if (timeZone != null) {
+            return this.entry.getDate().plusMillis(timeZone.getOffset(0)).minusMillis(serverTimeZone.getOffset(0));
+        } else {
+            return this.entry.getDate();
+        }
+    }
+    public DateTimeZone getTimeZone() {
+        return timeZone;
+    }
+    public void setTimeZone(DateTimeZone timeZone) {
+        this.timeZone = timeZone;
     }
     public long getEffort() {
         return this.entry.getMinutesSpent();

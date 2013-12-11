@@ -18,6 +18,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -112,7 +113,7 @@ public class TimesheetExportBusinessTest extends TimesheetExportBusinessImpl {
         this.setHourEntryDAO(heDAO);
         replay(heDAO);
         List<TimesheetExportRowData> actual = super.getTimesheetRows(null,
-                null, null, null);
+                null, null, null, null);
         assertEquals(0, actual.size());
         verify(heDAO);
     }
@@ -143,7 +144,7 @@ public class TimesheetExportBusinessTest extends TimesheetExportBusinessImpl {
 
         replay(heDAO);
         List<TimesheetExportRowData> actual = super.getTimesheetRows(
-                backlogIds, startTime, endtTime, userIds);
+                backlogIds, startTime, endtTime, null, userIds);
         assertEquals(3, actual.size());
         verify(heDAO);
 

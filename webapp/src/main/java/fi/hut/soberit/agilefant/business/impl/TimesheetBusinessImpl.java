@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,8 @@ public class TimesheetBusinessImpl implements TimesheetBusiness {
     @Autowired
     private HourEntryDAO hourEntryDAO;
     
+    private DateTimeZone serverTimeZone = new DateTime().getZone();
+    
     public long getRootNodeSum(List<BacklogTimesheetNode> nodes) {
         if(nodes == null) {
             return 0L;
@@ -52,7 +55,13 @@ public class TimesheetBusinessImpl implements TimesheetBusiness {
         }
         return rootNodes;
     }
-    public List<BacklogTimesheetNode> getRootNodes(Set<Integer> backlogIds, DateTime startDate, DateTime endDate, Set<Integer> userIds) {
+    public List<BacklogTimesheetNode> getRootNodes(Set<Integer> backlogIds, DateTime startDate, DateTime endDate, DateTimeZone timeZone, Set<Integer> userIds) {
+    	if (startDate != null && timeZone != null) {
+        	startDate = startDate.minusMillis(timeZone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
+        }
+        if (endDate != null && timeZone != null) {
+        	endDate = endDate.minusMillis(timeZone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
+        }
         TimesheetData sheetData = this.generateTimesheet(backlogIds, startDate, endDate, userIds);
         return this.findRootNodes(sheetData);
     }

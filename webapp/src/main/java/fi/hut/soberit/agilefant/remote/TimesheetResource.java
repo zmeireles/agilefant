@@ -45,7 +45,7 @@ public class TimesheetResource {
             startDate = fmt.parseDateTime(startDateStr);
         }
         List<BacklogTimesheetNode> rootNodes = this.timesheetBusiness
-                .getRootNodes(backlogIds, startDate, endDate, userIds);
+                .getRootNodes(backlogIds, startDate, endDate, null, userIds);
         long effortSum = this.timesheetBusiness.getRootNodeSum(rootNodes);
         TimesheetReportTO report = new TimesheetReportTO();
         report.setProductNodes(rootNodes);

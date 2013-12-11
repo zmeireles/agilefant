@@ -14,6 +14,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,13 +38,20 @@ public class TimesheetExportBusinessImpl implements TimesheetExportBusiness {
     private CellStyle headerStyle;
     @Autowired
     private HourEntryDAO hourEntryDAO;
+    private DateTimeZone serverTimeZone = new DateTime().getZone();
 
     public Workbook generateTimesheet(TextProvider textProvider,
-            Set<Integer> backlogIds, DateTime startDate, DateTime endDate,
+            Set<Integer> backlogIds, DateTime startDate, DateTime endDate, DateTimeZone timeZone,
             Set<Integer> userIds) {
         Workbook workbook = new HSSFWorkbook();
+        if (startDate != null && timeZone != null) {
+        	startDate = startDate.minusMillis(timeZone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
+        }
+        if (endDate != null && timeZone != null) {
+        	endDate = endDate.minusMillis(timeZone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
+        }
         List<TimesheetExportRowData> reportData = this.getTimesheetRows(
-                backlogIds, startDate, endDate, userIds);
+        		backlogIds, startDate, endDate, timeZone, userIds);
         Sheet plainReport = workbook.createSheet("Agilefant Timesheet");
         this.initializeColumnStyles(workbook);
         this.renderHeader(plainReport, textProvider);
@@ -53,7 +61,7 @@ public class TimesheetExportBusinessImpl implements TimesheetExportBusiness {
     }
 
     public List<TimesheetExportRowData> getTimesheetRows(
-            Set<Integer> backlogIds, DateTime startDate, DateTime endDate,
+            Set<Integer> backlogIds, DateTime startDate, DateTime endDate, DateTimeZone timeZone,
             Set<Integer> userIds) {
         List<BacklogHourEntry> backlogEntries = this.hourEntryDAO
                 .getBacklogHourEntriesByFilter(backlogIds, startDate, endDate,
@@ -76,6 +84,9 @@ public class TimesheetExportBusinessImpl implements TimesheetExportBusiness {
 
         for (TaskHourEntry entry : taskEntries) {
             timesheetData.add(new TimesheetExportRowData(entry));
+        }
+        for (TimesheetExportRowData data: timesheetData) {
+        	data.setTimeZone(timeZone);
         }
         Collections.sort(timesheetData, new TimesheetExportRowDataComparator());
         return timesheetData;

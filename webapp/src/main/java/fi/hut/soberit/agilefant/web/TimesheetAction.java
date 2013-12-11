@@ -16,6 +16,7 @@ import java.util.Set;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -73,7 +74,11 @@ public class TimesheetAction extends ActionSupport {
 
     private DateTime endDate;
     
-    private String interval;
+    private String timeZoneString = "";
+    
+    private DateTimeZone timeZone;
+    
+	private String interval;
     
     private Set<Integer> userIds = new HashSet<Integer>();
         
@@ -99,6 +104,7 @@ public class TimesheetAction extends ActionSupport {
     public String initialize() {
         this.interval = "NO_INTERVAL";
         this.onlyOngoing = false;
+        this.timeZone = new DateTime().getZone();
         return Action.SUCCESS;
     }
 
@@ -120,7 +126,7 @@ public class TimesheetAction extends ActionSupport {
                 selectedBacklogIds.add(i.next().getId());
             }
         }
-        products = timesheetBusiness.getRootNodes(selectedBacklogIds, startDate, endDate, this.userIds);
+        products = timesheetBusiness.getRootNodes(selectedBacklogIds, startDate, endDate, timeZone, this.userIds);
         effortSum = timesheetBusiness.getRootNodeSum(products);
         return Action.SUCCESS;
     }
@@ -143,7 +149,7 @@ public class TimesheetAction extends ActionSupport {
                 selectedBacklogIds.add(i.next().getId());
             }
         }
-        Workbook wb = this.timesheetExportBusiness.generateTimesheet(this, selectedBacklogIds, startDate, endDate, userIds);
+        Workbook wb = this.timesheetExportBusiness.generateTimesheet(this, selectedBacklogIds, startDate, endDate, timeZone, userIds);
         this.exportableReport = new ByteArrayOutputStream();
         try {
             wb.write(this.exportableReport);
@@ -228,6 +234,27 @@ public class TimesheetAction extends ActionSupport {
     public void setEndDate(DateTime endDate) {
         this.endDate = endDate;
     }
+    
+    public DateTimeZone getTimeZone() {
+		return timeZone;
+	}
+	public void setTimeZone(DateTimeZone timeZone) {
+		this.timeZone = timeZone;
+	}
+	
+    public String getTimeZoneString() {
+		return timeZoneString;
+	}
+	public void setTimeZoneString(String timeZoneString) {
+		this.timeZoneString = timeZoneString;
+		Double timeZoneDouble = new Double(timeZoneString);
+		int hoursOffset = timeZoneDouble.intValue();
+		int minutesOffset = (int)Math.abs((60 * (timeZoneDouble - hoursOffset)));
+		if (minutesOffset > 59 || minutesOffset < 0) {
+			minutesOffset = 0;
+		}
+		this.timeZone = DateTimeZone.forOffsetHoursMinutes(hoursOffset, minutesOffset);
+	}
 
     public String getInterval() {
         return interval;

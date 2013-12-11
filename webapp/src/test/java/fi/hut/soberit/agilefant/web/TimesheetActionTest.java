@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,7 +52,7 @@ public class TimesheetActionTest {
         timesheetAction.setEndDate(new DateTime(2009,5,1,1,1,0,0));
         timesheetAction.setProductIds(productIds);
         List<BacklogTimesheetNode> rootNodes = Collections.emptyList();
-        expect(timesheetBusiness.getRootNodes(productIds, startDate, endDate, userIds)).andReturn(rootNodes);
+        expect(timesheetBusiness.getRootNodes(productIds, startDate, endDate, null, userIds)).andReturn(rootNodes);
         expect(timesheetBusiness.getRootNodeSum(rootNodes)).andReturn(500L);
         replay(timesheetBusiness);
         assertEquals(Action.SUCCESS, timesheetAction.generateTree());
@@ -69,7 +70,7 @@ public class TimesheetActionTest {
         timesheetAction.setProductIds(productIds);
         
         List<BacklogTimesheetNode> rootNodes = Collections.emptyList();
-        expect(timesheetBusiness.getRootNodes(productIds, startDate, endDate, userIds)).andReturn(rootNodes);
+        expect(timesheetBusiness.getRootNodes(productIds, startDate, endDate, null, userIds)).andReturn(rootNodes);
         expect(timesheetBusiness.getRootNodeSum(rootNodes)).andReturn(500L);
         replay(timesheetBusiness);
         assertEquals(Action.SUCCESS, timesheetAction.generateTree());
@@ -87,7 +88,7 @@ public class TimesheetActionTest {
         timesheetAction.setProductIds(productIds);
         
         List<BacklogTimesheetNode> rootNodes = Collections.emptyList();
-        expect(timesheetBusiness.getRootNodes(productIds, null, null, userIds)).andReturn(rootNodes);
+        expect(timesheetBusiness.getRootNodes(productIds, null, null, null, userIds)).andReturn(rootNodes);
         expect(timesheetBusiness.getRootNodeSum(rootNodes)).andReturn(500L);
         replay(timesheetBusiness);
         assertEquals(Action.SUCCESS, timesheetAction.generateTree());
