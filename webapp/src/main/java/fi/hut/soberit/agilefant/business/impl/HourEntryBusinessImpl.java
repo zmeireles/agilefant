@@ -58,6 +58,8 @@ public class HourEntryBusinessImpl extends GenericBusinessImpl<HourEntry>
   
     @Autowired
     private BacklogHourEntryDAO backlogHourEntryDAO;
+    
+    DateTimeZone serverTimeZone = new DateTime().getZone();
 
     public HourEntryBusinessImpl() {
         super(HourEntry.class);
@@ -191,7 +193,8 @@ public class HourEntryBusinessImpl extends GenericBusinessImpl<HourEntry>
     }
     
     public List<HourEntry> getEntriesByUserAndDay(LocalDate day, int userId, int userHourTimeZone, int userMinuteTimeZone) {
-        DateTime start = day.toDateMidnight().toDateTime();
+        DateTimeZone zone = DateTimeZone.forOffsetHoursMinutes(userHourTimeZone, userMinuteTimeZone);
+        DateTime start = day.toDateMidnight().toDateTime().minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
         DateTime end = start.plusDays(1).minusSeconds(1);
         return this.hourEntryDAO.getHourEntriesByFilter(start, end, userId);
     }

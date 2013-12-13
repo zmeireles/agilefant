@@ -268,7 +268,10 @@ public class HourEntryBusinessTest {
     public void testGetEntriesByUserAndDay() {
         DateTime start = new DateTime(2009,6,2,0,0,0,0);
         DateTime end = new DateTime(2009,6,2,23,59,59,0);
-        expect(hourEntryDAO.getHourEntriesByFilter(start, end, 42)).andReturn(null);
+        DateTimeZone zone = DateTimeZone.forOffsetHoursMinutes(5, 0);
+        DateTimeZone serverTimeZone = new DateTime().getZone();
+        expect(hourEntryDAO.getHourEntriesByFilter(start.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0)), 
+        		end.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0)), 42)).andReturn(null);
         replay(hourEntryDAO);
         assertEquals(null, hourEntryBusiness.getEntriesByUserAndDay(start.toLocalDate(), 42,5,0));
         verify(hourEntryDAO);
