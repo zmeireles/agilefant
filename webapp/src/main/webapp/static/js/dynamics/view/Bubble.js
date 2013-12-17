@@ -10,7 +10,7 @@ var Bubble = function Bubble(referenceElement, options) {
     title:     null,
     offsetX:   100,
     offsetY:   35,
-    minWidth:  400,
+    minWidth:  $(document).width() * 0.6,
     minHeight: 80,
     zIndex:    800,
     maxWidth:  null,
