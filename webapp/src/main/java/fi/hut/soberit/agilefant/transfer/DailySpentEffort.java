@@ -23,6 +23,9 @@ public class DailySpentEffort {
     public int getMonth() {
         return day.getMonthOfYear();
     }
+    public int getYear() {
+        return day.getYear();
+    }
     
     public int getDayOfYear() {
         return day.getDayOfYear();

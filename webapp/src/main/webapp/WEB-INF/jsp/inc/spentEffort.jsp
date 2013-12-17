@@ -32,7 +32,7 @@
 				    &mdash;
 				  </c:when>
 				  <c:otherwise>
-				    <a class="detailLink dynamictable-editable-field" href="ajax/hourEntriesByUserAndDay.action?userId=${userId}&amp;userTimeZone=${userTimeZone}&amp;day=${dayEffort.dayOfYear}&amp;year=${year}">
+				    <a class="detailLink dynamictable-editable-field" href="ajax/hourEntriesByUserAndDay.action?userId=${userId}&amp;userTimeZone=${userTimeZone}&amp;day=${dayEffort.dayOfYear}&amp;year=${dayEffort.year}">
               ${aef:minutesToString(dayEffort.spentEffort)}</a>
 				  </c:otherwise>
 				</c:choose>
