@@ -150,13 +150,14 @@ public class HourEntryBusinessTest {
         List<HourEntry> entries = Collections.emptyList();
 
         DateTimeZone zone = DateTimeZone.forOffsetHoursMinutes(1, 0);
-        DateTime userstart = start.withZone(zone);
-        DateTime userend   = end.withZone(zone);
+        DateTimeZone serverTimeZone = new DateTime().getZone();
+        DateTime userstart = start.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
+        DateTime userend   = end.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
 
         expect(hourEntryDAO.getHourEntriesByFilter(userstart, userend, 0)).andReturn(entries);
 
         replay(hourEntryDAO);
-        assertEquals(8, hourEntryBusiness.getDailySpentEffortByWeek(start.toLocalDate(), 0, 1, 0).size());
+        assertEquals(7, hourEntryBusiness.getDailySpentEffortByWeek(start.toLocalDate(), 0, 1, 0).size());
         verify(hourEntryDAO);
     }
     
@@ -164,6 +165,10 @@ public class HourEntryBusinessTest {
     public void calculateWeekSum() {
         DateTime start = new DateTime(2009,6,1,0,0,1,0);
         DateTime end = new DateTime(2009,6,7,23,59,59,0);
+        DateTimeZone zone = DateTimeZone.forOffsetHoursMinutes(5, 0);
+        DateTimeZone serverTimeZone = new DateTime().getZone();
+        start = start.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
+        end = end.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
         
         expect(hourEntryDAO.calculateSumByUserAndTimeInterval(0, start, end)).andReturn(0L);
 
@@ -184,8 +189,9 @@ public class HourEntryBusinessTest {
         int usrHourTimeZone   = 5;
         int usrMinuteTimeZone = 0;
         DateTimeZone zone = DateTimeZone.forOffsetHoursMinutes(usrHourTimeZone, usrMinuteTimeZone);
-        DateTime UserStart = start.withZone(zone);
-        DateTime UserEnd   = end.withZone(zone);
+        DateTimeZone serverTimeZone = new DateTime().getZone();
+        DateTime UserStart = start.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
+        DateTime UserEnd   = end.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
         
         expect(hourEntryDAO.getHourEntriesByFilter(UserStart, UserEnd, 0)).andReturn(entries);
 
@@ -216,12 +222,13 @@ public class HourEntryBusinessTest {
         entries.add(createEntry(2009, 7, 28, 70000000));
         DateTime start = new DateTime(2008,12,27,0,0,0,0);
         DateTime end = new DateTime(2009,1,3,0,0,0,0);
-        DateTimeZone zone = DateTimeZone.forOffsetHoursMinutes(1, 0);
-        DateTime userstart = start.withZone(zone);
-        DateTime userend = end.withZone(zone);
+        DateTimeZone zone = DateTimeZone.forOffsetHoursMinutes(5, 0);
+        DateTimeZone serverTimeZone = new DateTime().getZone();
+        DateTime userstart = start.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
+        DateTime userend   = end.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
         expect(hourEntryDAO.getHourEntriesByFilter(userstart, userend, 0)).andReturn(entries);
         replay(hourEntryDAO);
-        List<DailySpentEffort> res = hourEntryBusiness.getDailySpentEffortByInterval(start, end, 0, 1, 0);
+        List<DailySpentEffort> res = hourEntryBusiness.getDailySpentEffortByInterval(start, end, 0, 5, 0);
         assertEquals(8, res.size());
         assertEquals(null, res.get(0).getSpentEffort());
         assertEquals(1900L, (long)res.get(1).getSpentEffort());
@@ -250,13 +257,13 @@ public class HourEntryBusinessTest {
         int usrHourTimeZone   = 5;
         int usrMinuteTimeZone = 0;
         DateTimeZone zone = DateTimeZone.forOffsetHoursMinutes(usrHourTimeZone, usrMinuteTimeZone);
-        DateTime  userstart = start.withZone(zone);
-        DateTime  userend   = end.withZone(zone);
-        
+        DateTimeZone serverTimeZone = new DateTime().getZone();
+        DateTime userstart = start.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
+        DateTime userend   = end.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
         expect(hourEntryDAO.getHourEntriesByFilter(userstart, userend, 0)).andReturn(entries);
         replay(hourEntryDAO);
         List<DailySpentEffort> res = hourEntryBusiness.getDailySpentEffortByInterval(start, end, 0, usrHourTimeZone, usrMinuteTimeZone);
-        assertEquals(5, res.size());
+        assertEquals(4, res.size());
         assertEquals(1900L, (long)res.get(0).getSpentEffort());
         assertEquals(null, res.get(1).getSpentEffort());
         assertEquals(54000L, (long)res.get(2).getSpentEffort());

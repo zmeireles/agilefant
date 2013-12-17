@@ -210,6 +210,9 @@ public class HourEntryBusinessImpl extends GenericBusinessImpl<HourEntry>
         tmp.setMinuteOfHour(59);
         tmp.setSecondOfMinute(59);
         DateTime end = tmp.toDateTime();
+        DateTimeZone zone = DateTimeZone.forOffsetHoursMinutes(userHourTimeZone, userMinuteTimeZone);
+        start = start.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
+        end = end.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
         return this.hourEntryDAO.calculateSumByUserAndTimeInterval(userId, start, end);
     }
     
@@ -248,19 +251,19 @@ public class HourEntryBusinessImpl extends GenericBusinessImpl<HourEntry>
     public List<DailySpentEffort> getDailySpentEffortByInterval(DateTime start,
             DateTime end, int userId, int userHourTimeZone, int userMinuteTimeZone) {
         DateTimeZone zone = DateTimeZone.forOffsetHoursMinutes(userHourTimeZone, userMinuteTimeZone);
-        start = start.withZone(zone);
-        end = end.withZone(zone);
+        DateTime startWithZone = start.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
+        DateTime endWithZone = end.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
         Map<DateMidnight, Long> dbData = new HashMap<DateMidnight, Long>();
         List<DailySpentEffort> dailyEffort = new ArrayList<DailySpentEffort>();
 
         if(start.compareTo(end) >= 0) {
             return Collections.emptyList();
         }
-        List<HourEntry> entries = this.hourEntryDAO.getHourEntriesByFilter(start, end, userId);
+        List<HourEntry> entries = this.hourEntryDAO.getHourEntriesByFilter(startWithZone, endWithZone, userId);
         
         //sum efforts per day
         for(HourEntry entry : entries) {
-            DateMidnight md = entry.getDate().withZone(zone).toDateMidnight();
+            DateMidnight md = entry.getDate().plusMillis(zone.getOffset(0)).minusMillis(serverTimeZone.getOffset(0)).toDateMidnight();
             if(!dbData.containsKey(md)) {
                 dbData.put(md, 0L);
             }
