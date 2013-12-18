@@ -110,6 +110,9 @@ Bubble.prototype._position = function() {
   var bodyOffsetTop = bodyWrapper.offset().top;
   var bodyOffsetLeft = bodyWrapper.offset().left;
   var pos = this.referenceElement.offset();
+  if (this.options.maxWidth && this.options.minWidth && this.options.maxWidth < this.options.minWidth) {
+    this.options.minWidth = this.options.maxWidth;
+  }
   this.parentElement.css({
     'top': pos.top + this.options.offsetY + bodyScrollTop - bodyOffsetTop + 'px',
     'left': pos.left + this.options.offsetX - bodyOffsetLeft + 'px',
