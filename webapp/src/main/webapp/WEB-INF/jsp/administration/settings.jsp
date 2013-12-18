@@ -4,7 +4,7 @@
 
 <jsp:body>
 
-<h2>System settings</h2>
+<h2>Account settings</h2>
 
 <script type="text/javascript">
 <!--

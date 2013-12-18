@@ -38,7 +38,7 @@ AdministrationMenuController.prototype.initTree = function() {
   /* Both admin and non-admin can edit his/her personal account. */
   
   rootNode.addChild({
-    title: "My Account",
+    title: "My Settings",
     icon: false,
     key: "editUser.action"
   });
@@ -65,7 +65,7 @@ rootNode.addChild({
 	  });
   
 	  rootNode.addChild({
-	    title: "System settings",
+	    title: "Account settings",
 	    icon: false,
 	    key: "systemSettings.action"
 	  });

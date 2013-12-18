@@ -6,7 +6,7 @@
 
 <c:choose>
 <c:when test="${userId == currentUser.id}">
-  <h2>My account</h2>
+  <h2>My settings</h2>
 </c:when>
 <c:otherwise>
   <c:if test="${currentUser.admin}">

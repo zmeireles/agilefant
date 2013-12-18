@@ -256,7 +256,7 @@ You can also share Iterations as 'read-only'. For further information see the Us
  --%>
 
 <p>
-The Daily work, Timesheets and Portfolio & Dashboards views can be toggled on or off on the system settings page.</p>
+The Daily work, Timesheets and Portfolio & Dashboards views can be toggled on or off on the account settings page.</p>
 
 <h3>Daily Work</h3>
 
