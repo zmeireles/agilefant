@@ -2,7 +2,7 @@ package fi.hut.soberit.agilefant.transfer;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import fi.hut.soberit.agilefant.model.Iteration;
 import fi.hut.soberit.agilefant.model.Product;
 import fi.hut.soberit.agilefant.model.Team;
 import fi.hut.soberit.agilefant.model.User;
@@ -43,8 +43,15 @@ public class ProductTO extends Product implements LeafStoryContainer {
         List<IterationTO> myStandaloneIterations = new ArrayList<IterationTO>();
         for (IterationTO iteration: standaloneIterations) {
             for (Team myTeam: loggedUser.getTeams()) {
-                if (iteration.getTeams().contains(myTeam)) {
-                    myStandaloneIterations.add(iteration);
+                Boolean iterationAdded = false;
+                for (Iteration teamIteration: myTeam.getIterations()) {
+                    if (teamIteration.getId() == iteration.getId()) {
+                        myStandaloneIterations.add(iteration);
+                        iterationAdded = true;
+                        break;
+                    }
+                }                
+                if (iterationAdded) {
                     break;
                 }
             }
