@@ -47,6 +47,8 @@ public class HourEntryBusinessTest {
     private Collection<User> targetUsers;
     private Set<Integer> targetUserIds;
     
+    DateTimeZone serverTimeZone = DateTimeZone.UTC;
+    
     private void compareHe(HourEntry he1, HourEntry he2) {
 
         assertEquals(he1.getDate(), he2.getDate());
@@ -150,14 +152,13 @@ public class HourEntryBusinessTest {
         List<HourEntry> entries = Collections.emptyList();
 
         DateTimeZone zone = DateTimeZone.forOffsetHoursMinutes(1, 0);
-        DateTimeZone serverTimeZone = new DateTime().getZone();
         DateTime userstart = start.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
         DateTime userend   = end.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
 
         expect(hourEntryDAO.getHourEntriesByFilter(userstart, userend, 0)).andReturn(entries);
 
         replay(hourEntryDAO);
-        assertEquals(7, hourEntryBusiness.getDailySpentEffortByWeek(start.toLocalDate(), 0, 1, 0).size());
+        assertEquals(7, hourEntryBusiness.getDailySpentEffortByWeek(start.toLocalDate(), 0, 1, 0, DateTimeZone.UTC).size());
         verify(hourEntryDAO);
     }
     
@@ -166,14 +167,13 @@ public class HourEntryBusinessTest {
         DateTime start = new DateTime(2009,6,1,0,0,1,0);
         DateTime end = new DateTime(2009,6,7,23,59,59,0);
         DateTimeZone zone = DateTimeZone.forOffsetHoursMinutes(5, 0);
-        DateTimeZone serverTimeZone = new DateTime().getZone();
         start = start.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
         end = end.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
         
         expect(hourEntryDAO.calculateSumByUserAndTimeInterval(0, start, end)).andReturn(0L);
 
         replay(hourEntryDAO);
-        assertEquals(0L, hourEntryBusiness.calculateWeekSum(start.plusDays(3).toLocalDate(), 0,5,0), 0);
+        assertEquals(0L, hourEntryBusiness.calculateWeekSum(start.plusDays(3).toLocalDate(), 0,5,0, DateTimeZone.UTC), 0);
         verify(hourEntryDAO);
     }
     
@@ -189,7 +189,6 @@ public class HourEntryBusinessTest {
         int usrHourTimeZone   = 5;
         int usrMinuteTimeZone = 0;
         DateTimeZone zone = DateTimeZone.forOffsetHoursMinutes(usrHourTimeZone, usrMinuteTimeZone);
-        DateTimeZone serverTimeZone = new DateTime().getZone();
         DateTime UserStart = start.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
         DateTime UserEnd   = end.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
         
@@ -197,7 +196,7 @@ public class HourEntryBusinessTest {
 
         replay(hourEntryDAO);
                
-        List<DailySpentEffort> res = hourEntryBusiness.getDailySpentEffortByInterval(start, end, 0,usrHourTimeZone, usrMinuteTimeZone);
+        List<DailySpentEffort> res = hourEntryBusiness.getDailySpentEffortByInterval(start, end, 0,usrHourTimeZone, usrMinuteTimeZone, DateTimeZone.UTC);
         assertEquals(7, res.size());
         assertEquals(null, res.get(0).getSpentEffort());
         assertEquals(null, res.get(1).getSpentEffort());
@@ -223,12 +222,11 @@ public class HourEntryBusinessTest {
         DateTime start = new DateTime(2008,12,27,0,0,0,0);
         DateTime end = new DateTime(2009,1,3,0,0,0,0);
         DateTimeZone zone = DateTimeZone.forOffsetHoursMinutes(5, 0);
-        DateTimeZone serverTimeZone = new DateTime().getZone();
         DateTime userstart = start.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
         DateTime userend   = end.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
         expect(hourEntryDAO.getHourEntriesByFilter(userstart, userend, 0)).andReturn(entries);
         replay(hourEntryDAO);
-        List<DailySpentEffort> res = hourEntryBusiness.getDailySpentEffortByInterval(start, end, 0, 5, 0);
+        List<DailySpentEffort> res = hourEntryBusiness.getDailySpentEffortByInterval(start, end, 0, 5, 0, DateTimeZone.UTC);
         assertEquals(8, res.size());
         assertEquals(null, res.get(0).getSpentEffort());
         assertEquals(1900L, (long)res.get(1).getSpentEffort());
@@ -257,12 +255,11 @@ public class HourEntryBusinessTest {
         int usrHourTimeZone   = 5;
         int usrMinuteTimeZone = 0;
         DateTimeZone zone = DateTimeZone.forOffsetHoursMinutes(usrHourTimeZone, usrMinuteTimeZone);
-        DateTimeZone serverTimeZone = new DateTime().getZone();
         DateTime userstart = start.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
         DateTime userend   = end.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
         expect(hourEntryDAO.getHourEntriesByFilter(userstart, userend, 0)).andReturn(entries);
         replay(hourEntryDAO);
-        List<DailySpentEffort> res = hourEntryBusiness.getDailySpentEffortByInterval(start, end, 0, usrHourTimeZone, usrMinuteTimeZone);
+        List<DailySpentEffort> res = hourEntryBusiness.getDailySpentEffortByInterval(start, end, 0, usrHourTimeZone, usrMinuteTimeZone, DateTimeZone.UTC);
         assertEquals(4, res.size());
         assertEquals(1900L, (long)res.get(0).getSpentEffort());
         assertEquals(null, res.get(1).getSpentEffort());
@@ -276,11 +273,10 @@ public class HourEntryBusinessTest {
         DateTime start = new DateTime(2009,6,2,0,0,0,0);
         DateTime end = new DateTime(2009,6,2,23,59,59,0);
         DateTimeZone zone = DateTimeZone.forOffsetHoursMinutes(5, 0);
-        DateTimeZone serverTimeZone = new DateTime().getZone();
         expect(hourEntryDAO.getHourEntriesByFilter(start.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0)), 
         		end.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0)), 42)).andReturn(null);
         replay(hourEntryDAO);
-        assertEquals(null, hourEntryBusiness.getEntriesByUserAndDay(start.toLocalDate(), 42,5,0));
+        assertEquals(null, hourEntryBusiness.getEntriesByUserAndDay(start.toLocalDate(), 42,5,0, DateTimeZone.UTC));
         verify(hourEntryDAO);
     }
     

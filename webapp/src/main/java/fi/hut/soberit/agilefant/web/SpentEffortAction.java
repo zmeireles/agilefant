@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
+import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.joda.time.MutableDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class SpentEffortAction extends ActionSupport {
     private List<LocalDate> weeks = new ArrayList<LocalDate>();
     private List<HourEntry> effortEntries;
     private double userTimeZone;
+    DateTimeZone serverTimeZone = new DateTime().getZone();
     
     public void initializeWeekSelection(DateTime middle) {
         this.weeks.clear();
@@ -47,8 +49,8 @@ public class SpentEffortAction extends ActionSupport {
             iteratorDate.addWeeks(1);
         }
     }
-    
-    public DateTime getSelectedDate() {
+
+	public DateTime getSelectedDate() {
         MutableDateTime selectedTime = new MutableDateTime();
         this.currentWeek = selectedTime.getWeekOfWeekyear();
         this.currentYear = selectedTime.getYear(); 
@@ -69,8 +71,8 @@ public class SpentEffortAction extends ActionSupport {
     public String getDaySumsByWeek() { 
         DateTime currentDay = this.getSelectedDate();
         this.initializeWeekSelection(currentDay);
-        this.dailyEffort = this.hourEntryBusiness.getDailySpentEffortByWeek(currentDay.toLocalDate(), userId, getUserHourTimeZone(), getUserMinuteTimeZone());
-        this.weekEffort = this.hourEntryBusiness.calculateWeekSum(currentDay.toLocalDate(), userId,  getUserHourTimeZone(), getUserMinuteTimeZone());
+        this.dailyEffort = this.hourEntryBusiness.getDailySpentEffortByWeek(currentDay.toLocalDate(), userId, getUserHourTimeZone(), getUserMinuteTimeZone(), serverTimeZone);
+        this.weekEffort = this.hourEntryBusiness.calculateWeekSum(currentDay.toLocalDate(), userId,  getUserHourTimeZone(), getUserMinuteTimeZone(), serverTimeZone);
         return Action.SUCCESS;
     }
 
@@ -88,7 +90,7 @@ public class SpentEffortAction extends ActionSupport {
         MutableDateTime tmpDate = new MutableDateTime();
         tmpDate.setYear(this.year);
         tmpDate.setDayOfYear(this.day);
-        this.effortEntries = this.hourEntryBusiness.getEntriesByUserAndDay(tmpDate.toDateTime().toLocalDate(), userId, getUserHourTimeZone(), getUserMinuteTimeZone());
+        this.effortEntries = this.hourEntryBusiness.getEntriesByUserAndDay(tmpDate.toDateTime().toLocalDate(), userId, getUserHourTimeZone(), getUserMinuteTimeZone(), serverTimeZone);
         return SUCCESS;
     }
     
@@ -176,5 +178,12 @@ public class SpentEffortAction extends ActionSupport {
         this.userTimeZone = userTimeZoneOffset;
     }
     
+    public DateTimeZone getServerTimeZone() {
+		return serverTimeZone;
+	}
+
+	public void setServerTimeZone(DateTimeZone serverTimeZone) {
+		this.serverTimeZone = serverTimeZone;
+	}
    
 }

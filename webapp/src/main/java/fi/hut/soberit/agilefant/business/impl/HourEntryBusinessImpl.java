@@ -58,8 +58,6 @@ public class HourEntryBusinessImpl extends GenericBusinessImpl<HourEntry>
   
     @Autowired
     private BacklogHourEntryDAO backlogHourEntryDAO;
-    
-    DateTimeZone serverTimeZone = new DateTime().getZone();
 
     public HourEntryBusinessImpl() {
         super(HourEntry.class);
@@ -192,15 +190,26 @@ public class HourEntryBusinessImpl extends GenericBusinessImpl<HourEntry>
         return this.hourEntryDAO.getHourEntriesByFilter(startDate, endDate, userId);
     }
     
-    public List<HourEntry> getEntriesByUserAndDay(LocalDate day, int userId, int userHourTimeZone, int userMinuteTimeZone) {
+    private DateTime setTimeZone(DateTime dateTime, DateTimeZone zone, DateTimeZone serverTimeZone) {
+        if (zone != null) {
+            dateTime = dateTime.minusMillis(zone.getOffset(0));
+        }
+        if (serverTimeZone != null) {
+            dateTime = dateTime.plusMillis(serverTimeZone.getOffset(0));
+        }
+        return dateTime;
+    }
+    
+    public List<HourEntry> getEntriesByUserAndDay(LocalDate day, int userId, int userHourTimeZone, int userMinuteTimeZone, DateTimeZone serverTimeZone) {
         DateTimeZone zone = DateTimeZone.forOffsetHoursMinutes(userHourTimeZone, userMinuteTimeZone);
-        DateTime start = day.toDateMidnight().toDateTime().minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
+        DateTime start = day.toDateMidnight().toDateTime();
+        start = setTimeZone(start, zone, serverTimeZone);
         DateTime end = start.plusDays(1).minusSeconds(1);
         return this.hourEntryDAO.getHourEntriesByFilter(start, end, userId);
     }
 
     @Transactional(readOnly = true)
-    public long calculateWeekSum(LocalDate week, int userId, int userHourTimeZone, int userMinuteTimeZone) {  
+    public long calculateWeekSum(LocalDate week, int userId, int userHourTimeZone, int userMinuteTimeZone, DateTimeZone serverTimeZone) {  
         MutableDateTime tmp = new MutableDateTime(week.toDateMidnight());
         tmp.setDayOfWeek(DateTimeConstants.MONDAY);
         tmp.setSecondOfDay(1);
@@ -211,13 +220,13 @@ public class HourEntryBusinessImpl extends GenericBusinessImpl<HourEntry>
         tmp.setSecondOfMinute(59);
         DateTime end = tmp.toDateTime();
         DateTimeZone zone = DateTimeZone.forOffsetHoursMinutes(userHourTimeZone, userMinuteTimeZone);
-        start = start.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
-        end = end.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
+        start = setTimeZone(start, zone, serverTimeZone);
+        end = setTimeZone(end, zone, serverTimeZone);
         return this.hourEntryDAO.calculateSumByUserAndTimeInterval(userId, start, end);
     }
     
     @Transactional(readOnly = true)
-    public List<DailySpentEffort> getDailySpentEffortByWeek(LocalDate week, int userId, int userHourTimeZone, int userMinuteTimeZone) {
+    public List<DailySpentEffort> getDailySpentEffortByWeek(LocalDate week, int userId, int userHourTimeZone, int userMinuteTimeZone, DateTimeZone serverTimeZone) {
         MutableDateTime tmp = new MutableDateTime(week.toDateMidnight());
         tmp.setDayOfWeek(DateTimeConstants.MONDAY);
         tmp.setSecondOfDay(1);
@@ -227,7 +236,7 @@ public class HourEntryBusinessImpl extends GenericBusinessImpl<HourEntry>
         tmp.setMinuteOfHour(59);
         tmp.setSecondOfMinute(59);
         DateTime end = tmp.toDateTime();
-        return this.getDailySpentEffortByInterval(start, end, userId, userHourTimeZone, userMinuteTimeZone);
+        return this.getDailySpentEffortByInterval(start, end, userId, userHourTimeZone, userMinuteTimeZone, serverTimeZone);
     }
     
     /**
@@ -249,10 +258,10 @@ public class HourEntryBusinessImpl extends GenericBusinessImpl<HourEntry>
      */
     @Transactional(readOnly = true)
     public List<DailySpentEffort> getDailySpentEffortByInterval(DateTime start,
-            DateTime end, int userId, int userHourTimeZone, int userMinuteTimeZone) {
+            DateTime end, int userId, int userHourTimeZone, int userMinuteTimeZone, DateTimeZone serverTimeZone) {
         DateTimeZone zone = DateTimeZone.forOffsetHoursMinutes(userHourTimeZone, userMinuteTimeZone);
-        DateTime startWithZone = start.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
-        DateTime endWithZone = end.minusMillis(zone.getOffset(0)).plusMillis(serverTimeZone.getOffset(0));
+        DateTime startWithZone = setTimeZone(start, zone, serverTimeZone);
+        DateTime endWithZone = setTimeZone(end, zone, serverTimeZone);
         Map<DateMidnight, Long> dbData = new HashMap<DateMidnight, Long>();
         List<DailySpentEffort> dailyEffort = new ArrayList<DailySpentEffort>();
 
@@ -263,7 +272,11 @@ public class HourEntryBusinessImpl extends GenericBusinessImpl<HourEntry>
         
         //sum efforts per day
         for(HourEntry entry : entries) {
-            DateMidnight md = entry.getDate().plusMillis(zone.getOffset(0)).minusMillis(serverTimeZone.getOffset(0)).toDateMidnight();
+            DateTime entryTime = entry.getDate().plusMillis(zone.getOffset(0));
+            if (serverTimeZone != null) {
+                entryTime = entryTime.minusMillis(serverTimeZone.getOffset(0));
+            }
+            DateMidnight md = entryTime.toDateMidnight();
             if(!dbData.containsKey(md)) {
                 dbData.put(md, 0L);
             }

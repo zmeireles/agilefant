@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +25,7 @@ public class SpentEffortActionTest {
         testable = new SpentEffortAction();
         heBusiness = createMock(HourEntryBusiness.class);
         testable.setHourEntryBusiness(heBusiness);
+        testable.setServerTimeZone(DateTimeZone.UTC);
     }
     @Test
     public void testInitializeWeekSelection() {
@@ -80,8 +82,8 @@ public class SpentEffortActionTest {
         DateTime startDate = new DateTime(2009,6,1,0,0,0,0);
         List<DailySpentEffort> entries = Collections.emptyList();
         
-        expect(heBusiness.getDailySpentEffortByWeek(startDate.toLocalDate(), 11, testable.getUserHourTimeZone(), testable.getUserMinuteTimeZone())).andReturn(entries);
-        expect(heBusiness.calculateWeekSum(startDate.toLocalDate(), 11, testable.getUserHourTimeZone(), testable.getUserMinuteTimeZone())).andReturn(0L);
+        expect(heBusiness.getDailySpentEffortByWeek(startDate.toLocalDate(), 11, testable.getUserHourTimeZone(), testable.getUserMinuteTimeZone(), DateTimeZone.UTC)).andReturn(entries);
+        expect(heBusiness.calculateWeekSum(startDate.toLocalDate(), 11, testable.getUserHourTimeZone(), testable.getUserMinuteTimeZone(), DateTimeZone.UTC)).andReturn(0L);
         replay(heBusiness);
         testable.setYear(2009);
         testable.setWeek(23);
@@ -99,7 +101,7 @@ public class SpentEffortActionTest {
         testable.setYear(2009);
         testable.setDay(153);
         LocalDate day = new DateTime(2009,6,2,0,0,0,0).toLocalDate();
-        expect(heBusiness.getEntriesByUserAndDay(day, 42,testable.getUserHourTimeZone(),testable.getUserMinuteTimeZone())).andReturn(null);
+        expect(heBusiness.getEntriesByUserAndDay(day, 42,testable.getUserHourTimeZone(),testable.getUserMinuteTimeZone(), DateTimeZone.UTC)).andReturn(null);
         replay(heBusiness);
         assertEquals(Action.SUCCESS, testable.getHourEntriesByUserAndDay());
         assertEquals(null, testable.getEffortEntries());
