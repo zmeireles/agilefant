@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.junit.Before;
@@ -65,7 +66,7 @@ public class SpentEffortActionTest {
         int currentWeek = current.getWeekOfWeekyear();
         int nextWeek = current.plusWeeks(1).getWeekOfWeekyear();
         int previousWeek = current.minusWeeks(1).getWeekOfWeekyear();
-        int nextWeekYear = current.plusWeeks(1).getYear();
+        int nextWeekYear = current.withDayOfWeek(DateTimeConstants.MONDAY).plusWeeks(1).getYear();
         int previousWeekYear = current.minusWeeks(1).getYear();
         int currentYear = current.getYear();
         DateTime actual = testable.getSelectedDate();
