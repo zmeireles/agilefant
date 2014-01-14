@@ -28,8 +28,18 @@
   margin-left: 3em;
 }
 
-.menu-collapsed #menuWrapper {
-  width: 1em;
+.menu-collapsed #menuWrapper, .menu-collapsed #resizableMenuWrapper {
+  width: 1em !important;
+  overflow: hidden;
+}
+
+.menu-collapsed #createAndSearchWrapper {
+  width: 1em !important;
+  visibility: hidden;
+}
+
+.menu-collapsed #menuToggleControl {
+  margin-left: 0em !important;
 }
 
 .menu-collapsed #menuContent {

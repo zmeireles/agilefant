@@ -88,26 +88,34 @@ img {
 
 /* MENU WRAPPER */
 
-#menuWrapper {
+#resizableMenuWrapper {
   width: 15em;
   float: left;
-  overflow: auto;
   position: absolute;
   top: 9.5em;
   bottom: 2.5em;
 }
 
+#menuWrapper {
+  width: 15em;
+  float: left;
+  overflow: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
 #menuControlPanel {
 	position: relative;
 	float: left;
-	left: -1.5em;
-	top: -1em;
+	left: 0;
+	top: -1.9em;
 }
 
 #menuControlPanel div {
   height: 100px;
   width: 10px;
-  margin: -1px 0 0 -1px;
+  margin-left: 15em;
   padding: 0;
   cursor: pointer;
   position: absolute;
@@ -120,6 +128,7 @@ img {
 
 #menuToggleControl {
   background: url('../img/toggle.png');
+  z-index:1;
 }
 
 #menuContent {

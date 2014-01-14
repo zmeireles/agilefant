@@ -210,27 +210,34 @@
   </div>
 </c:if>
 
-<div id="menuWrapper">
-  <c:if test="${hideMenu != true}">
-    
-    
-    <div id="menuContent">
-      <div id="quickSearchBox" class="ui-widget-header quickSearchBox">
-        <div style="white-space: nowrap;">Search: <input id="quickSearchInput" size="10" type="search" class="ui-autocomplete-input" style="display: inline-block;" /></div>
+<div id="resizableMenuWrapper">
+  <div id="menuWrapper">
+    <c:if test="${hideMenu != true}">
+      
+      
+      <div id="menuContent">
+        <div id="quickSearchBox" class="ui-widget-header quickSearchBox">
+          <div style="white-space: nowrap;">Search: <input id="quickSearchInput" size="10" type="search" class="ui-autocomplete-input" style="display: inline-block;" /></div>
+        </div>
+      
+        <c:choose>
+        <c:when test="${menuContent != null}">
+          <jsp:invoke fragment="menuContent" />
+        </c:when>
+        <c:otherwise>
+          <struct:backlogMenu navi="${navi}"/>
+        </c:otherwise>
+        </c:choose>
       </div>
-    
-      <c:choose>
-      <c:when test="${menuContent != null}">
-        <jsp:invoke fragment="menuContent" />
-      </c:when>
-      <c:otherwise>
-        <struct:backlogMenu navi="${navi}"/>
-      </c:otherwise>
-      </c:choose>
-    </div>
-  </c:if>
+    </c:if>
+  </div>
 </div>
 
+  <c:if test="${hideMenu != true}">
+    <div id="menuControlPanel"> 
+      <div id="menuToggleControl"> </div>
+    </div>
+  </c:if>
 
 <c:choose>
 	<c:when test="${hideMenu != true}">
@@ -240,11 +247,6 @@
 		<div id="bodyWrapperNoMenu">
 	</c:otherwise>
 </c:choose>
-  <c:if test="${hideMenu != true}">
-    <div id="menuControlPanel"> 
-      <div id="menuToggleControl"> </div>
-    </div>
-  </c:if>
 
   <jsp:doBody />
   
@@ -257,6 +259,32 @@
   </div>
 </c:if>
 
+<script type="text/javascript">
+function setMenuWidths(width) {
+    $("#resizableMenuWrapper").css("width", width);
+    $("#resizableMenuWrapper").css("height", "auto");  // without this line: resizing width and then changing window height ==> wrapper height does not change
+    $("#menuWrapper").css("width", width);
+    $("#createAndSearchWrapper").css("width", width);
+    $("#bodyWrapper").css("margin-left", width);
+    $("#menuToggleControl").css("margin-left", width);
+}
+if($.cookie("agilefantMenuWidth")) {
+	var newWidth = $.cookie("agilefantMenuWidth");
+    setMenuWidths(newWidth)
+}
+$("#resizableMenuWrapper").resizable({
+    handles: 'e',
+    resize: function(event, ui) {
+    	var newWidth = $(this).css("width");
+        setMenuWidths(newWidth)
+   },
+    stop: function(event, ui) {
+        var newWidth = $(this).css("width");
+        setMenuWidths(newWidth)
+        $.cookie("agilefantMenuWidth", newWidth);
+   }
+});
+</script>
 
 </div> <!-- End of outer wrapper -->
 </body>
