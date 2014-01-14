@@ -88,7 +88,6 @@ public class BacklogDAOHibernate extends GenericDAOHibernate<Backlog> implements
         Criteria crit = this.createCriteria(Backlog.class);
         crit.add(Restrictions.sqlRestriction("{alias}.parent_id is NULL"));
         crit.add(Restrictions.sqlRestriction("{alias}.backlogType like 'Iteration'"));
-        crit.setMaxResults(SearchBusiness.MAX_RESULTS_PER_TYPE);
         return asCollection(crit);
     }
 }
