@@ -24,6 +24,7 @@ import org.springframework.stereotype.Component;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
+import fi.hut.soberit.agilefant.business.AuthorizationBusiness;
 import fi.hut.soberit.agilefant.business.BacklogBusiness;
 import fi.hut.soberit.agilefant.business.ProductBusiness;
 import fi.hut.soberit.agilefant.business.TimesheetBusiness;
@@ -32,6 +33,7 @@ import fi.hut.soberit.agilefant.business.UserBusiness;
 import fi.hut.soberit.agilefant.model.Backlog;
 import fi.hut.soberit.agilefant.model.Product;
 import fi.hut.soberit.agilefant.model.User;
+import fi.hut.soberit.agilefant.security.SecurityUtil;
 import fi.hut.soberit.agilefant.transfer.BacklogTimesheetNode;
 import flexjson.JSONSerializer;
 
@@ -61,6 +63,9 @@ public class TimesheetAction extends ActionSupport {
     
     @Autowired
     private ProductBusiness productBusiness;
+    
+    @Autowired
+    private AuthorizationBusiness authorizationBusiness;
     
     private Set<Integer> productIds = new HashSet<Integer>();
     
@@ -107,6 +112,11 @@ public class TimesheetAction extends ActionSupport {
         this.timeZone = new DateTime().getZone();
         return Action.SUCCESS;
     }
+    
+    private boolean checkAccess(int backlogId){
+        User user = SecurityUtil.getLoggedUser();
+        return this.authorizationBusiness.isBacklogAccessible(backlogId, user);
+    }
 
     public String generateTree(){
         Set<Integer> selectedBacklogIds = this.getSelectedBacklogs();
@@ -123,7 +133,10 @@ public class TimesheetAction extends ActionSupport {
             selectedBacklogIds.remove(0);
             Collection<Backlog> iters = backlogBusiness.retrieveAllStandAloneIterations();
             for (Iterator<Backlog> i = iters.iterator();i.hasNext();){
-                selectedBacklogIds.add(i.next().getId());
+                int backlogId = i.next().getId();
+                if (checkAccess(backlogId)) {
+                    selectedBacklogIds.add(backlogId);
+                }
             }
         }
         products = timesheetBusiness.getRootNodes(selectedBacklogIds, startDate, endDate, timeZone, this.userIds);
@@ -146,7 +159,10 @@ public class TimesheetAction extends ActionSupport {
             selectedBacklogIds.remove(0);
             Collection<Backlog> iters = backlogBusiness.retrieveAllStandAloneIterations();
             for (Iterator<Backlog> i = iters.iterator();i.hasNext();){
-                selectedBacklogIds.add(i.next().getId());
+                int backlogId = i.next().getId();
+                if (checkAccess(backlogId)) {
+                    selectedBacklogIds.add(backlogId);
+                }
             }
         }
         Workbook wb = this.timesheetExportBusiness.generateTimesheet(this, selectedBacklogIds, startDate, endDate, timeZone, userIds);
