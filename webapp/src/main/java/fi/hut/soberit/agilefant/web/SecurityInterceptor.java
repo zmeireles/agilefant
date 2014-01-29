@@ -167,7 +167,7 @@ public class SecurityInterceptor implements Interceptor {
                 
                 boolean attemptTeam = params.containsKey("teamsChanged");
                 if(!attemptTeam){
-                    if (id != -1)
+                	if (id != -1 && !(id == 0 && actionName.equals("retrieveSubBacklogs") && params.size() == 1))
                         access = this.authorizationBusiness.isBacklogAccessible(id, user);
                     else
                         // Operations without ids must be allowed
