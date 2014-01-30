@@ -53,12 +53,12 @@ public class SpentEffortAction extends ActionSupport {
 	public DateTime getSelectedDate() {
         MutableDateTime selectedTime = new MutableDateTime();
         this.currentWeek = selectedTime.getWeekOfWeekyear();
-        this.currentYear = selectedTime.getYear(); 
+        this.currentYear = selectedTime.getWeekyear();
         if(this.week == 0 || this.year == 0) {
             this.week = selectedTime.getWeekOfWeekyear();
             this.year = selectedTime.getYear();
         } else {
-            selectedTime.setYear(this.year);
+            selectedTime.setWeekyear(this.year);
             selectedTime.setWeekOfWeekyear(this.week);
         }
         selectedTime.setDayOfWeek(DateTimeConstants.MONDAY);
