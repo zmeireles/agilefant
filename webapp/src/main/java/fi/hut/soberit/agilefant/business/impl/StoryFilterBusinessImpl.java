@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import fi.hut.soberit.agilefant.business.StoryFilterBusiness;
 import fi.hut.soberit.agilefant.model.Label;
 import fi.hut.soberit.agilefant.model.Story;
+import fi.hut.soberit.agilefant.model.User;
 import fi.hut.soberit.agilefant.transfer.StoryTO;
 import fi.hut.soberit.agilefant.util.StoryFilters;
 
@@ -49,7 +50,8 @@ public class StoryFilterBusinessImpl implements StoryFilterBusiness {
         if(storyFilters.name == null) {
             return true;
         }
-        if (filterByName(story, storyFilters) || filterByLabels(story, storyFilters.name) || filterByBacklogName(story, storyFilters.name) || filterByIterationName(story, storyFilters.name)) {
+        if (filterByName(story, storyFilters) || filterByLabels(story, storyFilters.name) || filterByBacklogName(story, storyFilters.name) || 
+        		filterByIterationName(story, storyFilters.name) || filterByResponsibleInitials(story, storyFilters.name)) {
             return true;
         }
         return false;
@@ -91,6 +93,16 @@ public class StoryFilterBusinessImpl implements StoryFilterBusiness {
         String lowerCaseName = labelName.toLowerCase();
         for (Label label : story.getLabels()) {
             if(label.getName().contains(lowerCaseName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean filterByResponsibleInitials(Story story, String responsibleInitials) {
+        String lowerCaseName = responsibleInitials.toLowerCase();
+        for (User user : story.getResponsibles()) {
+            if(user.getInitials() != null && user.getInitials().toLowerCase().contains(lowerCaseName)) {
                 return true;
             }
         }
