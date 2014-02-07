@@ -98,7 +98,7 @@ WorkQueueController.prototype._addColumnConfigs = function(config) {
     config.addColumnConfiguration(DailyWorkTasksWithoutStoryController.columnIndices.es, TasksWithoutStoryController.columnConfig.effortSpent);
   }
   config.addColumnConfiguration(DailyWorkTasksWithoutStoryController.columnIndices.actions, TasksWithoutStoryController.columnConfig.actions);
-  config.addColumnConfiguration(DailyWorkTasksWithoutStoryController.columnIndices.description, TasksWithoutStoryController.columnConfig.description);
+  config.addColumnConfiguration(DailyWorkTasksWithoutStoryController.columnIndices.details, TasksWithoutStoryController.columnConfig.details);
   config.addColumnConfiguration(DailyWorkTasksWithoutStoryController.columnIndices.buttons, TasksWithoutStoryController.columnConfig.buttons);
 };
 

@@ -7,7 +7,7 @@ var TaskController = function TaskController(model, view, parentController) {
 };
 
 TaskController.columnNames =
-  ["prio", "name", "state", "responsibles", "el", "oe", "es", "actions", "description", "buttons"];
+  ["prio", "name", "state", "responsibles", "el", "oe", "es", "actions", "details", "buttons"];
 TaskController.columnIndices = CommonController.createColumnIndices(TaskController.columnNames);
 
 
@@ -90,14 +90,14 @@ TaskController.prototype.removeTask = function() {
 };
 
 TaskController.prototype.showDetails = function() {
-  var cell = this.view.getCellByName("description");
+  var cell = this.view.getCellByName("details");
   if (cell) {
     cell.show();
   }
 };
 
 TaskController.prototype.hideDetails = function() {
-  var cell = this.view.getCellByName("description");
+  var cell = this.view.getCellByName("details");
   if (cell) {
     cell.hide();
   }
@@ -267,3 +267,6 @@ TaskController.prototype.openLogEffort = function() {
   var widget = new SpentEffortWidget(this.model);
 };
 
+TaskController.prototype.taskDetailsFactory = function(view, model) {
+  return new TaskInfoWidget(model, this, view);
+};

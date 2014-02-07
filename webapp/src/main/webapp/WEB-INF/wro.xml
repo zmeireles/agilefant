@@ -104,6 +104,7 @@
 		<js>/static/js/dynamics/view/subviews/AutoSuggest.js</js>
 		<js>/static/js/dynamics/view/SearchByTextWidget.js</js>
 		<js>/static/js/dynamics/view/subviews/StoryInfoWidget.js</js>
+		<js>/static/js/dynamics/view/subviews/TaskInfoWidget.js</js>
 		<js>/static/js/dynamics/view/StoryFiltersView.js</js>
 		<js>/static/js/dynamics/view/StateFilterWidget.js</js>
 		<js>/static/js/dynamics/view/SpentEffortWidget.js</js>

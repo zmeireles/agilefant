@@ -486,10 +486,14 @@ StoryController.prototype.searchForTask = function() {
 	    var type = "task";
 	    var id = hash.substring(hash.lastIndexOf("_")+1);
 	    var row;
+	    var me = this;
     	if (this.childControllers[type]) {
     		for ( var i = 0; i < this.childControllers[type].length; i++) {
       			if(this.childControllers[type][i].model.id == id) {
       				row = this.childControllers[type][i].view;
+      				setTimeout(function() {
+      					me.showTasks();
+      				}, 0);
 				    var pos = row.getElement().offset();
 				    jQuery("#bodyWrapper").scrollTop(pos.top - jQuery("#bodyWrapper").offset().top);
       				break;
@@ -631,20 +635,14 @@ StoryController.prototype.searchForTask = function() {
     title : "Edit",
     subViewFactory: TaskController.prototype.actionColumnFactory
   });
-  config.addColumnConfiguration(TaskController.columnIndices.description, {
-    columnName: "description",
+  config.addColumnConfiguration(TaskController.columnIndices.details, {
+    columnName: "details",
     fullWidth : true,
-    get : TaskModel.prototype.getDescription,
-    decorator: DynamicsDecorators.emptyTaskDescriptionDecorator,
-    cssClass : 'task-data text-editor',
     visible : false,
-    editable : true,
-    visualizedEditable: true,
-    edit : {
-      editor : "Wysiwyg",
-      set : TaskModel.prototype.setDescription
-    }
-  });
+	targetCell: TaskController.columnIndices.details,
+	subViewFactory : TaskController.prototype.taskDetailsFactory,
+	delayedRender: true
+ });
   config.addColumnConfiguration(TaskController.columnIndices.buttons, {
     columnName: "buttons",
     fullWidth : true,

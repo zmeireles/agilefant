@@ -146,6 +146,21 @@ public class SearchBusinessImpl implements SearchBusiness {
             } else if (story != null && story.getBacklog() == null){
                 return story.getIteration();
             }
+        } else if (type.equals("task")) {
+            Task task = taskDAO.get(objectId);
+            if(task != null && task.getStory() != null) {
+            	if(task.getStory().getBacklog() != null && checkAccess(task.getStory().getBacklog())){
+            		if (task.getStory().hasChildren()) {
+            			return task.getStory();
+            		} else {
+            			return task;
+            		}
+                } else if (task.getStory().getIteration() != null && checkAccess(task.getStory().getIteration())) {
+                	return task;
+                }
+            } else if (task != null && task.getIteration() != null && checkAccess(task.getIteration())){
+                return task;
+            }
         } else if (type.equals("backlog")) {
             Backlog bl = backlogDAO.get(objectId);
             if(bl!=null && checkAccess(bl)){  

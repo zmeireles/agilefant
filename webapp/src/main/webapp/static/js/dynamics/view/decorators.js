@@ -400,6 +400,8 @@ var DynamicsDecorators = {
     var text = "";
     if(this instanceof StoryModel) {
       text = "story:" + objectId;
+    } else if(this instanceof TaskModel) {
+      text = "task:" + objectId;
     } else if(this instanceof BacklogModel) {
       text = "backlog:" + objectId;
     }

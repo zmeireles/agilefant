@@ -7,7 +7,7 @@ extendObject(DailyWorkTasksWithoutStoryController, TasksWithoutStoryController);
 
 
 DailyWorkTasksWithoutStoryController.columnNames =
-  [ "prio", "name", "state", "context", "detailedContext", "responsibles", "el", "es", "actions", "description", "buttons"];
+  [ "prio", "name", "state", "context", "detailedContext", "responsibles", "el", "es", "actions", "details", "buttons"];
 DailyWorkTasksWithoutStoryController.columnIndices = CommonController.createColumnIndices(DailyWorkTasksWithoutStoryController.columnNames);
 
 
@@ -59,7 +59,7 @@ DailyWorkTasksWithoutStoryController.prototype.createTask = function(forceAssign
   controller.openRowEdit();
   row.getCellByName("actions").hide();
   row.getCellByName("buttons").show();
-  row.getCellByName("description").hide();
+  row.getCellByName("details").hide();
 };
 
 DailyWorkTasksWithoutStoryController.prototype._addColumnConfigs = function(config) {
@@ -76,7 +76,7 @@ DailyWorkTasksWithoutStoryController.prototype._addColumnConfigs = function(conf
     config.addColumnConfiguration(DailyWorkTasksWithoutStoryController.columnIndices.es, TasksWithoutStoryController.columnConfig.effortSpent);
   }
   config.addColumnConfiguration(DailyWorkTasksWithoutStoryController.columnIndices.actions, TasksWithoutStoryController.columnConfig.actions);
-  config.addColumnConfiguration(DailyWorkTasksWithoutStoryController.columnIndices.description, TasksWithoutStoryController.columnConfig.description);
+  config.addColumnConfiguration(DailyWorkTasksWithoutStoryController.columnIndices.details, TasksWithoutStoryController.columnConfig.details);
   config.addColumnConfiguration(DailyWorkTasksWithoutStoryController.columnIndices.buttons, TasksWithoutStoryController.columnConfig.buttons);
 
 };

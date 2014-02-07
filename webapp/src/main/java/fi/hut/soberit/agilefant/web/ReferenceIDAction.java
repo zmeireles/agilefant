@@ -16,6 +16,7 @@ import fi.hut.soberit.agilefant.model.NamedObject;
 import fi.hut.soberit.agilefant.model.Product;
 import fi.hut.soberit.agilefant.model.Project;
 import fi.hut.soberit.agilefant.model.Story;
+import fi.hut.soberit.agilefant.model.Task;
 
 @Component("referenceIDAction")
 @Scope("prototype")
@@ -56,6 +57,23 @@ public class ReferenceIDAction extends ActionSupport {
                 }
             }
         
+        if(res instanceof Task) {
+        	Task task = (Task)res;
+        	Story taskStory = task.getStory();
+        	if (taskStory != null) {
+        		if (taskStory.getIteration() != null) {
+                    backlog = taskStory.getIteration();
+                    backlogId = backlog.getId();
+                } else {
+                    backlog = taskStory.getBacklog();
+                    backlogId = backlog.getId();
+                }
+            } else if (task.getIteration() != null) {
+            	backlog = task.getIteration();
+                backlogId = backlog.getId();
+            }
+        }
+        
         if(backlog instanceof Iteration) {
             return "iteration";
         } else if(backlog instanceof Project) {
@@ -90,6 +108,23 @@ public class ReferenceIDAction extends ActionSupport {
                 backlogId = backlog.getId();
                 }
             }
+        
+        if(res instanceof Task) {
+        	Task task = (Task)res;
+        	Story taskStory = task.getStory();
+        	if (taskStory != null) {
+        		if (taskStory.getBacklog() != null) {
+                    backlog = taskStory.getBacklog();
+                    backlogId = backlog.getId();
+                } else {
+                    backlog = taskStory.getIteration();
+                    backlogId = backlog.getId();
+                    }
+            } else if (task.getIteration() != null) {
+        		backlog = task.getIteration();
+                backlogId = backlog.getId();
+        	}
+        }
         
         if(backlog instanceof Iteration) {
             return "iteration";

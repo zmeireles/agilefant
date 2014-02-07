@@ -504,6 +504,8 @@ ProjectController.prototype.changeTabIfFragmentFound = function() {
 	var hash = window.location.hash;
 	if (hash.match(/fi\.hut\.soberit\.agilefant\.model\.Story_(\d+)/)) {
 		this.tabs.tabs('select', 0);
+	} else if (hash.match(/fi\.hut\.soberit\.agilefant\.model\.Task_(\d+)/)) {
+		this.tabs.tabs('select', 1);
 	}
 };
 

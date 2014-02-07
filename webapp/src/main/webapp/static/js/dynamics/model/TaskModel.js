@@ -432,6 +432,10 @@ TaskModel.prototype.setEffortLeft = function(effortLeft) {
   this.currentData.effortLeft = effortLeft;
 };
 
+TaskModel.prototype.getId = function() {
+  return this.id;
+};
+
 TaskModel.prototype.getName = function() {
   return this.currentData.name;
 };

@@ -40,6 +40,7 @@
 		<aef:javascript path="dynamics/view/subviews/AutoSuggest" />
 		<aef:javascript path="dynamics/view/SearchByTextWidget" />
 		<aef:javascript path="dynamics/view/subviews/StoryInfoWidget" />
+		<aef:javascript path="dynamics/view/subviews/TaskInfoWidget" />
 		<aef:javascript path="dynamics/view/StoryFiltersView" />
 		<aef:javascript path="dynamics/view/StateFilterWidget" />
 		<aef:javascript path="dynamics/view/SpentEffortWidget" />

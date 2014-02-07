@@ -123,17 +123,13 @@ TasksWithoutStoryController.columnConfig.actions = {
   title : "Edit",
   subViewFactory: TaskController.prototype.actionColumnFactory
 };
-TasksWithoutStoryController.columnConfig.description = {
+TasksWithoutStoryController.columnConfig.details = {
+  columnName: "details",
   fullWidth : true,
-  get : TaskModel.prototype.getDescription,
-  columnName: "description",
   visible : false,
-  decorator: DynamicsDecorators.emptyTaskDescriptionDecorator,
-  editable : true,
-  edit : {
-    editor : "Wysiwyg",
-    set : TaskModel.prototype.setDescription
-  }
+  targetCell: TaskController.columnIndices.details,
+  subViewFactory : TaskController.prototype.taskDetailsFactory,
+  delayedRender: true
 };
 TasksWithoutStoryController.columnConfig.buttons = {
   columnName: "buttons",
@@ -193,7 +189,7 @@ TasksWithoutStoryController.prototype.createTask = function(forceAssignCurrentUs
   controller.openRowEdit();
   row.getCellByName("actions").hide();
   row.getCellByName("buttons").show();
-  row.getCellByName("description").hide();
+  row.getCellByName("details").hide();
 };
 
 
@@ -207,12 +203,15 @@ TasksWithoutStoryController.prototype.firstRenderComplete = function() {
     var hash = window.location.hash;
     var row = this.view.getRowById(hash.substring(1));
     if(row) {
+      setTimeout(function() {
+         var controller = row.getController();
+         controller.toggleView.expand();
+      }, 0);
       var pos = row.getElement().offset();
       jQuery("#bodyWrapper").scrollTop(pos.top - jQuery("#bodyWrapper").offset().top);
     }
   }
 };
-
 
 TasksWithoutStoryController.prototype._getTableConfig = function() {
   var config = new DynamicTableConfiguration({
@@ -263,6 +262,6 @@ TasksWithoutStoryController.prototype._addColumnConfigs = function(config) {
     config.addColumnConfiguration(TaskController.columnIndices.es, TasksWithoutStoryController.columnConfig.effortSpent);
   }
   config.addColumnConfiguration(TaskController.columnIndices.actions, TasksWithoutStoryController.columnConfig.actions);
-  config.addColumnConfiguration(TaskController.columnIndices.description, TasksWithoutStoryController.columnConfig.description);
+  config.addColumnConfiguration(TaskController.columnIndices.details, TasksWithoutStoryController.columnConfig.details);
   config.addColumnConfiguration(TaskController.columnIndices.buttons, TasksWithoutStoryController.columnConfig.buttons);
 };
