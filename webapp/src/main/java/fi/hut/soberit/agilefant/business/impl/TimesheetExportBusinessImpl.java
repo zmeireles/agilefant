@@ -159,10 +159,14 @@ public class TimesheetExportBusinessImpl implements TimesheetExportBusiness {
                     ITERATION_COLUMN_NUM);
         }
         if (rowData.getStory() != null) {
+        	createCellWithValue(row, ""+rowData.getStory().getId(),
+                    STORYID_COLUMN_NUM);
             createCellWithValue(row, rowData.getStory().getName(),
                     STORY_COLUMN_NUM);
         }
         if (rowData.getTask() != null) {
+        	createCellWithValue(row, ""+rowData.getTask().getId(),
+                    TASKID_COLUMN_NUM);
             createCellWithValue(row, rowData.getTask().getName(),
                     TASK_COLUMN_NUM);
         }
