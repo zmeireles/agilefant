@@ -159,16 +159,20 @@ public class TimesheetExportBusinessTest extends TimesheetExportBusinessImpl {
         expect(textProvider.getText(TimesheetExportBusiness.COLUMN_NAMES[2]))
                 .andReturn("ITER COL");
         expect(textProvider.getText(TimesheetExportBusiness.COLUMN_NAMES[3]))
-                .andReturn("STORY COL");
+                .andReturn("STORYID COL");
         expect(textProvider.getText(TimesheetExportBusiness.COLUMN_NAMES[4]))
-                .andReturn("TASK COL");
+                .andReturn("STORY COL");
         expect(textProvider.getText(TimesheetExportBusiness.COLUMN_NAMES[5]))
-                .andReturn("DESC COL");
+                .andReturn("TASKID COL");
         expect(textProvider.getText(TimesheetExportBusiness.COLUMN_NAMES[6]))
-                .andReturn("USER COL");
+                .andReturn("TASK COL");
         expect(textProvider.getText(TimesheetExportBusiness.COLUMN_NAMES[7]))
-                .andReturn("DATE COL");
+                .andReturn("DESC COL");
         expect(textProvider.getText(TimesheetExportBusiness.COLUMN_NAMES[8]))
+                .andReturn("USER COL");
+        expect(textProvider.getText(TimesheetExportBusiness.COLUMN_NAMES[9]))
+                .andReturn("DATE COL");
+        expect(textProvider.getText(TimesheetExportBusiness.COLUMN_NAMES[10]))
                 .andReturn("EFF COL");
         return textProvider;
     }
@@ -188,9 +192,15 @@ public class TimesheetExportBusinessTest extends TimesheetExportBusinessImpl {
         Cell iterationCell = createMock(Cell.class);
         iterationCell.setCellValue("ITER COL");
         iterationCell.setCellStyle(null);
+        Cell storyIdCell = createMock(Cell.class);
+        storyIdCell.setCellValue("STORYID COL");
+        storyIdCell.setCellStyle(null);
         Cell storyCell = createMock(Cell.class);
         storyCell.setCellValue("STORY COL");
         storyCell.setCellStyle(null);
+        Cell taskIdCell = createMock(Cell.class);
+        taskIdCell.setCellValue("TASKID COL");
+        taskIdCell.setCellStyle(null);
         Cell taskCell = createMock(Cell.class);
         taskCell.setCellValue("TASK COL");
         taskCell.setCellStyle(null);
@@ -211,19 +221,21 @@ public class TimesheetExportBusinessTest extends TimesheetExportBusinessImpl {
         expect(row.createCell(0)).andReturn(productCell);
         expect(row.createCell(1)).andReturn(projectCell);
         expect(row.createCell(2)).andReturn(iterationCell);
-        expect(row.createCell(3)).andReturn(storyCell);
-        expect(row.createCell(4)).andReturn(taskCell);
-        expect(row.createCell(5)).andReturn(descriptionCell);
-        expect(row.createCell(6)).andReturn(userCell);
-        expect(row.createCell(7)).andReturn(dateCell);
-        expect(row.createCell(8)).andReturn(effortCell);
+        expect(row.createCell(3)).andReturn(storyIdCell);
+        expect(row.createCell(4)).andReturn(storyCell);
+        expect(row.createCell(5)).andReturn(taskIdCell);
+        expect(row.createCell(6)).andReturn(taskCell);
+        expect(row.createCell(7)).andReturn(descriptionCell);
+        expect(row.createCell(8)).andReturn(userCell);
+        expect(row.createCell(9)).andReturn(dateCell);
+        expect(row.createCell(10)).andReturn(effortCell);
 
         replay(textProvider, sheet, row, productCell, projectCell,
-                iterationCell, storyCell, taskCell, descriptionCell, userCell,
+                iterationCell, storyIdCell, storyCell, taskIdCell, taskCell, descriptionCell, userCell,
                 dateCell, effortCell);
         super.renderHeader(sheet, textProvider);
         verify(textProvider, sheet, row, productCell, projectCell,
-                iterationCell, storyCell, taskCell, descriptionCell, userCell,
+                iterationCell, storyIdCell, storyCell, taskIdCell, taskCell, descriptionCell, userCell,
                 dateCell, effortCell);
 
     }
@@ -278,18 +290,22 @@ public class TimesheetExportBusinessTest extends TimesheetExportBusinessImpl {
         sheet.autoSizeColumn(6);
         sheet.autoSizeColumn(7);
         sheet.autoSizeColumn(8);
+        sheet.autoSizeColumn(9);
+        sheet.autoSizeColumn(10);
         // get size after auto size
         expect(sheet.getColumnWidth(0)).andReturn(10);
         expect(sheet.getColumnWidth(1)).andReturn(60 * 256); // no limit
         expect(sheet.getColumnWidth(2)).andReturn(10);
-        expect(sheet.getColumnWidth(3)).andReturn(70 * 256); // too wide
-        expect(sheet.getColumnWidth(4)).andReturn(10);
+        expect(sheet.getColumnWidth(3)).andReturn(15 * 256);
+        expect(sheet.getColumnWidth(4)).andReturn(70 * 256); // too wide
         expect(sheet.getColumnWidth(5)).andReturn(10);
         expect(sheet.getColumnWidth(6)).andReturn(10);
         expect(sheet.getColumnWidth(7)).andReturn(10);
         expect(sheet.getColumnWidth(8)).andReturn(10);
+        expect(sheet.getColumnWidth(9)).andReturn(10);
+        expect(sheet.getColumnWidth(10)).andReturn(10);
 
-        sheet.setColumnWidth(3, 256 * 55);
+        sheet.setColumnWidth(4, 256 * 55);
         replay(sheet);
         super.sizeColumns(sheet);
         verify(sheet);
@@ -355,10 +371,18 @@ public class TimesheetExportBusinessTest extends TimesheetExportBusinessImpl {
         expect(row.createCell(ITERATION_COLUMN_NUM)).andReturn(iterationCell);
         iterationCell.setCellValue(iteration.getName());
 
+        Cell storyIdCell = createMock(Cell.class);
+        expect(row.createCell(STORYID_COLUMN_NUM)).andReturn(storyIdCell);
+        storyIdCell.setCellValue(""+story.getId());
+        
         Cell storyCell = createMock(Cell.class);
         expect(row.createCell(STORY_COLUMN_NUM)).andReturn(storyCell);
         storyCell.setCellValue(story.getName());
 
+        Cell taskIdCell = createMock(Cell.class);
+        expect(row.createCell(TASKID_COLUMN_NUM)).andReturn(taskIdCell);
+        taskIdCell.setCellValue(""+storyTask.getId());
+        
         Cell taskCell = createMock(Cell.class);
         expect(row.createCell(TASK_COLUMN_NUM)).andReturn(taskCell);
         taskCell.setCellValue(storyTask.getName());
@@ -382,10 +406,10 @@ public class TimesheetExportBusinessTest extends TimesheetExportBusinessImpl {
         effortCell.setCellType(Cell.CELL_TYPE_NUMERIC);
         effortCell.setCellStyle(null);
 
-        replay(productCell, projectCell, iterationCell, storyCell, taskCell,
+        replay(productCell, projectCell, iterationCell, storyIdCell, storyCell, taskIdCell, taskCell,
                 descCell, userCell, dateCell, effortCell, row);
         super.setRowValues(row, data);
-        verify(productCell, projectCell, iterationCell, storyCell, taskCell,
+        verify(productCell, projectCell, iterationCell, storyIdCell, storyCell, taskIdCell, taskCell,
                 descCell, userCell, dateCell, effortCell, row);
     }
 
