@@ -9,6 +9,7 @@ import com.opensymphony.xwork2.interceptor.Interceptor;
 import fi.hut.soberit.agilefant.business.AuthorizationBusiness;
 import fi.hut.soberit.agilefant.business.BacklogBusiness;
 import fi.hut.soberit.agilefant.business.IterationBusiness;
+import fi.hut.soberit.agilefant.exception.ObjectNotFoundException;
 import fi.hut.soberit.agilefant.model.User;
 import fi.hut.soberit.agilefant.security.SecurityUtil;
 
@@ -86,44 +87,48 @@ public class AuthorizationInterceptor implements Interceptor {
                 return invocation.invoke();
             }
         }
-        
-        //matrix authorizations
-        if (action instanceof BacklogAction){
-            accessDenied = !checkAccess(((BacklogAction) action).getBacklogId()); 
-        } else if (action instanceof ProductAction) {
-            accessDenied = !checkAccess(((ProductAction) action).getProductId());  
-        } else if (action instanceof ProjectAction) {
-            accessDenied = !checkAccess(((ProjectAction) action).getProjectId());      
-        } else if (action instanceof IterationAction) {
-            accessDenied = !checkAccess(((IterationAction) action).getIterationId());
-        } else if (action instanceof StoryAction) {
-            accessDenied = !checkAccess(((StoryAction)action).getIterationId());
-        } else if (action instanceof TaskAction) {
-            if(((TaskAction)action).getTask().getIteration() != null){
-                accessDenied = !checkAccess(((TaskAction)action).getTask().getIteration().getId());
-            } else {
-                accessDenied = !checkAccess(((TaskAction)action).getParentStory().getIteration().getId());
-            }
-        }
-        
-        else {
-            //admin authorizations
-            currentUser = SecurityUtil.getLoggedUser();
-            boolean isAdmin = currentUser.isAdmin();
-            
-            if(isAdmin){
-                //admin has access to any actions
-                return invocation.invoke();
-            } else {
-                if(action instanceof AccessAction || 
-                   action instanceof DatabaseExportAction ||
-                   action instanceof SettingAction){
-                         return "notadmin";
+        try {
+        	//matrix authorizations
+            if (action instanceof BacklogAction){
+                accessDenied = !checkAccess(((BacklogAction) action).getBacklogId()); 
+            } else if (action instanceof ProductAction) {
+                accessDenied = !checkAccess(((ProductAction) action).getProductId());  
+            } else if (action instanceof ProjectAction) {
+                accessDenied = !checkAccess(((ProjectAction) action).getProjectId());      
+            } else if (action instanceof IterationAction) {
+                accessDenied = !checkAccess(((IterationAction) action).getIterationId());
+            } else if (action instanceof StoryAction) {
+                accessDenied = !checkAccess(((StoryAction)action).getIterationId());
+            } else if (action instanceof TaskAction) {
+                if(((TaskAction)action).getTask().getIteration() != null){
+                    accessDenied = !checkAccess(((TaskAction)action).getTask().getIteration().getId());
                 } else {
-                    return invocation.invoke();
+                    accessDenied = !checkAccess(((TaskAction)action).getParentStory().getIteration().getId());
                 }
             }
+            
+            else {
+                //admin authorizations
+                currentUser = SecurityUtil.getLoggedUser();
+                boolean isAdmin = currentUser.isAdmin();
+                
+                if(isAdmin){
+                    //admin has access to any actions
+                    return invocation.invoke();
+                } else {
+                    if(action instanceof AccessAction || 
+                       action instanceof DatabaseExportAction ||
+                       action instanceof SettingAction){
+                             return "notadmin";
+                    } else {
+                        return invocation.invoke();
+                    }
+                }
+            }
+        } catch (ObjectNotFoundException e) {
+        	return "notfound";
         }
+        
         
         if (accessDenied) return "noauth";
             return invocation.invoke();
