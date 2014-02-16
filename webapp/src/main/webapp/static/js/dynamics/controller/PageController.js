@@ -31,7 +31,7 @@ PageController.prototype.init = function() {
     me.refreshMenu();
   });
   setTimeout(function() { 
-	  $("div#bodyWrapper").attr("tabindex",-1).focus();
+	  $("div#bodyWrapper").focus();
   }, 500);
 };
 
