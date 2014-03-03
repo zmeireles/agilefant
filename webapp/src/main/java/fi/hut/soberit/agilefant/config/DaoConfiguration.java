@@ -32,7 +32,7 @@ public class DaoConfiguration {
         Flyway bean = new Flyway();
         bean.setDataSource(dataSource);
         bean.setInitOnMigrate(true);
-        bean.setLocations("agilefant/flyway");
+        bean.setLocations("agilefant/flyway", "fi.hut.soberit.agilefant.flyway");
         bean.migrate();
         return bean;
     }

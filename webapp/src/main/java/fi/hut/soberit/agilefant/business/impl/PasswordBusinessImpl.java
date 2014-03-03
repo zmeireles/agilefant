@@ -9,7 +9,7 @@ import org.antlr.stringtemplate.StringTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +32,7 @@ public class PasswordBusinessImpl implements PasswordBusiness {
     public void generateAndMailPassword(int user_id) {
         User user = userDAO.get(user_id);
         String password = generateNewPassword();
-        user.setPassword(passwordEncoder.encodePassword(password, ""));
+        user.setPassword(passwordEncoder.encode(password));
 
         SimpleMailMessage mail = new SimpleMailMessage(newPasswordTemplate);
         StringTemplate bodyTemplate = new StringTemplate(mail.getText());
@@ -50,8 +50,7 @@ public class PasswordBusinessImpl implements PasswordBusiness {
      *         representing an <code>User</code>'s (provisional) password.
      */
     private String generateNewPassword() {
-        String randomString = passwordEncoder.encodePassword(new Date()
-                .toString(), new Random().nextDouble());
+        String randomString = passwordEncoder.encode(new Date().toString());
         return randomString.substring(0, 12);
     }
 

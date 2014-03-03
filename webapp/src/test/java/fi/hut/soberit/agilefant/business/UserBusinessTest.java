@@ -16,6 +16,8 @@ import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import fi.hut.soberit.agilefant.business.impl.UserBusinessImpl;
 import fi.hut.soberit.agilefant.db.UserDAO;
@@ -30,6 +32,8 @@ public class UserBusinessTest {
     
     TeamBusiness teamBusiness;
     
+    PasswordEncoder passwordEncoder;
+    
     @Before
     public void setUp() {
         userDAO = createMock(UserDAO.class);
@@ -37,6 +41,9 @@ public class UserBusinessTest {
         
         teamBusiness = createMock(TeamBusiness.class);
         userBusiness.setTeamBusiness(teamBusiness);
+        
+        passwordEncoder = new BCryptPasswordEncoder();
+        userBusiness.setPasswordEncoder(passwordEncoder);
     }
 
     private void verifyAll() {
@@ -166,7 +173,7 @@ public class UserBusinessTest {
     @Test
     public void testStore_passwordChange() {
         String password = "teemu";
-        String md5hash = "f38bb5caf4771ef31e2d8456e5e93f2f";
+        String bcryptBeginning = "$2a$10$";
         
         User user = new User();
         user.setId(123);
@@ -177,7 +184,7 @@ public class UserBusinessTest {
         User actual = userBusiness.storeUser(user, null, password, password);
         verifyAll();
         
-        assertEquals(md5hash, actual.getPassword());
+        assertEquals(bcryptBeginning, actual.getPassword().substring(0, 7));
     }
     
     @Test

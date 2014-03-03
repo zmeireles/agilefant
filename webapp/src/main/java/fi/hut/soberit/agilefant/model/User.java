@@ -53,7 +53,7 @@ public class User implements NamedObject {
     private int id;
 
     private String password;
-
+    
     private String loginName;
 
     private String fullName;
@@ -147,6 +147,7 @@ public class User implements NamedObject {
     @Type(type = "truncated_varchar")
     @JSON(include = false)
     @NotAudited
+    @Column(name="passwd")
     public String getPassword() {
         return password;
     }

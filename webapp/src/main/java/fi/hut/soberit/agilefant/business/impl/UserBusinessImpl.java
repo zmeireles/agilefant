@@ -13,6 +13,7 @@ import org.joda.time.MutableDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import fi.hut.soberit.agilefant.business.TeamBusiness;
 import fi.hut.soberit.agilefant.business.UserBusiness;
@@ -37,6 +38,9 @@ public class UserBusinessImpl extends GenericBusinessImpl<User> implements
     
     private TeamBusiness teamBusiness;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
     public UserBusinessImpl() {
         super(User.class);
     }
@@ -52,7 +56,9 @@ public class UserBusinessImpl extends GenericBusinessImpl<User> implements
         this.teamBusiness = teamBusiness;
     }
     
-    
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Transactional(readOnly = true)
     public User retrieveByLoginName(String loginName) {
@@ -113,8 +119,7 @@ public class UserBusinessImpl extends GenericBusinessImpl<User> implements
                 throw new IllegalArgumentException("Passwords don't match");
             }
             else if (!password.equalsIgnoreCase("")) {
-                String md5hash = SecurityUtil.MD5(password);
-                data.setPassword(md5hash);    
+                data.setPassword(this.passwordEncoder.encode(password));    
             }
         }
     }

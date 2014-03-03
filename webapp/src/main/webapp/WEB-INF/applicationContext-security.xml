@@ -183,8 +183,11 @@
 	</bean>
 
 	<!-- encode passwords using built-in MD5 encoder -->
-	<bean id="passwordEncoder"
-		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+	<bean id="passwordEncoder" class="fi.hut.soberit.agilefant.security.WrappingMD5PasswordEncoder">
+		<property name="passwordEncoder">
+			<bean class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+		</property>
+	</bean>
 
 	<bean id="daoAuthenticationProvider"
 		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">

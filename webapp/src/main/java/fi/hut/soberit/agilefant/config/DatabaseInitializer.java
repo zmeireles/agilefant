@@ -24,10 +24,10 @@ public class DatabaseInitializer implements InitializingBean {
             return;
         }
 
-        jdbc.update("INSERT INTO users (fullName, loginName, password, initials, enabled, recentItemsNumberOfWeeks) VALUES (?, ?, ?, ?, ?, ?)",
-                "Administrator", "admin", "5ebe2294ecd0e0f08eab7690d2a6ee69", "Admin", 1, 16);
-        jdbc.update("INSERT INTO users (admin, fullName, loginName, password, initials, enabled, recentItemsNumberOfWeeks) VALUES (?, ?, ?, ?, ?, ?, ?)", 0,
-                "readonly", "readonly", "5ebe2294ecd0e0f08eab7690d2a6ee69", "readonly", 1, 0);
+        jdbc.update("INSERT INTO users (fullName, loginName, passwd, initials, enabled, recentItemsNumberOfWeeks) VALUES (?, ?, ?, ?, ?, ?)",
+                "Administrator", "admin", "$2a$10$fkULKc1/AmruYR9HTmh5ROc5692D3WaPidZ7dHz073W33AvU2Vqom", "Admin", 1, 16);
+        jdbc.update("INSERT INTO users (admin, fullName, loginName, passwd, initials, enabled, recentItemsNumberOfWeeks) VALUES (?, ?, ?, ?, ?, ?, ?)", 0,
+                "readonly", "readonly", "$2a$10$fkULKc1/AmruYR9HTmh5ROc5692D3WaPidZ7dHz073W33AvU2Vqom", "readonly", 1, 0);
 
         log.info("Initialized users table with default users");
     }
