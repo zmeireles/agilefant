@@ -1,11 +1,10 @@
-package fi.hut.soberit.agilefant.db.export;
+package fi.hut.soberit.agilefant.exportimport;
 
 import java.io.ByteArrayOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import fi.hut.soberit.agilefant.business.ExportImportBusiness;
 import fi.hut.soberit.agilefant.business.ExportImportBusiness.OrganizationDumpTO;
-import fi.hut.soberit.agilefant.exportimport.ExportImport;
 
 /**
  * Generates a zipped database dump using ExportImportUtil and provides it in a ByteArrayOutputStream for access.

@@ -1,8 +1,7 @@
-package fi.hut.soberit.agilefant.db.export;
+package fi.hut.soberit.agilefant.exportimport;
 
 import java.io.ByteArrayOutputStream;
 import fi.hut.soberit.agilefant.business.ExportImportBusiness;
-import fi.hut.soberit.agilefant.exportimport.ExportImport;
 
 /**
  * Provides a zipped database dump in an output stream

@@ -21,8 +21,8 @@ import fi.hut.soberit.agilefant.business.ExportImportBusiness.OrganizationDumpTO
 import fi.hut.soberit.agilefant.business.IterationBusiness;
 import fi.hut.soberit.agilefant.business.ProductBusiness;
 import fi.hut.soberit.agilefant.business.UserBusiness;
-import fi.hut.soberit.agilefant.db.export.XmlBackupper;
 import fi.hut.soberit.agilefant.exportimport.ExportImport;
+import fi.hut.soberit.agilefant.exportimport.XmlBackupper;
 import fi.hut.soberit.agilefant.exportimport.ExportImport.VersionMismatchException;
 
 @Component("dbExportAction")
