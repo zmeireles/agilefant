@@ -171,6 +171,8 @@ UserListController.prototype.initConfig = function() {
   
   this.disabledUserListConfig.addColumnConfiguration(0, name);
   this.disabledUserListConfig.addColumnConfiguration(1, initials);
-  this.disabledUserListConfig.addColumnConfiguration(4, actions);
+  if (currentUser.getAdmin()) {
+    this.disabledUserListConfig.addColumnConfiguration(4, actions);
+  }
   this.disabledUserListConfig.addColumnConfiguration(5, admin);
 };
