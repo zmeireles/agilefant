@@ -89,13 +89,11 @@ UserListController.prototype.initConfig = function() {
   
   var currentUser = PageController.getInstance().getCurrentUser();
   
-  if (currentUser.getAdmin()) {
-	  this.enabledUserListConfig.addCaptionItem({
-	    text: "Create user",
-	    name: "createUser",
-	    callback: UserListController.prototype.createUser
-	  });
-  }
+  this.enabledUserListConfig.addCaptionItem({
+    text: "Create user",
+    name: "createUser",
+    callback: UserListController.prototype.createUser
+  });
   
   this.disabledUserListConfig = new DynamicTableConfiguration({
     caption: "Disabled users",
