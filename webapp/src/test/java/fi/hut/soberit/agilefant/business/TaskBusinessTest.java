@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -121,6 +122,7 @@ public class TaskBusinessTest extends MockedTestCase {
         expect(taskDAO.create(task)).andReturn(1351);
         expect(taskDAO.get(1351)).andReturn(task);
         expect(taskDAO.getLastTaskInRank(null, iteration)).andReturn(lastTask);
+        expect(taskDAO.getTasksWithRankBetween(0, 22, iteration, null)).andReturn(new LinkedList<Task>());
         iterationHistoryEntryBusiness.updateIterationHistory(iteration.getId());
 
         replayAll();
@@ -129,7 +131,7 @@ public class TaskBusinessTest extends MockedTestCase {
                 false);
 
         assertEquals(iteration, actualTask.getIteration());
-        assertEquals(23, actualTask.getRank().intValue());
+        assertEquals(0, actualTask.getRank().intValue());
 
         verifyAll();
     }
@@ -148,6 +150,7 @@ public class TaskBusinessTest extends MockedTestCase {
         expect(taskDAO.create(task)).andReturn(1351);
         expect(taskDAO.get(1351)).andReturn(task);
         expect(taskDAO.getLastTaskInRank(story, null)).andReturn(lastTask);
+        expect(taskDAO.getTasksWithRankBetween(0, 222, null, story)).andReturn(new LinkedList<Task>());
         iterationHistoryEntryBusiness.updateIterationHistory(iteration.getId());
 
         replayAll();
@@ -156,7 +159,7 @@ public class TaskBusinessTest extends MockedTestCase {
                 false);
 
         assertEquals(story, actualTask.getStory());
-        assertEquals(223, actualTask.getRank().intValue());
+        assertEquals(0, actualTask.getRank().intValue());
 
         verifyAll();
     }
