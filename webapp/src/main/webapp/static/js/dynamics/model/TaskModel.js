@@ -174,7 +174,13 @@ TaskModel.prototype._saveData = function(id, changedData) {
         else if (me.relations.backlog instanceof IterationModel) {
           me.relations.backlog.addTask(object);
         }
+        object.setRank(-1);
         object.callListeners(new DynamicsEvents.AddEvent(object));
+        if (me.getStory() != null) {
+          me.getStory().reload();
+        } else if (me.getIteration() != null) {
+          me.getIteration().reload();
+        }
       }
       if ((data.storyToStarted || PageController.getInstance().getCurrentUser().getMarkStoryStarted() === "always")&& me.relations.story) {
         me.relations.story.callListeners(new DynamicsEvents.EditEvent(me.relations.story));
@@ -255,6 +261,10 @@ TaskModel.prototype.moveToIteration = function(iterationId) {
     }
   });
 };
+
+TaskModel.prototype.setRank = function(newRank) {
+  this.currentData.rank = newRank;
+}
 
 TaskModel.prototype.rankUnder = function(rankUnderId, moveUnder) {
   var me = this;

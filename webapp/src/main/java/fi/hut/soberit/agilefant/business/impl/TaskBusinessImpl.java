@@ -87,7 +87,8 @@ public class TaskBusinessImpl extends GenericBusinessImpl<Task> implements
         if (task.getId() == 0) {
             int newTaskId = this.create(task);
             storedTask = this.retrieve(newTaskId);
-            this.rankToBottom(storedTask, storyId, iterationId);
+            // Put new tasks to the top of the task list
+            rankAndMove(storedTask, null, storyId, iterationId);
         } else {
             this.store(task);
             storedTask = task;
