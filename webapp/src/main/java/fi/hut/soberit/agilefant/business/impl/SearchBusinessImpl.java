@@ -1,6 +1,7 @@
 package fi.hut.soberit.agilefant.business.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -69,12 +70,13 @@ public class SearchBusinessImpl implements SearchBusiness {
 
     private void storyListSearchResult(List<SearchResultRow> result,
             List<Story> stories) {
+        HashMap<Integer, Boolean> backlogAccessMap = new HashMap<Integer, Boolean>();
         for (Story story : stories) {
             Backlog backlog = story.getIteration();
             if(backlog == null) {
                 backlog = story.getBacklog();
             }
-            if(checkAccess(backlog)){
+            if(checkAccess(backlog, backlogAccessMap)){
                 result.add(new SearchResultRow(backlog.getName() + " > "
                     + story.getName(), story));
             }
@@ -83,17 +85,18 @@ public class SearchBusinessImpl implements SearchBusiness {
     
     private void taskListSearchResult(List<SearchResultRow> result,
             List<Task> tasks) {
+        HashMap<Integer, Boolean> backlogAccessMap = new HashMap<Integer, Boolean>();
         for(Task task : tasks) {
             if(task.getStory()!= null){
                 Backlog backlog = task.getStory().getBacklog();
                 Iteration iteration = task.getStory().getIteration();
-                if((backlog!=null && checkAccess(backlog)) || (iteration!=null && checkAccess(iteration))){
+                if((backlog!=null && checkAccess(backlog, backlogAccessMap)) || (iteration!=null && checkAccess(iteration, backlogAccessMap))){
                     result.add(new SearchResultRow(task.getStory().getName() + " > " + 
                         task.getName(), task));
                 }
             }
             if(task.getIteration() != null){
-                if(checkAccess(task.getIteration())){  
+                if(checkAccess(task.getIteration(), backlogAccessMap)){  
                     result.add(new SearchResultRow(task.getIteration().getName() + " > " + 
                         task.getName(), task));
                 }
@@ -103,8 +106,9 @@ public class SearchBusinessImpl implements SearchBusiness {
 
     private void backlogListSearchResult(List<SearchResultRow> result,
             List<Backlog> backlogs) {
+        HashMap<Integer, Boolean> backlogAccessMap = new HashMap<Integer, Boolean>();
         for (Backlog bl : backlogs) {
-            if(checkAccess(bl)){            
+            if(checkAccess(bl, backlogAccessMap)){            
                 SearchResultRow item = new SearchResultRow();
                 item.setOriginalObject(bl);
                 if (bl.getParent() != null) {
@@ -117,8 +121,15 @@ public class SearchBusinessImpl implements SearchBusiness {
         }
     }
     
-    private boolean checkAccess(Backlog bl){
-        return this.authorizationBusiness.isBacklogAccessible(bl.getId(), SecurityUtil.getLoggedUser());
+    private boolean checkAccess(Backlog bl, HashMap<Integer, Boolean> backlogAccessMap){
+        Boolean access = backlogAccessMap.get(bl.getId());
+        if (access != null) {
+            return access;
+        }
+        
+        access = this.authorizationBusiness.isBacklogAccessible(bl.getId(), SecurityUtil.getLoggedUser());
+        backlogAccessMap.put(bl.getId(), access);
+        return access;
     }
 
     public NamedObject searchByReference(String searchTerm) {
@@ -139,9 +150,10 @@ public class SearchBusinessImpl implements SearchBusiness {
         } catch (Exception e) {
             return null;
         }
+        HashMap<Integer, Boolean> backlogAccessMap = new HashMap<Integer, Boolean>();
         if (type.equals("story")) {
             Story story = storyDAO.get(objectId);
-            if(story != null && story.getBacklog() != null && checkAccess(story.getBacklog())){  
+            if(story != null && story.getBacklog() != null && checkAccess(story.getBacklog(), backlogAccessMap)){  
                 return story;
             } else if (story != null && story.getBacklog() == null){
                 return story.getIteration();
@@ -149,21 +161,21 @@ public class SearchBusinessImpl implements SearchBusiness {
         } else if (type.equals("task")) {
             Task task = taskDAO.get(objectId);
             if(task != null && task.getStory() != null) {
-            	if(task.getStory().getBacklog() != null && checkAccess(task.getStory().getBacklog())){
+            	if(task.getStory().getBacklog() != null && checkAccess(task.getStory().getBacklog(), backlogAccessMap)){
             		if (task.getStory().hasChildren()) {
             			return task.getStory();
             		} else {
             			return task;
             		}
-                } else if (task.getStory().getIteration() != null && checkAccess(task.getStory().getIteration())) {
+                } else if (task.getStory().getIteration() != null && checkAccess(task.getStory().getIteration(), backlogAccessMap)) {
                 	return task;
                 }
-            } else if (task != null && task.getIteration() != null && checkAccess(task.getIteration())){
+            } else if (task != null && task.getIteration() != null && checkAccess(task.getIteration(), backlogAccessMap)){
                 return task;
             }
         } else if (type.equals("backlog")) {
             Backlog bl = backlogDAO.get(objectId);
-            if(bl!=null && checkAccess(bl)){  
+            if(bl!=null && checkAccess(bl, backlogAccessMap)){  
                 return bl;
             }
         }
@@ -201,16 +213,17 @@ public class SearchBusinessImpl implements SearchBusiness {
     }
     
     public List<SearchResultRow> searchTasks(String searchTerm) {
+        HashMap<Integer, Boolean> backlogAccessMap = new HashMap<Integer, Boolean>();
         List<SearchResultRow> result = new ArrayList<SearchResultRow>();
         List<Task> tasks = taskDAO.searchByName(searchTerm);
         for(Task task : tasks) {
             if(task.getStory() != null){
-                if(checkAccess(task.getStory().getBacklog())){  
+                if(checkAccess(task.getStory().getBacklog(), backlogAccessMap)){  
                     result.add(new SearchResultRow(task.getIteration().getName() + " > " + task.getStory().getName() + " > " + 
                         task.getName(), task));
                 }
             } else {
-                if(checkAccess(task.getIteration())){  
+                if(checkAccess(task.getIteration(), backlogAccessMap)){  
                     result.add(new SearchResultRow(task.getIteration().getName() + " > No Story > " + 
                         task.getName(), task));
                 }
