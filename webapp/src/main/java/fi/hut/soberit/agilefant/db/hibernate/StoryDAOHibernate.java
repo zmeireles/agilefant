@@ -204,6 +204,7 @@ public class StoryDAOHibernate extends GenericDAOHibernate<Story> implements
         Criteria crit = this.createCriteria(Story.class);
         crit.add(Restrictions.like("name", name, MatchMode.ANYWHERE));
         crit.addOrder(Order.asc("name"));
+        crit.setMaxResults(SearchBusiness.MAX_RESULTS_PER_TYPE);
         return asList(crit);
     }
     
@@ -211,6 +212,7 @@ public class StoryDAOHibernate extends GenericDAOHibernate<Story> implements
         Criteria crit = this.createCriteria(Story.class);
         crit.add(Restrictions.eq("id", id));
         crit.addOrder(Order.asc("name"));
+        crit.setMaxResults(SearchBusiness.MAX_RESULTS_PER_TYPE);
         return asList(crit);
     }
 
