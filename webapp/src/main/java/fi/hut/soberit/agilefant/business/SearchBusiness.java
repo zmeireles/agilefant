@@ -6,8 +6,6 @@ import fi.hut.soberit.agilefant.model.NamedObject;
 import fi.hut.soberit.agilefant.transfer.SearchResultRow;
 
 public interface SearchBusiness {
-    public static final int MAX_RESULTS_PER_TYPE = 51;
-    
     public NamedObject searchByReference(String searchTerm);
     
     public List<SearchResultRow> searchStoriesAndBacklog(String searchTerm);

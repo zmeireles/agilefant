@@ -71,7 +71,6 @@ public class BacklogDAOHibernate extends GenericDAOHibernate<Backlog> implements
         crit.add(Restrictions.like("name", name, MatchMode.ANYWHERE));
         crit.addOrder(Order.asc("class"));
         crit.addOrder(Order.asc("name"));
-        crit.setMaxResults(SearchBusiness.MAX_RESULTS_PER_TYPE);
         return asList(crit);
     }
     
@@ -80,7 +79,6 @@ public class BacklogDAOHibernate extends GenericDAOHibernate<Backlog> implements
         crit.add(Restrictions.eq("id", id));
         crit.addOrder(Order.asc("class"));
         crit.addOrder(Order.asc("name"));
-        crit.setMaxResults(SearchBusiness.MAX_RESULTS_PER_TYPE);
         return asList(crit);
     }
     
