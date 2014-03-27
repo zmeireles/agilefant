@@ -84,6 +84,9 @@ public class HourEntryDAOHibernate extends GenericDAOHibernate<HourEntry>
             crit.add(Restrictions.le("date", end));
         }
         if (users != null && users.size() > 0) {
+            // Hack: Add non-existent user id to the list to make the query faster.
+            // If there is only one user id in the list, mysql query will use intersect, and the query will be very slow.
+            users.add(0);
             crit.createAlias("user", "usr");
             crit.add(Restrictions.in("usr.id", users));
         }
