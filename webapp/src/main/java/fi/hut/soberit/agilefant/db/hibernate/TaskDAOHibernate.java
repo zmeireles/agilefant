@@ -10,6 +10,8 @@ import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
+import org.hibernate.Query;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.ProjectionList;
@@ -290,7 +292,9 @@ public class TaskDAOHibernate extends GenericDAOHibernate<Task> implements
     public List<Task> searchByName(String name)
     {
         Criteria crit = this.createCriteria(Task.class);
-        crit.add(Restrictions.like("name", name, MatchMode.ANYWHERE));
+        Criterion nameCrit = Restrictions.like("name", name, MatchMode.ANYWHERE);
+        Criterion descriptionCrit = Restrictions.like("description", name, MatchMode.ANYWHERE);
+        crit.add(Restrictions.or(nameCrit, descriptionCrit));
         crit.addOrder(Order.asc("name"));
         crit.setMaxResults(SearchBusiness.MAX_RESULTS_PER_TYPE);
         return asList(crit);

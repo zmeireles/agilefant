@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.ProjectionList;
@@ -202,7 +203,9 @@ public class StoryDAOHibernate extends GenericDAOHibernate<Story> implements
     
     public List<Story> searchByName(String name) {
         Criteria crit = this.createCriteria(Story.class);
-        crit.add(Restrictions.like("name", name, MatchMode.ANYWHERE));
+        Criterion nameCrit = Restrictions.like("name", name, MatchMode.ANYWHERE);
+        Criterion descriptionCrit = Restrictions.like("description", name, MatchMode.ANYWHERE);
+        crit.add(Restrictions.or(nameCrit, descriptionCrit));
         crit.addOrder(Order.asc("name"));
         crit.setMaxResults(SearchBusiness.MAX_RESULTS_PER_TYPE);
         return asList(crit);

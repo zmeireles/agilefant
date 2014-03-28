@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -68,7 +70,9 @@ public class BacklogDAOHibernate extends GenericDAOHibernate<Backlog> implements
     
     public List<Backlog> searchByName(String name, Class<?> type) {
         Criteria crit = this.createCriteria(type);
-        crit.add(Restrictions.like("name", name, MatchMode.ANYWHERE));
+        Criterion nameCrit = Restrictions.like("name", name, MatchMode.ANYWHERE);
+        Criterion descriptionCrit = Restrictions.like("description", name, MatchMode.ANYWHERE);
+        crit.add(Restrictions.or(nameCrit, descriptionCrit));
         crit.addOrder(Order.asc("class"));
         crit.addOrder(Order.asc("name"));
         crit.setMaxResults(SearchBusiness.MAX_RESULTS_PER_TYPE);
