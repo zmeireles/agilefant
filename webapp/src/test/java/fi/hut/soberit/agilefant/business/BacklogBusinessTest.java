@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.hibernate.envers.RevisionType;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.Days;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -188,20 +189,19 @@ public class BacklogBusinessTest extends MockedTestCase {
         Days daysLeft = backlogBusiness.daysLeftInSchedulableBacklog(iter);
         assertEquals(50, daysLeft.getDays());
     }
-    /*
-     * Temporarily disabled this test. It fails with result 0.50526315 - probably because of winter/summer time change?
+    
     @Test
     @DirtiesContext
     public void testCalculateBacklogTimeframePercentageLeft() {
         Iteration iter = new Iteration();
-        DateTime startDate = new DateTime().minusDays(2);
-        DateTime endDate = startDate.plusDays(4);
+        DateTime startDate = new DateTime().withZone(DateTimeZone.UTC).minusDays(2);
+        DateTime endDate = startDate.withZone(DateTimeZone.UTC).plusDays(4);
         iter.setStartDate(startDate.toDateMidnight().toDateTime());
         iter.setEndDate(endDate.toDateMidnight().toDateTime());
         float percentage = backlogBusiness.calculateBacklogTimeframePercentageLeft(iter);
         assertEquals(0.5f,percentage,0);
     }
-    */
+    
     @Test
     @DirtiesContext
     public void testCalculateBacklogTimeframePercentageLeft_past() {
