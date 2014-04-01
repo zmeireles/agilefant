@@ -2,6 +2,7 @@ package fi.hut.soberit.agilefant.db.hibernate;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.hibernate.Criteria;
@@ -311,7 +312,13 @@ public class HourEntryDAOHibernate extends GenericDAOHibernate<HourEntry>
             crit.add(Restrictions.le("date", endTime));
         }
         if (userId != 0) {
-            crit.createCriteria("user").add(Restrictions.idEq(userId));
+            Set<Integer> users = new HashSet<Integer>();
+            users.add(userId); 
+            // Hack: Add non-existent user id to the list to make the query faster.
+            // If there is only one user id in the list, mysql query will use intersect, and the query will be very slow.
+            users.add(0);
+            crit.createAlias("user", "usr");
+            crit.add(Restrictions.in("usr.id", users));
         }
         return asList(crit);
     }
