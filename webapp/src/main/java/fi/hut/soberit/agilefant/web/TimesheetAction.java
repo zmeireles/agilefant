@@ -181,9 +181,11 @@ public class TimesheetAction extends ActionSupport {
         }
         List<User> selectedUsers = new ArrayList<User>();
         for(int userId : this.getUserIds()) {
-            User user = this.userBusiness.retrieve(userId);
-            if(user != null) {
-                selectedUsers.add(user);
+            if (userId != UserBusiness.NON_EXISTENT_USER_ID) {
+                User user = this.userBusiness.retrieve(userId);
+                if(user != null) {
+                    selectedUsers.add(user);
+                }
             }
         }
         return selectedUsers;

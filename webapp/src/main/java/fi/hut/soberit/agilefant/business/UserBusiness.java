@@ -16,6 +16,8 @@ import fi.hut.soberit.agilefant.model.User;
  * 
  */
 public interface UserBusiness extends GenericBusiness<User> {
+    
+    public static final int NON_EXISTENT_USER_ID = -1;
 
     /**
      * Store a user and return the persisted object.

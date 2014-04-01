@@ -16,6 +16,7 @@ import org.joda.time.Duration;
 import org.joda.time.Interval;
 import org.springframework.stereotype.Repository;
 
+import fi.hut.soberit.agilefant.business.UserBusiness;
 import fi.hut.soberit.agilefant.db.HourEntryDAO;
 import fi.hut.soberit.agilefant.model.BacklogHourEntry;
 import fi.hut.soberit.agilefant.model.HourEntry;
@@ -87,7 +88,7 @@ public class HourEntryDAOHibernate extends GenericDAOHibernate<HourEntry>
         if (users != null && users.size() > 0) {
             // Hack: Add non-existent user id to the list to make the query faster.
             // If there is only one user id in the list, mysql query will use intersect, and the query will be very slow.
-            users.add(0);
+            users.add(UserBusiness.NON_EXISTENT_USER_ID);
             crit.createAlias("user", "usr");
             crit.add(Restrictions.in("usr.id", users));
         }
@@ -316,7 +317,7 @@ public class HourEntryDAOHibernate extends GenericDAOHibernate<HourEntry>
             users.add(userId); 
             // Hack: Add non-existent user id to the list to make the query faster.
             // If there is only one user id in the list, mysql query will use intersect, and the query will be very slow.
-            users.add(0);
+            users.add(UserBusiness.NON_EXISTENT_USER_ID);
             crit.createAlias("user", "usr");
             crit.add(Restrictions.in("usr.id", users));
         }
