@@ -1,6 +1,6 @@
-Agilefant 3.4
+Agilefant 3.5
 Release notes
-2013-11-05
+2014-04-03
 --
 
 Please spend a couple of minutes to register your organization at
@@ -11,6 +11,41 @@ This helps us keep Agilefant open source and free forever!
 |     CHANGESET      |
 +--------------------+
 
+Changes from 3.4
+2014-04-03
+
+New features and improvements:
++ Password hashing changed to Bcrypt
++ Search includes strings from from backlog/story/task descriptions
++ Speeded up search
++ Increased search results limit to 500
++ Speeded up queries related to spent effort entries and timesheet reports
++ New tasks are now added to the top of the task list
++ Non-admins can now create other non-admin users from the users page
++ Added explicit reference id links for tasks
++ Added story task ids to timesheets' excel export
++ Added filtering by responsible initials to project's story tree and leaf stories
++ Made the sidebar resizable
++ Sidebar open/close button now stays always visible
++ You can now choose time zone when generating timesheet reports
++ Added search for backlog/story/task id
++ Added sum of left and spent hours to project's Iteration tab
++ Added effort spent for project total hours to project metrics
+
+Bug fixes:
++ When clicking on scrollbar, prevent blur event which was causing auto-save for description field
++ Fixed problems with database import
++ Added 'object not found' page when backlog is not found
++ Fixed showing standalone iterations in timesheets for non-admins
++ Fix to timesheets: show hours only from standalone iterations that the user can access
++ Removed max results limit when retrieving standalone iterations in timesheets page
++ Show standalone iterations in Project planning for non-admin users based on their access rights
++ Fixed spent effort to work when current date is last week of the year
++ Fixed selecting a day in spent effort when the year changes in middle of week
++ Made weekly spent effort's weekly hours dependent on the user's time zone
++ Made weekly spent effort's daily hour entry list dependent on the user's time zone
++ Do not fill backlog automatically when creating iteration in product page
++ Fix iteration excel export: take substring of strings over 32767 characters
 
 Changes from 3.3.3
 2013-11-05
