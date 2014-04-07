@@ -101,7 +101,7 @@ public class ExportImport {
 		try {
 			JsonParser parser = this.getObjectMapper().getFactory().createParser(in);
 	    	ExportData exportData = this.getObjectMapper().readValue(parser, ExportData.class);			
-			if(!this.getVersion().equals(exportData.version)) {
+			if(!this.getVersion().substring(0, 3).equals(exportData.version.substring(0, 3))) {
 				throw new VersionMismatchException("Current application version is " + this.getVersion() + " while import version is " + exportData.version);
 			}
 	    	OrganizationDumpTO organizationTO = this.getObjectMapper().readValue(parser, OrganizationDumpTO.class);
