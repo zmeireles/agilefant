@@ -47,7 +47,7 @@ $(document).ready(function() {
 </script>
 
 <p>
-This help page contains info on Agilefant. You can also read the <a href="http://agilefant.org/support/user-guide/">user guide</a> and check out the <a href="FAQ http://agilefant.org/support/faq/">FAQ</a>, which has much detail concerning specific features.</p>
+This help page contains info on Agilefant. You can also read the <a href="http://agilefant.com/support/user-guide/?utm_campaign=os_version&utm_source=extendedhelp">user guide</a> and check out the <a href="FAQ http://agilefant.com/support/faq/?utm_campaign=os_version&utm_source=extendedhelp">FAQ</a>, which has much detail concerning specific features.</p>
 
 <p>Or, if you signed up for a trial account, or imported the example database when you did the installation, you can dive right in by going to see the example data. Just click on 'Backlogs'to the left!
 <p>
@@ -143,7 +143,7 @@ planning.
 </div>
 <p>Unlike regular iterations, standalone iterations can include stories from multiple products. So, if you have a single team working on multiple Products and/or Projects, it's a good idea to gather all of the team's work into a Standalone iteration. Standalone iterations are 
 created like regular iterations, with the exception that the 'parent project' in the creation dialog is simply left empty. 
-For further info regarding standalone iterations, check out the related section in the <a href="http://agilefant.org/faq/how-do-standalone-iterations-work/">FAQ</a>.</p>
+For further info regarding standalone iterations, check out the related section in the <a href="http://agilefant.com/faq/how-do-standalone-iterations-work/?utm_campaign=os_version&utm_source=extendedhelp">FAQ</a>.</p>
 
 <p>Standalone iterations can include stories from multiple products. So,
 if you have a single team working on multiple Products and/or
@@ -153,7 +153,7 @@ Standalone iteration.</p>
 <p>Standalone iterations are created like regular iterations, with the
 exception that the 'parent project' in the creation dialog is simply
 left empty. For further info regarding standalone iterations, check
-out the related section in the <a href="http://agilefant.org/faq/how-do-standalone-iterations-work/">FAQ</a>.</p>
+out the related section in the <a href="http://agilefant.com/faq/how-do-standalone-iterations-work/?utm_campaign=os_version&utm_source=extendedhelp">FAQ</a>.</p>
 
 <h3>Creating a backlog</h3>
 
@@ -228,7 +228,7 @@ likewise the Backlog views into products and projects display only the leaf stor
 <p class="infoBox">
 <strong>Note on user rights</strong><br/>
 Agilefant makes a difference between Admin and Non-admin users, and supports limiting access to Products and/or Standalone iterations. 
-You can also share Iterations as 'read-only'. For further information see the User Rights section in <a href="http://www.agilefant.org/support/faq/">FAQ</a>.
+You can also share Iterations as 'read-only'. For further information see the User Rights section in <a href="http://www.agilefant.com/support/faq/?utm_campaign=os_version&utm_source=extendedhelp">FAQ</a>.
 </p>
 
 <ol>

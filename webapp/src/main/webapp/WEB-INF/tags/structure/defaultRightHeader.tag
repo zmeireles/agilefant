@@ -24,7 +24,7 @@
   
   var appendCloudMessage = function(cloudMessage) {
     if (cloudMessage == null) {
-      cloudMessage = 'Agilefant is now available as a hosted cloud version!<br><a target="_blank" href="http://agilefant.com/faq/what-is-the-feature-wise-difference-between-the-open-source-and-the-hosted-versions/?utm_campaign=osVersion&utm_source=topBar">Click here for more information</a>';
+      cloudMessage = 'Agilefant is now available as a hosted cloud version!<br><a target="_blank" href="http://agilefant.com/pricing/?utm_campaign=osVersion&utm_source=topBar">Click here for more information</a>';
       jQuery.cookie("cloudmessage", cloudMessage, { expires: 1 });
     }
     var cloudMessageDiv = jQuery("#cloudMessage");
