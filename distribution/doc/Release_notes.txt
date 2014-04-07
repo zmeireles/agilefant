@@ -1,6 +1,6 @@
-Agilefant 3.5
+Agilefant 3.5.1
 Release notes
-2014-04-03
+2014-04-07
 --
 
 Please spend a couple of minutes to register your organization at
@@ -10,6 +10,10 @@ This helps us keep Agilefant open source and free forever!
 +--------------------+
 |     CHANGESET      |
 +--------------------+
+
+Changes from 3.5
+2014-04-07
++ Fixed Java 8 compatibility problem
 
 Changes from 3.4
 2014-04-03
